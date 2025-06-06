@@ -477,7 +477,15 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
             size="lg"
           >
             <HelpCircle className="w-6 h-6 mr-2" />
-            Aide
+            {(() => {
+              try {
+                const currentLang = params?.lang || "fr"
+                return currentLang === "en" ? "Help" : "Aide"
+              } catch (error) {
+                console.error("Error determining language for help button:", error)
+                return "Aide"
+              }
+            })()}
           </Button>
         )}
 

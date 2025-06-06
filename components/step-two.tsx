@@ -2,22 +2,10 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import {
-  Zap,
-  ArrowRight,
-  ArrowLeft,
-  Cpu,
-  Smartphone,
-  Globe,
-  Shield,
-  Brain,
-  Link,
-  Sparkles,
-  BarChart3,
-} from "lucide-react"
+import { Zap, Cpu, Smartphone, Globe, Shield, Brain, Link, Sparkles, ArrowRight, ArrowLeft } from "lucide-react"
 import { useLanguage } from "@/hooks/use-language"
 
 interface StepTwoProps {
@@ -33,51 +21,79 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
   const [selectedTechnologies, setSelectedTechnologies] = useState((data && data.technologies) || [])
   const [impactScore, setImpactScore] = useState((data && data.impactScore) || 0)
 
+  // Fallback pour les technologies si t.technologies est undefined
+  const techData = t?.technologies || {
+    blockchain: {
+      name: "Blockchain",
+      description: "Sécurisation des données électorales",
+    },
+    ai: {
+      name: "Intelligence Artificielle",
+      description: "Analyse de tendances, modération",
+    },
+    mobile: {
+      name: "Applications Mobiles",
+      description: "Accessibilité des électeurs",
+    },
+    web: {
+      name: "Plateformes Web Open-Source",
+      description: "Solutions collaboratives",
+    },
+    security: {
+      name: "Sécurité Numérique",
+      description: "Protection des données",
+    },
+    local: {
+      name: "Langues Locales & Accessibilité",
+      description: "Inclusion numérique",
+    },
+  }
+
   const technologies = [
     {
       id: "blockchain",
-      name: t.technologies.blockchain.name,
-      description: t.technologies.blockchain.description,
+      name: techData.blockchain.name,
+      description: techData.blockchain.description,
       icon: Link,
       color: "from-blue-500 to-cyan-500",
       impact: 85,
     },
     {
       id: "ai",
-      name: t.technologies.ai.name,
-      description: t.technologies.ai.description,
+      name: techData.ai.name,
+      description: techData.ai.description,
       icon: Brain,
       color: "from-violet-500 to-purple-500",
       impact: 90,
     },
     {
       id: "mobile",
-      name: t.technologies.mobile.name,
-      description: t.technologies.mobile.description,
+      name: techData.mobile.name,
+      description: techData.mobile.description,
       icon: Smartphone,
       color: "from-emerald-500 to-green-500",
       impact: 95,
     },
     {
       id: "web",
-      name: t.technologies.web.name,
-      description: t.technologies.web.description,
+      name: techData.web.name,
+      description: techData.web.description,
       icon: Globe,
       color: "from-orange-500 to-red-500",
       impact: 80,
     },
     {
       id: "security",
-      name: t.technologies.security.name,
-      description: t.technologies.security.description,
+      name: techData.security.name,
+      description: techData.security.description,
       icon: Shield,
       color: "from-red-500 to-pink-500",
       impact: 88,
     },
     {
       id: "local",
-      name: t.technologies.local.name,
-      description: t.technologies.local.description,
+      name: techData.local.name,
+      description: techData.local.description,
       icon: Cpu,
       color: "from-amber-500 to-yellow-500",
       impact: 92,
@@ -122,8 +138,12 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
             <Zap className="w-8 h-8 text-white" />
           </div>
         </div>
-        <h2 className="ectf-heading-section ectf-text-heading mb-3">{t.steps.step2.title}</h2>
-        <p className="ectf-text-subheading text-lg">{t.steps.step2.description}</p>
+        <h2 className="ectf-heading-section ectf-text-heading mb-3">
+          {t?.steps?.step2?.title || "L'Impact Technologique"}
+        </h2>
+        <p className="ectf-text-subheading text-lg">
+          {t?.steps?.step2?.description || "Comment la technologie va-t-elle renforcer votre impact citoyen ?"}
+        </p>
       </motion.div>
 
       {/* Conseil d'Expert - déplacé au début */}
@@ -133,8 +153,13 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
             <div className="flex items-start space-x-4">
               <Sparkles className="w-6 h-6 text-blue-400 mt-1 flex-shrink-0" />
               <div>
-                <h4 className="font-bold text-blue-900 mb-2 text-lg">{t.steps.step2.expertTip.title}</h4>
-                <p className="text-blue-800 font-medium leading-relaxed">{t.steps.step2.expertTip.content}</p>
+                <h4 className="font-bold text-blue-900 mb-2 text-lg">
+                  {t?.steps?.step2?.expertTip?.title || "Impact Estimé"}
+                </h4>
+                <p className="text-blue-800 font-medium leading-relaxed">
+                  {t?.steps?.step2?.expertTip?.content ||
+                    "Notre outil calcule en direct un score d'impact social et technologique pour vous aider à affiner votre proposition et maximiser votre potentiel démocratique."}
+                </p>
               </div>
             </div>
           </CardContent>
@@ -145,8 +170,13 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
         <Card className="ectf-card">
           <CardHeader className="ectf-card-header">
-            <CardTitle className="ectf-card-title">{t.steps.step2.selectTech}</CardTitle>
-            <CardDescription className="ectf-card-description">{t.steps.step2.selectTechDesc}</CardDescription>
+            <CardTitle className="ectf-card-title">
+              {t?.steps?.step2?.selectTech || "Sélectionnez vos technologies"}
+            </CardTitle>
+            <CardDescription className="ectf-card-description">
+              {t?.steps?.step2?.selectTechDesc ||
+                "Choisissez les outils technologiques que vous utiliserez. Vous pouvez en sélectionner plusieurs."}
+            </CardDescription>
           </CardHeader>
           <CardContent className="ectf-card-content">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
@@ -177,15 +207,25 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
                       </div>
 
                       <div>
-                        <h3 className="font-bold text-white text-base mb-1">{tech.name}</h3>
-                        <p className="ectf-text-muted text-sm">{tech.description}</p>
-                      </div>
+                        <h3 className="font-bold text-white text-lg mb-2">{tech.name}</h3>
+                        <p className="text-blue-200 text-sm leading-relaxed mb-3">{tech.description}</p>
 
-                      <Badge
-                        className={`ectf-badge text-xs ${isSelected ? "ectf-badge-primary" : "ectf-badge-secondary"}`}
-                      >
-                        Impact: {tech.impact}%
-                      </Badge>
+                        <div className="flex items-center justify-center">
+                          <Badge
+                            variant="outline"
+                            className={`
+                              text-xs font-medium transition-colors duration-300
+                              ${
+                                isSelected
+                                  ? "border-amber-400 text-amber-300 bg-amber-400/20"
+                                  : "border-blue-400 text-blue-300 bg-blue-400/10"
+                              }
+                            `}
+                          >
+                            Impact: {tech.impact}%
+                          </Badge>
+                        </div>
+                      </div>
                     </div>
                   </motion.div>
                 )
@@ -198,35 +238,57 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
       {/* Impact visualization */}
       {selectedTechnologies.length > 0 && (
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4 }}>
-          <Card className="bg-gradient-to-r from-emerald-500/20 to-blue-500/20 border-emerald-400/40 shadow-xl">
-            <CardHeader className="ectf-card-header">
-              <CardTitle className="ectf-card-title flex items-center text-2xl">
-                <BarChart3 className="w-7 h-7 mr-3 text-emerald-400" />
-                {t.steps.step2.impactTitle}
+          <Card className="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border-blue-400/30">
+            <CardHeader>
+              <CardTitle className="text-white text-center">
+                {t?.steps?.step2?.impactTitle || "Visualisation de votre ADN Démocratique"}
               </CardTitle>
+              <CardDescription className="text-blue-200 text-center">
+                {t?.steps?.step2?.impactSubtitle || "Score d'Impact Social et Technologique"}
+              </CardDescription>
             </CardHeader>
-            <CardContent className="ectf-card-content">
-              <div className="ectf-content-spacing">
-                <div className="text-center">
-                  <div className="text-6xl font-bold text-emerald-300 mb-4 drop-shadow-lg">{impactScore}%</div>
-                  <p className="text-emerald-100 font-semibold text-xl">{t.steps.step2.impactSubtitle}</p>
+            <CardContent>
+              <div className="text-center space-y-6">
+                {/* Score principal */}
+                <div className="relative">
+                  <div className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-2">
+                    {impactScore}%
+                  </div>
+                  <p className="text-blue-200 text-lg">Score d'Impact Calculé</p>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                {/* Technologies sélectionnées */}
+                <div className="flex flex-wrap justify-center gap-3">
                   {selectedTechnologies.map((techId) => {
                     const tech = technologies.find((t) => t.id === techId)
                     if (!tech) return null
 
+                    const IconComponent = tech.icon
                     return (
-                      <div key={techId} className="text-center">
-                        <div className="w-18 h-18 mx-auto mb-3 rounded-full bg-gradient-to-r from-emerald-400 to-blue-400 flex items-center justify-center shadow-lg">
-                          <tech.icon className="w-9 h-9 text-white drop-shadow-sm" />
+                      <div
+                        key={techId}
+                        className="flex items-center space-x-2 bg-white/10 rounded-full px-4 py-2 border border-white/20"
+                      >
+                        <div className={`p-1 rounded-full bg-gradient-to-r ${tech.color}`}>
+                          <IconComponent className="w-4 h-4 text-white" />
                         </div>
-                        <p className="text-white text-sm font-bold drop-shadow-sm">{tech.name}</p>
-                        <p className="text-emerald-200 text-xs font-semibold">{tech.impact}% impact</p>
+                        <span className="text-white text-sm font-medium">{tech.name}</span>
+                        <Badge variant="outline" className="border-yellow-400 text-yellow-300 text-xs">
+                          {tech.impact}%
+                        </Badge>
                       </div>
                     )
                   })}
+                </div>
+
+                {/* Barre de progression visuelle */}
+                <div className="w-full bg-white/20 rounded-full h-4 overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${impactScore}%` }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="h-full bg-gradient-to-r from-blue-400 via-cyan-400 to-green-400 rounded-full shadow-lg"
+                  />
                 </div>
               </div>
             </CardContent>
@@ -239,15 +301,16 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="flex justify-between items-center"
+        className="flex justify-between"
       >
         <Button
           onClick={onPrev}
+          variant="outline"
           size="lg"
-          className="ectf-button-secondary px-8 py-4 font-semibold text-base rounded-xl"
+          className="px-8 py-3 border-white/20 text-white hover:bg-white/10"
         >
-          <ArrowLeft className="mr-3 w-5 h-5" />
-          {t.steps.step2.prevButton}
+          <ArrowLeft className="mr-2 w-5 h-5" />
+          {t?.steps?.step2?.prevButton || "Retour à la Vision"}
         </Button>
 
         <Button
@@ -255,22 +318,24 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
           disabled={!isComplete}
           size="lg"
           className={`
-            px-8 py-4 font-bold text-base transition-all duration-300 rounded-xl
+            px-8 py-3 font-semibold transition-all duration-300
             ${
               isComplete
-                ? "ectf-button-primary"
-                : "bg-gray-600/50 text-gray-400 cursor-not-allowed border border-gray-500/30"
+                ? "bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white"
+                : "bg-gray-600 text-gray-300 cursor-not-allowed"
             }
           `}
         >
-          {t.steps.step2.nextButton}
-          <ArrowRight className="ml-3 w-5 h-5" />
+          {t?.steps?.step2?.nextButton || "Continuer vers l'Équipe"}
+          <ArrowRight className="ml-2 w-5 h-5" />
         </Button>
       </motion.div>
 
       {!isComplete && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
-          <p className="text-amber-400 text-sm font-medium">{t.steps.step2.completionMessage}</p>
+          <p className="text-yellow-400 text-sm">
+            {t?.steps?.step2?.completionMessage || "Sélectionnez au moins une technologie pour continuer"}
+          </p>
         </motion.div>
       )}
     </div>

@@ -5,10 +5,9 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Badge } from "@/components/ui/badge"
-import { Lightbulb, ArrowRight, Cpu, Users, Newspaper, Scale, Sparkles, Target } from "lucide-react"
+import { Label } from "@/components/ui/label"
+import { Lightbulb, ArrowRight, Sparkles } from "lucide-react"
 import { useLanguage } from "@/hooks/use-language"
 
 interface StepOneProps {
@@ -20,186 +19,171 @@ interface StepOneProps {
 
 export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneProps) {
   const { t } = useLanguage()
-  const [vision, setVision] = useState((data && data.vision) || "")
-  const [selectedDomain, setSelectedDomain] = useState((data && data.domain) || "")
-  const [problem, setProblem] = useState((data && data.problem) || "")
+  const [vision, setVision] = useState(data?.vision || "")
+  const [problem, setProblem] = useState(data?.problem || "")
+  const [domain, setDomain] = useState(data?.domain || "")
 
-  const domains = [
-    {
-      id: "tech",
-      title: t.domains.tech.title,
-      description: t.domains.tech.description,
-      icon: Cpu,
-      color: "from-blue-500 to-cyan-500",
-      allocation: "70 000€ • 40%",
-      examples: t.domains.tech.examples,
+  // Fallback pour les domaines si t.domains est undefined
+  const domains = t?.domains || {
+    tech: {
+      title: "Technologies Citoyennes Électorales",
+      description: "Blockchain, IA, outils civic tech, sécurité numérique",
+      examples: ["Blockchain pour la transparence", "IA pour l'analyse", "Apps mobiles citoyennes"],
     },
-    {
-      id: "engagement",
-      title: t.domains.engagement.title,
-      description: t.domains.engagement.description,
-      icon: Users,
-      color: "from-emerald-500 to-green-500",
-      allocation: "43 750€ • 25%",
-      examples: t.domains.engagement.examples,
+    engagement: {
+      title: "Engagement Citoyen",
+      description: "Éducation civique, observation électorale, inclusion",
+      examples: ["Éducation citoyenne", "Observation électorale", "Participation des jeunes"],
     },
-    {
-      id: "media",
-      title: t.domains.media.title,
-      description: t.domains.media.description,
-      icon: Newspaper,
-      color: "from-violet-500 to-purple-500",
-      allocation: "35 000€ • 20%",
-      examples: t.domains.media.examples,
+    media: {
+      title: "Médias & Information",
+      description: "Fact-checking, lutte contre la désinformation",
+      examples: ["Vérification des faits", "Médias citoyens", "Anti-désinformation"],
     },
-    {
-      id: "legal",
-      title: t.domains.legal.title,
-      description: t.domains.legal.description,
-      icon: Scale,
-      color: "from-orange-500 to-red-500",
-      allocation: "26 250€ • 15%",
-      examples: t.domains.legal.examples,
+    legal: {
+      title: "Cadre Légal",
+      description: "Réformes électorales, contentieux, veille juridique",
+      examples: ["Réformes électorales", "Suivi contentieux", "Veille juridique"],
     },
-  ]
+  }
 
   const handleNext = () => {
-    if (vision && selectedDomain && problem) {
-      onUpdate({ vision, domain: selectedDomain, problem })
-      onComplete("Democracy Pioneer")
+    if (isComplete) {
+      onUpdate({
+        vision,
+        problem,
+        domain,
+      })
+      onComplete("Visionary")
       onNext()
     }
   }
 
-  const isComplete = vision && selectedDomain && problem
+  const isComplete = vision.trim().length > 0 && problem.trim().length > 0 && domain.trim().length > 0
 
   return (
-    <div className="max-w-4xl mx-auto ectf-section-spacing">
+    <div className="max-w-4xl mx-auto space-y-8">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-        <div className="flex items-center justify-center mb-6">
-          <div className="p-4 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full shadow-lg">
+        <div className="flex items-center justify-center mb-4">
+          <div className="p-3 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full">
             <Lightbulb className="w-8 h-8 text-white" />
           </div>
         </div>
-        <h2 className="ectf-heading-section ectf-text-heading mb-3">{t.steps.step1.title}</h2>
-        <p className="ectf-text-subheading text-lg">{t.steps.step1.description}</p>
+        <h2 className="text-3xl font-bold text-white mb-2">{t?.steps?.step1?.title || "Votre Vision Démocratique"}</h2>
+        <p className="text-blue-200 text-lg">
+          {t?.steps?.step1?.description || "Quelle est l'idée citoyenne que vous souhaitez porter ?"}
+        </p>
       </motion.div>
 
-      {/* Conseil d'Expert - déplacé au début */}
+      {/* Conseil d'Expert */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-        <Card className="bg-gradient-to-r from-orange-500/20 to-amber-500/20 border-orange-400/50 shadow-lg backdrop-blur-sm">
+        <Card className="bg-gradient-to-r from-yellow-400/20 to-orange-500/20 border-yellow-400/50 shadow-lg backdrop-blur-sm">
           <CardContent className="p-6">
             <div className="flex items-start space-x-4">
-              <Sparkles className="w-6 h-6 text-orange-400 mt-1 flex-shrink-0" />
+              <Sparkles className="w-6 h-6 text-yellow-400 mt-1 flex-shrink-0" />
               <div>
-                <h4 className="font-bold text-orange-900 mb-2 text-lg">{t.steps.step1.expertTip.title}</h4>
-                <p className="text-orange-800 font-medium leading-relaxed">{t.steps.step1.expertTip.content}</p>
+                <h4 className="font-bold text-yellow-900 mb-2 text-lg">
+                  {t?.steps?.step1?.expertTip?.title || "Conseil d'Expert"}
+                </h4>
+                <p className="text-yellow-800 font-medium leading-relaxed">
+                  {t?.steps?.step1?.expertTip?.content ||
+                    "Plus votre vision est claire et spécifique, plus elle aura d'impact. Ce que vous proposez ici deviendra l'âme de votre projet et guidera toutes les étapes suivantes."}
+                </p>
               </div>
             </div>
           </CardContent>
         </Card>
       </motion.div>
 
-      {/* Vision description */}
+      {/* Vision */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-        <Card className="ectf-card">
-          <CardHeader className="ectf-card-header">
-            <CardTitle className="ectf-card-title flex items-center">
-              <Target className="w-6 h-6 mr-3 text-amber-400" />
-              {t.steps.step1.visionTitle}
+        <Card className="bg-white/10 backdrop-blur-md border-white/20">
+          <CardHeader>
+            <CardTitle className="text-white">
+              {t?.steps?.step1?.visionTitle || "Décrivez votre ambition démocratique"}
             </CardTitle>
-            <CardDescription className="ectf-card-description">{t.steps.step1.visionDescription}</CardDescription>
+            <CardDescription className="text-blue-200">
+              {t?.steps?.step1?.visionDescription ||
+                "Racontez-nous votre vision, ce que vous cherchez à transformer dans votre pays, et comment la technologie peut être un levier."}
+            </CardDescription>
           </CardHeader>
-          <CardContent className="ectf-card-content">
+          <CardContent>
             <Textarea
-              placeholder={t.steps.step1.visionPlaceholder}
               value={vision}
               onChange={(e) => setVision(e.target.value)}
-              className="ectf-input min-h-32 resize-none"
+              placeholder={
+                t?.steps?.step1?.visionPlaceholder ||
+                "Décrivez votre vision pour transformer la démocratie dans votre pays..."
+              }
+              className="min-h-32 bg-white/5 border-white/20 text-white placeholder:text-blue-300"
             />
           </CardContent>
         </Card>
       </motion.div>
 
-      {/* Problem identification */}
+      {/* Problème */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-        <Card className="ectf-card">
-          <CardHeader className="ectf-card-header">
-            <CardTitle className="ectf-card-title">{t.steps.step1.problemTitle}</CardTitle>
-            <CardDescription className="ectf-card-description">{t.steps.step1.problemDescription}</CardDescription>
+        <Card className="bg-white/10 backdrop-blur-md border-white/20">
+          <CardHeader>
+            <CardTitle className="text-white">
+              {t?.steps?.step1?.problemTitle || "Le problème électoral que vous ciblez"}
+            </CardTitle>
+            <CardDescription className="text-blue-200">
+              {t?.steps?.step1?.problemDescription ||
+                "Identifiez clairement le défi démocratique que votre projet souhaite résoudre."}
+            </CardDescription>
           </CardHeader>
-          <CardContent className="ectf-card-content">
+          <CardContent>
             <Textarea
-              placeholder={t.steps.step1.problemPlaceholder}
               value={problem}
               onChange={(e) => setProblem(e.target.value)}
-              className="ectf-input min-h-24 resize-none"
+              placeholder={
+                t?.steps?.step1?.problemPlaceholder ||
+                "Quel problème électoral spécifique votre projet va-t-il résoudre ?"
+              }
+              className="min-h-24 bg-white/5 border-white/20 text-white placeholder:text-blue-300"
             />
           </CardContent>
         </Card>
       </motion.div>
 
-      {/* Domain selection */}
+      {/* Domaine */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-        <Card className="ectf-card">
-          <CardHeader className="ectf-card-header">
-            <CardTitle className="ectf-card-title">{t.steps.step1.domainTitle}</CardTitle>
-            <CardDescription className="ectf-card-description">{t.steps.step1.domainDescription}</CardDescription>
+        <Card className="bg-white/10 backdrop-blur-md border-white/20">
+          <CardHeader>
+            <CardTitle className="text-white">
+              {t?.steps?.step1?.domainTitle || "Choisissez votre domaine prioritaire"}
+            </CardTitle>
+            <CardDescription className="text-blue-200">
+              {t?.steps?.step1?.domainDescription ||
+                "Sélectionnez le domaine principal dans lequel votre projet s'inscrit."}
+            </CardDescription>
           </CardHeader>
-          <CardContent className="ectf-card-content">
-            <RadioGroup value={selectedDomain} onValueChange={setSelectedDomain}>
-              <div className="grid grid-cols-1 gap-6">
-                {domains.map((domain) => {
-                  const IconComponent = domain.icon
-                  const isSelected = selectedDomain === domain.id
-
-                  return (
-                    <motion.div
-                      key={domain.id}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="group"
-                    >
-                      <Label
-                        htmlFor={domain.id}
-                        className={`
-                          cursor-pointer block p-6 rounded-xl border-2 transition-all duration-300
-                          ${
-                            isSelected
-                              ? "border-amber-400 bg-amber-400/10 shadow-lg shadow-amber-400/20"
-                              : "border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10"
-                          }
-                        `}
-                      >
-                        <RadioGroupItem value={domain.id} id={domain.id} className="sr-only" />
-
-                        <div className="flex items-start space-x-4">
-                          <div className={`p-3 rounded-xl bg-gradient-to-r ${domain.color} shadow-md`}>
-                            <IconComponent className="w-6 h-6 text-white" />
-                          </div>
-
-                          <div className="flex-1 space-y-3">
-                            <div className="flex items-center justify-between">
-                              <h3 className="font-bold text-white text-base">{domain.title}</h3>
-                              <Badge className="ectf-badge ectf-badge-primary text-xs">{domain.allocation}</Badge>
-                            </div>
-
-                            <p className="ectf-text-body text-sm">{domain.description}</p>
-
-                            <div className="flex flex-wrap gap-2">
-                              {domain.examples.map((example, index) => (
-                                <Badge key={index} className="ectf-badge ectf-badge-secondary text-xs">
-                                  {example}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
+          <CardContent>
+            <RadioGroup value={domain} onValueChange={setDomain} className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {Object.entries(domains).map(([key, value]) => (
+                  <div key={key} className="space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value={key} id={key} className="border-white text-white" />
+                      <Label htmlFor={key} className="text-white font-semibold">
+                        {value.title}
                       </Label>
-                    </motion.div>
-                  )
-                })}
+                    </div>
+                    <p className="text-sm text-blue-200 ml-6">{value.description}</p>
+                    <div className="flex flex-wrap gap-1 ml-6">
+                      {value.examples.map((example, i) => (
+                        <span
+                          key={i}
+                          className="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full border border-blue-500/30"
+                        >
+                          {example}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
             </RadioGroup>
           </CardContent>
@@ -218,22 +202,25 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
           disabled={!isComplete}
           size="lg"
           className={`
-            w-full md:w-auto px-6 md:px-8 py-3 md:py-4 font-bold text-sm md:text-base transition-all duration-300 rounded-xl
+            px-8 py-3 font-semibold transition-all duration-300
             ${
               isComplete
-                ? "ectf-button-primary"
-                : "bg-gray-600/50 text-gray-400 cursor-not-allowed border border-gray-500/30"
+                ? "bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white"
+                : "bg-gray-600 text-gray-300 cursor-not-allowed"
             }
           `}
         >
-          {t.steps.step1.nextButton}
-          <ArrowRight className="ml-2 md:ml-3 w-4 h-4 md:w-5 md:h-5" />
+          {t?.steps?.step1?.nextButton || "Continuer vers l'Impact Technologique"}
+          <ArrowRight className="ml-2 w-5 h-5" />
         </Button>
       </motion.div>
 
       {!isComplete && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
-          <p className="text-amber-400 text-sm font-medium">{t.steps.step1.completionMessage}</p>
+          <p className="text-yellow-400 text-sm">
+            {t?.steps?.step1?.completionMessage ||
+              "Complétez tous les champs pour continuer votre parcours démocratique"}
+          </p>
         </motion.div>
       )}
     </div>

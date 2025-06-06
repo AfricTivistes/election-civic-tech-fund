@@ -1,75 +1,57 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter, usePathname } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { translations, type Translation } from "@/lib/translations"
 
 type Language = "fr" | "en"
 
 export function useLanguage() {
+  const params = useParams()
   const router = useRouter()
-  const pathname = usePathname()
-  const [isLoading, setIsLoading] = useState(true)
   const [language, setLanguage] = useState<Language>("en")
+  const [t, setT] = useState<Translation | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
-  // Détecter la langue actuelle à partir de l'URL
+  // Available languages definition
+  const availableLanguages = [
+    { code: "en" as Language, name: "English", flag: "🇬🇧" },
+    { code: "fr" as Language, name: "Français", flag: "🇫🇷" },
+  ]
+
+  // Detect language from URL parameters
   useEffect(() => {
-    let isMounted = true
-
     try {
-      const detectLanguage = (): Language => {
-        // Vérifier si pathname est défini et valide
-        if (pathname && typeof pathname === "string" && pathname.length > 0) {
-          if (pathname.startsWith("/en")) return "en"
-          if (pathname.startsWith("/fr")) return "fr"
-        }
+      // Determine language from URL parameters
+      const lang = params?.lang as string
 
-        // Vérifier localStorage seulement côté client
-        if (typeof window !== "undefined") {
-          try {
-            const savedLanguage = localStorage.getItem("ectf-language")
-            if (savedLanguage && (savedLanguage === "fr" || savedLanguage === "en")) {
-              return savedLanguage as Language
-            }
-          } catch (error) {
-            console.warn("Error accessing localStorage:", error)
-          }
+      // Check if the language is supported, otherwise use English
+      const supportedLang = lang === "fr" || lang === "en" ? (lang as Language) : "en"
 
-          // Détecter la langue du navigateur côté client comme fallback
-          try {
-            const browserLang = navigator.language.split("-")[0].toLowerCase()
-            if (browserLang === "fr") {
-              console.log("Browser language detected as French")
-              return "fr"
-            }
-          } catch (error) {
-            console.warn("Error detecting browser language:", error)
-          }
-        }
+      setLanguage(supportedLang)
 
-        return "en" // Par défaut anglais
-      }
+      // Get translations
+      const translationData = translations[supportedLang]
 
-      const detectedLanguage = detectLanguage()
-
-      if (isMounted) {
-        setLanguage(detectedLanguage)
-        setIsLoading(false)
+      // Check if translations are complete
+      if (!translationData || !translationData.domains || !translationData.domains.tech) {
+        console.error("Translations incomplete or missing domains.tech:", translationData)
+        // Create a fallback with minimum required properties
+        const fallbackTranslation = createFallbackTranslation(supportedLang)
+        setT(fallbackTranslation)
+      } else {
+        setT(translationData)
       }
     } catch (error) {
-      console.error("Error in language detection:", error)
-      if (isMounted) {
-        setLanguage("en") // Fallback vers anglais
-        setIsLoading(false)
-      }
+      console.error("Error loading translations:", error)
+      // In case of error, use a fallback
+      setT(createFallbackTranslation("en"))
+    } finally {
+      setIsLoading(false)
     }
+  }, [params])
 
-    return () => {
-      isMounted = false
-    }
-  }, [pathname])
-
-  // Changer de langue en naviguant vers la nouvelle URL
+  // Change language function
   const changeLanguage = (newLanguage: Language) => {
     try {
       if (!newLanguage || (newLanguage !== "fr" && newLanguage !== "en")) {
@@ -77,161 +59,304 @@ export function useLanguage() {
         return
       }
 
-      if (typeof window === "undefined") return
+      setLanguage(newLanguage)
 
-      // Sauvegarder la préférence dans localStorage
+      // Build new URL with selected language
+      if (typeof window === "undefined" || !router) return
+
+      // Save preference in localStorage
       try {
         localStorage.setItem("ectf-language", newLanguage)
       } catch (error) {
         console.warn("Error saving to localStorage:", error)
       }
 
-      setLanguage(newLanguage)
+      // Navigate to new URL - wrapped in try/catch to prevent unhandled rejections
+      try {
+        const pathname = window.location.pathname
+        let newPath = pathname
 
-      // Construire la nouvelle URL avec la langue sélectionnée
-      if (!pathname || typeof pathname !== "string") {
-        router.push(`/${newLanguage}`)
-        return
+        if (pathname.startsWith("/fr") || pathname.startsWith("/en")) {
+          newPath = `/${newLanguage}${pathname.substring(3)}`
+        } else {
+          newPath = `/${newLanguage}${pathname}`
+        }
+
+        // Use replace instead of push to avoid adding to history stack
+        router.replace(newPath)
+      } catch (routerError) {
+        console.error("Error navigating with router:", routerError)
+        // Fallback to window.location if router fails
+        try {
+          const pathname = window.location.pathname
+          let newPath = pathname
+
+          if (pathname.startsWith("/fr") || pathname.startsWith("/en")) {
+            newPath = `/${newLanguage}${pathname.substring(3)}`
+          } else {
+            newPath = `/${newLanguage}${pathname}`
+          }
+
+          window.location.href = newPath
+        } catch (locationError) {
+          console.error("Error navigating with window.location:", locationError)
+        }
       }
-
-      // Remplacer le préfixe de langue actuel ou ajouter un nouveau
-      let newPath = pathname
-      if (newPath.startsWith("/fr") || newPath.startsWith("/en")) {
-        newPath = `/${newLanguage}${newPath.substring(3)}`
-      } else {
-        newPath = `/${newLanguage}${newPath}`
-      }
-
-      // Naviguer vers la nouvelle URL
-      router.push(newPath)
     } catch (error) {
       console.error("Error changing language:", error)
     }
   }
-
-  // Assurons-nous que t est toujours un objet valide avec une structure complète
-  const getTranslation = (): Translation => {
-    try {
-      if (!translations || typeof translations !== "object") {
-        console.error("Translations object is not available")
-        return createFallbackTranslation()
-      }
-
-      const translation = translations[language]
-      if (translation && typeof translation === "object") {
-        return translation
-      }
-
-      // Fallback vers anglais si la langue actuelle n'est pas disponible
-      const fallbackTranslation = translations.en || translations.fr
-      if (fallbackTranslation && typeof fallbackTranslation === "object") {
-        return fallbackTranslation
-      }
-
-      console.error("No valid translation found")
-      return createFallbackTranslation()
-    } catch (error) {
-      console.error("Error getting translation:", error)
-      return createFallbackTranslation()
-    }
-  }
-
-  // Créer une traduction de fallback en cas d'erreur
-  const createFallbackTranslation = (): Translation => {
-    return {
-      header: {
-        title: "Election Civic Tech Fund",
-        subtitle: "Digital Democracy Journey",
-        estimatedTime: "Estimated time",
-        funding: "€175,000 • 14 Countries",
-        possibilities: "∞ Possibilities",
-        homeButton: "Home",
-      },
-      hero: {
-        title: "Election Civic Tech Fund",
-        subtitle: "Transform African democracy with technology",
-        description: "Join the movement for a more inclusive and transparent democracy in Africa",
-        startButton: "Start my application",
-        features: {
-          funding: "€175,000",
-          countries: "14 Countries",
-          possibilities: "∞ Possibilities",
-        },
-        footer: {
-          ledBy: "Led by",
-          poweredBy: "Powered by",
-          projectDescription: "An initiative to strengthen democracy in Africa through civic technology",
-          copyright: "© 2024 Election Civic Tech Fund - AfricTivistes",
-          tagline: "Together, we build Africa's democratic future",
-        },
-      },
-      steps: {
-        step1: {
-          title: "Your Democratic Vision",
-          description: "Describe your ambition to transform democracy",
-          expertTip: { title: "Expert Tip", content: "Be precise and concrete in your vision." },
-        },
-        step2: {
-          title: "The Technological Impact",
-          description: "Model your technological solution",
-          expertTip: { title: "Expert Tip", content: "Choose appropriate technologies." },
-        },
-        step3: {
-          title: "Your Citizen Team",
-          description: "Present the actors of your project",
-          expertTip: { title: "Expert Tip", content: "Build a diverse team." },
-        },
-        step4: {
-          title: "Your Digital Arsenal",
-          description: "Upload your supporting documents",
-          expertTip: { title: "Expert Tip", content: "Ensure documents are in PDF format." },
-          completionScore: "Completion Score",
-          completionText: "Your application is",
-          readySubmission: "Ready for submission",
-          requiredDocs: "Required Documents",
-          aiDescription: "Our AI automatically verifies your documents",
-          required: "*",
-          uploaded: "Uploaded",
-          replace: "Replace",
-          upload: "Upload",
-          projectSummary: "Project Summary",
-          vision: "Vision",
-          domain: "Domain",
-          technologies: "Technologies",
-          team: "Team",
-          notProvided: "Not provided",
-          notSelected: "Not selected",
-          notSelectedTech: "Not selected",
-          members: "members",
-          prevButton: "Previous",
-          submitButton: "Submit",
-          submitting: "Submitting...",
-          completionMessage: "Complete your application to submit",
-        },
-      },
-      documents: {
-        registration: { name: "Registration certificate", description: "Official registration document" },
-        cvs: { name: "Team CVs", description: "Curriculum vitae of key team members" },
-        project: { name: "Project description", description: "Detailed project description" },
-        theory: { name: "Theory of change", description: "Your theoretical approach" },
-        budget: { name: "Detailed budget", description: "Complete financial breakdown" },
-      },
-      achievements: {
-        title: "Achievements",
-      },
-    }
-  }
-
-  const t: Translation = getTranslation()
 
   return {
     language,
     changeLanguage,
     t,
     isLoading,
-    availableLanguages: [
-      { code: "en" as Language, name: "English", flag: "🇬🇧" },
-      { code: "fr" as Language, name: "Français", flag: "🇫🇷" },
-    ],
+    availableLanguages,
+  }
+}
+
+// Function to create a fallback translation with minimum required properties
+function createFallbackTranslation(lang: string): Translation {
+  const isEnglish = lang === "en"
+
+  return {
+    header: {
+      title: isEnglish ? "Election Civic Tech Fund" : "Election Civic Tech Fund",
+      subtitle: isEnglish ? "Digital Democracy Journey" : "Parcours Démocratie Numérique",
+      estimatedTime: isEnglish ? "Estimated time" : "Temps estimé",
+      homeButton: isEnglish ? "Home" : "Accueil",
+      funding: isEnglish ? "€175,000 • 14 Countries" : "175 000€ • 14 Pays",
+      countries: isEnglish ? "14 Countries" : "14 Pays",
+      possibilities: isEnglish ? "∞ Possibilities" : "∞ Possibilités",
+    },
+    hero: {
+      title: isEnglish ? "ELECTION CIVIC TECH FUND" : "ELECTION CIVIC TECH FUND",
+      subtitle: isEnglish ? "Digital Democracy Journey" : "Parcours Démocratie Numérique",
+      description: isEnglish ? "Transform democracy with technology" : "Transformez la démocratie avec la technologie",
+      secondDescription: isEnglish ? "Interactive journey" : "Parcours interactif",
+      startButton: isEnglish ? "Start" : "Commencer",
+      features: {
+        innovation: isEnglish ? "Innovation" : "Innovation",
+        impact: isEnglish ? "Impact" : "Impact",
+        solutions: isEnglish ? "Solutions" : "Solutions",
+        democracy: isEnglish ? "Democracy" : "Démocratie",
+      },
+      stats: {
+        majorProjects: "4-6",
+        majorProjectsDesc: isEnglish ? "Major Projects" : "Projets Majeurs",
+        microGrants: "10+",
+        microGrantsDesc: isEnglish ? "Micro-grants" : "Micro-subventions",
+        support: "10",
+        supportDesc: isEnglish ? "Months of support" : "Mois d'accompagnement",
+      },
+      footer: {
+        ledBy: isEnglish ? "Led by" : "Mené par",
+        poweredBy: isEnglish ? "Powered by" : "Propulsé par",
+        projectDescription: isEnglish ? "Project description" : "Description du projet",
+        copyright: "© 2024 Election Civic Tech Fund",
+        tagline: isEnglish ? "Building Africa's future" : "Construire l'avenir de l'Afrique",
+      },
+    },
+    steps: {
+      step1: {
+        title: isEnglish ? "Your Vision" : "Votre Vision",
+        description: isEnglish ? "Describe your idea" : "Décrivez votre idée",
+        expertTip: {
+          title: isEnglish ? "Expert Tip" : "Conseil d'Expert",
+          content: isEnglish ? "Be specific" : "Soyez précis",
+        },
+        visionTitle: isEnglish ? "Your ambition" : "Votre ambition",
+        visionDescription: isEnglish ? "Tell us your vision" : "Racontez-nous votre vision",
+        visionPlaceholder: isEnglish ? "Describe..." : "Décrivez...",
+        problemTitle: isEnglish ? "Problem" : "Problème",
+        problemDescription: isEnglish ? "Identify the challenge" : "Identifiez le défi",
+        problemPlaceholder: isEnglish ? "What problem..." : "Quel problème...",
+        domainTitle: isEnglish ? "Domain" : "Domaine",
+        domainDescription: isEnglish ? "Select domain" : "Sélectionnez le domaine",
+        nextButton: isEnglish ? "Next" : "Suivant",
+        completionMessage: isEnglish ? "Complete all fields" : "Complétez tous les champs",
+      },
+      step2: {
+        title: isEnglish ? "Technology" : "Technologie",
+        description: isEnglish ? "Select technologies" : "Sélectionnez les technologies",
+        expertTip: {
+          title: isEnglish ? "Expert Tip" : "Conseil d'Expert",
+          content: isEnglish ? "Choose wisely" : "Choisissez judicieusement",
+        },
+        selectTech: isEnglish ? "Select technologies" : "Sélectionnez les technologies",
+        selectTechDesc: isEnglish ? "Choose tools" : "Choisissez les outils",
+        impactTitle: isEnglish ? "Impact" : "Impact",
+        impactSubtitle: isEnglish ? "Score" : "Score",
+        nextButton: isEnglish ? "Next" : "Suivant",
+        prevButton: isEnglish ? "Previous" : "Précédent",
+        completionMessage: isEnglish ? "Select at least one" : "Sélectionnez au moins une",
+      },
+      step3: {
+        title: isEnglish ? "Team" : "Équipe",
+        description: isEnglish ? "Your team" : "Votre équipe",
+        expertTip: {
+          title: isEnglish ? "Expert Tip" : "Conseil d'Expert",
+          content: isEnglish ? "Diverse team" : "Équipe diverse",
+        },
+        teamStats: isEnglish ? "Skills" : "Compétences",
+        teamMembers: isEnglish ? "Members" : "Membres",
+        addMember: isEnglish ? "Add member" : "Ajouter un membre",
+        addMemberDesc: isEnglish ? "Add key people" : "Ajoutez des personnes clés",
+        fullName: isEnglish ? "Full name" : "Nom complet",
+        fullNamePlaceholder: isEnglish ? "Name" : "Nom",
+        role: isEnglish ? "Role" : "Rôle",
+        rolePlaceholder: isEnglish ? "Role" : "Rôle",
+        skills: isEnglish ? "Skills" : "Compétences",
+        skillCategories: {
+          technical: isEnglish ? "Technical" : "Technique",
+          social: isEnglish ? "Social" : "Social",
+          field: isEnglish ? "Field" : "Terrain",
+          management: isEnglish ? "Management" : "Gestion",
+        },
+        experience: isEnglish ? "Experience" : "Expérience",
+        experiencePlaceholder: isEnglish ? "Experience..." : "Expérience...",
+        motivation: isEnglish ? "Motivation" : "Motivation",
+        motivationPlaceholder: isEnglish ? "Motivation..." : "Motivation...",
+        addButton: isEnglish ? "Add" : "Ajouter",
+        nextButton: isEnglish ? "Next" : "Suivant",
+        prevButton: isEnglish ? "Previous" : "Précédent",
+        completionMessage: isEnglish ? "Add at least 2 members" : "Ajoutez au moins 2 membres",
+        uploaded: isEnglish ? "Uploaded" : "Téléversé",
+        replace: isEnglish ? "Replace" : "Remplacer",
+      },
+      step4: {
+        title: isEnglish ? "Documents" : "Documents",
+        description: isEnglish ? "Upload documents" : "Téléversez les documents",
+        expertTip: {
+          title: isEnglish ? "Expert Tip" : "Conseil d'Expert",
+          content: isEnglish ? "Complete all" : "Complétez tout",
+        },
+        completionScore: isEnglish ? "Completion" : "Complétion",
+        completionText: isEnglish ? "Ready at" : "Prêt à",
+        readySubmission: isEnglish ? "Ready" : "Prêt",
+        requiredDocs: isEnglish ? "Required" : "Requis",
+        aiDescription: isEnglish ? "AI verification" : "Vérification IA",
+        projectSummary: isEnglish ? "Summary" : "Résumé",
+        vision: isEnglish ? "Vision" : "Vision",
+        domain: isEnglish ? "Domain" : "Domaine",
+        technologies: isEnglish ? "Technologies" : "Technologies",
+        team: isEnglish ? "Team" : "Équipe",
+        members: isEnglish ? "members" : "membres",
+        notProvided: isEnglish ? "Not provided" : "Non fourni",
+        notSelected: isEnglish ? "Not selected" : "Non sélectionné",
+        notSelectedTech: isEnglish ? "Not selected" : "Non sélectionnées",
+        submitButton: isEnglish ? "Submit" : "Soumettre",
+        submitting: isEnglish ? "Submitting..." : "Soumission...",
+        prevButton: isEnglish ? "Previous" : "Précédent",
+        completionMessage: isEnglish ? "Complete 80%" : "Complétez 80%",
+        uploaded: isEnglish ? "Uploaded" : "Téléversé",
+        replace: isEnglish ? "Replace" : "Remplacer",
+        upload: isEnglish ? "Upload" : "Téléverser",
+        required: "*",
+      },
+    },
+    progress: {
+      title: isEnglish ? "Progress" : "Progression",
+      estimatedTime: isEnglish ? "Time remaining" : "Temps restant",
+    },
+    achievements: {
+      title: isEnglish ? "Achievements" : "Réalisations",
+    },
+    domains: {
+      tech: {
+        title: isEnglish ? "Technology" : "Technologie",
+        description: isEnglish ? "Tech solutions" : "Solutions tech",
+        examples: isEnglish ? ["Blockchain", "AI", "Mobile"] : ["Blockchain", "IA", "Mobile"],
+      },
+      engagement: {
+        title: isEnglish ? "Engagement" : "Engagement",
+        description: isEnglish ? "Civic engagement" : "Engagement civique",
+        examples: isEnglish ? ["Education", "Observation"] : ["Éducation", "Observation"],
+      },
+      media: {
+        title: isEnglish ? "Media" : "Médias",
+        description: isEnglish ? "Information" : "Information",
+        examples: isEnglish ? ["Fact-checking", "Media"] : ["Fact-checking", "Médias"],
+      },
+      legal: {
+        title: isEnglish ? "Legal" : "Juridique",
+        description: isEnglish ? "Legal framework" : "Cadre juridique",
+        examples: isEnglish ? ["Reforms", "Monitoring"] : ["Réformes", "Suivi"],
+      },
+    },
+    technologies: {
+      blockchain: {
+        name: isEnglish ? "Blockchain" : "Blockchain",
+        description: isEnglish ? "Security" : "Sécurité",
+      },
+      ai: {
+        name: isEnglish ? "AI" : "IA",
+        description: isEnglish ? "Analysis" : "Analyse",
+      },
+      mobile: {
+        name: isEnglish ? "Mobile" : "Mobile",
+        description: isEnglish ? "Accessibility" : "Accessibilité",
+      },
+      web: {
+        name: isEnglish ? "Web" : "Web",
+        description: isEnglish ? "Platforms" : "Plateformes",
+      },
+      security: {
+        name: isEnglish ? "Security" : "Sécurité",
+        description: isEnglish ? "Protection" : "Protection",
+      },
+      local: {
+        name: isEnglish ? "Local" : "Local",
+        description: isEnglish ? "Inclusion" : "Inclusion",
+      },
+    },
+    skills: {
+      technical: isEnglish
+        ? ["Development", "Data", "Security", "UX/UI"]
+        : ["Développement", "Données", "Sécurité", "UX/UI"],
+      social: isEnglish
+        ? ["Communication", "Community", "Training", "Mediation"]
+        : ["Communication", "Communauté", "Formation", "Médiation"],
+      field: isEnglish
+        ? ["Observation", "Mobilization", "Research", "Advocacy"]
+        : ["Observation", "Mobilisation", "Recherche", "Plaidoyer"],
+      management: isEnglish
+        ? ["Management", "Finance", "Legal", "Strategy"]
+        : ["Gestion", "Finance", "Juridique", "Stratégie"],
+    },
+    documents: {
+      registration: {
+        name: isEnglish ? "Registration" : "Enregistrement",
+        description: isEnglish ? "Official document" : "Document officiel",
+      },
+      cvs: {
+        name: isEnglish ? "CVs" : "CVs",
+        description: isEnglish ? "Team CVs" : "CVs de l'équipe",
+      },
+      project: {
+        name: isEnglish ? "Project" : "Projet",
+        description: isEnglish ? "Description" : "Description",
+      },
+      theory: {
+        name: isEnglish ? "Theory" : "Théorie",
+        description: isEnglish ? "Change theory" : "Théorie du changement",
+      },
+      budget: {
+        name: isEnglish ? "Budget" : "Budget",
+        description: isEnglish ? "Financial plan" : "Plan financier",
+      },
+    },
+    countries: {
+      [isEnglish ? "Senegal" : "Sénégal"]: {
+        challenges: isEnglish ? ["Transparency", "Youth"] : ["Transparence", "Jeunesse"],
+      },
+      Mali: {
+        challenges: isEnglish ? ["Stability", "Security"] : ["Stabilité", "Sécurité"],
+      },
+      Niger: {
+        challenges: isEnglish ? ["Information", "Education"] : ["Information", "Éducation"],
+      },
+    },
   }
 }

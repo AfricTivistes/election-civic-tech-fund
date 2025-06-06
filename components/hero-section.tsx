@@ -544,10 +544,10 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
         <div className="mt-20 animate-fade-in-up">
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-4">
-              🚀 Prêt à Transformer la Démocratie ?
+              {t?.hero?.guide?.title || "🚀 Prêt à Transformer la Démocratie ?"}
             </h2>
             <p className="text-xl text-blue-200 max-w-3xl mx-auto">
-              Consultez notre guide expert pour maximiser vos chances de succès
+              {t?.hero?.guide?.subtitle || "Consultez notre guide expert pour maximiser vos chances de succès"}
             </p>
           </div>
 
@@ -574,9 +574,11 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
                       {/* Overlay avec titre de la vidéo */}
                       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
                         <h4 className="text-white font-semibold text-lg mb-1">
-                          Guide Vidéo : Comment Réussir sa Candidature
+                          {t?.hero?.guide?.videoTitle || "Guide Vidéo : Comment Réussir sa Candidature"}
                         </h4>
-                        <p className="text-gray-300 text-sm">Découvrez les secrets d'un dossier gagnant</p>
+                        <p className="text-gray-300 text-sm">
+                          {t?.hero?.guide?.videoDescription || "Découvrez les secrets d'un dossier gagnant"}
+                        </p>
                       </div>
 
                       {/* Effet de particules dans la zone vidéo - réduit pour ne pas gêner */}
@@ -599,28 +601,46 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
                   {/* Côté droit - Contenu et CTA */}
                   <div className="p-8 flex flex-col justify-center">
                     <div className="mb-6">
-                      <h4 className="text-xl font-bold text-white mb-3">Découvrez ce qui vous attend</h4>
+                      <h4 className="text-xl font-bold text-white mb-3">
+                        {t?.hero?.guide?.description?.title || "Découvrez ce qui vous attend"}
+                      </h4>
                       <p className="text-blue-200 leading-relaxed mb-4">
-                        Notre guide interactif vous accompagne étape par étape pour construire un dossier parfait.
-                        Préparez-vous efficacement et évitez les erreurs courantes.
+                        {t?.hero?.guide?.description?.content ||
+                          "Notre guide interactif vous accompagne étape par étape pour construire un dossier parfait. Préparez-vous efficacement et évitez les erreurs courantes."}
                       </p>
 
                       <div className="grid grid-cols-2 gap-3 mb-6">
                         <div className="bg-white/5 rounded-lg p-3 border border-white/10">
-                          <div className="text-sm font-medium text-white">✨ Conseils pratiques</div>
-                          <div className="text-xs text-blue-300">Pour chaque section</div>
+                          <div className="text-sm font-medium text-white">
+                            {t?.hero?.guide?.features?.practicalTips || "✨ Conseils pratiques"}
+                          </div>
+                          <div className="text-xs text-blue-300">
+                            {t?.hero?.guide?.features?.practicalTipsDesc || "Pour chaque section"}
+                          </div>
                         </div>
                         <div className="bg-white/5 rounded-lg p-3 border border-white/10">
-                          <div className="text-sm font-medium text-white">📋 Listes de vérification</div>
-                          <div className="text-xs text-blue-300">Documents requis</div>
+                          <div className="text-sm font-medium text-white">
+                            {t?.hero?.guide?.features?.checklists || "📋 Listes de vérification"}
+                          </div>
+                          <div className="text-xs text-blue-300">
+                            {t?.hero?.guide?.features?.checklistsDesc || "Documents requis"}
+                          </div>
                         </div>
                         <div className="bg-white/5 rounded-lg p-3 border border-white/10">
-                          <div className="text-sm font-medium text-white">❓ FAQ détaillée</div>
-                          <div className="text-xs text-blue-300">Réponses aux questions</div>
+                          <div className="text-sm font-medium text-white">
+                            {t?.hero?.guide?.features?.faq || "❓ FAQ détaillée"}
+                          </div>
+                          <div className="text-xs text-blue-300">
+                            {t?.hero?.guide?.features?.faqDesc || "Réponses aux questions"}
+                          </div>
                         </div>
                         <div className="bg-white/5 rounded-lg p-3 border border-white/10">
-                          <div className="text-sm font-medium text-white">🎯 Stratégies gagnantes</div>
-                          <div className="text-xs text-blue-300">Maximisez vos chances</div>
+                          <div className="text-sm font-medium text-white">
+                            {t?.hero?.guide?.features?.strategies || "🎯 Stratégies gagnantes"}
+                          </div>
+                          <div className="text-xs text-blue-300">
+                            {t?.hero?.guide?.features?.strategiesDesc || "Maximisez vos chances"}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -631,7 +651,7 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
                       className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-bold py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 group"
                     >
                       <BookOpen className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-                      Accéder au Guide Complet
+                      {t?.hero?.guide?.accessButton || "Accéder au Guide Complet"}
                       <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                     </Button>
                   </div>

@@ -27,15 +27,22 @@ import {
   Settings,
 } from "lucide-react"
 import { useLanguage } from "@/hooks/use-language"
+import { useParams } from "next/navigation"
 
 interface FormGuideProps {
   isOpen: boolean
   onClose: () => void
   currentStep?: number
+  params?: { lang?: string }
 }
 
-export default function FormGuide({ isOpen, onClose, currentStep = 0 }: FormGuideProps) {
+export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: FormGuideProps) {
   const { t } = useLanguage()
+  const languageParams = useParams()
+  const language =
+    languageParams && typeof languageParams === "object" && "lang" in languageParams
+      ? String(languageParams.lang)
+      : "fr"
   const [expandedSection, setExpandedSection] = useState<number | null>(currentStep || 1)
 
   // Vérifications de sécurité
@@ -325,8 +332,14 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0 }: FormGuid
               <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-white" />
             </div>
             <div>
-              <h2 className="text-lg md:text-2xl font-bold text-white">Guide Complet du Democracy Builder</h2>
-              <p className="text-sm md:text-base text-blue-200">Préparez-vous pour un dossier parfait</p>
+              <h2 className="text-lg md:text-2xl font-bold text-white">
+                {t?.guide?.title ||
+                  (language === "en" ? "Complete Democracy Builder Guide" : "Guide Complet du Democracy Builder")}
+              </h2>
+              <p className="text-sm md:text-base text-blue-200">
+                {t?.guide?.subtitle ||
+                  (language === "en" ? "Prepare for a perfect application" : "Préparez-vous pour un dossier parfait")}
+              </p>
             </div>
           </div>
           <Button onClick={handleClose} variant="ghost" size="sm" className="text-white hover:bg-white/10">
@@ -343,26 +356,44 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0 }: FormGuid
                 <div className="flex items-start space-x-4">
                   <Rocket className="w-8 h-8 text-green-400 mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="text-xl font-bold text-green-50 mb-3">🚀 Avant de Commencer</h3>
+                    <h3 className="text-xl font-bold text-green-50 mb-3">
+                      {t?.guide?.beforeStarting || (language === "en" ? "🚀 Before Starting" : "🚀 Avant de Commencer")}
+                    </h3>
                     <div className="grid grid-cols-1 gap-4 text-sm">
                       <div className="space-y-2">
                         <div className="flex items-center text-green-100">
                           <CheckCircle className="w-4 h-4 mr-2 text-green-400" />
-                          <span>Temps total estimé : 2-3 heures</span>
+                          <span>
+                            {t?.guide?.estimatedTime ||
+                              (language === "en"
+                                ? "Estimated total time: 2-3 hours"
+                                : "Temps total estimé : 2-3 heures")}
+                          </span>
                         </div>
                         <div className="flex items-center text-green-100">
                           <CheckCircle className="w-4 h-4 mr-2 text-green-400" />
-                          <span>Sauvegarde automatique à chaque étape</span>
+                          <span>
+                            {t?.guide?.autoSave ||
+                              (language === "en"
+                                ? "Automatic save at each step"
+                                : "Sauvegarde automatique à chaque étape")}
+                          </span>
                         </div>
                       </div>
                       <div className="space-y-2">
                         <div className="flex items-center text-green-100">
                           <CheckCircle className="w-4 h-4 mr-2 text-green-400" />
-                          <span>Validation IA en temps réel</span>
+                          <span>
+                            {t?.guide?.aiValidation ||
+                              (language === "en" ? "Real-time AI validation" : "Validation IA en temps réel")}
+                          </span>
                         </div>
                         <div className="flex items-center text-green-100">
                           <CheckCircle className="w-4 h-4 mr-2 text-green-400" />
-                          <span>Aide contextuelle disponible</span>
+                          <span>
+                            {t?.guide?.contextualHelp ||
+                              (language === "en" ? "Contextual help available" : "Aide contextuelle disponible")}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -375,14 +406,18 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0 }: FormGuid
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-white flex items-center">
                 <Target className="w-5 h-5 mr-2 text-yellow-400" />
-                Guide Détaillé par Étapes
+                {t?.guide?.detailedGuide ||
+                  (language === "en" ? "Detailed Step-by-Step Guide" : "Guide Détaillé par Étapes")}
               </h3>
 
               {guideData.map((step) => {
-                if (!step || !step.icon) return null
+                if (!step || typeof step !== "object" || !step.icon) return null
 
                 const IconComponent = step.icon
                 const isExpanded = expandedSection === step.id
+
+                // Utiliser le titre en anglais ou en français selon la langue
+                const stepTitle = language === "en" && step.titleEn ? step.titleEn : step.title
 
                 return (
                   <Card key={step.id} className="bg-white/10 backdrop-blur-md border-white/20">
@@ -394,7 +429,7 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0 }: FormGuid
                           </div>
                           <div>
                             <CardTitle className="text-white text-lg">
-                              Étape {step.id}: {step.title}
+                              {t?.guide?.step || "Étape"} {step.id}: {stepTitle}
                             </CardTitle>
                             <div className="flex items-center space-x-4 mt-2">
                               <Badge variant="outline" className="border-yellow-400 text-yellow-400">
@@ -402,7 +437,7 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0 }: FormGuid
                                 {step.duration}
                               </Badge>
                               <Badge variant="outline" className="border-blue-400 text-blue-400">
-                                {step.sections?.length || 0} sections
+                                {step.sections?.length || 0} {t?.guide?.sections || "sections"}
                               </Badge>
                             </div>
                           </div>
@@ -422,7 +457,7 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0 }: FormGuid
                           {step.sections &&
                             Array.isArray(step.sections) &&
                             step.sections.map((section, sectionIndex) => {
-                              if (!section || !section.icon) return null
+                              if (!section || typeof section !== "object" || !section.icon) return null
 
                               const SectionIcon = section.icon
                               return (
@@ -449,7 +484,7 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0 }: FormGuid
                           <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-lg p-4">
                             <h4 className="font-semibold text-white mb-3 flex items-center">
                               <Clipboard className="w-4 h-4 mr-2 text-purple-400" />
-                              Préparation Recommandée
+                              {t?.guide?.recommendedPrep || "Préparation Recommandée"}
                             </h4>
                             <div className="space-y-2">
                               {step.preparation &&
@@ -474,21 +509,28 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0 }: FormGuid
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-white flex items-center">
                 <MessageSquare className="w-5 h-5 mr-2 text-blue-400" />
-                Questions Fréquentes
+                {t?.guide?.faq || "Questions Fréquentes"}
               </h3>
 
               <div className="space-y-3">
-                {faqData.map((faq, index) => (
-                  <Card key={index} className="bg-white/5 backdrop-blur-md border-white/10">
-                    <CardContent className="p-4">
-                      <h4 className="font-semibold text-white mb-2 flex items-center">
-                        <HelpCircle className="w-4 h-4 mr-2 text-blue-400" />
-                        {faq.question}
-                      </h4>
-                      <p className="text-blue-200 text-sm pl-6">{faq.answer}</p>
-                    </CardContent>
-                  </Card>
-                ))}
+                {faqData.map((faq, index) => {
+                  if (!faq) return null
+                  // Utiliser la question et réponse en anglais ou en français selon la langue
+                  const question = language === "en" && faq.questionEn ? faq.questionEn : faq.question || ""
+                  const answer = language === "en" && faq.answerEn ? faq.answerEn : faq.answer || ""
+
+                  return (
+                    <Card key={index} className="bg-white/5 backdrop-blur-md border-white/10">
+                      <CardContent className="p-4">
+                        <h4 className="font-semibold text-white mb-2 flex items-center">
+                          <HelpCircle className="w-4 h-4 mr-2 text-blue-400" />
+                          {question}
+                        </h4>
+                        <p className="text-blue-200 text-sm pl-6">{answer}</p>
+                      </CardContent>
+                    </Card>
+                  )
+                })}
               </div>
             </div>
 
@@ -500,19 +542,25 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0 }: FormGuid
                     <MessageSquare className="w-6 h-6 text-white" />
                   </div>
                 </div>
-                <h3 className="text-lg font-bold text-slate-100 mb-2">Support Personnalisé</h3>
+                <h3 className="text-lg font-bold text-slate-100 mb-2">
+                  {t?.guide?.personalizedSupport ||
+                    (language === "en" ? "Personalized Support" : "Support Personnalisé")}
+                </h3>
                 <p className="text-slate-200 text-sm mb-4">
-                  Notre équipe d'experts est disponible pour vous accompagner dans votre candidature.
+                  {t?.guide?.supportTeam ||
+                    (language === "en"
+                      ? "Our team of experts is available to assist you with your application."
+                      : "Notre équipe d'experts est disponible pour vous accompagner dans votre candidature.")}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Badge variant="outline" className="border-blue-400 text-blue-300">
                     📧 support@ectf.org
                   </Badge>
                   <Badge variant="outline" className="border-purple-400 text-purple-300">
-                    💬 Chat en direct 9h-17h
+                    {language === "en" ? "💬 Live chat 9am-5pm" : "💬 Chat en direct 9h-17h"}
                   </Badge>
                   <Badge variant="outline" className="border-green-400 text-green-300">
-                    📞 Hotline : +221 XX XXX XXXX
+                    📞 {language === "en" ? "Hotline: +221 XX XXX XXXX" : "Hotline : +221 XX XXX XXXX"}
                   </Badge>
                 </div>
               </CardContent>
