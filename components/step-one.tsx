@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Badge } from "@/components/ui/badge"
 import { Lightbulb, ArrowRight, Cpu, Users, Newspaper, Scale, Sparkles, Target } from "lucide-react"
+import { useLanguage } from "@/hooks/use-language"
 
 interface StepOneProps {
   data: any
@@ -17,49 +18,50 @@ interface StepOneProps {
   onNext: () => void
 }
 
-const domains = [
-  {
-    id: "tech",
-    title: "Technologies Citoyennes Électorales",
-    description: "Blockchain, IA, outils civic tech, sécurité numérique",
-    icon: Cpu,
-    color: "from-blue-500 to-cyan-500",
-    allocation: "70 000€ • 40%",
-    examples: ["Blockchain pour la transparence", "IA pour l'analyse", "Apps mobiles citoyennes"],
-  },
-  {
-    id: "engagement",
-    title: "Engagement Citoyen",
-    description: "Éducation civique, observation électorale, inclusion",
-    icon: Users,
-    color: "from-emerald-500 to-green-500",
-    allocation: "43 750€ • 25%",
-    examples: ["Éducation citoyenne", "Observation électorale", "Participation des jeunes"],
-  },
-  {
-    id: "media",
-    title: "Médias & Information",
-    description: "Fact-checking, lutte contre la désinformation",
-    icon: Newspaper,
-    color: "from-violet-500 to-purple-500",
-    allocation: "35 000€ • 20%",
-    examples: ["Vérification des faits", "Médias citoyens", "Anti-désinformation"],
-  },
-  {
-    id: "legal",
-    title: "Cadre Légal",
-    description: "Réformes électorales, contentieux, veille juridique",
-    icon: Scale,
-    color: "from-orange-500 to-red-500",
-    allocation: "26 250€ • 15%",
-    examples: ["Réformes électorales", "Suivi contentieux", "Veille juridique"],
-  },
-]
-
 export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneProps) {
-  const [vision, setVision] = useState(data.vision || "")
-  const [selectedDomain, setSelectedDomain] = useState(data.domain || "")
-  const [problem, setProblem] = useState(data.problem || "")
+  const { t } = useLanguage()
+  const [vision, setVision] = useState((data && data.vision) || "")
+  const [selectedDomain, setSelectedDomain] = useState((data && data.domain) || "")
+  const [problem, setProblem] = useState((data && data.problem) || "")
+
+  const domains = [
+    {
+      id: "tech",
+      title: t.domains.tech.title,
+      description: t.domains.tech.description,
+      icon: Cpu,
+      color: "from-blue-500 to-cyan-500",
+      allocation: "70 000€ • 40%",
+      examples: t.domains.tech.examples,
+    },
+    {
+      id: "engagement",
+      title: t.domains.engagement.title,
+      description: t.domains.engagement.description,
+      icon: Users,
+      color: "from-emerald-500 to-green-500",
+      allocation: "43 750€ • 25%",
+      examples: t.domains.engagement.examples,
+    },
+    {
+      id: "media",
+      title: t.domains.media.title,
+      description: t.domains.media.description,
+      icon: Newspaper,
+      color: "from-violet-500 to-purple-500",
+      allocation: "35 000€ • 20%",
+      examples: t.domains.media.examples,
+    },
+    {
+      id: "legal",
+      title: t.domains.legal.title,
+      description: t.domains.legal.description,
+      icon: Scale,
+      color: "from-orange-500 to-red-500",
+      allocation: "26 250€ • 15%",
+      examples: t.domains.legal.examples,
+    },
+  ]
 
   const handleNext = () => {
     if (vision && selectedDomain && problem) {
@@ -80,26 +82,38 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
             <Lightbulb className="w-8 h-8 text-white" />
           </div>
         </div>
-        <h2 className="ectf-heading-section ectf-text-heading mb-3">Votre Vision Démocratique</h2>
-        <p className="ectf-text-subheading text-lg">Quelle est l'idée citoyenne que vous souhaitez porter ?</p>
+        <h2 className="ectf-heading-section ectf-text-heading mb-3">{t.steps.step1.title}</h2>
+        <p className="ectf-text-subheading text-lg">{t.steps.step1.description}</p>
+      </motion.div>
+
+      {/* Conseil d'Expert - déplacé au début */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+        <Card className="bg-gradient-to-r from-orange-500/20 to-amber-500/20 border-orange-400/50 shadow-lg backdrop-blur-sm">
+          <CardContent className="p-6">
+            <div className="flex items-start space-x-4">
+              <Sparkles className="w-6 h-6 text-orange-400 mt-1 flex-shrink-0" />
+              <div>
+                <h4 className="font-bold text-orange-900 mb-2 text-lg">{t.steps.step1.expertTip.title}</h4>
+                <p className="text-orange-800 font-medium leading-relaxed">{t.steps.step1.expertTip.content}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </motion.div>
 
       {/* Vision description */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
         <Card className="ectf-card">
           <CardHeader className="ectf-card-header">
             <CardTitle className="ectf-card-title flex items-center">
               <Target className="w-6 h-6 mr-3 text-amber-400" />
-              Décrivez votre ambition démocratique
+              {t.steps.step1.visionTitle}
             </CardTitle>
-            <CardDescription className="ectf-card-description">
-              Racontez-nous votre vision, ce que vous cherchez à transformer dans votre pays, et comment la technologie
-              peut être un levier.
-            </CardDescription>
+            <CardDescription className="ectf-card-description">{t.steps.step1.visionDescription}</CardDescription>
           </CardHeader>
           <CardContent className="ectf-card-content">
             <Textarea
-              placeholder="Décrivez votre vision pour transformer la démocratie dans votre pays..."
+              placeholder={t.steps.step1.visionPlaceholder}
               value={vision}
               onChange={(e) => setVision(e.target.value)}
               className="ectf-input min-h-32 resize-none"
@@ -109,17 +123,15 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
       </motion.div>
 
       {/* Problem identification */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
         <Card className="ectf-card">
           <CardHeader className="ectf-card-header">
-            <CardTitle className="ectf-card-title">Le problème électoral que vous ciblez</CardTitle>
-            <CardDescription className="ectf-card-description">
-              Identifiez clairement le défi démocratique que votre projet souhaite résoudre.
-            </CardDescription>
+            <CardTitle className="ectf-card-title">{t.steps.step1.problemTitle}</CardTitle>
+            <CardDescription className="ectf-card-description">{t.steps.step1.problemDescription}</CardDescription>
           </CardHeader>
           <CardContent className="ectf-card-content">
             <Textarea
-              placeholder="Quel problème électoral spécifique votre projet va-t-il résoudre ?"
+              placeholder={t.steps.step1.problemPlaceholder}
               value={problem}
               onChange={(e) => setProblem(e.target.value)}
               className="ectf-input min-h-24 resize-none"
@@ -129,17 +141,15 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
       </motion.div>
 
       {/* Domain selection */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
         <Card className="ectf-card">
           <CardHeader className="ectf-card-header">
-            <CardTitle className="ectf-card-title">Choisissez votre domaine prioritaire</CardTitle>
-            <CardDescription className="ectf-card-description">
-              Sélectionnez le domaine principal dans lequel votre projet s'inscrit.
-            </CardDescription>
+            <CardTitle className="ectf-card-title">{t.steps.step1.domainTitle}</CardTitle>
+            <CardDescription className="ectf-card-description">{t.steps.step1.domainDescription}</CardDescription>
           </CardHeader>
           <CardContent className="ectf-card-content">
             <RadioGroup value={selectedDomain} onValueChange={setSelectedDomain}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6">
                 {domains.map((domain) => {
                   const IconComponent = domain.icon
                   const isSelected = selectedDomain === domain.id
@@ -196,24 +206,6 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
         </Card>
       </motion.div>
 
-      {/* Tip */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-        <Card className="bg-gradient-to-r from-violet-500/20 to-purple-500/20 border-violet-400/40 shadow-lg">
-          <CardContent className="p-6">
-            <div className="flex items-start space-x-4">
-              <Sparkles className="w-6 h-6 text-amber-400 mt-1 flex-shrink-0" />
-              <div>
-                <h4 className="font-bold text-white mb-2">Conseil d'Expert</h4>
-                <p className="text-white font-medium leading-relaxed drop-shadow-sm">
-                  Plus votre vision est claire et spécifique, plus elle aura d'impact. Ce que vous proposez ici
-                  deviendra l'âme de votre projet et guidera toutes les étapes suivantes.
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </motion.div>
-
       {/* Navigation */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -226,7 +218,7 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
           disabled={!isComplete}
           size="lg"
           className={`
-            px-8 py-4 font-bold text-base transition-all duration-300 rounded-xl
+            w-full md:w-auto px-6 md:px-8 py-3 md:py-4 font-bold text-sm md:text-base transition-all duration-300 rounded-xl
             ${
               isComplete
                 ? "ectf-button-primary"
@@ -234,16 +226,14 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
             }
           `}
         >
-          Continuer vers l'Impact Technologique
-          <ArrowRight className="ml-3 w-5 h-5" />
+          {t.steps.step1.nextButton}
+          <ArrowRight className="ml-2 md:ml-3 w-4 h-4 md:w-5 md:h-5" />
         </Button>
       </motion.div>
 
       {!isComplete && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
-          <p className="text-amber-400 text-sm font-medium">
-            Complétez tous les champs pour continuer votre parcours démocratique
-          </p>
+          <p className="text-amber-400 text-sm font-medium">{t.steps.step1.completionMessage}</p>
         </motion.div>
       )}
     </div>

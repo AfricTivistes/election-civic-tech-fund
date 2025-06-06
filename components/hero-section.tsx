@@ -1,11 +1,12 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Sparkles, Globe, Zap, Heart, ArrowRight, Target, Users, TrendingUp, Vote, Link2 } from "lucide-react"
-import { useState } from "react"
+import { Sparkles, Globe, Zap, Heart, ArrowRight, Target, Users, TrendingUp, Vote, BookOpen } from "lucide-react"
+import { useState, useEffect } from "react"
+import { useLanguage } from "@/hooks/use-language"
+import FormGuide from "@/components/form-guide"
 
 interface HeroSectionProps {
   onStart: () => void
@@ -154,51 +155,20 @@ const africanCountries = [
   },
 ]
 
-const partners = [
-  {
-    name: "Norway",
-    logo: "/partners/norway-logo.png",
-    description: "Gouvernement de Norvège",
-    category: "institutional",
-  },
-  {
-    name: "European Union",
-    logo: "/partners/eu-logo.webp",
-    description: "Union Européenne",
-    category: "institutional",
-  },
-  {
-    name: "Ministry of Foreign Affairs of Denmark",
-    logo: "/partners/ministry-denmark.png",
-    description: "Ministère des Affaires Étrangères du Danemark",
-    category: "institutional",
-  },
-  {
-    name: "Digital Democracy Initiative",
-    logo: "/partners/ddi-logo.jpeg",
-    description: "Initiative pour la Démocratie Numérique",
-    category: "organization",
-  },
-  {
-    name: "Digitalise Youth",
-    logo: "/partners/digitalise-youth.webp",
-    description: "Digitalisation de la Jeunesse",
-    category: "organization",
-  },
-  {
-    name: "AHEAD Africa",
-    logo: "/partners/ahead-africa.webp",
-    description: "Avancement de l'Afrique",
-    category: "organization",
-  },
-]
-
 export default function HeroSection({ onStart }: HeroSectionProps) {
   const [selectedCountry, setSelectedCountry] = useState<(typeof africanCountries)[0] | null>(null)
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null)
+  const [isGuideOpen, setIsGuideOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  const { t } = useLanguage()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleCountryClick = (country: (typeof africanCountries)[0]) => {
     try {
+      if (!country || !mounted) return
       setSelectedCountry(country)
     } catch (error) {
       console.error("Error selecting country:", error)
@@ -207,6 +177,7 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
 
   const handleCountryHover = (countryName: string | null) => {
     try {
+      if (!mounted) return
       setHoveredCountry(countryName)
     } catch (error) {
       console.error("Error hovering country:", error)
@@ -215,10 +186,46 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
 
   const handleCloseCountry = () => {
     try {
+      if (!mounted) return
       setSelectedCountry(null)
     } catch (error) {
       console.error("Error closing country:", error)
     }
+  }
+
+  const handleStartClick = () => {
+    try {
+      if (!mounted || typeof onStart !== "function") return
+      onStart()
+    } catch (error) {
+      console.error("Error starting:", error)
+    }
+  }
+
+  const handleGuideOpen = () => {
+    try {
+      if (!mounted) return
+      setIsGuideOpen(true)
+    } catch (error) {
+      console.error("Error opening guide:", error)
+    }
+  }
+
+  const handleGuideClose = () => {
+    try {
+      if (!mounted) return
+      setIsGuideOpen(false)
+    } catch (error) {
+      console.error("Error closing guide:", error)
+    }
+  }
+
+  if (!mounted || !t) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex items-center justify-center">
+        <div className="text-white text-xl">Chargement...</div>
+      </div>
+    )
   }
 
   return (
@@ -226,40 +233,50 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
       {/* Animated background elements */}
       <div className="absolute inset-0">
         {[...Array(30)].map((_, i) => (
-          <motion.div
+          <div
             key={`particle-${i}`}
-            className="absolute w-1 h-1 bg-yellow-400 rounded-full"
-            animate={{
-              scale: [0, 1, 0],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Number.POSITIVE_INFINITY,
-              delay: i * 0.2,
-            }}
+            className="absolute w-1 h-1 bg-yellow-400 rounded-full animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
+              animationDelay: `${i * 0.2}s`,
             }}
           />
         ))}
       </div>
 
       <div className="relative z-10 container mx-auto px-4 py-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-center mb-12"
-        >
-          <motion.div
-            className="flex justify-center mb-6"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
+        {/* Header avec logos */}
+        <div className="text-center mb-12 relative animate-fade-in">
+          {/* Logo AfricTivites en haut à gauche */}
+          <div className="absolute top-0 left-0">
+            <img
+              src="/logo-africtivites.svg"
+              alt="AfricTivites - Activisme numérique pour l'Afrique"
+              className="h-12 w-auto opacity-90 hover:opacity-100 transition-all duration-300 hover:scale-105"
+              style={{
+                filter:
+                  "brightness(0) saturate(100%) invert(94%) sepia(6%) saturate(1044%) hue-rotate(183deg) brightness(106%) contrast(94%)",
+              }}
+              onError={() => {
+                console.error("Error loading image")
+              }}
+            />
+          </div>
+
+          {/* Logo Digitalise Youth en haut à droite */}
+          <div className="absolute top-0 right-0">
+            <img
+              src="/partners/digitalise-youth.webp"
+              alt="Digitalise Youth"
+              className="h-12 w-auto opacity-90 hover:opacity-100 transition-all duration-300 hover:scale-105"
+              onError={() => {
+                console.error("Error loading image")
+              }}
+            />
+          </div>
+
+          <div className="flex justify-center mb-6">
             <div className="relative p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl"></div>
               <img
@@ -267,34 +284,19 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
                 alt="Election Civic Tech Fund - Logo avec continent africain"
                 className="h-32 w-auto relative z-10 drop-shadow-lg"
                 style={{ filter: "brightness(1.2) contrast(1.1)" }}
-                onError={(e) => {
-                  console.error("Error loading logo:", e)
+                onError={() => {
+                  console.error("Error loading image")
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-blue-400/20 rounded-2xl animate-pulse"></div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.h1
-            className="text-6xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-blue-400 to-green-400 mb-4"
-            animate={{
-              backgroundPosition: ["0%", "100%", "0%"],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
-            }}
-          >
-            ELECTION CIVIC TECH FUND
-          </motion.h1>
+          <h1 className="text-6xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-blue-400 to-green-400 mb-4">
+            {t?.hero?.title || "ELECTION CIVIC TECH FUND"}
+          </h1>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="flex justify-center items-center space-x-4 text-xl text-blue-200 mb-8"
-          >
+          <div className="flex justify-center items-center space-x-4 text-xl text-blue-200 mb-8">
             <Badge variant="outline" className="border-yellow-400 text-yellow-400 px-4 py-2">
               175 000€
             </Badge>
@@ -306,18 +308,13 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
             <Badge variant="outline" className="border-green-400 text-green-400 px-4 py-2">
               ∞ Possibilités
             </Badge>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Main content grid */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left side - Description */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.7 }}
-            className="space-y-8"
-          >
+          <div className="space-y-8 animate-slide-in-left">
             <Card className="bg-white/10 backdrop-blur-md border-white/20">
               <CardContent className="p-8">
                 <div className="flex items-center mb-4">
@@ -325,263 +322,126 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
                   <h2 className="text-2xl font-bold text-white">Digital Democracy Journey</h2>
                 </div>
                 <p className="text-blue-100 text-lg leading-relaxed mb-6">
-                  <strong>Election Civic Tech Fund</strong> n'est pas un simple appel à projets. C'est une opportunité
-                  unique de transformer votre vision citoyenne en un outil technologique au service de la démocratie en
-                  Afrique.
+                  <strong>Election Civic Tech Fund</strong> {t?.hero?.description || ""}
                 </p>
-                <p className="text-blue-200 mb-6">
-                  Ce formulaire est conçu comme un <strong>voyage interactif</strong> : à travers quatre étapes clés,
-                  vous allez façonner un dossier vivant, évolutif, et profondément connecté aux réalités panafricaines.
-                </p>
+                <p className="text-blue-200 mb-6">{t?.hero?.secondDescription || ""}</p>
 
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   <div className="flex items-center text-green-300">
                     <Target className="w-5 h-5 mr-2" />
-                    <span>Innovation Technologique</span>
+                    <span>{t?.hero?.features?.innovation || "Innovation"}</span>
                   </div>
                   <div className="flex items-center text-blue-300">
                     <Globe className="w-5 h-5 mr-2" />
-                    <span>Impact Panafricain</span>
+                    <span>{t?.hero?.features?.impact || "Impact"}</span>
                   </div>
                   <div className="flex items-center text-yellow-300">
                     <Zap className="w-5 h-5 mr-2" />
-                    <span>Solutions Citoyennes</span>
+                    <span>{t?.hero?.features?.solutions || "Solutions"}</span>
                   </div>
                   <div className="flex items-center text-pink-300">
                     <Heart className="w-5 h-5 mr-2" />
-                    <span>Démocratie Inclusive</span>
+                    <span>{t?.hero?.features?.democracy || "Démocratie"}</span>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <div className="hover:scale-105 transition-transform duration-300">
               <Button
-                onClick={onStart}
+                onClick={handleStartClick}
                 size="lg"
                 className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-bold py-6 text-xl relative overflow-hidden group"
               >
-                <motion.div
-                  className="absolute inset-0 bg-white/20"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "100%" }}
-                  transition={{ duration: 0.5 }}
-                />
                 <span className="relative flex items-center justify-center">
-                  Transformer la Démocratie Africaine
+                  {t?.hero?.startButton || "Commencer"}
                   <ArrowRight className="ml-2 w-6 h-6" />
                 </span>
               </Button>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Right side - Pays Cibles avec Drapeaux */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1 }}
-            className="space-y-6"
-          >
-            <Card className="bg-white/5 backdrop-blur-md border-white/10 p-6">
-              <h3 className="text-2xl font-bold text-white mb-6 text-center flex items-center justify-center">
-                <Globe className="w-6 h-6 mr-2" />
+          <div className="space-y-6 animate-slide-in-right">
+            <Card className="bg-white/5 backdrop-blur-md border-white/10 p-4 md:p-6">
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-4 md:mb-6 text-center flex items-center justify-center">
+                <Globe className="w-5 md:w-6 h-5 md:h-6 mr-2" />
                 Pays Cibles du Fonds
               </h3>
 
               {/* Zone des drapeaux avec fond dégradé */}
-              <div className="relative w-full h-80 bg-gradient-to-br from-blue-800/60 via-blue-700/40 to-blue-900/60 rounded-xl overflow-hidden border border-blue-400/20">
+              <div className="relative w-full h-64 md:h-80 bg-gradient-to-br from-blue-800/60 via-blue-700/40 to-blue-900/60 rounded-xl overflow-hidden border border-blue-400/20">
                 {/* Effet de particules subtiles */}
                 <div className="absolute inset-0">
                   {[...Array(8)].map((_, i) => (
-                    <motion.div
+                    <div
                       key={`map-particle-${i}`}
-                      className="absolute w-1 h-1 bg-blue-300/30 rounded-full"
-                      animate={{
-                        scale: [0, 1, 0],
-                        opacity: [0, 0.6, 0],
-                      }}
-                      transition={{
-                        duration: 4,
-                        repeat: Number.POSITIVE_INFINITY,
-                        delay: i * 0.5,
-                      }}
+                      className="absolute w-1 h-1 bg-blue-300/30 rounded-full animate-pulse"
                       style={{
                         left: `${20 + Math.random() * 60}%`,
                         top: `${20 + Math.random() * 60}%`,
+                        animationDelay: `${i * 0.5}s`,
                       }}
                     />
                   ))}
                 </div>
 
                 {/* Drapeaux des pays dans des cercles dorés */}
-                {africanCountries.map((country, index) => (
-                  <motion.div
-                    key={`country-${country.countryCode}`}
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{
-                      delay: 1.2 + index * 0.1,
-                      type: "spring",
-                      stiffness: 100,
-                    }}
-                    className="absolute cursor-pointer group"
-                    style={{
-                      left: country.x,
-                      top: country.y,
-                      transform: "translate(-50%, -50%)",
-                    }}
-                    onMouseEnter={() => handleCountryHover(country.name)}
-                    onMouseLeave={() => handleCountryHover(null)}
-                    onClick={() => handleCountryClick(country)}
-                  >
-                    <motion.div
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.95 }}
-                      animate={{
-                        y: [0, -3, 0],
-                        rotate: [0, index % 2 === 0 ? 2 : -2, 0],
+                {africanCountries.map((country, index) => {
+                  if (!country || !country.name || !country.flag) return null
+
+                  return (
+                    <div
+                      key={`country-${country.countryCode || index}`}
+                      className="absolute cursor-pointer group animate-float"
+                      style={{
+                        left: country.x || "50%",
+                        top: country.y || "50%",
+                        transform: "translate(-50%, -50%)",
+                        animationDelay: `${index * 0.2}s`,
                       }}
-                      transition={{
-                        duration: 3 + (index % 3),
-                        repeat: Number.POSITIVE_INFINITY,
-                        repeatType: "reverse",
-                        ease: "easeInOut",
-                        delay: index * 0.2,
-                      }}
-                      className="relative"
+                      onMouseEnter={() => handleCountryHover(country.name)}
+                      onMouseLeave={() => handleCountryHover(null)}
+                      onClick={() => handleCountryClick(country)}
                     >
-                      {/* Cercle doré avec drapeau */}
-                      <div
-                        className={`
-                          w-14 h-14 rounded-full flex items-center justify-center text-2xl
-                          bg-gradient-to-br from-yellow-400 to-yellow-600 
-                          border-2 border-yellow-300 shadow-lg
-                          transition-all duration-300
-                          ${
-                            hoveredCountry === country.name
-                              ? "shadow-yellow-400/50 shadow-xl border-yellow-200"
-                              : "shadow-yellow-400/30"
-                          }
-                        `}
-                      >
-                        {country.flag}
-                      </div>
-
-                      {/* Effet de pulse au survol */}
-                      {hoveredCountry === country.name && (
-                        <motion.div
-                          className="absolute inset-0 rounded-full border-2 border-yellow-300"
-                          animate={{
-                            scale: [1, 1.6, 1],
-                            opacity: [0.8, 0, 0.8],
-                          }}
-                          transition={{
-                            duration: 1.5,
-                            repeat: Number.POSITIVE_INFINITY,
-                          }}
-                        />
-                      )}
-
-                      {/* Effet de brillance subtil */}
-                      <motion.div
-                        className="absolute inset-0 rounded-full bg-yellow-300/20"
-                        animate={{
-                          opacity: [0.1, 0.3, 0.1],
-                        }}
-                        transition={{
-                          duration: 2 + (index % 4),
-                          repeat: Number.POSITIVE_INFINITY,
-                          repeatType: "reverse",
-                          ease: "easeInOut",
-                          delay: index * 0.3,
-                        }}
-                      />
-
-                      {/* Tooltip nom du pays */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.8 }}
-                        animate={{
-                          opacity: hoveredCountry === country.name ? 1 : 0,
-                          y: hoveredCountry === country.name ? -25 : 10,
-                          scale: hoveredCountry === country.name ? 1 : 0.8,
-                        }}
-                        className="absolute top-16 left-1/2 transform -translate-x-1/2 
-                                 bg-black/90 text-white px-3 py-1 rounded-lg text-sm 
-                                 whitespace-nowrap border border-yellow-400/30 z-10"
-                      >
-                        <div className="font-semibold">{country.name}</div>
+                      <div className="relative hover:scale-120 transition-transform duration-300">
+                        {/* Cercle doré avec drapeau */}
                         <div
-                          className="absolute -top-1 left-1/2 transform -translate-x-1/2 
-                                      w-2 h-2 bg-black/90 rotate-45 border-l border-t border-yellow-400/30"
-                        ></div>
-                      </motion.div>
-                    </motion.div>
-                  </motion.div>
-                ))}
+                          className={`
+                            w-10 h-10 md:w-14 md:h-14 rounded-full flex items-center justify-center text-lg md:text-2xl
+                            bg-gradient-to-br from-yellow-400 to-yellow-600 
+                            border-2 border-yellow-300 shadow-lg
+                            transition-all duration-300
+                            ${
+                              hoveredCountry === country.name
+                                ? "shadow-yellow-400/50 shadow-xl border-yellow-200"
+                                : "shadow-yellow-400/30"
+                            }
+                          `}
+                        >
+                          {country.flag}
+                        </div>
 
-                {/* Lignes de connexion subtiles entre pays */}
-                <svg className="absolute inset-0 w-full h-full z-0 opacity-30">
-                  <defs>
-                    <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="rgba(250, 204, 21, 0.2)" />
-                      <stop offset="50%" stopColor="rgba(250, 204, 21, 0.6)" />
-                      <stop offset="100%" stopColor="rgba(250, 204, 21, 0.2)" />
-                    </linearGradient>
-                  </defs>
-
-                  {/* Quelques connexions stratégiques entre pays */}
-                  {[
-                    { from: "Sénégal", to: "Mali" },
-                    { from: "Mali", to: "Niger" },
-                    { from: "Niger", to: "Tchad" },
-                    { from: "Tchad", to: "Soudan" },
-                    { from: "Soudan", to: "Éthiopie" },
-                    { from: "Cameroun", to: "Tchad" },
-                    { from: "Bénin", to: "Togo" },
-                    { from: "Togo", to: "Burkina Faso" },
-                    { from: "Burkina Faso", to: "Mali" },
-                    { from: "Guinée", to: "Sénégal" },
-                  ].map((connection, index) => {
-                    const fromCountry = africanCountries.find((c) => c.name === connection.from)
-                    const toCountry = africanCountries.find((c) => c.name === connection.to)
-
-                    if (!fromCountry || !toCountry) return null
-
-                    const fromX = Number.parseFloat(fromCountry.x)
-                    const fromY = Number.parseFloat(fromCountry.y)
-                    const toX = Number.parseFloat(toCountry.x)
-                    const toY = Number.parseFloat(toCountry.y)
-
-                    return (
-                      <motion.path
-                        key={`connection-${index}`}
-                        d={`M ${fromX}% ${fromY}% Q ${(fromX + toX) / 2 + (Math.random() * 5 - 2.5)}% ${
-                          (fromY + toY) / 2 + (Math.random() * 5 - 2.5)
-                        }%, ${toX}% ${toY}%`}
-                        stroke="url(#connectionGradient)"
-                        strokeWidth="1"
-                        fill="none"
-                        initial={{ pathLength: 0, opacity: 0 }}
-                        animate={{
-                          pathLength: 1,
-                          opacity: 0.6,
-                          strokeDashoffset: [0, -20],
-                        }}
-                        transition={{
-                          pathLength: { delay: 2 + index * 0.2, duration: 1.5, ease: "easeInOut" },
-                          opacity: { delay: 2 + index * 0.2, duration: 1 },
-                          strokeDashoffset: {
-                            repeat: Number.POSITIVE_INFINITY,
-                            duration: 3 + (index % 3),
-                            ease: "linear",
-                            repeatType: "loop",
-                          },
-                        }}
-                        strokeDasharray="5,5"
-                      />
-                    )
-                  })}
-                </svg>
+                        {/* Tooltip nom du pays */}
+                        <div
+                          className={`
+                            absolute top-16 left-1/2 transform -translate-x-1/2 
+                            bg-black/90 text-white px-3 py-1 rounded-lg text-sm 
+                            whitespace-nowrap border border-yellow-400/30 z-10
+                            transition-all duration-300
+                            ${hoveredCountry === country.name ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
+                          `}
+                        >
+                          <div className="font-semibold">{country.name}</div>
+                          <div
+                            className="absolute -top-1 left-1/2 transform -translate-x-1/2 
+                                        w-2 h-2 bg-black/90 rotate-45 border-l border-t border-yellow-400/30"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
 
               <div className="mt-4 text-center">
@@ -593,8 +453,8 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
             </Card>
 
             {/* Panel détaillé du pays sélectionné */}
-            {selectedCountry && (
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}>
+            {selectedCountry && selectedCountry.challenges && Array.isArray(selectedCountry.challenges) && (
+              <div className="animate-fade-in">
                 <Card className="bg-gradient-to-br from-yellow-400/10 to-blue-400/10 border-yellow-400/30">
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-4">
@@ -648,18 +508,13 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             )}
-          </motion.div>
+          </div>
         </div>
 
         {/* Bottom stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5 }}
-          className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6"
-        >
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up">
           <Card className="bg-white/10 backdrop-blur-md border-white/20 text-center">
             <CardContent className="p-6">
               <div className="text-3xl font-bold text-yellow-400 mb-2">4-6</div>
@@ -683,137 +538,175 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
               <div className="text-blue-200 text-sm">Formation & suivi</div>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
 
-        {/* Section Partenaires */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2 }}
-          className="mt-20"
-        >
-          <Card className="bg-white/5 backdrop-blur-md border-white/10">
-            <CardContent className="p-8">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-white mb-4 flex items-center justify-center">
-                  <Link2 className="w-6 h-6 mr-2" />
-                  Nos Partenaires Stratégiques
-                </h3>
-                <p className="text-blue-200">
-                  Une coalition internationale pour renforcer la démocratie numérique en Afrique
-                </p>
-              </div>
+        {/* Section Guide - Repositionnée et redesignée */}
+        <div className="mt-20 animate-fade-in-up">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-4">
+              🚀 Prêt à Transformer la Démocratie ?
+            </h2>
+            <p className="text-xl text-blue-200 max-w-3xl mx-auto">
+              Consultez notre guide expert pour maximiser vos chances de succès
+            </p>
+          </div>
 
-              {/* Logos des partenaires */}
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
-                {partners.map((partner, index) => (
-                  <motion.div
-                    key={`partner-${index}`}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{
-                      delay: 2.2 + index * 0.1,
-                      duration: 0.5,
-                    }}
-                    whileHover={{ scale: 1.05 }}
-                    className="group cursor-pointer"
-                  >
-                    <div className="relative p-4 bg-white/10 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 hover:bg-white/15">
-                      <img
-                        src={partner.logo || "/placeholder.svg"}
-                        alt={partner.name}
-                        className="w-full h-16 object-contain filter brightness-110 group-hover:brightness-125 transition-all duration-300"
-                        onError={(e) => {
-                          console.error("Error loading partner logo:", e)
-                          const target = e.target as HTMLImageElement
-                          target.src = "/placeholder.svg?height=64&width=120&text=" + encodeURIComponent(partner.name)
-                        }}
+          <div className="relative">
+            {/* Effet de glow background */}
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 via-orange-500/20 to-yellow-400/10 blur-3xl rounded-3xl"></div>
+
+            <Card className="relative bg-gradient-to-br from-slate-800/90 via-blue-900/80 to-slate-800/90 border border-yellow-400/30 backdrop-blur-xl shadow-2xl">
+              <CardContent className="p-0">
+                <div className="grid md:grid-cols-2 gap-0">
+                  {/* Côté gauche - Vidéo YouTube */}
+                  <div className="relative p-4 md:p-8 bg-gradient-to-br from-yellow-400/20 to-orange-500/30 flex flex-col justify-center">
+                    <div className="relative w-full h-full min-h-[250px] md:min-h-[400px] rounded-xl overflow-hidden shadow-2xl">
+                      {/* YouTube iframe */}
+                      <iframe
+                        src="https://www.youtube.com/embed/u3U9R9Bwp14"
+                        title="Guide Vidéo : Comment Réussir sa Candidature"
+                        className="w-full h-full"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
                       />
 
-                      {/* Tooltip au survol */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.8 }}
-                        whileHover={{ opacity: 1, y: -10, scale: 1 }}
-                        className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 
-                                   bg-black/90 text-white px-3 py-2 rounded-lg text-sm 
-                                   whitespace-nowrap border border-white/30 z-20 pointer-events-none"
-                      >
-                        <div className="font-semibold">{partner.name}</div>
-                        <div className="text-xs text-gray-300">{partner.description}</div>
-                        <div
-                          className="absolute top-full left-1/2 transform -translate-x-1/2 
-                                      w-2 h-2 bg-black/90 rotate-45 border-r border-b border-white/30"
-                        ></div>
-                      </motion.div>
+                      {/* Overlay avec titre de la vidéo */}
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                        <h4 className="text-white font-semibold text-lg mb-1">
+                          Guide Vidéo : Comment Réussir sa Candidature
+                        </h4>
+                        <p className="text-gray-300 text-sm">Découvrez les secrets d'un dossier gagnant</p>
+                      </div>
+
+                      {/* Effet de particules dans la zone vidéo - réduit pour ne pas gêner */}
+                      <div className="absolute inset-0 pointer-events-none">
+                        {[...Array(5)].map((_, i) => (
+                          <div
+                            key={`video-particle-${i}`}
+                            className="absolute w-1 h-1 bg-yellow-400/20 rounded-full animate-pulse"
+                            style={{
+                              left: `${Math.random() * 100}%`,
+                              top: `${Math.random() * 100}%`,
+                              animationDelay: `${i * 0.5}s`,
+                            }}
+                          />
+                        ))}
+                      </div>
                     </div>
-                  </motion.div>
-                ))}
-              </div>
+                  </div>
 
-              {/* Message de remerciement */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 3 }}
-                className="mt-8 text-center"
-              >
-                <p className="text-blue-200 text-sm italic">
-                  "Ensemble, nous construisons l'avenir démocratique de l'Afrique grâce à l'innovation technologique"
-                </p>
-              </motion.div>
-            </CardContent>
-          </Card>
-        </motion.div>
+                  {/* Côté droit - Contenu et CTA */}
+                  <div className="p-8 flex flex-col justify-center">
+                    <div className="mb-6">
+                      <h4 className="text-xl font-bold text-white mb-3">Découvrez ce qui vous attend</h4>
+                      <p className="text-blue-200 leading-relaxed mb-4">
+                        Notre guide interactif vous accompagne étape par étape pour construire un dossier parfait.
+                        Préparez-vous efficacement et évitez les erreurs courantes.
+                      </p>
 
-        {/* Footer */}
+                      <div className="grid grid-cols-2 gap-3 mb-6">
+                        <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                          <div className="text-sm font-medium text-white">✨ Conseils pratiques</div>
+                          <div className="text-xs text-blue-300">Pour chaque section</div>
+                        </div>
+                        <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                          <div className="text-sm font-medium text-white">📋 Listes de vérification</div>
+                          <div className="text-xs text-blue-300">Documents requis</div>
+                        </div>
+                        <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                          <div className="text-sm font-medium text-white">❓ FAQ détaillée</div>
+                          <div className="text-xs text-blue-300">Réponses aux questions</div>
+                        </div>
+                        <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                          <div className="text-sm font-medium text-white">🎯 Stratégies gagnantes</div>
+                          <div className="text-xs text-blue-300">Maximisez vos chances</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Button
+                      onClick={handleGuideOpen}
+                      size="lg"
+                      className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-bold py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 group"
+                    >
+                      <BookOpen className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+                      Accéder au Guide Complet
+                      <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Footer avec bannière partenaires */}
         <footer className="mt-20 border-t border-white/10 pt-8">
           <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 3.5 }}
-              className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0"
-            >
-              <div className="flex items-center space-x-4">
-                <img
-                  src="/logo-africtivites.svg"
-                  alt="AfricTivites - Activisme numérique pour l'Afrique"
-                  className="h-8 w-auto opacity-90 hover:opacity-100 transition-all duration-300 hover:scale-105"
-                  style={{
-                    filter:
-                      "brightness(0) saturate(100%) invert(94%) sepia(6%) saturate(1044%) hue-rotate(183deg) brightness(106%) contrast(94%)",
-                  }}
-                  onError={(e) => {
-                    console.error("Error loading AfricTivites logo:", e)
-                    // Fallback to placeholder if SVG fails to load
-                    const target = e.target as HTMLImageElement
-                    target.style.display = "none"
-                    const fallback = target.nextElementSibling as HTMLElement
-                    if (fallback) fallback.style.display = "flex"
-                  }}
-                />
-                <div
-                  className="h-8 w-8 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full items-center justify-center hidden"
-                  style={{ display: "none" }}
-                >
-                  <span className="text-white font-bold text-sm">A</span>
+            {/* Bannière partenaires améliorée */}
+            <div className="bg-gradient-to-r from-white/10 via-white/5 to-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 mb-8 shadow-xl animate-fade-in">
+              <div className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+                {/* Mené par AHEAD Africa */}
+                <div className="text-center group hover:scale-105 transition-transform duration-300">
+                  <span className="text-blue-200 text-lg font-medium block mb-3">
+                    {t?.hero?.footer?.ledBy || "Mené par"}
+                  </span>
+                  <img
+                    src="/partners/ahead-africa.webp"
+                    alt="AHEAD Africa"
+                    className="h-12 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 filter brightness-110 mx-auto"
+                    onError={() => {
+                      console.error("Error loading AHEAD Africa logo")
+                    }}
+                  />
                 </div>
-                <div className="text-sm text-blue-200">
-                  <p className="font-medium">Propulsé par AfricTivites</p>
-                  <p className="text-xs text-blue-300">Activisme numérique pour une Afrique démocratique</p>
+
+                {/* Séparateur décoratif */}
+                <div className="hidden md:flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                  <div className="w-16 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+                  <div
+                    className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"
+                    style={{ animationDelay: "0.5s" }}
+                  ></div>
+                </div>
+
+                {/* Propulsé par DDI */}
+                <div className="text-center group hover:scale-105 transition-transform duration-300">
+                  <span className="text-blue-200 text-lg font-medium block mb-3">
+                    {t?.hero?.footer?.poweredBy || "Propulsé par"}
+                  </span>
+                  <img
+                    src="/partners/ddi-logo.jpeg"
+                    alt="Digital Democracy Initiative"
+                    className="h-12 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 filter brightness-110 mx-auto"
+                    onError={() => {
+                      console.error("Error loading DDI logo")
+                    }}
+                  />
                 </div>
               </div>
 
-              <div className="text-center md:text-right">
-                <p className="text-sm text-blue-200">© 2024 Election Civic Tech Fund - AfricTivites</p>
-                <p className="text-xs text-blue-300 mt-1">
-                  Ensemble, nous construisons l'avenir démocratique de l'Afrique
+              {/* Message inspirant */}
+              <div className="mt-6 text-center border-t border-white/10 pt-4">
+                <p className="text-blue-200 text-sm font-medium leading-relaxed">
+                  {t?.hero?.footer?.projectDescription || ""}
                 </p>
               </div>
-            </motion.div>
+            </div>
+
+            {/* Copyright */}
+            <div className="text-center">
+              <p className="text-sm text-blue-200">{t?.hero?.footer?.copyright || ""}</p>
+              <p className="text-xs text-blue-300 mt-1">{t?.hero?.footer?.tagline || ""}</p>
+            </div>
           </div>
         </footer>
       </div>
+
+      {/* Guide Modal */}
+      {mounted && <FormGuide isOpen={isGuideOpen} onClose={handleGuideClose} />}
     </div>
   )
 }

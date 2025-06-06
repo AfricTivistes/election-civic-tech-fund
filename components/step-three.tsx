@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import { Users, ArrowRight, ArrowLeft, Plus, X, Sparkles, UserPlus } from "lucide-react"
+import { useLanguage } from "@/hooks/use-language"
 
 interface TeamMember {
   id: string
@@ -27,23 +28,9 @@ interface StepThreeProps {
   onPrev: () => void
 }
 
-const skillCategories = [
-  { name: "Technique", color: "bg-blue-500", skills: ["Développement", "Data Science", "Cybersécurité", "UX/UI"] },
-  {
-    name: "Social",
-    color: "bg-green-500",
-    skills: ["Communication", "Community Management", "Formation", "Médiation"],
-  },
-  {
-    name: "Terrain",
-    color: "bg-orange-500",
-    skills: ["Observation électorale", "Mobilisation", "Recherche", "Plaidoyer"],
-  },
-  { name: "Gestion", color: "bg-purple-500", skills: ["Management", "Finance", "Juridique", "Stratégie"] },
-]
-
 export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev }: StepThreeProps) {
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>(data.teamMembers || [])
+  const { t } = useLanguage()
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>((data && data.teamMembers) || [])
   const [newMember, setNewMember] = useState<Partial<TeamMember>>({
     name: "",
     role: "",
@@ -51,6 +38,29 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev }
     experience: "",
     motivation: "",
   })
+
+  const skillCategories = [
+    {
+      name: t.steps.step3.skillCategories.technical,
+      color: "bg-blue-500",
+      skills: t.skills.technical,
+    },
+    {
+      name: t.steps.step3.skillCategories.social,
+      color: "bg-green-500",
+      skills: t.skills.social,
+    },
+    {
+      name: t.steps.step3.skillCategories.field,
+      color: "bg-orange-500",
+      skills: t.skills.field,
+    },
+    {
+      name: t.steps.step3.skillCategories.management,
+      color: "bg-purple-500",
+      skills: t.skills.management,
+    },
+  ]
 
   const addTeamMember = () => {
     if (newMember.name && newMember.role) {
@@ -80,7 +90,7 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev }
   }
 
   const getTeamStats = () => {
-    const allSkills = teamMembers.flatMap((member) => member.skills)
+    const allSkills = teamMembers.flatMap((member) => member.skills || [])
     const skillCounts = skillCategories.map((category) => ({
       category: category.name,
       count: category.skills.filter((skill) => allSkills.includes(skill)).length,
@@ -109,16 +119,31 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev }
             <Users className="w-8 h-8 text-white" />
           </div>
         </div>
-        <h2 className="text-3xl font-bold text-white mb-2">Votre Équipe Citoyenne</h2>
-        <p className="text-blue-200 text-lg">Qui êtes-vous ? Avec qui allez-vous porter ce projet ?</p>
+        <h2 className="text-3xl font-bold text-white mb-2">{t.steps.step3.title}</h2>
+        <p className="text-blue-200 text-lg">{t.steps.step3.description}</p>
+      </motion.div>
+
+      {/* Conseil d'Expert - déplacé au début */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+        <Card className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-green-400/50 shadow-lg backdrop-blur-sm">
+          <CardContent className="p-6">
+            <div className="flex items-start space-x-4">
+              <Sparkles className="w-6 h-6 text-green-400 mt-1 flex-shrink-0" />
+              <div>
+                <h4 className="font-bold text-green-900 mb-2 text-lg">{t.steps.step3.expertTip.title}</h4>
+                <p className="text-green-800 font-medium leading-relaxed">{t.steps.step3.expertTip.content}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </motion.div>
 
       {/* Team stats radar */}
       {teamMembers.length > 0 && (
-        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}>
+        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 }}>
           <Card className="bg-gradient-to-r from-green-500/20 to-blue-500/20 border-green-400/30">
             <CardHeader>
-              <CardTitle className="text-white">Radar de Compétences de l'Équipe</CardTitle>
+              <CardTitle className="text-white">{t.steps.step3.teamStats}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -148,13 +173,15 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev }
 
       {/* Existing team members */}
       {teamMembers.length > 0 && (
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
           <Card className="bg-white/10 backdrop-blur-md border-white/20">
             <CardHeader>
-              <CardTitle className="text-white">Membres de l'équipe ({teamMembers.length})</CardTitle>
+              <CardTitle className="text-white">
+                {t.steps.step3.teamMembers} ({teamMembers.length})
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 {teamMembers.map((member) => (
                   <motion.div
                     key={member.id}
@@ -178,7 +205,7 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev }
                       </div>
 
                       <div className="flex flex-wrap gap-1">
-                        {member.skills.map((skill) => (
+                        {(member.skills || []).map((skill) => (
                           <Badge key={skill} variant="secondary" className="text-xs bg-blue-500/20 text-blue-300">
                             {skill}
                           </Badge>
@@ -196,48 +223,46 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev }
       )}
 
       {/* Add new member */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
         <Card className="bg-white/10 backdrop-blur-md border-white/20">
           <CardHeader>
             <CardTitle className="text-white flex items-center">
               <UserPlus className="w-5 h-5 mr-2" />
-              Ajouter un membre d'équipe
+              {t.steps.step3.addMember}
             </CardTitle>
-            <CardDescription className="text-blue-200">
-              Présentez les personnes clés qui porteront votre initiative.
-            </CardDescription>
+            <CardDescription className="text-blue-200">{t.steps.step3.addMemberDesc}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4">
               <div>
                 <Label htmlFor="name" className="text-white">
-                  Nom complet
+                  {t.steps.step3.fullName}
                 </Label>
                 <Input
                   id="name"
                   value={newMember.name || ""}
                   onChange={(e) => setNewMember({ ...newMember, name: e.target.value })}
                   className="bg-white/5 border-white/20 text-white"
-                  placeholder="Nom et prénom"
+                  placeholder={t.steps.step3.fullNamePlaceholder}
                 />
               </div>
 
               <div>
                 <Label htmlFor="role" className="text-white">
-                  Rôle dans le projet
+                  {t.steps.step3.role}
                 </Label>
                 <Input
                   id="role"
                   value={newMember.role || ""}
                   onChange={(e) => setNewMember({ ...newMember, role: e.target.value })}
                   className="bg-white/5 border-white/20 text-white"
-                  placeholder="Ex: Chef de projet, Développeur, etc."
+                  placeholder={t.steps.step3.rolePlaceholder}
                 />
               </div>
             </div>
 
             <div>
-              <Label className="text-white">Compétences</Label>
+              <Label className="text-white">{t.steps.step3.skills}</Label>
               <div className="space-y-3 mt-2">
                 {skillCategories.map((category) => (
                   <div key={category.name}>
@@ -266,27 +291,27 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev }
 
             <div>
               <Label htmlFor="experience" className="text-white">
-                Expérience pertinente
+                {t.steps.step3.experience}
               </Label>
               <Textarea
                 id="experience"
                 value={newMember.experience || ""}
                 onChange={(e) => setNewMember({ ...newMember, experience: e.target.value })}
                 className="bg-white/5 border-white/20 text-white placeholder:text-blue-300"
-                placeholder="Décrivez l'expérience pertinente de ce membre..."
+                placeholder={t.steps.step3.experiencePlaceholder}
               />
             </div>
 
             <div>
               <Label htmlFor="motivation" className="text-white">
-                Motivation personnelle
+                {t.steps.step3.motivation}
               </Label>
               <Textarea
                 id="motivation"
                 value={newMember.motivation || ""}
                 onChange={(e) => setNewMember({ ...newMember, motivation: e.target.value })}
                 className="bg-white/5 border-white/20 text-white placeholder:text-blue-300"
-                placeholder="Pourquoi cette personne s'engage-t-elle dans ce projet ?"
+                placeholder={t.steps.step3.motivationPlaceholder}
               />
             </div>
 
@@ -296,23 +321,8 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev }
               className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700"
             >
               <Plus className="w-4 h-4 mr-2" />
-              Ajouter ce membre
+              {t.steps.step3.addButton}
             </Button>
-          </CardContent>
-        </Card>
-      </motion.div>
-
-      {/* Tip */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-        <Card className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 border-purple-400/30">
-          <CardContent className="p-4">
-            <div className="flex items-center">
-              <Sparkles className="w-5 h-5 text-yellow-400 mr-3" />
-              <p className="text-white font-medium text-base drop-shadow-sm">
-                <strong className="text-yellow-300">Conseil :</strong> Mettez en avant la diversité, l'équilibre,
-                l'expérience terrain et l'ancrage local. Une démocratie forte repose sur des équipes engagées.
-              </p>
-            </div>
           </CardContent>
         </Card>
       </motion.div>
@@ -331,7 +341,7 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev }
           className="px-8 py-3 border-white/20 text-white hover:bg-white/10"
         >
           <ArrowLeft className="mr-2 w-5 h-5" />
-          Retour à la Technologie
+          {t.steps.step3.prevButton}
         </Button>
 
         <Button
@@ -347,14 +357,14 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev }
             }
           `}
         >
-          Continuer vers les Documents
+          {t.steps.step3.nextButton}
           <ArrowRight className="ml-2 w-5 h-5" />
         </Button>
       </motion.div>
 
       {!isComplete && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
-          <p className="text-yellow-400 text-sm">Ajoutez au moins 2 membres d'équipe pour continuer</p>
+          <p className="text-yellow-400 text-sm">{t.steps.step3.completionMessage}</p>
         </motion.div>
       )}
     </div>

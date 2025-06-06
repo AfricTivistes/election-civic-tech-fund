@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import "./globals.css"
+import "@/app/globals.css"
 
 export const metadata: Metadata = {
   title: "Election Civic Tech Fund",
@@ -10,11 +10,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode
+  params: { lang: string }
 }>) {
   return (
-    <html lang="fr">
+    <html lang={params.lang}>
       <body>{children}</body>
     </html>
   )

@@ -18,6 +18,7 @@ import {
   Sparkles,
   BarChart3,
 } from "lucide-react"
+import { useLanguage } from "@/hooks/use-language"
 
 interface StepTwoProps {
   data: any
@@ -27,60 +28,61 @@ interface StepTwoProps {
   onPrev: () => void
 }
 
-const technologies = [
-  {
-    id: "blockchain",
-    name: "Blockchain",
-    description: "Sécurisation des données électorales",
-    icon: Link,
-    color: "from-blue-500 to-cyan-500",
-    impact: 85,
-  },
-  {
-    id: "ai",
-    name: "Intelligence Artificielle",
-    description: "Analyse de tendances, modération",
-    icon: Brain,
-    color: "from-violet-500 to-purple-500",
-    impact: 90,
-  },
-  {
-    id: "mobile",
-    name: "Applications Mobiles",
-    description: "Accessibilité des électeurs",
-    icon: Smartphone,
-    color: "from-emerald-500 to-green-500",
-    impact: 95,
-  },
-  {
-    id: "web",
-    name: "Plateformes Web Open-Source",
-    description: "Solutions collaboratives",
-    icon: Globe,
-    color: "from-orange-500 to-red-500",
-    impact: 80,
-  },
-  {
-    id: "security",
-    name: "Sécurité Numérique",
-    description: "Protection des données",
-    icon: Shield,
-    color: "from-red-500 to-pink-500",
-    impact: 88,
-  },
-  {
-    id: "local",
-    name: "Langues Locales & Accessibilité",
-    description: "Inclusion numérique",
-    icon: Cpu,
-    color: "from-amber-500 to-yellow-500",
-    impact: 92,
-  },
-]
-
 export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: StepTwoProps) {
-  const [selectedTechnologies, setSelectedTechnologies] = useState(data.technologies || [])
-  const [impactScore, setImpactScore] = useState(data.impactScore || 0)
+  const { t } = useLanguage()
+  const [selectedTechnologies, setSelectedTechnologies] = useState((data && data.technologies) || [])
+  const [impactScore, setImpactScore] = useState((data && data.impactScore) || 0)
+
+  const technologies = [
+    {
+      id: "blockchain",
+      name: t.technologies.blockchain.name,
+      description: t.technologies.blockchain.description,
+      icon: Link,
+      color: "from-blue-500 to-cyan-500",
+      impact: 85,
+    },
+    {
+      id: "ai",
+      name: t.technologies.ai.name,
+      description: t.technologies.ai.description,
+      icon: Brain,
+      color: "from-violet-500 to-purple-500",
+      impact: 90,
+    },
+    {
+      id: "mobile",
+      name: t.technologies.mobile.name,
+      description: t.technologies.mobile.description,
+      icon: Smartphone,
+      color: "from-emerald-500 to-green-500",
+      impact: 95,
+    },
+    {
+      id: "web",
+      name: t.technologies.web.name,
+      description: t.technologies.web.description,
+      icon: Globe,
+      color: "from-orange-500 to-red-500",
+      impact: 80,
+    },
+    {
+      id: "security",
+      name: t.technologies.security.name,
+      description: t.technologies.security.description,
+      icon: Shield,
+      color: "from-red-500 to-pink-500",
+      impact: 88,
+    },
+    {
+      id: "local",
+      name: t.technologies.local.name,
+      description: t.technologies.local.description,
+      icon: Cpu,
+      color: "from-amber-500 to-yellow-500",
+      impact: 92,
+    },
+  ]
 
   const toggleTechnology = (techId: string) => {
     const newSelection = selectedTechnologies.includes(techId)
@@ -120,23 +122,34 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
             <Zap className="w-8 h-8 text-white" />
           </div>
         </div>
-        <h2 className="ectf-heading-section ectf-text-heading mb-3">L'Impact Technologique</h2>
-        <p className="ectf-text-subheading text-lg">
-          Comment la technologie va-t-elle renforcer votre impact citoyen ?
-        </p>
+        <h2 className="ectf-heading-section ectf-text-heading mb-3">{t.steps.step2.title}</h2>
+        <p className="ectf-text-subheading text-lg">{t.steps.step2.description}</p>
+      </motion.div>
+
+      {/* Conseil d'Expert - déplacé au début */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+        <Card className="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border-blue-400/50 shadow-lg backdrop-blur-sm">
+          <CardContent className="p-6">
+            <div className="flex items-start space-x-4">
+              <Sparkles className="w-6 h-6 text-blue-400 mt-1 flex-shrink-0" />
+              <div>
+                <h4 className="font-bold text-blue-900 mb-2 text-lg">{t.steps.step2.expertTip.title}</h4>
+                <p className="text-blue-800 font-medium leading-relaxed">{t.steps.step2.expertTip.content}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </motion.div>
 
       {/* Technology selection */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
         <Card className="ectf-card">
           <CardHeader className="ectf-card-header">
-            <CardTitle className="ectf-card-title">Sélectionnez vos technologies</CardTitle>
-            <CardDescription className="ectf-card-description">
-              Choisissez les outils technologiques que vous utiliserez. Vous pouvez en sélectionner plusieurs.
-            </CardDescription>
+            <CardTitle className="ectf-card-title">{t.steps.step2.selectTech}</CardTitle>
+            <CardDescription className="ectf-card-description">{t.steps.step2.selectTechDesc}</CardDescription>
           </CardHeader>
           <CardContent className="ectf-card-content">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {technologies.map((tech) => {
                 const IconComponent = tech.icon
                 const isSelected = selectedTechnologies.includes(tech.id)
@@ -184,19 +197,19 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
 
       {/* Impact visualization */}
       {selectedTechnologies.length > 0 && (
-        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 }}>
+        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4 }}>
           <Card className="bg-gradient-to-r from-emerald-500/20 to-blue-500/20 border-emerald-400/40 shadow-xl">
             <CardHeader className="ectf-card-header">
               <CardTitle className="ectf-card-title flex items-center text-2xl">
                 <BarChart3 className="w-7 h-7 mr-3 text-emerald-400" />
-                Visualisation de votre ADN Démocratique
+                {t.steps.step2.impactTitle}
               </CardTitle>
             </CardHeader>
             <CardContent className="ectf-card-content">
               <div className="ectf-content-spacing">
                 <div className="text-center">
                   <div className="text-6xl font-bold text-emerald-300 mb-4 drop-shadow-lg">{impactScore}%</div>
-                  <p className="text-emerald-100 font-semibold text-xl">Score d'Impact Social et Technologique</p>
+                  <p className="text-emerald-100 font-semibold text-xl">{t.steps.step2.impactSubtitle}</p>
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
@@ -221,24 +234,6 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
         </motion.div>
       )}
 
-      {/* Tip */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-        <Card className="bg-gradient-to-r from-violet-500/20 to-purple-500/20 border-violet-400/40 shadow-lg">
-          <CardContent className="p-6">
-            <div className="flex items-start space-x-4">
-              <Sparkles className="w-6 h-6 text-amber-400 mt-1 flex-shrink-0" />
-              <div>
-                <h4 className="font-bold text-white mb-2">Impact Estimé</h4>
-                <p className="text-white font-medium leading-relaxed drop-shadow-sm">
-                  Notre outil calcule en direct un score d'impact social et technologique pour vous aider à affiner
-                  votre proposition et maximiser votre potentiel démocratique.
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </motion.div>
-
       {/* Navigation */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -252,7 +247,7 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
           className="ectf-button-secondary px-8 py-4 font-semibold text-base rounded-xl"
         >
           <ArrowLeft className="mr-3 w-5 h-5" />
-          Retour à la Vision
+          {t.steps.step2.prevButton}
         </Button>
 
         <Button
@@ -268,14 +263,14 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
             }
           `}
         >
-          Continuer vers l'Équipe
+          {t.steps.step2.nextButton}
           <ArrowRight className="ml-3 w-5 h-5" />
         </Button>
       </motion.div>
 
       {!isComplete && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
-          <p className="text-amber-400 text-sm font-medium">Sélectionnez au moins une technologie pour continuer</p>
+          <p className="text-amber-400 text-sm font-medium">{t.steps.step2.completionMessage}</p>
         </motion.div>
       )}
     </div>
