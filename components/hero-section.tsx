@@ -692,6 +692,34 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
                   ></div>
                 </div>
 
+                {/* Conçu et géré par AfricTivistes */}
+                <div className="text-center group hover:scale-105 transition-transform duration-300">
+                  <span className="text-blue-200 text-lg font-medium block mb-3">Conçu et géré par</span>
+                  <img
+                    src="/logo-africtivites.svg"
+                    alt="AfricTivistes"
+                    className="h-12 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 filter brightness-110 mx-auto"
+                    style={{
+                      filter:
+                        "brightness(0) saturate(100%) invert(94%) sepia(6%) saturate(1044%) hue-rotate(183deg) brightness(106%) contrast(94%)",
+                    }}
+                    onError={() => {
+                      console.error("Error loading AfricTivistes logo")
+                    }}
+                  />
+                </div>
+
+
+                {/* Séparateur décoratif */}
+                <div className="hidden md:flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                  <div className="w-16 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+                  <div
+                    className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"
+                    style={{ animationDelay: "0.5s" }}
+                  ></div>
+                </div>
+
                 {/* Propulsé par DDI */}
                 <div className="text-center group hover:scale-105 transition-transform duration-300">
                   <span className="text-blue-200 text-lg font-medium block mb-3">
