@@ -29,21 +29,37 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
       title: "Technologies Citoyennes Électorales",
       description: "Blockchain, IA, outils civic tech, sécurité numérique",
       examples: ["Blockchain pour la transparence", "IA pour l'analyse", "Apps mobiles citoyennes"],
+      amount: "70 000€",
+      percentage: "40%",
+      icon: "🔧",
+      color: "from-blue-400 to-cyan-500",
     },
     engagement: {
       title: "Engagement Citoyen",
       description: "Éducation civique, observation électorale, inclusion",
       examples: ["Éducation citoyenne", "Observation électorale", "Participation des jeunes"],
+      amount: "43 750€",
+      percentage: "25%",
+      icon: "👥",
+      color: "from-green-400 to-emerald-500",
     },
     media: {
       title: "Médias & Information",
       description: "Fact-checking, lutte contre la désinformation",
       examples: ["Vérification des faits", "Médias citoyens", "Anti-désinformation"],
+      amount: "35 000€",
+      percentage: "20%",
+      icon: "📄",
+      color: "from-purple-400 to-pink-500",
     },
     legal: {
       title: "Cadre Légal",
       description: "Réformes électorales, contentieux, veille juridique",
       examples: ["Réformes électorales", "Suivi contentieux", "Veille juridique"],
+      amount: "26 250€",
+      percentage: "15%",
+      icon: "⚖️",
+      color: "from-orange-400 to-red-500",
     },
   }
 
@@ -187,16 +203,30 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
                         <RadioGroupItem value={key} id={key} className="sr-only" />
 
                         <div className="flex items-start space-x-4">
-                          <div className="p-3 rounded-xl bg-gradient-to-r from-blue-400 to-cyan-500 shadow-md">
-                            <Lightbulb className="w-6 h-6 text-white" />
+                          <div className={`p-3 rounded-xl bg-gradient-to-r ${value.color || 'from-blue-400 to-cyan-500'} shadow-md`}>
+                            <span className="text-2xl" role="img" aria-label={value.title}>
+                              {value.icon || "💡"}
+                            </span>
                           </div>
 
                           <div className="flex-1 space-y-3">
                             <div className="flex items-center justify-between">
                               <h3 className="font-bold text-white text-base">{value.title}</h3>
-                              {isSelected && (
-                                <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
-                              )}
+                              <div className="flex items-center space-x-2">
+                                <div className={`
+                                  px-3 py-1 rounded-full text-sm font-bold transition-all duration-300
+                                  ${
+                                    isSelected
+                                      ? "bg-yellow-400 text-yellow-900"
+                                      : "bg-white/20 text-white"
+                                  }
+                                `}>
+                                  {value.amount} • {value.percentage}
+                                </div>
+                                {isSelected && (
+                                  <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+                                )}
+                              </div>
                             </div>
 
                             <p className="text-blue-200 text-sm leading-relaxed">{value.description}</p>
