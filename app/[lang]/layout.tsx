@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   generator: "v0.dev",
 }
 
-export default async function RootLayout({
+export default async function LangLayout({
   children,
   params
 }: {
@@ -17,17 +17,15 @@ export default async function RootLayout({
 }) {
   const { lang } = await params
   return (
-    <html lang={lang}>
-      <body>
-        {children}
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            if (typeof document !== 'undefined') {
-              document.documentElement.removeAttribute('data-google-analytics-opt-out');
-            }
-          `
-        }} />
-      </body>
-    </html>
+    <>
+      {children}
+      <script dangerouslySetInnerHTML={{
+        __html: `
+          if (typeof document !== 'undefined') {
+            document.documentElement.removeAttribute('data-google-analytics-opt-out');
+          }
+        `
+      }} />
+    </>
   )
 }
