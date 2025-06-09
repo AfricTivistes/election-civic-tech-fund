@@ -161,29 +161,80 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <RadioGroup value={domain} onValueChange={setDomain} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {Object.entries(domains).map(([key, value]) => (
-                  <div key={key} className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value={key} id={key} className="border-white text-white" />
-                      <Label htmlFor={key} className="text-white font-semibold">
-                        {value.title}
+            <RadioGroup value={domain} onValueChange={setDomain}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {Object.entries(domains).map(([key, value]) => {
+                  const isSelected = domain === key
+                  
+                  return (
+                    <motion.div
+                      key={key}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="group"
+                    >
+                      <Label
+                        htmlFor={key}
+                        className={`
+                          cursor-pointer block p-6 rounded-xl border-2 transition-all duration-300
+                          ${
+                            isSelected
+                              ? "border-yellow-400 bg-yellow-400/10 shadow-lg shadow-yellow-400/20"
+                              : "border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10"
+                          }
+                        `}
+                      >
+                        <RadioGroupItem value={key} id={key} className="sr-only" />
+
+                        <div className="flex items-start space-x-4">
+                          <div className="p-3 rounded-xl bg-gradient-to-r from-blue-400 to-cyan-500 shadow-md">
+                            <Lightbulb className="w-6 h-6 text-white" />
+                          </div>
+
+                          <div className="flex-1 space-y-3">
+                            <div className="flex items-center justify-between">
+                              <h3 className="font-bold text-white text-base">{value.title}</h3>
+                              {isSelected && (
+                                <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+                              )}
+                            </div>
+
+                            <p className="text-blue-200 text-sm leading-relaxed">{value.description}</p>
+
+                            <div className="flex flex-wrap gap-2">
+                              {value.examples.map((example, i) => (
+                                <span
+                                  key={i}
+                                  className={`
+                                    text-xs px-3 py-1 rounded-full border transition-all duration-300
+                                    ${
+                                      isSelected
+                                        ? "bg-yellow-400/20 text-yellow-300 border-yellow-400/40"
+                                        : "bg-blue-500/20 text-blue-300 border-blue-500/30 hover:bg-blue-500/30"
+                                    }
+                                  `}
+                                >
+                                  {example}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Indicateur de sélection */}
+                        {isSelected && (
+                          <motion.div
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="absolute top-3 right-3 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center"
+                          >
+                            <div className="w-2 h-2 bg-white rounded-full"></div>
+                          </motion.div>
+                        )}
                       </Label>
-                    </div>
-                    <p className="text-sm text-blue-200 ml-6">{value.description}</p>
-                    <div className="flex flex-wrap gap-1 ml-6">
-                      {value.examples.map((example, i) => (
-                        <span
-                          key={i}
-                          className="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full border border-blue-500/30"
-                        >
-                          {example}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+                    </motion.div>
+                  )
+                })}
               </div>
             </RadioGroup>
           </CardContent>
