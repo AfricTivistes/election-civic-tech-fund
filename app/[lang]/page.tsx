@@ -15,6 +15,67 @@ import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/hooks/use-language"
 import LanguageSwitcher from "@/components/language-switcher"
 
+// New Component
+const HomeDocuments = () => {
+  const { t } = useLanguage();
+  const documents = [
+    {
+      name: "Note de cadrage",
+      en: "/documents/en/framing_note_en.pdf",
+      fr: "/documents/fr/note_de_cadrage_fr.pdf",
+    },
+    {
+      name: "Appel à projet",
+      en: "/documents/en/call_for_projects_en.pdf",
+      fr: "/documents/fr/appel_a_projet_fr.pdf",
+    },
+    {
+      name: "Descriptif projet",
+      en: "/documents/en/project_description_en.pdf",
+      fr: "/documents/fr/descriptif_projet_fr.pdf",
+    },
+    {
+      name: "Budget",
+      en: "/documents/en/budget_en.pdf",
+      fr: "/documents/fr/budget_fr.pdf",
+    },
+  ];
+
+  const getFileName = (path: string) => {
+    return path.split("/").pop()?.split(".")[0];
+  }
+
+  return (
+    <section className="container mx-auto py-8">
+      <h2 className="text-2xl font-bold text-white mb-4">{t?.home?.documents?.title || "Documents"}</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {documents.map((doc, index) => (
+          <Card key={index} className="bg-white/5 backdrop-blur-md border border-white/10">
+            <CardHeader>
+              <CardTitle className="text-lg font-medium text-white">{doc.name}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex justify-between">
+                <Button asChild variant="secondary" className="bg-blue-500 hover:bg-blue-600 text-white">
+                  <a href={doc.fr} download={getFileName(doc.fr)}>
+                    {t?.home?.documents?.downloadFr || "Télécharger (FR)"}
+                  </a>
+                </Button>
+                <Button asChild variant="secondary" className="bg-green-500 hover:bg-green-600 text-white">
+                  <a href={doc.en} download={getFileName(doc.en)}>
+                    {t?.home?.documents?.downloadEn || "Download (EN)"}
+                  </a>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+
 interface PageProps {
   params: Promise<{
     lang: string
@@ -202,6 +263,14 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
     }
   }
 
+    const handleStart = () => {
+        try {
+            setCurrentStep(1);
+        } catch (error) {
+            console.error("Error starting:", error);
+        }
+    };
+
   // Afficher un loader pendant le montage ou le chargement des traductions
   if (!mounted || isLoading || !t) {
     return (
@@ -212,7 +281,92 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
   }
 
   if (currentStep === 0) {
-    return <HeroSection onStart={() => setCurrentStep(1)} />
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+        <HeroSection onStart={handleStart} />
+        <HomeDocuments />
+        
+        {/* Footer */}
+        <footer className="border-t border-white/10 pt-8 bg-slate-900/50">
+          <div className="container mx-auto px-4">
+            {/* Bannière partenaires */}
+            <div className="bg-gradient-to-r from-white/10 via-white/5 to-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 mb-8 shadow-xl">
+              <div className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+                {/* Mené par AHEAD Africa */}
+                <div className="text-center group hover:scale-105 transition-transform duration-300">
+                  <span className="text-blue-200 text-lg font-medium block mb-3">
+                    {t?.hero?.footer?.ledBy || "Mené par"}
+                  </span>
+                  <img
+                    src="/partners/ahead-africa.webp"
+                    alt="AHEAD Africa"
+                    className="h-12 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 filter brightness-110 mx-auto"
+                  />
+                </div>
+
+                {/* Séparateur décoratif */}
+                <div className="hidden md:flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                  <div className="w-16 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+                  <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
+                </div>
+
+                {/* Conçu et géré par AfricTivistes */}
+                <div className="text-center group hover:scale-105 transition-transform duration-300">
+                  <span className="text-blue-200 text-lg font-medium block mb-3">
+                    {t?.hero?.footer?.designedBy || "Conçu et géré par"}
+                  </span>
+                  <img
+                    src="/logo-africtivites.svg"
+                    alt="AfricTivistes"
+                    className="h-12 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 filter brightness-110 mx-auto"
+                    style={{
+                      filter: "brightness(0) saturate(100%) invert(94%) sepia(6%) saturate(1044%) hue-rotate(183deg) brightness(106%) contrast(94%)",
+                    }}
+                  />
+                </div>
+
+                {/* Séparateur décoratif */}
+                <div className="hidden md:flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                  <div className="w-16 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+                  <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
+                </div>
+
+                {/* Propulsé par DDI */}
+                <div className="text-center group hover:scale-105 transition-transform duration-300">
+                  <span className="text-blue-200 text-lg font-medium block mb-3">
+                    {t?.hero?.footer?.poweredBy || "Propulsé par"}
+                  </span>
+                  <img
+                    src="/partners/ddi-logo.jpeg"
+                    alt="Digital Democracy Initiative"
+                    className="h-12 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 filter brightness-110 mx-auto"
+                  />
+                </div>
+              </div>
+
+              {/* Message inspirant */}
+              <div className="mt-6 text-center border-t border-white/10 pt-4">
+                <p className="text-blue-200 text-sm font-medium leading-relaxed">
+                  {t?.hero?.footer?.projectDescription || "Ce fonds s'inscrit dans le cadre du projet « Digitalize Youth », qui vise à lutter contre le rétrécissement de l'espace civique et la désinformation rampante dans les régions du Sahel, de l'Ouest et de la Corne de l'Afrique en renforçant les compétences numériques des jeunes militants locaux et des organisations de la société civile, via la promotion des solutions technologiques civiques et en sensibilisant le public à l'engagement politique en ligne."}
+                </p>
+              </div>
+            </div>
+
+            {/* Copyright */}
+            <div className="text-center pb-8">
+              <p className="text-sm text-blue-200">
+                {t?.hero?.footer?.copyright || "© 2024 Election Civic Tech Fund - AfricTivistes"}
+              </p>
+              <p className="text-xs text-blue-300 mt-1">
+                {t?.hero?.footer?.tagline || "Ensemble, nous construisons l'avenir démocratique de l'Afrique"}
+              </p>
+            </div>
+          </div>
+        </footer>
+      </div>
+    )
   }
 
   return (
