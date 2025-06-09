@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Lightbulb, Users, FileText, Award, Zap, Star, Home, Clock, HelpCircle } from "lucide-react"
@@ -16,12 +16,13 @@ import { useLanguage } from "@/hooks/use-language"
 import LanguageSwitcher from "@/components/language-switcher"
 
 interface PageProps {
-  params: {
+  params: Promise<{
     lang: string
-  }
+  }>
 }
 
 export default function ElectionCivicTechFund({ params }: PageProps) {
+  const resolvedParams = React.use(params)
   const [currentStep, setCurrentStep] = useState(0)
   const [formData, setFormData] = useState({
     vision: {},
@@ -479,7 +480,7 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
             <HelpCircle className="w-6 h-6 mr-2" />
             {(() => {
               try {
-                const currentLang = params?.lang || "fr"
+                const currentLang = resolvedParams?.lang || "fr"
                 return currentLang === "en" ? "Help" : "Aide"
               } catch (error) {
                 console.error("Error determining language for help button:", error)
@@ -490,7 +491,7 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
         )}
 
         {/* Guide Modal */}
-        {mounted && <FormGuide isOpen={isGuideOpen} onClose={handleGuideClose} currentStep={currentStep} />}
+        {mounted && <FormGuide isOpen={isGuideOpen} onClose={handleGuideClose} currentStep={currentStep} params={resolvedParams} />}
       </div>
     </div>
   )
