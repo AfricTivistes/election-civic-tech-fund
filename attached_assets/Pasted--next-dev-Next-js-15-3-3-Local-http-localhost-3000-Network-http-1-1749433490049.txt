@@ -1,0 +1,87 @@
+> next dev
+
+   ▲ Next.js 15.3.3
+   - Local:        http://localhost:3000
+   - Network:      http://172.31.128.78:3000
+
+ ✓ Starting...
+ ✓ Ready in 1385ms
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 873ms (108 modules)
+ ○ Compiling /[lang] ...
+ ✓ Compiled /[lang] in 8.1s (1647 modules)
+ ✓ Compiled in 669ms (804 modules)
+Error: Route "/[lang]" used `params.lang`. `params` should be awaited before using its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at RootLayout (app/[lang]/layout.tsx:19:23)
+  17 | }>) {
+  18 |   return (
+> 19 |     <html lang={params.lang}>
+     |                       ^
+  20 |       <body>{children}</body>
+  21 |     </html>
+  22 |   )
+Error: Route "/[lang]" used `params.lang`. `params` should be awaited before using its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at RootLayout (app/[lang]/layout.tsx:19:23)
+  17 | }>) {
+  18 |   return (
+> 19 |     <html lang={params.lang}>
+     |                       ^
+  20 |       <body>{children}</body>
+  21 |     </html>
+  22 |   )
+ GET /fr 200 in 9171ms
+ GET /fr 200 in 6203ms
+ ⚠ Cross origin request detected from 0f1fa7fa-0aff-4f83-9252-bca16ee2f690-00-swzoy0dpes9x.spock.replit.dev to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+Error: Route "/[lang]" used `params.lang`. `params` should be awaited before using its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at RootLayout (app/[lang]/layout.tsx:19:23)
+  17 | }>) {
+  18 |   return (
+> 19 |     <html lang={params.lang}>
+     |                       ^
+  20 |       <body>{children}</body>
+  21 |     </html>
+  22 |   )
+ GET /favicon.ico 200 in 66ms
+ ✓ Compiled in 709ms (804 modules)
+ ✓ Compiled in 406ms (804 modules)
+Error: Route "/[lang]" used `params.lang`. `params` should be awaited before using its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at RootLayout (app/[lang]/layout.tsx:19:23)
+  17 | }>) {
+  18 |   return (
+> 19 |     <html lang={params.lang}>
+     |                       ^
+  20 |       <body>{children}</body>
+  21 |     </html>
+  22 |   )
+ GET /fr 200 in 45ms
+Error: Route "/[lang]" used `params.lang`. `params` should be awaited before using its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at RootLayout (app/[lang]/layout.tsx:19:23)
+  17 | }>) {
+  18 |   return (
+> 19 |     <html lang={params.lang}>
+     |                       ^
+  20 |       <body>{children}</body>
+  21 |     </html>
+  22 |   )
+ GET /fr 200 in 25ms
+Error: Route "/[lang]" used `params.lang`. `params` should be awaited before using its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at RootLayout (app/[lang]/layout.tsx:19:23)
+  17 | }>) {
+  18 |   return (
+> 19 |     <html lang={params.lang}>
+     |                       ^
+  20 |       <body>{children}</body>
+  21 |     </html>
+  22 |   )
+ GET /fr 200 in 27ms
+Error: Route "/[lang]" used `params.lang`. `params` should be awaited before using its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at RootLayout (app/[lang]/layout.tsx:19:23)
+  17 | }>) {
+  18 |   return (
+> 19 |     <html lang={params.lang}>
+     |                       ^
+  20 |       <body>{children}</body>
+  21 |     </html>
+  22 |   )
+ GET /fr 200 in 23ms
