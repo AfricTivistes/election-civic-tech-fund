@@ -474,7 +474,7 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
 
         {/* Badges sidebar */}
         {Array.isArray(badges) && badges.length > 0 && (
-          <div className="fixed right-4 top-1/2 transform -translate-y-1/2 z-40 transition-all duration-300">
+          <div className="fixed right-4 top-1/2 transform -translate-y-1/2 z-40 transition-all duration-300 hidden lg:block">
             <Card className="bg-white/10 backdrop-blur-md border-white/20">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm text-white flex items-center">
