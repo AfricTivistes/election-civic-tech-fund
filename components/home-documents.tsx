@@ -26,18 +26,18 @@ interface HomeDocument {
 }
 
 export default function HomeDocuments() {
-  const { language } = useLanguage()
+  const { t, language } = useLanguage()
 
   const documents: HomeDocument[] = [
     {
       id: "concept-note",
       name: {
-        fr: "Note de cadrage",
-        en: "Concept Note"
+        fr: t?.home?.documents?.conceptNote?.name || "Note de cadrage",
+        en: t?.home?.documents?.conceptNote?.name || "Concept Note"
       },
       description: {
-        fr: "Document cadre présentant les objectifs et la vision du fonds d'innovation démocratique",
-        en: "Framework document presenting the objectives and vision of the democratic innovation fund"
+        fr: t?.home?.documents?.conceptNote?.description || "Document cadre présentant les objectifs et la vision du fonds d'innovation démocratique",
+        en: t?.home?.documents?.conceptNote?.description || "Framework document presenting the objectives and vision of the democratic innovation fund"
       },
       filename: {
         fr: 'AHEAD Africa DDI - Note de cadrage - Election Civic Tech Fund.pdf',
@@ -50,12 +50,12 @@ export default function HomeDocuments() {
     {
       id: "call-for-proposals",
       name: {
-        fr: "Appel à projets",
-        en: "Call for Proposals"
+        fr: t?.home?.documents?.callForProposals?.name || "Appel à projets",
+        en: t?.home?.documents?.callForProposals?.name || "Call for Proposals"
       },
       description: {
-        fr: "Termes de référence détaillés pour la soumission de votre projet innovant",
-        en: "Detailed terms of reference for submitting your innovative project"
+        fr: t?.home?.documents?.callForProposals?.description || "Termes de référence détaillés pour la soumission de votre projet innovant",
+        en: t?.home?.documents?.callForProposals?.description || "Detailed terms of reference for submitting your innovative project"
       },
       filename: {
         fr: 'TDR - Appel à projets - Election Civic Tech Fund - AfricTivistes.pdf',
@@ -68,12 +68,12 @@ export default function HomeDocuments() {
     {
       id: "project-description",
       name: {
-        fr: "Descriptif projet",
-        en: "Project Description"
+        fr: t?.home?.documents?.projectDescription?.name || "Descriptif projet",
+        en: t?.home?.documents?.projectDescription?.name || "Project Description"
       },
       description: {
-        fr: "Template structuré pour présenter votre vision et votre impact démocratique",
-        en: "Structured template to present your vision and democratic impact"
+        fr: t?.home?.documents?.projectDescription?.description || "Template structuré pour présenter votre vision et votre impact démocratique",
+        en: t?.home?.documents?.projectDescription?.description || "Structured template to present your vision and democratic impact"
       },
       filename: {
         fr: 'Descriptif projet - Appel à projet - Election Civic Tech Fund - AfricTivistes.docx',
@@ -86,12 +86,12 @@ export default function HomeDocuments() {
     {
       id: "budget-template",
       name: {
-        fr: "Template Budget",
-        en: "Budget Template"
+        fr: t?.home?.documents?.budgetTemplate?.name || "Template Budget",
+        en: t?.home?.documents?.budgetTemplate?.name || "Budget Template"
       },
       description: {
-        fr: "Modèle Excel détaillé pour structurer votre budget prévisionnel et vos ressources",
-        en: "Detailed Excel template to structure your projected budget and resources"
+        fr: t?.home?.documents?.budgetTemplate?.description || "Modèle Excel détaillé pour structurer votre budget prévisionnel et vos ressources",
+        en: t?.home?.documents?.budgetTemplate?.description || "Detailed Excel template to structure your projected budget and resources"
       },
       filename: {
         fr: 'Template Budget - Election Civic Tech Fund - AfricTivistes.xlsx',
@@ -145,14 +145,11 @@ export default function HomeDocuments() {
       {/* En-tête de section */}
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-yellow-200 to-blue-200 bg-clip-text text-transparent">
-          {language === 'fr' ? 'Documents Essentiels' : 'Essential Documents'}
+          {t?.home?.documents?.title || 'Documents Essentiels'}
         </h2>
 
         <p className="text-blue-200/90 text-xl max-w-4xl mx-auto leading-relaxed">
-          {language === 'fr' 
-            ? 'Téléchargez tous les documents nécessaires pour transformer votre vision démocratique en réalité avec le Election Civic Tech Fund.'
-            : 'Download all necessary documents to transform your democratic vision into reality with the Election Civic Tech Fund.'
-          }
+          {t?.home?.documents?.subtitle || 'Téléchargez tous les documents nécessaires pour transformer votre vision démocratique en réalité avec le Election Civic Tech Fund.'}
         </p>
       </div>
 
@@ -207,7 +204,7 @@ export default function HomeDocuments() {
                     className="text-blue-200 hover:text-white hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-white/40 backdrop-blur-sm group/btn"
                   >
                     <ExternalLink className="w-4 h-4 mr-2 group-hover/btn:scale-110 transition-transform" />
-                    {language === 'fr' ? 'Aperçu' : 'Preview'}
+                    {t?.home?.documents?.preview || 'Aperçu'}
                   </Button>
                   <Button
                     onClick={() => handleDownload(currentFilename)}
@@ -215,7 +212,7 @@ export default function HomeDocuments() {
                     className={`bg-gradient-to-r ${doc.color} hover:scale-105 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 font-bold group/btn`}
                   >
                     <Download className="w-4 h-4 mr-2 group-hover/btn:scale-110 transition-transform" />
-                    {language === 'fr' ? 'Télécharger' : 'Download'}
+                    {t?.home?.documents?.download || 'Télécharger'}
                     <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                   </Button>
                 </div>
@@ -229,23 +226,17 @@ export default function HomeDocuments() {
       <div className="text-center">
         <div className="inline-flex flex-col items-center space-y-4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl px-10 py-8 shadow-2xl max-w-4xl">
           <h3 className="text-2xl font-bold text-white mb-2">
-            {language === 'fr' ? 'Prêt à Commencer ?' : 'Ready to Start?'}
+            {t?.home?.documents?.readyTitle || 'Prêt à Commencer ?'}
           </h3>
 
           <p className="text-blue-200/90 text-lg leading-relaxed mb-4">
-            {language === 'fr' 
-              ? 'Tous les documents sont régulièrement mis à jour pour garantir les meilleures chances de succès à votre candidature.'
-              : 'All documents are regularly updated to ensure the best chances of success for your application.'
-            }
+            {t?.home?.documents?.readyText || 'Tous les documents sont régulièrement mis à jour pour garantir les meilleures chances de succès à votre candidature.'}
           </p>
 
           <div className="flex items-center space-x-2 text-sm text-blue-300">
             <span>💡</span>
             <span className="font-medium">
-              {language === 'fr' 
-                ? 'Conseil : Lisez attentivement chaque document avant de commencer votre candidature'
-                : 'Tip: Read each document carefully before starting your application'
-              }
+              {t?.home?.documents?.tip || 'Conseil : Lisez attentivement chaque document avant de commencer votre candidature'}
             </span>
           </div>
         </div>

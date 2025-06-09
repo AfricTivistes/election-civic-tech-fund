@@ -257,6 +257,34 @@ export interface Translation {
     }
   }
 
+  home: {
+    documents: {
+      title: string
+      subtitle: string
+      conceptNote: {
+        name: string
+        description: string
+      }
+      callForProposals: {
+        name: string
+        description: string
+      }
+      projectDescription: {
+        name: string
+        description: string
+      }
+      budgetTemplate: {
+        name: string
+        description: string
+      }
+      preview: string
+      download: string
+      readyTitle: string
+      readyText: string
+      tip: string
+    }
+  }
+
   // Countries challenges
   countries: {
     [key: string]: {
@@ -517,6 +545,33 @@ export const translations: Record<string, Translation> = {
         name: "Budget Prévisionnel",
         description: "Budget détaillé selon le modèle",
       },
+    },
+    home: {
+      documents: {
+        title: "Documents Essentiels",
+        subtitle: "Téléchargez tous les documents nécessaires pour transformer votre vision démocratique en réalité avec le Election Civic Tech Fund.",
+        conceptNote: {
+          name: "Note de cadrage",
+          description: "Document cadre présentant les objectifs et la vision du fonds d'innovation démocratique"
+        },
+        callForProposals: {
+          name: "Appel à projets",
+          description: "Termes de référence détaillés pour la soumission de votre projet innovant"
+        },
+        projectDescription: {
+          name: "Descriptif projet",
+          description: "Template structuré pour présenter votre vision et votre impact démocratique"
+        },
+        budgetTemplate: {
+          name: "Template Budget",
+          description: "Modèle Excel détaillé pour structurer votre budget prévisionnel et vos ressources"
+        },
+        preview: "Aperçu",
+        download: "Télécharger",
+        readyTitle: "Prêt à Commencer ?",
+        readyText: "Tous les documents sont régulièrement mis à jour pour garantir les meilleures chances de succès à votre candidature.",
+        tip: "Conseil : Lisez attentivement chaque document avant de commencer votre candidature"
+      }
     },
     countries: {
       Sénégal: {
@@ -780,6 +835,33 @@ export const translations: Record<string, Translation> = {
         name: "Budget Forecast",
         description: "Detailed budget according to the template",
       },
+    },
+    home: {
+      documents: {
+        title: "Essential Documents",
+        subtitle: "Download all necessary documents to transform your democratic vision into reality with the Election Civic Tech Fund.",
+        conceptNote: {
+          name: "Concept Note",
+          description: "Framework document presenting the objectives and vision of the democratic innovation fund"
+        },
+        callForProposals: {
+          name: "Call for Proposals",
+          description: "Detailed terms of reference for submitting your innovative project"
+        },
+        projectDescription: {
+          name: "Project Description",
+          description: "Structured template to present your vision and democratic impact"
+        },
+        budgetTemplate: {
+          name: "Budget Template",
+          description: "Detailed Excel template to structure your projected budget and resources"
+        },
+        preview: "Preview",
+        download: "Download",
+        readyTitle: "Ready to Start?",
+        readyText: "All documents are regularly updated to ensure the best chances of success for your application.",
+        tip: "Tip: Read each document carefully before starting your application"
+      }
     },
     countries: {
       Senegal: {
