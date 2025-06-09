@@ -1,3 +1,4 @@
+
 "use client"
 
 import { Button } from "@/components/ui/button"
@@ -86,7 +87,7 @@ export default function HomeDocuments() {
     {
       id: "budget-template",
       name: {
-        fr: "Template Budget",
+        fr: "Budget",
         en: "Budget Template"
       },
       description: {
