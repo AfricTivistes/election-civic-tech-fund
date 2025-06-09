@@ -8,15 +8,16 @@ export const metadata: Metadata = {
   generator: "v0.dev",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-  params,
-}: Readonly<{
+  params
+}: {
   children: React.ReactNode
-  params: { lang: string }
-}>) {
+  params: Promise<{ lang: string }>
+}) {
+  const { lang } = await params
   return (
-    <html lang={params.lang}>
+    <html lang={lang}>
       <body>{children}</body>
     </html>
   )
