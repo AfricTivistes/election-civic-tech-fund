@@ -18,7 +18,16 @@ export default async function RootLayout({
   const { lang } = await params
   return (
     <html lang={lang}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            if (typeof document !== 'undefined') {
+              document.documentElement.removeAttribute('data-google-analytics-opt-out');
+            }
+          `
+        }} />
+      </body>
     </html>
   )
 }

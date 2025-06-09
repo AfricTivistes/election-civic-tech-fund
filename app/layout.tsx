@@ -1,21 +1,3 @@
-import type React from "react"
-import type { Metadata } from "next"
-import "./globals.css"
 
-export const metadata: Metadata = {
-  title: "Election Civic Tech Fund",
-  description: "Digital Democracy Journey",
-  generator: "v0.dev",
-}
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
-  return (
-    <html lang="fr">
-      <body>{children}</body>
-    </html>
-  )
-}
+// This file is no longer needed as we have app/[lang]/layout.tsx
+// which handles the dynamic language routing
