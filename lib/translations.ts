@@ -33,6 +33,7 @@ export interface Translation {
     }
     footer: {
       ledBy: string
+      designedBy: string
       poweredBy: string
       projectDescription: string
       copyright: string
@@ -299,6 +300,7 @@ export const translations: Record<string, Translation> = {
       },
       footer: {
         ledBy: "Mené par",
+        designedBy: "Conçu et géré par",
         poweredBy: "Propulsé par",
         projectDescription:
           "Ce fonds s'inscrit dans le cadre du projet « Digitalise Youth », qui vise à lutter contre le rétrécissement de l'espace civique et la désinformation rampante dans les régions du Sahel, de l'Ouest et de la Corne de l'Afrique en renforçant les compétences numériques des jeunes militants locaux et des organisations de la société civile, en promouvant des solutions technologiques civiques et en sensibilisant le public à l'engagement politique en ligne.",
@@ -562,6 +564,7 @@ export const translations: Record<string, Translation> = {
       },
       footer: {
         ledBy: "Led by",
+        designedBy: "Designed and managed by",
         poweredBy: "Powered by",
         projectDescription:
           "This fund is part of the 'Digitalise Youth' project, which aims to combat the shrinking civic space and rampant disinformation in the Sahel, West and Horn of Africa regions by strengthening the digital skills of local young activists and civil society organizations, promoting civic technology solutions and raising public awareness of online political engagement.",

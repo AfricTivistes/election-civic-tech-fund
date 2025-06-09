@@ -694,7 +694,9 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
 
                 {/* Conçu et géré par AfricTivistes */}
                 <div className="text-center group hover:scale-105 transition-transform duration-300">
-                  <span className="text-blue-200 text-lg font-medium block mb-3">Conçu et géré par</span>
+                  <span className="text-blue-200 text-lg font-medium block mb-3">
+                    {t?.hero?.footer?.designedBy || "Conçu et géré par"}
+                  </span>
                   <img
                     src="/logo-africtivites.svg"
                     alt="AfricTivistes"
