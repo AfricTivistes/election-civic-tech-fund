@@ -7,7 +7,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Textarea } from "@/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
-import { Lightbulb, ArrowRight, Sparkles } from "lucide-react"
+import { Lightbulb, ArrowRight, Sparkles, Cpu, Users, FileText, Scale } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import { useLanguage } from "@/hooks/use-language"
 
 interface StepOneProps {
@@ -21,61 +22,61 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
   const { t } = useLanguage()
   const [vision, setVision] = useState(data?.vision || "")
   const [problem, setProblem] = useState(data?.problem || "")
-  const [domain, setDomain] = useState(data?.domain || "")
+  const [selectedDomain, setSelectedDomain] = useState(data?.domain || "")
 
-  // Fallback pour les domaines si t.domains est undefined
-  const domains = t?.domains || {
-    tech: {
-      title: "Technologies Citoyennes Électorales",
-      description: "Blockchain, IA, outils civic tech, sécurité numérique",
-      examples: ["Blockchain pour la transparence", "IA pour l'analyse", "Apps mobiles citoyennes"],
-      amount: "70 000€",
-      percentage: "40%",
-      icon: "🔧",
+  // Configuration des domaines avec montants et pourcentages
+  const domains = [
+    {
+      id: "tech",
+      title: t?.domains?.tech?.title || "Technologies Citoyennes Électorales",
+      description: t?.domains?.tech?.description || "Blockchain, IA, outils civic tech, sécurité numérique",
+      examples: t?.domains?.tech?.examples || ["Blockchain pour la transparence", "IA pour l'analyse", "Apps mobiles citoyennes"],
+      allocation: "70 000€ • 40%",
+      icon: require("lucide-react").Cpu,
       color: "from-blue-400 to-cyan-500",
     },
-    engagement: {
-      title: "Engagement Citoyen",
-      description: "Éducation civique, observation électorale, inclusion",
-      examples: ["Éducation citoyenne", "Observation électorale", "Participation des jeunes"],
-      amount: "43 750€",
-      percentage: "25%",
-      icon: "👥",
+    {
+      id: "engagement",
+      title: t?.domains?.engagement?.title || "Engagement Citoyen",
+      description: t?.domains?.engagement?.description || "Éducation civique, observation électorale, inclusion",
+      examples: t?.domains?.engagement?.examples || ["Éducation citoyenne", "Observation électorale", "Participation des jeunes"],
+      allocation: "43 750€ • 25%",
+      icon: require("lucide-react").Users,
       color: "from-green-400 to-emerald-500",
     },
-    media: {
-      title: "Médias & Information",
-      description: "Fact-checking, lutte contre la désinformation",
-      examples: ["Vérification des faits", "Médias citoyens", "Anti-désinformation"],
-      amount: "35 000€",
-      percentage: "20%",
-      icon: "📄",
+    {
+      id: "media",
+      title: t?.domains?.media?.title || "Médias & Information",
+      description: t?.domains?.media?.description || "Fact-checking, lutte contre la désinformation",
+      examples: t?.domains?.media?.examples || ["Vérification des faits", "Médias citoyens", "Anti-désinformation"],
+      allocation: "35 000€ • 20%",
+      icon: require("lucide-react").FileText,
       color: "from-purple-400 to-pink-500",
     },
-    legal: {
-      title: "Cadre Légal",
-      description: "Réformes électorales, contentieux, veille juridique",
-      examples: ["Réformes électorales", "Suivi contentieux", "Veille juridique"],
-      amount: "26 250€",
-      percentage: "15%",
-      icon: "⚖️",
+    {
+      id: "legal",
+      title: t?.domains?.legal?.title || "Cadre Légal",
+      description: t?.domains?.legal?.description || "Réformes électorales, contentieux, veille juridique",
+      examples: t?.domains?.legal?.examples || ["Réformes électorales", "Suivi contentieux", "Veille juridique"],
+      allocation: "26 250€ • 15%",
+      icon: require("lucide-react").Scale,
       color: "from-orange-400 to-red-500",
     },
-  }
+  ]
 
   const handleNext = () => {
     if (isComplete) {
       onUpdate({
         vision,
         problem,
-        domain,
+        domain: selectedDomain,
       })
       onComplete("Visionary")
       onNext()
     }
   }
 
-  const isComplete = vision.trim().length > 0 && problem.trim().length > 0 && domain.trim().length > 0
+  const isComplete = vision.trim().length > 0 && problem.trim().length > 0 && selectedDomain.trim().length > 0
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
@@ -166,12 +167,16 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
 
       {/* Domaine */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-        <Card className="ectf-card">
-          <CardHeader className="ectf-card-header">
-            <CardTitle className="ectf-card-title">{t.steps.step1.domainTitle}</CardTitle>
-            <CardDescription className="ectf-card-description">{t.steps.step1.domainDescription}</CardDescription>
+        <Card className="bg-white/10 backdrop-blur-md border-white/20">
+          <CardHeader>
+            <CardTitle className="text-white">
+              {t?.steps?.step1?.domainTitle || "Choisissez votre domaine prioritaire"}
+            </CardTitle>
+            <CardDescription className="text-blue-200">
+              {t?.steps?.step1?.domainDescription || "Sélectionnez le domaine principal dans lequel votre projet s'inscrit."}
+            </CardDescription>
           </CardHeader>
-          <CardContent className="ectf-card-content">
+          <CardContent>
             <RadioGroup value={selectedDomain} onValueChange={setSelectedDomain}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {domains.map((domain) => {
@@ -206,14 +211,16 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
                           <div className="flex-1 space-y-3">
                             <div className="flex items-center justify-between">
                               <h3 className="font-bold text-white text-base">{domain.title}</h3>
-                              <Badge className="ectf-badge ectf-badge-primary text-xs">{domain.allocation}</Badge>
+                              <Badge className="bg-amber-400/20 text-amber-300 border-amber-400/30 text-xs">
+                                {domain.allocation}
+                              </Badge>
                             </div>
 
-                            <p className="ectf-text-body text-sm">{domain.description}</p>
+                            <p className="text-blue-200 text-sm">{domain.description}</p>
 
                             <div className="flex flex-wrap gap-2">
                               {domain.examples.map((example, index) => (
-                                <Badge key={index} className="ectf-badge ectf-badge-secondary text-xs">
+                                <Badge key={index} className="bg-white/10 text-blue-300 border-white/20 text-xs">
                                   {example}
                                 </Badge>
                               ))}
