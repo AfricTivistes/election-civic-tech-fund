@@ -73,10 +73,12 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
       titleEn: "Your Democratic Vision",
       icon: Lightbulb,
       color: "from-yellow-400 to-orange-500",
-      duration: "15-20 minutes",
+      duration: language === "en" ? "15-20 minutes" : "15-20 minutes",
+      durationEn: "15-20 minutes",
       sections: [
         {
           title: "Description de votre ambition démocratique",
+          titleEn: "Description of your democratic ambition",
           icon: Target,
           content: [
             "Rédigez un texte de 300-500 mots décrivant votre vision pour transformer la démocratie dans votre pays",
@@ -85,9 +87,17 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
             "Décrivez l'impact à long terme que vous espérez avoir sur votre société",
             "Utilisez un langage accessible, évitez le jargon technique à cette étape",
           ],
+          contentEn: [
+            "Write a 300-500 word text describing your vision to transform democracy in your country",
+            "Clearly explain what change you want to see and why it's important",
+            "Mention the direct beneficiaries of your project (citizens, voters, institutions)",
+            "Describe the long-term impact you hope to have on your society",
+            "Use accessible language, avoid technical jargon at this stage",
+          ],
         },
         {
           title: "Identification du problème électoral",
+          titleEn: "Electoral problem identification",
           icon: AlertTriangle,
           content: [
             "Identifiez UN problème électoral spécifique et concret dans votre contexte",
@@ -96,9 +106,17 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
             "Mentionnez les conséquences actuelles de ce problème sur la démocratie",
             "Évitez les problèmes trop généraux, concentrez-vous sur quelque chose de mesurable",
           ],
+          contentEn: [
+            "Identify ONE specific and concrete electoral problem in your context",
+            "Explain why this problem is priority and urgent to solve",
+            "Describe who is affected by this problem and how",
+            "Mention the current consequences of this problem on democracy",
+            "Avoid problems that are too general, focus on something measurable",
+          ],
         },
         {
           title: "Choix du domaine prioritaire",
+          titleEn: "Priority domain selection",
           icon: Settings,
           content: [
             "Sélectionnez le domaine qui correspond le mieux à votre projet parmi les 4 options",
@@ -107,6 +125,14 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
             "Médias & Information (35 000€) : fact-checking, lutte contre désinformation",
             "Cadre Légal (26 250€) : réformes électorales, contentieux, veille juridique",
             "Votre choix détermine le budget maximum et les critères d'évaluation",
+          ],
+          contentEn: [
+            "Select the domain that best matches your project among the 4 options",
+            "Civic Technologies (€70,000): innovative tech projects, blockchain, AI, apps",
+            "Civic Engagement (€43,750): civic education, electoral observation, inclusion",
+            "Media & Information (€35,000): fact-checking, fight against disinformation",
+            "Legal Framework (€26,250): electoral reforms, litigation, legal monitoring",
+            "Your choice determines the maximum budget and evaluation criteria",
           ],
         },
       ],
@@ -117,6 +143,13 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
         "Analysez les projets similaires existants pour identifier les gaps",
         "Préparez des données chiffrées sur l'ampleur du problème que vous ciblez",
       ],
+      preparationEn: [
+        "Research the specific democratic challenges in your country",
+        "Consult reports from organizations like Freedom House, Transparency International",
+        "Exchange with citizens to understand their electoral frustrations",
+        "Analyze existing similar projects to identify gaps",
+        "Prepare quantified data on the scale of the problem you're targeting",
+      ],
     },
     {
       id: 2,
@@ -124,10 +157,12 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
       titleEn: "Technological Impact",
       icon: Zap,
       color: "from-blue-400 to-cyan-500",
-      duration: "10-15 minutes",
+      duration: language === "en" ? "10-15 minutes" : "10-15 minutes",
+      durationEn: "10-15 minutes",
       sections: [
         {
           title: "Sélection des technologies",
+          titleEn: "Technology selection",
           icon: Settings,
           content: [
             "Choisissez 1 à 3 technologies maximum parmi les 6 options proposées",
@@ -138,9 +173,19 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
             "Sécurité Numérique : protection des données, chiffrement, anonymat",
             "Langues Locales & Accessibilité : inclusion numérique, interfaces multilingues",
           ],
+          contentEn: [
+            "Choose 1 to 3 technologies maximum among the 6 proposed options",
+            "Blockchain: for transparency, traceability, secure voting",
+            "Artificial Intelligence: data analysis, pattern detection, moderation",
+            "Mobile Applications: accessibility, civic engagement, notifications",
+            "Open-Source Web Platforms: collaboration, information sharing, communities",
+            "Digital Security: data protection, encryption, anonymity",
+            "Local Languages & Accessibility: digital inclusion, multilingual interfaces",
+          ],
         },
         {
           title: "Calcul automatique de l'impact",
+          titleEn: "Automatic impact calculation",
           icon: Target,
           content: [
             "Le système calcule automatiquement votre score d'impact basé sur vos choix",
@@ -149,9 +194,17 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
             "Votre score final influence l'évaluation de votre dossier",
             "Un score élevé indique un potentiel d'impact social et technologique fort",
           ],
+          contentEn: [
+            "The system automatically calculates your impact score based on your choices",
+            "Each technology has a predefined impact score (80-95%)",
+            "The combination of technologies can create synergies",
+            "Your final score influences the evaluation of your application",
+            "A high score indicates strong social and technological impact potential",
+          ],
         },
         {
           title: "Visualisation de votre ADN démocratique",
+          titleEn: "Visualization of your democratic DNA",
           icon: Star,
           content: [
             "Une représentation graphique de votre profil technologique s'affiche",
@@ -159,6 +212,13 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
             "Cette visualisation aide les évaluateurs à comprendre votre approche",
             "Elle montre la cohérence entre vos choix technologiques et votre vision",
             "Utilisez cette vue pour vérifier que vos choix sont alignés avec vos objectifs",
+          ],
+          contentEn: [
+            "A graphical representation of your technological profile is displayed",
+            "Each selected technology appears with its impact score",
+            "This visualization helps evaluators understand your approach",
+            "It shows the coherence between your technological choices and your vision",
+            "Use this view to verify that your choices are aligned with your objectives",
           ],
         },
       ],
@@ -169,6 +229,13 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
         "Pensez à l'accessibilité pour vos utilisateurs finaux (connexion, appareils)",
         "Préparez une justification pour chaque technologie choisie",
       ],
+      preparationEn: [
+        "Honestly assess your team's technical skills",
+        "Research technologies already used in similar projects",
+        "Consider the technological infrastructure available in your country",
+        "Think about accessibility for your end users (connection, devices)",
+        "Prepare a justification for each chosen technology",
+      ],
     },
     {
       id: 3,
@@ -176,10 +243,12 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
       titleEn: "Your Civic Team",
       icon: Users,
       color: "from-green-400 to-emerald-500",
-      duration: "20-25 minutes",
+      duration: language === "en" ? "20-25 minutes" : "20-25 minutes",
+      durationEn: "20-25 minutes",
       sections: [
         {
           title: "Ajout des membres d'équipe",
+          titleEn: "Adding team members",
           icon: Users,
           content: [
             "Ajoutez minimum 2 membres, maximum recommandé 6 membres",
@@ -189,9 +258,18 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
             "Expliquez la motivation personnelle de chaque membre pour ce projet",
             "Assurez-vous que les rôles sont complémentaires et non redondants",
           ],
+          contentEn: [
+            "Add minimum 2 members, maximum recommended 6 members",
+            "For each member: full name, precise role in the project",
+            "Select skills among 4 categories (Technical, Social, Field, Management)",
+            "Write relevant experience (100-200 words per member)",
+            "Explain each member's personal motivation for this project",
+            "Ensure roles are complementary and not redundant",
+          ],
         },
         {
           title: "Radar de compétences automatique",
+          titleEn: "Automatic skills radar",
           icon: Target,
           content: [
             "Le système génère automatiquement un radar des compétences de l'équipe",
@@ -200,9 +278,17 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
             "Visez un équilibre entre les 4 axes pour maximiser vos chances",
             "Une équipe déséquilibrée peut être un point faible dans l'évaluation",
           ],
+          contentEn: [
+            "The system automatically generates a team skills radar",
+            "4 axes: Technical (dev, data, cyber), Social (comm, training), Field (observation, mobilization), Management (management, finance)",
+            "Each axis shows the ratio of present skills / total skills",
+            "Aim for balance between the 4 axes to maximize your chances",
+            "An unbalanced team can be a weakness in the evaluation",
+          ],
         },
         {
           title: "Gestion de l'équipe",
+          titleEn: "Team management",
           icon: Settings,
           content: [
             "Vous pouvez modifier ou supprimer des membres à tout moment",
@@ -210,6 +296,13 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
             "Le système vérifie que vous avez au minimum 2 membres avant de continuer",
             "Privilégiez la qualité à la quantité : mieux vaut 3 membres expérimentés que 6 novices",
             "Pensez à l'équilibre géographique si votre projet couvre plusieurs régions",
+          ],
+          contentEn: [
+            "You can modify or remove members at any time",
+            "Each added member automatically enriches the skills radar",
+            "The system verifies that you have at least 2 members before continuing",
+            "Prioritize quality over quantity: better 3 experienced members than 6 novices",
+            "Think about geographical balance if your project covers multiple regions",
           ],
         },
       ],
@@ -221,6 +314,14 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
         "Assurez-vous de la disponibilité de chaque membre pour 10 mois",
         "Préparez des lettres d'engagement ou de motivation des membres",
       ],
+      preparationEn: [
+        "Identify essential skills for your project",
+        "Contact your future teammates to get their participation agreement",
+        "Prepare detailed CVs for each key member",
+        "Clearly define each person's roles and responsibilities",
+        "Ensure each member's availability for 10 months",
+        "Prepare commitment or motivation letters from members",
+      ],
     },
     {
       id: 4,
@@ -228,10 +329,12 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
       titleEn: "Your Digital Arsenal",
       icon: FileText,
       color: "from-purple-400 to-pink-500",
-      duration: "30-45 minutes",
+      duration: language === "en" ? "30-45 minutes" : "30-45 minutes",
+      durationEn: "30-45 minutes",
       sections: [
         {
           title: "Documents obligatoires à préparer",
+          titleEn: "Required documents to prepare",
           icon: FileCheck,
           content: [
             "Enregistrement Officiel : statuts, récépissé de déclaration, ou engagement d'enregistrement",
@@ -241,9 +344,18 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
             "Budget Prévisionnel : budget ligne par ligne selon le modèle, justifié et réaliste",
             "Tous les documents doivent être en PDF, nommés clairement, et en français ou anglais",
           ],
+          contentEn: [
+            "Official Registration: statutes, declaration receipt, or registration commitment",
+            "Key Members' CVs: detailed CVs of the 2-3 main members (PDF format)",
+            "Detailed Project Description: maximum 5 pages according to the provided template",
+            "Theory of Change: detailed 10-month action plan with indicators",
+            "Budget Forecast: line-by-line budget according to the template, justified and realistic",
+            "All documents must be in PDF, clearly named, and in French or English",
+          ],
         },
         {
           title: "Validation IA en temps réel",
+          titleEn: "Real-time AI validation",
           icon: Zap,
           content: [
             "Chaque document uploadé est analysé automatiquement par une IA",
@@ -253,9 +365,18 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
             "La validation IA ne remplace pas l'évaluation humaine finale",
             "Utilisez ces retours pour optimiser vos documents avant soumission",
           ],
+          contentEn: [
+            "Each uploaded document is automatically analyzed by an AI",
+            "Verification of format, completeness, and compliance with requirements",
+            "Possible statuses: Valid (green), Attention (orange), or To correct (red)",
+            "Personalized help messages to improve your documents",
+            "AI validation does not replace final human evaluation",
+            "Use this feedback to optimize your documents before submission",
+          ],
         },
         {
           title: "Score de complétude et soumission",
+          titleEn: "Completion score and submission",
           icon: Target,
           content: [
             "Score calculé en temps réel basé sur les documents validés",
@@ -264,6 +385,14 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
             "Vérification finale de la cohérence entre vision, technologies, équipe et budget",
             "Une fois soumis, votre dossier ne peut plus être modifié",
             "Vous recevrez une confirmation par email avec un numéro de dossier",
+          ],
+          contentEn: [
+            "Score calculated in real time based on validated documents",
+            "Minimum 80% required to be able to submit your application",
+            "Automatic summary of your project with all entered information",
+            "Final verification of coherence between vision, technologies, team and budget",
+            "Once submitted, your file can no longer be modified",
+            "You will receive confirmation by email with a file number",
           ],
         },
       ],
@@ -274,6 +403,14 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
         "Scannez tous vos documents officiels en haute qualité",
         "Relisez attentivement tous vos documents pour éviter les erreurs",
         "Préparez des versions de sauvegarde de tous vos fichiers",
+      ],
+      preparationEn: [
+        "Download all document templates from the official website",
+        "Prepare your budget in detail with realistic quotes",
+        "Write your theory of change with measurable indicators",
+        "Scan all your official documents in high quality",
+        "Carefully reread all your documents to avoid errors",
+        "Prepare backup versions of all your files",
       ],
     },
   ]
@@ -418,6 +555,7 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
 
                 // Utiliser le titre en anglais ou en français selon la langue
                 const stepTitle = language === "en" && step.titleEn ? step.titleEn : step.title
+                const stepDuration = language === "en" && step.durationEn ? step.durationEn : step.duration
 
                 return (
                   <Card key={step.id} className="bg-white/10 backdrop-blur-md border-white/20">
@@ -429,15 +567,15 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
                           </div>
                           <div>
                             <CardTitle className="text-white text-lg">
-                              {t?.guide?.step || "Étape"} {step.id}: {stepTitle}
+                              {language === "en" ? "Step" : "Étape"} {step.id}: {stepTitle}
                             </CardTitle>
                             <div className="flex items-center space-x-4 mt-2">
                               <Badge variant="outline" className="border-yellow-400 text-yellow-400">
                                 <Clock className="w-3 h-3 mr-1" />
-                                {step.duration}
+                                {stepDuration}
                               </Badge>
                               <Badge variant="outline" className="border-blue-400 text-blue-400">
-                                {step.sections?.length || 0} {t?.guide?.sections || "sections"}
+                                {step.sections?.length || 0} {language === "en" ? "sections" : "sections"}
                               </Badge>
                             </div>
                           </div>
@@ -460,16 +598,19 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
                               if (!section || typeof section !== "object" || !section.icon) return null
 
                               const SectionIcon = section.icon
+                              const sectionTitle = language === "en" && section.titleEn ? section.titleEn : section.title
+                              const sectionContent = language === "en" && section.contentEn ? section.contentEn : section.content
+
                               return (
                                 <div key={sectionIndex} className="border-l-2 border-white/20 pl-6">
                                   <h4 className="font-semibold text-white mb-3 flex items-center">
                                     <SectionIcon className="w-4 h-4 mr-2 text-yellow-400" />
-                                    {section.title}
+                                    {sectionTitle}
                                   </h4>
                                   <div className="space-y-2">
-                                    {section.content &&
-                                      Array.isArray(section.content) &&
-                                      section.content.map((item, itemIndex) => (
+                                    {sectionContent &&
+                                      Array.isArray(sectionContent) &&
+                                      sectionContent.map((item, itemIndex) => (
                                         <div key={itemIndex} className="flex items-start space-x-3">
                                           <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mt-2 flex-shrink-0" />
                                           <p className="text-blue-200 text-sm leading-relaxed">{item}</p>
@@ -484,17 +625,20 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
                           <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-lg p-4">
                             <h4 className="font-semibold text-white mb-3 flex items-center">
                               <Clipboard className="w-4 h-4 mr-2 text-purple-400" />
-                              {t?.guide?.recommendedPrep || "Préparation Recommandée"}
+                              {language === "en" ? "Recommended Preparation" : "Préparation Recommandée"}
                             </h4>
                             <div className="space-y-2">
-                              {step.preparation &&
-                                Array.isArray(step.preparation) &&
-                                step.preparation.map((item, index) => (
-                                  <div key={index} className="flex items-start space-x-3">
-                                    <PenTool className="w-3 h-3 text-purple-400 mt-1 flex-shrink-0" />
-                                    <p className="text-purple-200 text-sm">{item}</p>
-                                  </div>
-                                ))}
+                              {(() => {
+                                const preparationItems = language === "en" && step.preparationEn ? step.preparationEn : step.preparation
+                                return preparationItems &&
+                                  Array.isArray(preparationItems) &&
+                                  preparationItems.map((item, index) => (
+                                    <div key={index} className="flex items-start space-x-3">
+                                      <PenTool className="w-3 h-3 text-purple-400 mt-1 flex-shrink-0" />
+                                      <p className="text-purple-200 text-sm">{item}</p>
+                                    </div>
+                                  ))
+                              })()}
                             </div>
                           </div>
                         </div>
