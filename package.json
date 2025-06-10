@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "setup-nocodb": "node scripts/setup-nocodb-table.js"
+    "setup-nocodb": "node scripts/setup-nocodb-table.js",
+    "test-nocodb": "node scripts/test-existing-table.js"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
