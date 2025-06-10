@@ -426,7 +426,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData 
           onClick={onPrev}
           variant="outline"
           size="lg"
-          className="px-8 py-3 font-semibold border-white/40 text-white hover:bg-white/10 hover:border-white/60"
+          className="px-8 py-3 font-semibold rounded-xl bg-white/10 border-white/50 text-white hover:bg-white/20 hover:border-white/70 hover:text-gray-900 transition-all duration-300 shadow-lg"
         >
           <ArrowLeft className="mr-2 w-5 h-5" />
           {t?.steps?.step4?.prevButton || "Previous"}
@@ -437,10 +437,10 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData 
           disabled={!isComplete || isSubmitting}
           size="lg"
           className={`
-            px-8 py-3 font-semibold transition-all duration-300 relative overflow-hidden
+            px-8 py-3 font-semibold transition-all duration-300 relative overflow-hidden rounded-xl
             ${
               isComplete && !isSubmitting
-                ? "bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black"
+                ? "bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black hover:text-white shadow-lg"
                 : "bg-gray-600 text-gray-300 cursor-not-allowed"
             }
           `}

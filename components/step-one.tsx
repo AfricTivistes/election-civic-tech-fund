@@ -249,10 +249,10 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
           disabled={!isComplete}
           size="lg"
           className={`
-            px-8 py-3 font-semibold transition-all duration-300
+            px-8 py-3 font-semibold transition-all duration-300 rounded-xl
             ${
               isComplete
-                ? "bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white"
+                ? "bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black hover:text-white shadow-lg"
                 : "bg-gray-600 text-gray-300 cursor-not-allowed"
             }
           `}

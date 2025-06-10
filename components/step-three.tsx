@@ -384,7 +384,7 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev }
           onClick={onPrev}
           variant="outline"
           size="lg"
-          className="px-8 py-3 font-semibold border-white/40 text-white hover:bg-white/10 hover:border-white/60"
+          className="px-8 py-3 font-semibold rounded-xl bg-white/10 border-white/50 text-white hover:bg-white/20 hover:border-white/70 hover:text-gray-900 transition-all duration-300 shadow-lg"
         >
           <ArrowLeft className="mr-2 w-5 h-5" />
           {uiText.prevButton}
@@ -395,10 +395,10 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev }
           disabled={!isComplete}
           size="lg"
           className={`
-            px-8 py-3 font-semibold transition-all duration-300
+            px-8 py-3 font-semibold transition-all duration-300 rounded-xl
             ${
               isComplete
-                ? "bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white"
+                ? "bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white hover:text-gray-900 shadow-lg"
                 : "bg-gray-600 text-gray-300 cursor-not-allowed"
             }
           `}
