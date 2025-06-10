@@ -428,8 +428,8 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
       question: "Puis-je sauvegarder et reprendre plus tard ?",
       questionEn: "Can I save and resume later?",
       answer:
-        "Oui, vos données sont automatiquement sauvegardées à chaque étape. Vous pouvez fermer et reprendre à tout moment.",
-      answerEn: "Yes, your data is automatically saved at each step. You can close and resume at any time.",
+        "Non, il n'y a pas de système de sauvegarde. Préparez tous vos documents avant de commencer le formulaire pour le remplir en une fois.",
+      answerEn: "No, there is no save system. Prepare all your documents before starting the form to complete it in one session.",
     },
     {
       question: "Que se passe-t-il si je n'ai pas tous les documents ?",
@@ -522,13 +522,12 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
                           <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
                           <div>
                             <div className="font-medium text-white text-sm">
-                              {language === "en" ? "Auto-save" : "Sauvegarde"}
+                              {language === "en" ? "Preparation" : "Préparation"}
                             </div>
                             <div className="text-blue-200 text-sm">
-                              {t?.guide?.autoSave ||
-                                (language === "en"
-                                  ? "Progress saved automatically"
-                                  : "Progression sauvée automatiquement")}
+                              {language === "en"
+                                ? "Prepare all documents beforehand"
+                                : "Préparez tous les documents à l'avance"}
                             </div>
                           </div>
                         </div>
