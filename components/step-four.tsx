@@ -215,7 +215,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData 
       <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 }}>
         <Card className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 border-purple-400/30">
           <CardHeader>
-            <CardTitle className="text-white flex items-center">
+            <CardTitle className="text-gray-800 flex items-center">
               <Award className="w-5 h-5 mr-2" />
               {t?.steps?.step4?.completionScore || "Completion Score"}
             </CardTitle>
