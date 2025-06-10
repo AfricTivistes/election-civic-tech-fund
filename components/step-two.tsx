@@ -307,7 +307,7 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
           onClick={onPrev}
           variant="outline"
           size="lg"
-          className="px-8 py-3 font-semibold rounded-xl bg-white/10 border-white/50 text-white hover:bg-white/20 hover:border-white/70 hover:text-gray-900 transition-all duration-300 shadow-lg"
+          className="px-8 py-3 font-semibold rounded-xl bg-white/10 border-white/50 text-white hover:bg-white/20 hover:border-white/70 hover:text-sky-300 transition-all duration-300 shadow-lg"
         >
           <ArrowLeft className="mr-2 w-5 h-5" />
           {t?.steps?.step2?.prevButton || "Retour à la Vision"}
