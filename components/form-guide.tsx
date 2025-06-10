@@ -471,7 +471,7 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
             <div>
               <h2 className="text-lg md:text-2xl font-bold text-white">
                 {t?.guide?.title ||
-                  (language === "en" ? "Complete Democracy Builder Guide" : "Guide Complet du Democracy Builder")}
+                  (language === "en" ? "Complete Application Guide" : "Guide complet de candidature")}
               </h2>
               <p className="text-sm md:text-base text-blue-200">
                 {t?.guide?.subtitle ||
