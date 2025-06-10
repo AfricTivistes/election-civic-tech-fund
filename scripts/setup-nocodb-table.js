@@ -1,7 +1,17 @@
 
-// Script pour configurer la table democracy_projects dans NocoDB
-// À exécuter une seule fois pour initialiser la base
+const { Api } = require('nocodb-sdk')
 
+// Configuration NocoDB
+const api = new Api({
+  baseURL: process.env.NEXT_PUBLIC_NOCODB_URL || 'http://localhost:8080',
+  headers: {
+    'xc-token': process.env.NEXT_PUBLIC_NOCODB_TOKEN || ''
+  }
+})
+
+const baseId = process.env.NEXT_PUBLIC_NOCODB_BASE_ID || 'noco'
+
+// Schéma de la table
 const tableSchema = {
   table_name: 'democracy_projects',
   columns: [
@@ -20,6 +30,7 @@ const tableSchema = {
     { column_name: 'problem', uidt: 'LongText' },
     { column_name: 'domain', uidt: 'SingleSelect',
       dtxp: "'tech','engagement','media','legal'" },
+    { column_name: 'country', uidt: 'SingleLineText' },
     
     // Step 2 - Technologies
     { column_name: 'technologies', uidt: 'LongText' }, // JSON stringifié
@@ -34,7 +45,6 @@ const tableSchema = {
     { column_name: 'completion_score', uidt: 'Number', cdf: '0' },
     
     // Métadonnées
-    { column_name: 'country', uidt: 'SingleLineText' },
     { column_name: 'language', uidt: 'SingleSelect', 
       dtxp: "'fr','en'", cdf: "'fr'" },
     { column_name: 'submission_date', uidt: 'DateTime' },
@@ -43,26 +53,86 @@ const tableSchema = {
   ]
 }
 
-// Exemple de données pour tests
-const sampleData = {
-  vision: "Améliorer la transparence électorale via la blockchain",
-  problem: "Manque de confiance dans le processus électoral",
-  domain: "tech",
-  technologies: JSON.stringify(["blockchain", "mobile", "ai"]),
-  impact_score: 85,
-  team_members: JSON.stringify([
-    {
-      name: "Jean Dupont",
-      role: "Chef de projet",
-      skills: ["management", "blockchain"],
-      experience: "5 ans en civic tech"
+async function createTable() {
+  try {
+    console.log('🚀 Création de la table democracy_projects...')
+    
+    // Créer la table
+    const table = await api.dbTable.create(baseId, tableSchema)
+    console.log('✅ Table créée avec succès:', table.title)
+    
+    return table
+  } catch (error) {
+    if (error.message?.includes('already exists')) {
+      console.log('⚠️ La table existe déjà')
+      return null
     }
-  ]),
-  team_size: 3,
-  country: "France",
-  language: "fr",
-  status: "draft"
+    console.error('❌ Erreur lors de la création:', error)
+    throw error
+  }
 }
 
-console.log('Schéma de table:', tableSchema)
-console.log('Exemple de données:', sampleData)
+async function insertSampleData() {
+  try {
+    console.log('📝 Insertion des données d\'exemple...')
+    
+    const sampleData = {
+      vision: "Améliorer la transparence électorale via la blockchain au Sénégal",
+      problem: "Manque de confiance dans le processus électoral",
+      domain: "tech",
+      country: "sn",
+      technologies: JSON.stringify(["blockchain", "mobile", "ai"]),
+      impact_score: 85,
+      team_members: JSON.stringify([
+        {
+          name: "Jean Dupont",
+          role: "Chef de projet",
+          skills: ["management", "blockchain"],
+          experience: "5 ans en civic tech"
+        }
+      ]),
+      team_size: 3,
+      language: "fr",
+      status: "draft"
+    }
+    
+    const result = await api.dbTableRow.create(
+      'noco',
+      baseId,
+      'democracy_projects',
+      sampleData
+    )
+    
+    console.log('✅ Données d\'exemple insérées:', result.id)
+    return result
+  } catch (error) {
+    console.error('❌ Erreur insertion données:', error)
+    throw error
+  }
+}
+
+async function setupNocoDB() {
+  try {
+    console.log('🔧 Configuration de NocoDB pour Democracy Projects')
+    console.log('📋 Base ID:', baseId)
+    console.log('🌐 URL:', process.env.NEXT_PUBLIC_NOCODB_URL)
+    
+    // Créer la table
+    await createTable()
+    
+    // Insérer des données d'exemple
+    await insertSampleData()
+    
+    console.log('🎉 Configuration terminée avec succès!')
+  } catch (error) {
+    console.error('💥 Erreur de configuration:', error)
+    process.exit(1)
+  }
+}
+
+// Exécution du script
+if (require.main === module) {
+  setupNocoDB()
+}
+
+module.exports = { setupNocoDB, createTable, insertSampleData }
