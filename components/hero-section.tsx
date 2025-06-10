@@ -319,10 +319,10 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
               <CardContent className="p-8">
                 <div className="flex items-center mb-4">
                   <Sparkles className="w-8 h-8 text-yellow-400 mr-3" />
-                  <h2 className="text-2xl font-bold text-white">Digital Democracy Journey</h2>
+                  <h2 className="text-2xl font-bold text-white">Digital Democracy for Election</h2>
                 </div>
                 <p className="text-blue-100 text-lg leading-relaxed mb-6">
-                  <strong>Election Civic Tech Fund</strong> {t?.hero?.description || ""}
+                  {t?.hero?.description || ""}
                 </p>
                 <p className="text-blue-200 mb-6">{t?.hero?.secondDescription || ""}</p>
 

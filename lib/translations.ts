@@ -308,9 +308,9 @@ export const translations: Record<string, Translation> = {
       title: "ELECTION CIVIC TECH FUND",
       subtitle: "Digital Democracy Journey",
       description:
-        "Election Civic Tech Fund n'est pas un simple appel à projets. C'est une opportunité unique de transformer votre vision citoyenne en un outil technologique au service de la démocratie en Afrique.",
+        "Transforme la participation citoyenne en Afrique grâce à des technologies innovantes. Notre mission : démocratiser l'accès aux outils numériques pour renforcer la transparence électorale et l'engagement civique.",
       secondDescription:
-        "Ce formulaire est conçu comme un voyage interactif : à travers quatre étapes clés, vous allez façonner un dossier vivant, évolutif, et profondément connecté aux réalités panafricaines.",
+        "Rejoignez une communauté de 175 000€ dédiée à l'innovation démocratique dans 14 pays africains. Ensemble, construisons l'avenir numérique de la démocratie africaine.",
       startButton: "Transformer la Démocratie Africaine",
       features: {
         innovation: "Innovation Technologique",
@@ -597,11 +597,8 @@ export const translations: Record<string, Translation> = {
     },
     hero: {
       title: "ELECTION CIVIC TECH FUND",
-      subtitle: "Digital Democracy Journey",
-      description:
-        "Election Civic Tech Fund is not just a simple call for projects. It's a unique opportunity to transform your civic vision into a technological tool serving democracy in Africa.",
-      secondDescription:
-        "This form is designed as an interactive journey: through four key steps, you will shape a living, evolving file, deeply connected to Pan-African realities.",
+      description: "Transforms citizen participation in Africa through innovative technologies. Our mission: democratize access to digital tools to strengthen electoral transparency and civic engagement.",
+      secondDescription: "Join a €175,000 community dedicated to democratic innovation in 14 African countries. Together, let's build the digital future of African democracy.",
       startButton: "Transform African Democracy",
       features: {
         innovation: "Technological Innovation",
