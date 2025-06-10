@@ -127,11 +127,13 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
       onUpdate(stepData)
       
       // Sauvegarde automatique si disponible
-      if (onSave) {
+      if (onSave && typeof onSave === 'function') {
         try {
           await onSave(stepData)
+          console.log('✅ Sauvegarde Step 2 réussie!')
         } catch (error) {
-          console.error('Erreur sauvegarde:', error)
+          console.error('❌ Erreur sauvegarde Step 2:', error)
+          // Continuer même en cas d'erreur de sauvegarde
         }
       }
       
