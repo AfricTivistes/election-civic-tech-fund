@@ -80,8 +80,8 @@ export class NocoDBService {
     try {
       console.log('🔄 Mise à jour projet ID:', id)
       
-      if (!id || id.trim() === '') {
-        throw new Error('ID du projet manquant pour la mise à jour')
+      if (!id || typeof id !== 'string' || id.trim() === '') {
+        throw new Error('ID du projet manquant ou invalide pour la mise à jour')
       }
       
       // Convertir les arrays en JSON strings si nécessaire

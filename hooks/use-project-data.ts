@@ -47,7 +47,7 @@ export function useProjectData(projectId?: string) {
         throw new Error('Données obligatoires manquantes (vision, problem, domain, country)')
       }
 
-      if (savedProjectId) {
+      if (savedProjectId && typeof savedProjectId === 'string' && savedProjectId.trim() !== '') {
         // Mise à jour d'un projet existant
         console.log('🔄 Mise à jour du projet existant ID:', savedProjectId)
         try {
