@@ -11,15 +11,33 @@ const api = new Api({
 // Types pour les données du formulaire
 export interface ProjectSubmission {
   id?: string
-  vision: string
-  problem: string
-  domain: string
-  technologies: string[]
-  impact_score: number
-  team_members?: any[]
-  status: 'draft' | 'submitted'
   created_at?: string
   updated_at?: string
+  status: 'draft' | 'submitted' | 'under_review' | 'approved' | 'rejected'
+  
+  // Step 1 - Vision
+  vision: string
+  problem: string
+  domain: 'tech' | 'engagement' | 'media' | 'legal'
+  
+  // Step 2 - Technologies
+  technologies: string[]
+  impact_score: number
+  
+  // Step 3 - Équipe
+  team_members?: any[]
+  team_size?: number
+  
+  // Step 4 - Documents
+  uploaded_documents?: any
+  completion_score?: number
+  
+  // Métadonnées
+  country?: string
+  language?: 'fr' | 'en'
+  submission_date?: string
+  reviewer_notes?: string
+  funding_amount?: number
 }
 
 export class NocoDBService {
