@@ -714,11 +714,11 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
                     <MessageSquare className="w-6 h-6 text-white" />
                   </div>
                 </div>
-                <h3 className="text-lg font-bold text-slate-100 mb-2">
+                <h3 className="text-lg font-bold text-white mb-2">
                   {t?.guide?.personalizedSupport ||
                     (language === "en" ? "Personalized Support" : "Support Personnalisé")}
                 </h3>
-                <p className="text-slate-200 text-sm mb-4">
+                <p className="text-gray-800 text-sm mb-4 font-medium">
                   {t?.guide?.supportTeam ||
                     (language === "en"
                       ? "Our team of experts is available to assist you with your application."
