@@ -147,14 +147,14 @@ export default function HomeDocuments() {
       {/* En-tête de section */}
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-yellow-200 to-blue-200 bg-clip-text text-transparent">
-          {language === 'en' ? 'Essential Documents' : 'Documents Essentiels'}
+          {t?.home?.documents?.title || (language === 'en' ? 'Essential Documents' : 'Documents Essentiels')}
         </h2>
 
         <p className="text-blue-200/90 text-xl max-w-4xl mx-auto leading-relaxed">
-          {language === 'en' 
+          {t?.home?.documents?.subtitle || (language === 'en' 
             ? 'Download all necessary documents to transform your democratic vision into reality with the Election Civic Tech Fund.'
             : 'Téléchargez tous les documents nécessaires pour transformer votre vision démocratique en réalité avec le Election Civic Tech Fund.'
-          }
+          )}
         </p>
       </div>
 
@@ -209,7 +209,7 @@ export default function HomeDocuments() {
                     className="text-blue-200 hover:text-white hover:bg-white/15 transition-all duration-300 border border-white/20 hover:border-white/40 backdrop-blur-sm group/btn"
                   >
                     <ExternalLink className="w-4 h-4 mr-2 group-hover/btn:scale-110 transition-transform" />
-                    {language === 'en' ? 'Preview' : 'Aperçu'}
+                    {t?.home?.documents?.preview || (language === 'en' ? 'Preview' : 'Aperçu')}
                   </Button>
                   <Button
                     onClick={() => handleDownload(currentFilename)}
@@ -217,7 +217,7 @@ export default function HomeDocuments() {
                     className={`bg-gradient-to-r ${doc.color} hover:scale-105 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 font-bold group/btn`}
                   >
                     <Download className="w-4 h-4 mr-2 group-hover/btn:scale-110 transition-transform" />
-                    {language === 'en' ? 'Download' : 'Télécharger'}
+                    {t?.home?.documents?.download || (language === 'en' ? 'Download' : 'Télécharger')}
                     <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                   </Button>
                 </div>
@@ -231,23 +231,23 @@ export default function HomeDocuments() {
       <div className="text-center">
         <div className="inline-flex flex-col items-center space-y-4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl px-10 py-8 shadow-2xl max-w-4xl">
           <h3 className="text-2xl font-bold text-white mb-2">
-            {language === 'en' ? 'Ready to Start?' : 'Prêt à Commencer ?'}
+            {t?.home?.documents?.readyTitle || (language === 'en' ? 'Ready to Start?' : 'Prêt à Commencer ?')}
           </h3>
 
           <p className="text-blue-200/90 text-lg leading-relaxed mb-4">
-            {language === 'en' 
+            {t?.home?.documents?.readyText || (language === 'en' 
               ? 'All documents are regularly updated to ensure the best chances of success for your application.'
               : 'Tous les documents sont régulièrement mis à jour pour garantir les meilleures chances de succès à votre candidature.'
-            }
+            )}
           </p>
 
           <div className="flex items-center space-x-2 text-sm text-blue-300">
             <span>💡</span>
             <span className="font-medium">
-              {language === 'en' 
+              {t?.home?.documents?.tip || (language === 'en' 
                 ? 'Tip: Read each document carefully before starting your application'
                 : 'Conseil : Lisez attentivement chaque document avant de commencer votre candidature'
-              }
+              )}
             </span>
           </div>
         </div>
