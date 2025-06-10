@@ -19,11 +19,29 @@ interface StepOneProps {
   onSave?: (data: any) => Promise<void>
 }
 
+const africanCountries = [
+  { code: "sn", name: "Sénégal", flag: "🇸🇳" },
+  { code: "ml", name: "Mali", flag: "🇲🇱" },
+  { code: "ne", name: "Niger", flag: "🇳🇪" },
+  { code: "td", name: "Tchad", flag: "🇹🇩" },
+  { code: "sd", name: "Soudan", flag: "🇸🇩" },
+  { code: "et", name: "Éthiopie", flag: "🇪🇹" },
+  { code: "cm", name: "Cameroun", flag: "🇨🇲" },
+  { code: "bj", name: "Bénin", flag: "🇧🇯" },
+  { code: "tg", name: "Togo", flag: "🇹🇬" },
+  { code: "bf", name: "Burkina Faso", flag: "🇧🇫" },
+  { code: "gn", name: "Guinée", flag: "🇬🇳" },
+  { code: "mr", name: "Mauritanie", flag: "🇲🇷" },
+  { code: "ss", name: "Soudan du Sud", flag: "🇸🇸" },
+  { code: "so", name: "Somalie", flag: "🇸🇴" },
+]
+
 export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneProps) {
   const { t } = useLanguage()
   const [vision, setVision] = useState(data?.vision || "")
   const [problem, setProblem] = useState(data?.problem || "")
   const [selectedDomain, setSelectedDomain] = useState(data?.domain || "")
+  const [selectedCountry, setSelectedCountry] = useState(data?.country || "")
 
   // Configuration des domaines avec montants et pourcentages
   const domains = [
@@ -71,6 +89,7 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
         vision,
         problem,
         domain: selectedDomain,
+        country: selectedCountry,
       }
 
       onUpdate(stepData)
@@ -90,7 +109,7 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
     }
   }
 
-  const isComplete = vision.trim().length > 0 && problem.trim().length > 0 && selectedDomain.trim().length > 0
+  const isComplete = vision.trim().length > 0 && problem.trim().length > 0 && selectedDomain.trim().length > 0 && selectedCountry.trim().length > 0
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
@@ -179,8 +198,61 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
         </Card>
       </motion.div>
 
-      {/* Domaine */}
+      {/* Pays */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
+        <Card className="bg-white/10 backdrop-blur-md border-white/20">
+          <CardHeader>
+            <CardTitle className="text-white">
+              {t?.steps?.step1?.countryTitle || "Sélectionnez votre pays"}
+            </CardTitle>
+            <CardDescription className="text-blue-200">
+              {t?.steps?.step1?.countryDescription || "Choisissez le pays dans lequel votre projet sera mis en œuvre."}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <RadioGroup value={selectedCountry} onValueChange={setSelectedCountry}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {africanCountries.map((country) => {
+                  const isSelected = selectedCountry === country.code
+
+                  return (
+                    <motion.div
+                      key={country.code}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="group"
+                    >
+                      <Label
+                        htmlFor={country.code}
+                        className={`
+                          cursor-pointer block p-4 rounded-xl border-2 transition-all duration-300
+                          ${
+                            isSelected
+                              ? "border-amber-400 bg-amber-400/10 shadow-lg shadow-amber-400/20"
+                              : "border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10"
+                          }
+                        `}
+                      >
+                        <RadioGroupItem value={country.code} id={country.code} className="sr-only" />
+
+                        <div className="flex items-center space-x-3">
+                          <div className="text-2xl">{country.flag}</div>
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-white text-base">{country.name}</h3>
+                          </div>
+                        </div>
+                      </Label>
+                    </motion.div>
+                  )
+                })}
+              </div>
+            </RadioGroup>
+          </CardContent>
+        </Card>
+      </motion.div>
+
+      {/* Domaine */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
         <Card className="bg-white/10 backdrop-blur-md border-white/20">
           <CardHeader>
             <CardTitle className="text-white">
@@ -255,7 +327,7 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7 }}
+        transition={{ delay: 0.8 }}
         className="flex justify-end"
       >
         <Button
@@ -280,7 +352,7 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
           <p className="text-yellow-400 text-sm">
             {t?.steps?.step1?.completionMessage ||
-              "Complétez tous les champs pour continuer votre parcours démocratique"}
+              "Complétez tous les champs (vision, problème, pays et domaine) pour continuer votre parcours démocratique"}
           </p>
         </motion.div>
       )}
