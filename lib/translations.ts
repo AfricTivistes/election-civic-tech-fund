@@ -312,7 +312,7 @@ export const translations: Record<string, Translation> = {
       platformDescription: "Cette plateforme est conçue comme un outil interactif pour faciliter votre candidature. Ce présent appel à projets vous invite à proposer vos idées innovantes à travers quatre étapes clés.",
       secondDescription:
         "Rejoignez une communauté de 175 000€ dédiée à l'innovation démocratique dans 14 pays africains. Ensemble, construisons l'avenir numérique de la démocratie africaine.",
-      startButton: "Transformer la Démocratie Africaine",
+      startButton: "Soumettez maintenant votre dossier",
       features: {
         innovation: "Innovation Technologique",
         impact: "Impact Panafricain",
@@ -602,7 +602,7 @@ export const translations: Record<string, Translation> = {
       description: "Transforms citizen participation in Africa through innovative technologies. Our mission: democratize access to digital tools to strengthen electoral transparency and civic engagement.",
       platformDescription: "This platform is designed as an interactive tool to facilitate your application. This call for projects invites you to propose your innovative ideas through four key steps.",
       secondDescription: "Join a €175,000 community dedicated to democratic innovation in 14 African countries. Together, let's build the digital future of African democracy.",
-      startButton: "Transform African Democracy",
+      startButton: "Submit your application now",
       features: {
         innovation: "Technological Innovation",
         impact: "Pan-African Impact",
