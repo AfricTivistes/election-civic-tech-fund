@@ -14,66 +14,7 @@ import FormGuide from "@/components/form-guide"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/hooks/use-language"
 import LanguageSwitcher from "@/components/language-switcher"
-
-// New Component
-const HomeDocuments = () => {
-  const { t } = useLanguage();
-  const documents = [
-    {
-      name: "Note de cadrage",
-      en: "/documents/en/framing_note_en.pdf",
-      fr: "/documents/fr/note_de_cadrage_fr.pdf",
-    },
-    {
-      name: "Appel à projet",
-      en: "/documents/en/call_for_projects_en.pdf",
-      fr: "/documents/fr/appel_a_projet_fr.pdf",
-    },
-    {
-      name: "Descriptif projet",
-      en: "/documents/en/project_description_en.pdf",
-      fr: "/documents/fr/descriptif_projet_fr.pdf",
-    },
-    {
-      name: "Budget",
-      en: "/documents/en/budget_en.pdf",
-      fr: "/documents/fr/budget_fr.pdf",
-    },
-  ];
-
-  const getFileName = (path: string) => {
-    return path.split("/").pop()?.split(".")[0];
-  }
-
-  return (
-    <section className="container mx-auto py-8">
-      <h2 className="text-2xl font-bold text-white mb-4">{t?.home?.documents?.title || "Documents"}</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {documents.map((doc, index) => (
-          <Card key={index} className="bg-white/5 backdrop-blur-md border border-white/10">
-            <CardHeader>
-              <CardTitle className="text-lg font-medium text-white">{doc.name}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex justify-between">
-                <Button asChild variant="secondary" className="bg-blue-500 hover:bg-blue-600 text-white">
-                  <a href={doc.fr} download={getFileName(doc.fr)}>
-                    {t?.home?.documents?.downloadFr || "Télécharger (FR)"}
-                  </a>
-                </Button>
-                <Button asChild variant="secondary" className="bg-green-500 hover:bg-green-600 text-white">
-                  <a href={doc.en} download={getFileName(doc.en)}>
-                    {t?.home?.documents?.downloadEn || "Download (EN)"}
-                  </a>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    </section>
-  );
-};
+import HomeDocuments from "@/components/home-documents"
 
 
 interface PageProps {
