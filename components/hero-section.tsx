@@ -663,7 +663,7 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
             </Card>
           </div>
         </div>
-
+      </div>
 
       {/* Guide Modal */}
       {mounted && <FormGuide isOpen={isGuideOpen} onClose={handleGuideClose} />}
