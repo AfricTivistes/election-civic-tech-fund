@@ -226,7 +226,7 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
         <HeroSection onStart={handleStart} />
         <HomeDocuments />
-        
+
         {/* Footer */}
         <footer className="mt-20 border-t border-white/10 pt-8">
           <div className="container mx-auto px-4">
@@ -325,6 +325,22 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
       </div>
     )
   }
+
+  // Placeholder function for saving project data
+  const saveProjectData = () => {
+    console.log("Saving project data...");
+  };
+
+  // Placeholder function for adding badges
+  const addBadge = (badge: string) => {
+      setBadges((prev) => {
+          const currentBadges = Array.isArray(prev) ? prev : [];
+          if (!currentBadges.includes(badge)) {
+              return [...currentBadges, badge];
+          }
+          return currentBadges;
+      });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
@@ -461,32 +477,34 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
               <StepTwo
                 data={formData && formData.technology ? formData.technology : {}}
                 onUpdate={(data) => data && updateFormData("technology", data)}
-                onComplete={(badge) => badge && completeStep(2, badge)}
+                onComplete={(badge) => completeStep(2, badge)}
                 onNext={nextStep}
                 onPrev={prevStep}
+                onSave={saveProjectData}
               />
             )}
             {currentStep === 3 && (
               <StepThree
                 data={formData && formData.team ? formData.team : {}}
                 onUpdate={(data) => data && updateFormData("team", data)}
-                onComplete={(badge) => badge && completeStep(3, badge)}
+                onComplete={(badge) => completeStep(3, badge)}
                 onNext={nextStep}
                 onPrev={prevStep}
+                onSave={saveProjectData}
               />
             )}
             {currentStep === 4 && (
               <StepFour
                 data={formData && formData.documents ? formData.documents : {}}
                 onUpdate={(data) => data && updateFormData("documents", data)}
-                onComplete={(badge) => badge && completeStep(4, badge)}
+                onComplete={(badge) => completeStep(4, badge)}
                 onPrev={prevStep}
                 formData={formData || {}}
               />
             )}
           </div>
 
-          
+
         </div>
 
         {/* Badges sidebar */}

@@ -26,9 +26,10 @@ interface StepThreeProps {
   onComplete: (badge: string) => void
   onNext: () => void
   onPrev: () => void
+  onSave?: (data: any) => Promise<void>
 }
 
-export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev }: StepThreeProps) {
+export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, onSave }: StepThreeProps) {
   const { t } = useLanguage()
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>((data && data.teamMembers) || [])
   const [newMember, setNewMember] = useState<Partial<TeamMember>>({
