@@ -1,6 +1,9 @@
 
 const { Api } = require('nocodb-sdk')
 
+// Charger les variables d'environnement depuis .env.local
+require('dotenv').config({ path: '.env.local' })
+
 // Configuration NocoDB
 const api = new Api({
   baseURL: process.env.NEXT_PUBLIC_NOCODB_URL || 'http://localhost:8080',
@@ -116,6 +119,17 @@ async function setupNocoDB() {
     console.log('🔧 Configuration de NocoDB pour Democracy Projects')
     console.log('📋 Base ID:', baseId)
     console.log('🌐 URL:', process.env.NEXT_PUBLIC_NOCODB_URL)
+    console.log('🔑 Token disponible:', process.env.NEXT_PUBLIC_NOCODB_TOKEN ? 'Oui' : 'Non')
+    
+    if (!process.env.NEXT_PUBLIC_NOCODB_URL) {
+      console.error('❌ NEXT_PUBLIC_NOCODB_URL non défini dans .env.local')
+      process.exit(1)
+    }
+    
+    if (!process.env.NEXT_PUBLIC_NOCODB_TOKEN) {
+      console.error('❌ NEXT_PUBLIC_NOCODB_TOKEN non défini dans .env.local')
+      process.exit(1)
+    }
     
     // Créer la table
     await createTable()
