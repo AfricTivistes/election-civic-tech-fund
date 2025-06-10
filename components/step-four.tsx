@@ -35,6 +35,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData 
   const { t } = useLanguage()
   const [uploadedFiles, setUploadedFiles] = useState((data && data.uploadedFiles) || {})
   const [aiValidation, setAiValidation] = useState((data && data.aiValidation) || {})
+  const [uploadingFiles, setUploadingFiles] = useState<{[key: string]: boolean}>({})
   const [completionScore, setCompletionScore] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -79,8 +80,24 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData 
   const handleFileUpload = (documentId: string, file: File | null) => {
     if (!file) return
 
-    const newUploadedFiles = { ...uploadedFiles, [documentId]: file }
+    console.log('📎 Upload de fichier:', { documentId, fileName: file.name, fileSize: file.size })
+    
+    // Marquer le fichier comme en cours d'upload
+    setUploadingFiles(prev => ({ ...prev, [documentId]: true }))
+    
+    // Créer un objet fichier avec les informations nécessaires
+    const fileInfo = {
+      name: file.name,
+      size: file.size,
+      type: file.type,
+      lastModified: file.lastModified,
+      file: file // Garder une référence au fichier original
+    }
+    
+    const newUploadedFiles = { ...uploadedFiles, [documentId]: fileInfo }
     setUploadedFiles(newUploadedFiles)
+    
+    console.log('✅ Fichier ajouté à l\'état:', newUploadedFiles)
 
     // Simulate AI validation
     setTimeout(() => {
@@ -92,7 +109,10 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData 
         },
       }
       setAiValidation(validation)
+      setUploadingFiles(prev => ({ ...prev, [documentId]: false }))
       calculateCompletionScore(newUploadedFiles, validation)
+      
+      console.log('🔍 Validation IA terminée:', validation[documentId])
     }, 1500)
   }
 
@@ -121,59 +141,81 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData 
 
   const handleFileInputChange = (documentId: string) => {
     try {
+      console.log('🔍 Ouverture du sélecteur de fichier pour:', documentId)
+      
       const input = document.createElement("input")
       if (!input) {
-        console.error("Failed to create input element")
+        console.error("❌ Impossible de créer l'élément input")
         return
       }
 
       input.type = "file"
-      input.accept = ".pdf,.doc,.docx"
+      input.accept = ".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg"
+      input.style.display = "none"
 
       const handleChange = (e: Event) => {
+        console.log('📂 Événement de changement de fichier déclenché')
+        
         try {
           if (!e || !e.target) {
-            console.warn("Event or target is null")
+            console.warn("⚠️ Événement ou target null")
             return
           }
 
           const target = e.target as HTMLInputElement
           if (!target || !target.files || target.files.length === 0) {
-            console.warn("No files selected")
+            console.warn("⚠️ Aucun fichier sélectionné")
             return
           }
 
           const file = target.files[0]
           if (!file) {
-            console.warn("File is null")
+            console.warn("⚠️ Fichier null")
             return
           }
 
+          console.log('📎 Fichier sélectionné:', {
+            name: file.name,
+            size: file.size,
+            type: file.type
+          })
+
           // Vérifier que le fichier a les propriétés nécessaires
           if (typeof file.name !== "string" || typeof file.size !== "number") {
-            console.error("Invalid file object")
+            console.error("❌ Objet fichier invalide")
+            return
+          }
+
+          // Vérifier la taille du fichier (max 10MB)
+          if (file.size > 10 * 1024 * 1024) {
+            alert("Le fichier est trop volumineux (max 10MB)")
             return
           }
 
           handleFileUpload(documentId, file)
         } catch (error) {
-          console.error("Error handling file change:", error)
+          console.error("❌ Erreur lors du traitement du fichier:", error)
         }
       }
 
       input.addEventListener("change", handleChange, { once: true })
+      
+      // Ajouter l'input au DOM temporairement
+      document.body.appendChild(input)
       input.click()
 
-      // Cleanup
+      // Cleanup après un délai
       setTimeout(() => {
         try {
-          input.removeEventListener("change", handleChange)
+          if (document.body.contains(input)) {
+            document.body.removeChild(input)
+          }
         } catch (error) {
-          console.error("Error removing event listener:", error)
+          console.error("❌ Erreur lors du nettoyage:", error)
         }
-      }, 1000)
+      }, 5000)
     } catch (error) {
-      console.error("Error creating file input:", error)
+      console.error("❌ Erreur lors de la création de l'input:", error)
     }
   }
 
@@ -264,6 +306,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData 
                 const IconComponent = doc.icon
                 const isUploaded = uploadedFiles[doc.id]
                 const validation = aiValidation[doc.id]
+                const isUploading = uploadingFiles[doc.id]
 
                 return (
                   <motion.div
@@ -307,6 +350,18 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData 
                             )}
                           </h3>
                           <p className="text-blue-200 text-sm">{doc.description}</p>
+                          
+                          {isUploaded && (
+                            <p className="text-green-300 text-sm mt-1">
+                              📎 {isUploaded.name} ({(isUploaded.size / 1024).toFixed(1)} KB)
+                            </p>
+                          )}
+                          
+                          {isUploading && (
+                            <p className="text-yellow-300 text-sm mt-1 animate-pulse">
+                              ⏳ Upload en cours...
+                            </p>
+                          )}
 
                           {validation && (
                             <div className="flex items-center mt-2">
@@ -338,11 +393,25 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData 
                         <Button
                           variant="outline"
                           size="sm"
-                          className="border-blue-500/60 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 hover:text-blue-300 font-medium"
+                          disabled={isUploading}
+                          className="border-blue-500/60 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 hover:text-blue-300 font-medium disabled:opacity-50"
                           onClick={() => handleFileInputChange(doc.id)}
                         >
-                          <Upload className="w-4 h-4 mr-1" />
-                          {isUploaded ? t?.steps?.step4?.replace || "Replace" : t?.steps?.step4?.upload || "Upload"}
+                          {isUploading ? (
+                            <>
+                              <motion.div
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                                className="w-4 h-4 border border-blue-400 border-t-transparent rounded-full mr-1"
+                              />
+                              Upload...
+                            </>
+                          ) : (
+                            <>
+                              <Upload className="w-4 h-4 mr-1" />
+                              {isUploaded ? t?.steps?.step4?.replace || "Remplacer" : t?.steps?.step4?.upload || "Upload"}
+                            </>
+                          )}
                         </Button>
                       </div>
                     </div>
