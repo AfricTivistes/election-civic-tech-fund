@@ -363,14 +363,14 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
 
           {/* Right side - Pays Cibles avec Drapeaux */}
           <div className="space-y-6 animate-slide-in-right">
-            <Card className="bg-white/5 backdrop-blur-md border-white/10 p-4 md:p-6">
-              <h3 className="text-xl md:text-2xl font-bold text-white mb-4 md:mb-6 text-center flex items-center justify-center">
-                <Globe className="w-5 md:w-6 h-5 md:h-6 mr-2" />
+            <Card className="bg-gradient-to-br from-slate-800/90 via-blue-900/80 to-slate-800/90 backdrop-blur-md border-yellow-400/30 p-4 md:p-6 shadow-xl">
+              <h3 className="text-xl md:text-2xl font-bold text-yellow-100 mb-4 md:mb-6 text-center flex items-center justify-center">
+                <Globe className="w-5 md:w-6 h-5 md:h-6 mr-2 text-yellow-400" />
                 Pays Cibles du Fonds
               </h3>
 
               {/* Zone des drapeaux avec fond dégradé */}
-              <div className="relative w-full h-64 md:h-80 bg-gradient-to-br from-blue-800/60 via-blue-700/40 to-blue-900/60 rounded-xl overflow-hidden border border-blue-400/20">
+              <div className="relative w-full h-64 md:h-80 bg-gradient-to-br from-slate-700/80 via-blue-800/60 to-slate-800/80 rounded-xl overflow-hidden border border-yellow-400/40 shadow-inner">
                 {/* Effet de particules subtiles */}
                 <div className="absolute inset-0">
                   {[...Array(8)].map((_, i) => (
@@ -445,8 +445,8 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
               </div>
 
               <div className="mt-4 text-center">
-                <p className="text-blue-200 text-sm flex items-center justify-center">
-                  <Target className="w-4 h-4 mr-2" />
+                <p className="text-yellow-200 text-sm flex items-center justify-center font-medium">
+                  <Target className="w-4 h-4 mr-2 text-yellow-400" />
                   Cliquez sur un pays pour découvrir ses défis démocratiques
                 </p>
               </div>
