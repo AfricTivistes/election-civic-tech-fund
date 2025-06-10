@@ -50,7 +50,18 @@ export function useProjectData(projectId?: string) {
       if (savedProjectId) {
         // Mise à jour d'un projet existant
         console.log('🔄 Mise à jour du projet existant ID:', savedProjectId)
-        await nocoDBService.updateProject(savedProjectId, updatedData)
+        try {
+          await nocoDBService.updateProject(savedProjectId, updatedData)
+        } catch (error: any) {
+          console.error('❌ Erreur lors de la mise à jour, tentative de création:', error)
+          // Si la mise à jour échoue, essayer de créer un nouveau projet
+          const created = await nocoDBService.createProject({
+            ...updatedData,
+            status: updatedData.status || 'draft'
+          } as Omit<ProjectSubmission, 'id'>)
+          setSavedProjectId(created.id!)
+          console.log('✅ Nouveau projet créé après échec de mise à jour, ID:', created.id)
+        }
       } else {
         // Création d'un nouveau projet
         console.log('🆕 Création d\'un nouveau projet')

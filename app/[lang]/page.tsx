@@ -376,14 +376,8 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
       console.log('📋 Données complètes à sauvegarder:', completeData)
       console.log('🔍 savedProjectId actuel:', savedProjectId)
       
-      // Si aucun projet n'est sauvegardé, créer un nouveau projet directement
-      if (!savedProjectId) {
-        console.log('🆕 Création directe du projet lors de la soumission')
-        await saveData(completeData, true) // Force la sauvegarde
-      } else {
-        console.log('🔄 Mise à jour du projet existant')
-        await saveData(completeData, true)
-      }
+      // Toujours utiliser saveData qui gère automatiquement création vs mise à jour
+      await saveData(completeData, true) // Force la sauvegarde
       
       console.log('✅ Projet soumis avec succès!')
       
