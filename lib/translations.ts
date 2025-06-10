@@ -549,7 +549,7 @@ export const translations: Record<string, Translation> = {
     },
     home: {
       documents: {
-        title: "Documents Essentiels",
+        title: "Documents de réponse à l'appel à projets",
         subtitle: "Téléchargez tous les documents nécessaires pour transformer votre vision démocratique en réalité avec le Election Civic Tech Fund.",
         conceptNote: {
           name: "Note de cadrage",
@@ -838,7 +838,7 @@ export const translations: Record<string, Translation> = {
     },
     home: {
       documents: {
-        title: "Essential Documents",
+        title: "Call for Projects Response Documents",
         subtitle: "Download all necessary documents to transform your democratic vision into reality with the Election Civic Tech Fund.",
         conceptNote: {
           name: "Concept Note",
