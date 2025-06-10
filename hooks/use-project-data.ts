@@ -41,6 +41,11 @@ export function useProjectData(projectId?: string) {
       const updatedData = { ...data, ...newData }
       
       console.log('💾 Sauvegarde des données:', updatedData)
+      
+      // Validation des données requises
+      if (!updatedData.vision || !updatedData.problem || !updatedData.domain || !updatedData.country) {
+        throw new Error('Données obligatoires manquantes (vision, problem, domain, country)')
+      }
 
       if (savedProjectId) {
         // Mise à jour d'un projet existant
@@ -59,9 +64,10 @@ export function useProjectData(projectId?: string) {
       
       setData(updatedData)
       console.log('✅ Sauvegarde réussie!')
-    } catch (err) {
+    } catch (err: any) {
       console.error('❌ Erreur lors de la sauvegarde:', err)
-      setError('Erreur lors de la sauvegarde')
+      console.error('📄 Détails de l\'erreur:', err.response?.data || err.message)
+      setError(`Erreur lors de la sauvegarde: ${err.message}`)
       throw err
     } finally {
       setLoading(false)

@@ -37,21 +37,28 @@ export class NocoDBService {
     try {
       console.log('🚀 Création projet:', data)
       
+      // Validation des données requises
+      if (!data.vision || !data.problem || !data.domain || !data.country) {
+        throw new Error('Données obligatoires manquantes pour la création du projet')
+      }
+      
       // Convertir les arrays en JSON strings si nécessaire
       const processedData = {
         ...data,
         technologies: Array.isArray(data.technologies) 
           ? JSON.stringify(data.technologies) 
-          : data.technologies,
+          : (data.technologies || JSON.stringify([])),
         team_members: Array.isArray(data.team_members) 
           ? JSON.stringify(data.team_members) 
-          : data.team_members,
-        uploaded_documents: Array.isArray(data.uploaded_documents) 
+          : (data.team_members || JSON.stringify([])),
+        uploaded_documents: typeof data.uploaded_documents === 'object' 
           ? JSON.stringify(data.uploaded_documents) 
-          : data.uploaded_documents,
+          : (data.uploaded_documents || JSON.stringify({})),
         status: data.status || 'draft',
         language: data.language || 'fr'
       }
+
+      console.log('📝 Données traitées pour NocoDB:', processedData)
 
       const response = await api.dbTableRow.create(
         'noco',
@@ -62,9 +69,10 @@ export class NocoDBService {
       
       console.log('✅ Projet créé avec ID:', response.id)
       return this.parseProject(response)
-    } catch (error) {
+    } catch (error: any) {
       console.error('❌ Erreur création projet:', error)
-      throw new Error(`Erreur lors de la création du projet: ${error.message}`)
+      console.error('📄 Détails de l\'erreur:', error.response?.data || error.message)
+      throw new Error(`Erreur lors de la création du projet: ${error.response?.data?.message || error.message}`)
     }
   }
 

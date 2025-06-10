@@ -374,8 +374,17 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
       }
       
       console.log('📋 Données complètes à sauvegarder:', completeData)
+      console.log('🔍 savedProjectId actuel:', savedProjectId)
       
-      await saveData(completeData)
+      // Si aucun projet n'est sauvegardé, créer un nouveau projet directement
+      if (!savedProjectId) {
+        console.log('🆕 Création directe du projet lors de la soumission')
+        await saveData(completeData, true) // Force la sauvegarde
+      } else {
+        console.log('🔄 Mise à jour du projet existant')
+        await saveData(completeData, true)
+      }
+      
       console.log('✅ Projet soumis avec succès!')
       
     } catch (error) {
