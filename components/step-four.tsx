@@ -424,8 +424,9 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData 
       >
         <Button
           onClick={onPrev}
+          variant="outline"
           size="lg"
-          className="ectf-button-secondary px-8 py-4 font-semibold text-base rounded-xl"
+          className="px-8 py-3 font-semibold border-white/40 text-white hover:bg-white/10 hover:border-white/60"
         >
           <ArrowLeft className="mr-2 w-5 h-5" />
           {t?.steps?.step4?.prevButton || "Previous"}

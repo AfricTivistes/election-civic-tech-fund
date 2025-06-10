@@ -384,7 +384,7 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev }
           onClick={onPrev}
           variant="outline"
           size="lg"
-          className="px-8 py-3 border-white/20 text-white hover:bg-white/10"
+          className="px-8 py-3 font-semibold border-white/40 text-white hover:bg-white/10 hover:border-white/60"
         >
           <ArrowLeft className="mr-2 w-5 h-5" />
           {uiText.prevButton}
