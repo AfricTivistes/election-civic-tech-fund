@@ -251,7 +251,7 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
               <div className="text-center space-y-6">
                 {/* Score principal */}
                 <div className="relative">
-                  <div className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-2">
+                  <div className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-800 mb-2">
                     {impactScore}%
                   </div>
                   <p className="text-gray-700 text-lg">Score d'Impact Calculé</p>
@@ -273,7 +273,7 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
                           <IconComponent className="w-4 h-4 text-white" />
                         </div>
                         <span className="text-gray-800 text-sm font-medium">{tech.name}</span>
-                        <Badge variant="outline" className="border-yellow-400 text-yellow-300 text-xs">
+                        <Badge variant="outline" className="border-green-500 text-green-700 text-xs">
                           {tech.impact}%
                         </Badge>
                       </div>
