@@ -52,7 +52,7 @@ export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, te
       description: t?.domains?.tech?.description || "Blockchain, IA, outils civic tech, sécurité numérique",
       examples: t?.domains?.tech?.examples || ["Blockchain pour la transparence", "IA pour l'analyse", "Apps mobiles citoyennes"],
       allocation: "70 000€ • 40%",
-      icon: require("lucide-react").Cpu,
+      icon: Cpu,
       color: "from-blue-400 to-cyan-500",
     },
     {
@@ -61,7 +61,7 @@ export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, te
       description: t?.domains?.engagement?.description || "Éducation civique, observation électorale, inclusion",
       examples: t?.domains?.engagement?.examples || ["Éducation citoyenne", "Observation électorale", "Participation des jeunes"],
       allocation: "43 750€ • 25%",
-      icon: require("lucide-react").Users,
+      icon: Users,
       color: "from-green-400 to-emerald-500",
     },
     {
@@ -70,7 +70,7 @@ export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, te
       description: t?.domains?.media?.description || "Fact-checking, lutte contre la désinformation",
       examples: t?.domains?.media?.examples || ["Vérification des faits", "Médias citoyens", "Anti-désinformation"],
       allocation: "35 000€ • 20%",
-      icon: require("lucide-react").FileText,
+      icon: FileText,
       color: "from-purple-400 to-pink-500",
     },
     {
@@ -79,7 +79,7 @@ export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, te
       description: t?.domains?.legal?.description || "Réformes électorales, contentieux, veille juridique",
       examples: t?.domains?.legal?.examples || ["Réformes électorales", "Suivi contentieux", "Veille juridique"],
       allocation: "26 250€ • 15%",
-      icon: require("lucide-react").Scale,
+      icon: Scale,
       color: "from-orange-400 to-red-500",
     },
   ]
