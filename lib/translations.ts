@@ -337,7 +337,7 @@ export const translations: Record<string, Translation> = {
         tagline: "Ensemble, nous construisons l'avenir démocratique de l'Afrique",
       },
       guide: {
-        title: "Prêt à impacter positivement les processus électoraux en Afrique ?",
+        title: "🚀 Prêt à Transformer la Démocratie ?",
         subtitle: "Consultez notre guide expert pour maximiser vos chances de succès",
         description: {
           title: "Découvrez ce qui vous attend",
@@ -627,7 +627,7 @@ export const translations: Record<string, Translation> = {
         tagline: "Together, we are building Africa's democratic future",
       },
       guide: {
-        title: "Ready to positively impact electoral processes in Africa?",
+        title: "🚀 Ready to Transform Democracy?",
         subtitle: "Consult our expert guide to maximize your chances of success",
         description: {
           title: "Discover what awaits you",
