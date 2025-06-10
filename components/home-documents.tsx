@@ -111,11 +111,11 @@ export default function HomeDocuments() {
   const texts = {
     fr: {
       sectionTitle: "Documents de Réponse à l'Appel à Projets",
-      downloadButton: "Télécharger (FR)"
+      downloadButton: "Télécharger"
     },
     en: {
-      sectionTitle: "Call for Projects Response Documents",
-      downloadButton: "Download (EN)"
+      sectionTitle: "Call for Projects Response Documents", 
+      downloadButton: "Télécharger"
     }
   }
 
