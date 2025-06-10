@@ -686,8 +686,7 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
 
               <div className="space-y-3">
                 {faqData.map((faq, index) => {
-                  if (!faq)```text
-return null
+                  if (!faq) return null
                   // Utiliser la question et réponse en anglais ou en français selon la langue
                   const question = language === "en" && faq.questionEn ? faq.questionEn : faq.question || ""
                   const answer = language === "en" && faq.answerEn ? faq.answerEn : faq.answer || ""
@@ -727,12 +726,10 @@ return null
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Badge variant="outline" className="border-cyan-400 text-cyan-200 bg-cyan-500/10">
-                    📧 support@ectf.org
-                  </Badge>
-                  <Badge  className="border-blue-400 text-blue-200 bg-blue-500/10">
+                    📧 info@africtivistes.org
                   </Badge>
                   <Badge variant="outline" className="border-green-400 text-green-200 bg-green-500/10">
-                    📞 {language === "en" ? "Hotline: +221 XX XXX XXXX" : "Hotline : +221 XX XXX XXXX"}
+                    📞 (+221) 33 837 51 24
                   </Badge>
                 </div>
               </CardContent>
