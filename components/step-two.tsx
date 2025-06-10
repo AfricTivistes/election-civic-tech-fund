@@ -17,7 +17,7 @@ interface StepTwoProps {
   onSave?: (data: any) => Promise<void>
 }
 
-export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: StepTwoProps) {
+export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev, onSave }: StepTwoProps) {
   const { t } = useLanguage()
   const [selectedTechnologies, setSelectedTechnologies] = useState((data && data.technologies) || [])
   const [impactScore, setImpactScore] = useState((data && data.impactScore) || 0)
