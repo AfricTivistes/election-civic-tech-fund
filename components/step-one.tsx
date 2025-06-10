@@ -72,9 +72,9 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
         problem,
         domain: selectedDomain,
       }
-      
+
       onUpdate(stepData)
-      
+
       // Sauvegarde automatique si disponible
       if (onSave) {
         try {
@@ -84,7 +84,7 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
           // Continuer même en cas d'erreur de sauvegarde
         }
       }
-      
+
       onComplete("Visionary")
       onNext()
     }
@@ -255,7 +255,7 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6 }}
+        transition={{ delay: 0.7 }}
         className="flex justify-end"
       >
         <Button
