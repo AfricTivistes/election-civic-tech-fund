@@ -308,7 +308,8 @@ export const translations: Record<string, Translation> = {
       title: "ELECTION CIVIC TECH FUND",
       subtitle: "Digital Democracy Journey",
       description:
-        "Transforme la participation citoyenne en Afrique grâce à des technologies innovantes. Notre mission : démocratiser l'accès aux outils numériques pour renforcer la transparence électorale et l'engagement civique.",
+        "Transforme la participation citoyenne en Afrique grâce aux technologies innovantes. Notre mission : démocratiser l'accès aux outils numériques pour renforcer la transparence électorale et l'engagement civique.",
+      platformDescription: "Cette plateforme est conçue comme un outil interactif pour faciliter votre candidature. Ce présent appel à projets vous invite à proposer vos idées innovantes à travers quatre étapes clés.",
       secondDescription:
         "Rejoignez une communauté de 175 000€ dédiée à l'innovation démocratique dans 14 pays africains. Ensemble, construisons l'avenir numérique de la démocratie africaine.",
       startButton: "Transformer la Démocratie Africaine",

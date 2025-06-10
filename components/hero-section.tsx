@@ -324,6 +324,9 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
                 <p className="text-blue-100 text-lg leading-relaxed mb-6">
                   {t?.hero?.description || ""}
                 </p>
+                <p className="text-blue-200 text-base leading-relaxed mb-4 border-l-4 border-yellow-400 pl-4 bg-white/5 rounded-r-lg py-3">
+                  {t?.hero?.platformDescription || "Cette plateforme est conçue comme un outil interactif pour faciliter votre candidature. Ce présent appel à projets vous invite à proposer vos idées innovantes à travers quatre étapes clés."}
+                </p>
                 <p className="text-blue-200 mb-6">{t?.hero?.secondDescription || ""}</p>
 
                 <div className="grid grid-cols-2 gap-4 mb-6">
