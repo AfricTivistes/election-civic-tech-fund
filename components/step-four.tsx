@@ -224,7 +224,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData 
             <div className="space-y-4">
               <div className="text-center">
                 <div className="text-4xl font-bold text-purple-400 mb-2">{Math.round(completionScore)}%</div>
-                <p className="text-purple-200">
+                <p className="text-gray-800">
                   {t?.steps?.step4?.completionText || "Your application is"} {Math.round(completionScore)}%
                 </p>
               </div>
