@@ -500,7 +500,7 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
                         {t?.guide?.beforeStarting || (language === "en" ? "🚀 Before Starting" : "🚀 Avant de Commencer")}
                       </span>
                     </h3>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                       <div className="space-y-3">
                         <div className="flex items-start space-x-3 p-3 bg-white/10 rounded-lg border border-blue-400/30">
@@ -517,7 +517,7 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
                             </div>
                           </div>
                         </div>
-                        
+
                         <div className="flex items-start space-x-3 p-3 bg-white/10 rounded-lg border border-blue-400/30">
                           <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
                           <div>
@@ -533,7 +533,7 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
                           </div>
                         </div>
                       </div>
-                      
+
                       <div className="space-y-3">
                         <div className="flex items-start space-x-3 p-3 bg-white/10 rounded-lg border border-blue-400/30">
                           <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
@@ -547,7 +547,7 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
                             </div>
                           </div>
                         </div>
-                        
+
                         <div className="flex items-start space-x-3 p-3 bg-white/10 rounded-lg border border-blue-400/30">
                           <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
                           <div>
@@ -686,7 +686,8 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
 
               <div className="space-y-3">
                 {faqData.map((faq, index) => {
-                  if (!faq) return null
+                  if (!faq)```text
+return null
                   // Utiliser la question et réponse en anglais ou en français selon la langue
                   const question = language === "en" && faq.questionEn ? faq.questionEn : faq.question || ""
                   const answer = language === "en" && faq.answerEn ? faq.answerEn : faq.answer || ""
@@ -728,8 +729,7 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
                   <Badge variant="outline" className="border-cyan-400 text-cyan-200 bg-cyan-500/10">
                     📧 support@ectf.org
                   </Badge>
-                  <Badge variant="outline" className="border-blue-400 text-blue-200 bg-blue-500/10">
-                    {language === "en" ? "💬 Live chat 9am-5pm" : "💬 Chat en direct 9h-17h"}
+                  <Badge  className="border-blue-400 text-blue-200 bg-blue-500/10">
                   </Badge>
                   <Badge variant="outline" className="border-green-400 text-green-200 bg-green-500/10">
                     📞 {language === "en" ? "Hotline: +221 XX XXX XXXX" : "Hotline : +221 XX XXX XXXX"}
