@@ -435,8 +435,8 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
       question: "Que se passe-t-il si je n'ai pas tous les documents ?",
       questionEn: "What happens if I don't have all the documents?",
       answer:
-        "Vous pouvez commencer sans tous les documents, mais vous devez atteindre 80% de complétude pour soumettre.",
-      answerEn: "You can start without all documents, but you must reach 80% completion to submit.",
+        "Un dossier est considéré comme complet que s'il est soumis avec tous les documents requis. Les dossiers incomplets ne feront pas l'objet d'une évaluation par le comité de sélection.",
+      answerEn: "An application is considered complete only if it is submitted with all required documents. Incomplete applications will not be evaluated by the selection committee.",
     },
     {
       question: "Comment sont évalués les dossiers ?",
