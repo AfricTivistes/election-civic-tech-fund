@@ -280,7 +280,7 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
             <div className="relative p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl"></div>
               <img
-                src="/logo-ectf.png"
+                src="/Logo Fonds Election Civic Tech Fund.svg"
                 alt="Election Civic Tech Fund - Logo avec continent africain"
                 className="h-32 w-auto relative z-10 drop-shadow-lg"
                 style={{ filter: "brightness(1.2) contrast(1.1)" }}

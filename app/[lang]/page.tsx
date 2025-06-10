@@ -415,7 +415,7 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
                 >
                   <div className="relative p-1 md:p-2 bg-white/15 backdrop-blur-sm rounded-lg border border-white/30">
                     <img
-                      src="/logo-ectf.png"
+                      src="/Logo Fonds Election Civic Tech Fund.svg"
                       alt="Election Civic Tech Fund - Logo avec continent africain"
                       className="h-6 md:h-10 w-auto"
                       style={{ filter: "brightness(1.3) contrast(1.2)" }}
