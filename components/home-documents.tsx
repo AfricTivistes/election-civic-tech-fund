@@ -146,7 +146,7 @@ export default function HomeDocuments() {
       {/* En-tête de section */}
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-yellow-200 to-blue-200 bg-clip-text text-transparent">
-          {language === 'en' ? 'Essential Documents' : 'Documents de réponse à l\'appel à projets'}
+          {language === 'en' ? 'Essential Documents' : 'Documents Essentiels'}
         </h2>
 
         <p className="text-blue-200/90 text-xl max-w-4xl mx-auto leading-relaxed">
