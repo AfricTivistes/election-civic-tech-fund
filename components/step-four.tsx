@@ -29,9 +29,10 @@ interface StepFourProps {
   onComplete: (badge: string) => void
   onPrev: () => void
   formData: any
+  onSave?: (data: any) => Promise<void>
 }
 
-export default function StepFour({ data, onUpdate, onComplete, onPrev, formData }: StepFourProps) {
+export default function StepFour({ data, onUpdate, onComplete, onPrev, formData, onSave }: StepFourProps) {
   const { t } = useLanguage()
   const [uploadedFiles, setUploadedFiles] = useState((data && data.uploadedFiles) || {})
   const [aiValidation, setAiValidation] = useState((data && data.aiValidation) || {})
@@ -128,15 +129,41 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData 
   const handleSubmit = async () => {
     setIsSubmitting(true)
 
-    // Simulate submission process
-    await new Promise((resolve) => setTimeout(resolve, 3000))
+    try {
+      // Préparer les données finales pour la soumission
+      const finalData = {
+        // Documents uploadés (pour l'instant juste les métadonnées)
+        uploaded_documents: uploadedFiles,
+        completion_score: completionScore,
+        // Marquer comme soumis
+        status: 'submitted' as const,
+        submission_date: new Date().toISOString()
+      }
 
-    onUpdate({ uploadedFiles, aiValidation, completionScore })
-    onComplete("Submission Master")
-    setIsSubmitting(false)
+      console.log('📤 Soumission finale des données:', finalData)
 
-    // Show success message or redirect
-    alert("Votre candidature a été soumise avec succès ! Vous recevrez une confirmation par email.")
+      // Mettre à jour les données locales
+      onUpdate(finalData)
+
+      // Sauvegarder dans la base de données si la fonction est disponible
+      if (onSave && typeof onSave === 'function') {
+        console.log('💾 Sauvegarde en base de données...')
+        await onSave(finalData)
+        console.log('✅ Sauvegarde réussie!')
+      } else {
+        console.warn('⚠️ Fonction onSave non disponible')
+      }
+
+      onComplete("Submission Master")
+
+      // Show success message
+      alert("Votre candidature a été soumise avec succès ! Vous recevrez une confirmation par email.")
+    } catch (error) {
+      console.error('❌ Erreur lors de la soumission:', error)
+      alert("Erreur lors de la soumission. Veuillez réessayer.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleFileInputChange = (documentId: string) => {

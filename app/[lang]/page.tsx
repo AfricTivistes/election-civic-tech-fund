@@ -393,7 +393,7 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
                 <div className="hidden lg:flex items-center space-x-6">
                   {/* Logo AfricTivistes à gauche du temps */}
                   <img
-                    src="/logo-africtivites.svg"
+                    src="/logo-africtivistes.svg"
                     alt="AfricTivistes"
                     className="h-6 w-auto opacity-70 hover:opacity-100 transition-all duration-300"
                     style={{
@@ -500,6 +500,7 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
                 onComplete={(badge) => completeStep(4, badge)}
                 onPrev={prevStep}
                 formData={formData || {}}
+                onSave={saveProjectData}
               />
             )}
           </div>

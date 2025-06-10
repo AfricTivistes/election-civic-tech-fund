@@ -52,6 +52,25 @@ async function testTable() {
     console.log('✅ Nouveau projet créé! ID:', created.id)
     console.log('📊 Données insérées:', created)
     
+    // Vérifier les projets soumis
+    console.log('\n🔍 Vérification des projets soumis...')
+    const submittedProjects = await api.dbTableRow.list(
+      'noco',
+      process.env.NEXT_PUBLIC_NOCODB_BASE_ID,
+      'democracy_projects',
+      {
+        where: 'status=submitted'
+      }
+    )
+    
+    console.log('📊 Nombre de projets soumis:', submittedProjects.list?.length || 0)
+    if (submittedProjects.list && submittedProjects.list.length > 0) {
+      console.log('📝 Derniers projets soumis:')
+      submittedProjects.list.slice(0, 3).forEach((project, index) => {
+        console.log(`  ${index + 1}. ID: ${project.id}, Vision: ${project.vision?.substring(0, 50)}...`)
+      })
+    }
+
     console.log('🎉 Tous les tests sont réussis!')
     console.log('💡 Votre application peut maintenant sauvegarder les données!')
     
