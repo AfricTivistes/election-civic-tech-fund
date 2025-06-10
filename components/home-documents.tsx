@@ -102,7 +102,7 @@ export default function HomeDocuments() {
       icon: FileSpreadsheet,
       color: 'from-orange-500 to-red-500'
     }
-  ]
+  ]</old_str>
 
   const handleDownload = (filename: string) => {
     try {
@@ -115,13 +115,14 @@ export default function HomeDocuments() {
       document.body.removeChild(link)
     } catch (error) {
       console.error('Error downloading file:', error)
+      // Fallback: open in new tab
       window.open(`/documents/${filename}`, '_blank')
     }
   }
 
   const handleView = (filename: string) => {
     window.open(`/documents/${filename}`, '_blank')
-  }
+  }</old_str>
 
   const getFileTypeColor = (type: string) => {
     switch (type) {
