@@ -707,10 +707,10 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
             </div>
 
             {/* Contact d'aide */}
-            <Card className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 border-blue-400/30">
+            <Card className="bg-gradient-to-r from-slate-800/90 to-slate-700/90 border-slate-400/30">
               <CardContent className="p-6 text-center">
                 <div className="flex justify-center mb-4">
-                  <div className="p-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-xl">
+                  <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl">
                     <MessageSquare className="w-6 h-6 text-white" />
                   </div>
                 </div>
@@ -718,20 +718,20 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
                   {t?.guide?.personalizedSupport ||
                     (language === "en" ? "Personalized Support" : "Support Personnalisé")}
                 </h3>
-                <p className="text-gray-800 text-sm mb-4 font-medium">
+                <p className="text-slate-200 text-sm mb-4 font-medium">
                   {t?.guide?.supportTeam ||
                     (language === "en"
                       ? "Our team of experts is available to assist you with your application."
                       : "Notre équipe d'experts est disponible pour vous accompagner dans votre candidature.")}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                  <Badge variant="outline" className="border-blue-400 text-blue-300">
+                  <Badge variant="outline" className="border-cyan-400 text-cyan-200 bg-cyan-500/10">
                     📧 support@ectf.org
                   </Badge>
-                  <Badge variant="outline" className="border-purple-400 text-purple-300">
+                  <Badge variant="outline" className="border-blue-400 text-blue-200 bg-blue-500/10">
                     {language === "en" ? "💬 Live chat 9am-5pm" : "💬 Chat en direct 9h-17h"}
                   </Badge>
-                  <Badge variant="outline" className="border-green-400 text-green-300">
+                  <Badge variant="outline" className="border-green-400 text-green-200 bg-green-500/10">
                     📞 {language === "en" ? "Hotline: +221 XX XXX XXXX" : "Hotline : +221 XX XXX XXXX"}
                   </Badge>
                 </div>
