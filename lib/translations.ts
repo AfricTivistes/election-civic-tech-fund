@@ -742,7 +742,6 @@ export const translations: Record<string, Translation> = {
         members: "members",
         notProvided: "Not provided",
         notSelected: "Not selected",
-        notSelectedTech: "Not selected",
         submitButton: "Submit my Vision",
         submitting: "Submitting...",
         prevButton: "Back to Team",
