@@ -102,7 +102,7 @@ export default function HomeDocuments() {
       icon: FileSpreadsheet,
       color: 'from-orange-500 to-red-500'
     }
-  ]</old_str>
+  ]
 
   const handleDownload = (filename: string) => {
     try {
@@ -122,7 +122,7 @@ export default function HomeDocuments() {
 
   const handleView = (filename: string) => {
     window.open(`/documents/${filename}`, '_blank')
-  }</old_str>
+  }
 
   const getFileTypeColor = (type: string) => {
     switch (type) {
