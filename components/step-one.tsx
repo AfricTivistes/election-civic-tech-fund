@@ -16,6 +16,7 @@ interface StepOneProps {
   onUpdate: (data: any) => void
   onComplete: (badge: string) => void
   onNext: () => void
+  onSave?: (data: any) => Promise<void>
 }
 
 export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneProps) {
@@ -64,13 +65,26 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
     },
   ]
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (isComplete) {
-      onUpdate({
+      const stepData = {
         vision,
         problem,
         domain: selectedDomain,
-      })
+      }
+      
+      onUpdate(stepData)
+      
+      // Sauvegarde automatique si disponible
+      if (onSave) {
+        try {
+          await onSave(stepData)
+        } catch (error) {
+          console.error('Erreur sauvegarde:', error)
+          // Continuer même en cas d'erreur de sauvegarde
+        }
+      }
+      
       onComplete("Visionary")
       onNext()
     }

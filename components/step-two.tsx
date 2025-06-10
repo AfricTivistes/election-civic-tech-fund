@@ -14,6 +14,7 @@ interface StepTwoProps {
   onComplete: (badge: string) => void
   onNext: () => void
   onPrev: () => void
+  onSave?: (data: any) => Promise<void>
 }
 
 export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: StepTwoProps) {
@@ -116,12 +117,24 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
     setImpactScore(Math.round(avgImpact))
   }
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (selectedTechnologies.length > 0) {
-      onUpdate({
+      const stepData = {
         technologies: selectedTechnologies,
-        impactScore,
-      })
+        impact_score: impactScore,
+      }
+      
+      onUpdate(stepData)
+      
+      // Sauvegarde automatique si disponible
+      if (onSave) {
+        try {
+          await onSave(stepData)
+        } catch (error) {
+          console.error('Erreur sauvegarde:', error)
+        }
+      }
+      
       onComplete("Tech Innovator")
       onNext()
     }
