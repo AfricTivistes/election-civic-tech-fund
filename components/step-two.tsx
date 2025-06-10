@@ -240,10 +240,10 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4 }}>
           <Card className="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border-blue-400/30">
             <CardHeader>
-              <CardTitle className="text-white text-center">
+              <CardTitle className="text-cyan-100 text-center">
                 {t?.steps?.step2?.impactTitle || "Visualisation de votre ADN Démocratique"}
               </CardTitle>
-              <CardDescription className="text-blue-200 text-center">
+              <CardDescription className="text-cyan-200 text-center">
                 {t?.steps?.step2?.impactSubtitle || "Score d'Impact Social et Technologique"}
               </CardDescription>
             </CardHeader>
@@ -254,7 +254,7 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
                   <div className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-2">
                     {impactScore}%
                   </div>
-                  <p className="text-blue-200 text-lg">Score d'Impact Calculé</p>
+                  <p className="text-cyan-200 text-lg">Score d'Impact Calculé</p>
                 </div>
 
                 {/* Technologies sélectionnées */}
@@ -272,7 +272,7 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev }: 
                         <div className={`p-1 rounded-full bg-gradient-to-r ${tech.color}`}>
                           <IconComponent className="w-4 h-4 text-white" />
                         </div>
-                        <span className="text-white text-sm font-medium">{tech.name}</span>
+                        <span className="text-cyan-100 text-sm font-medium">{tech.name}</span>
                         <Badge variant="outline" className="border-yellow-400 text-yellow-300 text-xs">
                           {tech.impact}%
                         </Badge>
