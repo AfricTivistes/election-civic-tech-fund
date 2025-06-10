@@ -488,49 +488,77 @@ export default function FormGuide({ isOpen, onClose, currentStep = 0, params }: 
         <div className="overflow-y-auto max-h-[calc(95vh-100px)] md:max-h-[calc(90vh-120px)]">
           <div className="p-4 md:p-6 space-y-4 md:space-y-6">
             {/* Quick Start */}
-            <Card className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-green-400/30">
-              <CardContent className="p-6">
-                <div className="flex items-start space-x-4">
-                  <Rocket className="w-8 h-8 text-green-400 mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="text-xl font-bold text-green-50 mb-3">
-                      {t?.guide?.beforeStarting || (language === "en" ? "🚀 Before Starting" : "🚀 Avant de Commencer")}
+            <Card className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-green-400/30 shadow-lg">
+              <CardContent className="p-6 md:p-8">
+                <div className="flex flex-col md:flex-row md:items-start space-y-4 md:space-y-0 md:space-x-6">
+                  <div className="flex items-center md:block">
+                    <Rocket className="w-10 h-10 md:w-12 md:h-12 text-green-400 flex-shrink-0 mr-3 md:mr-0 md:mb-2" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl md:text-2xl font-bold text-green-50 mb-4 md:mb-6 flex items-center md:block">
+                      <span className="md:block">
+                        {t?.guide?.beforeStarting || (language === "en" ? "🚀 Before Starting" : "🚀 Avant de Commencer")}
+                      </span>
                     </h3>
-                    <div className="grid grid-cols-1 gap-4 text-sm">
-                      <div className="space-y-2">
-                        <div className="flex items-center text-green-100">
-                          <CheckCircle className="w-4 h-4 mr-2 text-green-400" />
-                          <span>
-                            {t?.guide?.estimatedTime ||
-                              (language === "en"
-                                ? "Estimated total time: 2-3 hours"
-                                : "Temps total estimé : 2-3 heures")}
-                          </span>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                      <div className="space-y-3">
+                        <div className="flex items-start space-x-3 p-3 bg-white/10 rounded-lg border border-green-400/20">
+                          <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <div className="font-medium text-green-50 text-sm">
+                              {language === "en" ? "Duration" : "Durée"}
+                            </div>
+                            <div className="text-green-200 text-sm">
+                              {t?.guide?.estimatedTime ||
+                                (language === "en"
+                                  ? "2-3 hours total"
+                                  : "2-3 heures au total")}
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex items-center text-green-100">
-                          <CheckCircle className="w-4 h-4 mr-2 text-green-400" />
-                          <span>
-                            {t?.guide?.autoSave ||
-                              (language === "en"
-                                ? "Automatic save at each step"
-                                : "Sauvegarde automatique à chaque étape")}
-                          </span>
+                        
+                        <div className="flex items-start space-x-3 p-3 bg-white/10 rounded-lg border border-green-400/20">
+                          <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <div className="font-medium text-green-50 text-sm">
+                              {language === "en" ? "Auto-save" : "Sauvegarde"}
+                            </div>
+                            <div className="text-green-200 text-sm">
+                              {t?.guide?.autoSave ||
+                                (language === "en"
+                                  ? "Progress saved automatically"
+                                  : "Progression sauvée automatiquement")}
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <div className="space-y-2">
-                        <div className="flex items-center text-green-100">
-                          <CheckCircle className="w-4 h-4 mr-2 text-green-400" />
-                          <span>
-                            {t?.guide?.aiValidation ||
-                              (language === "en" ? "Real-time AI validation" : "Validation IA en temps réel")}
-                          </span>
+                      
+                      <div className="space-y-3">
+                        <div className="flex items-start space-x-3 p-3 bg-white/10 rounded-lg border border-green-400/20">
+                          <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <div className="font-medium text-green-50 text-sm">
+                              {language === "en" ? "AI Validation" : "Validation IA"}
+                            </div>
+                            <div className="text-green-200 text-sm">
+                              {t?.guide?.aiValidation ||
+                                (language === "en" ? "Real-time document checking" : "Vérification temps réel des documents")}
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex items-center text-green-100">
-                          <CheckCircle className="w-4 h-4 mr-2 text-green-400" />
-                          <span>
-                            {t?.guide?.contextualHelp ||
-                              (language === "en" ? "Contextual help available" : "Aide contextuelle disponible")}
-                          </span>
+                        
+                        <div className="flex items-start space-x-3 p-3 bg-white/10 rounded-lg border border-green-400/20">
+                          <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <div className="font-medium text-green-50 text-sm">
+                              {language === "en" ? "Support" : "Assistance"}
+                            </div>
+                            <div className="text-green-200 text-sm">
+                              {t?.guide?.contextualHelp ||
+                                (language === "en" ? "Contextual help available" : "Aide contextuelle disponible")}
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
