@@ -80,6 +80,25 @@ export function useProjectData(projectId?: string) {
     }
   }
 
+  // Fonction de test pour vérifier les données
+  const testSaveWithCountry = async (testData: Partial<ProjectSubmission>) => {
+    console.log('🧪 Test de sauvegarde avec pays:', testData)
+    
+    if (!testData.country) {
+      console.warn('⚠️ Aucun pays détecté dans les données de test')
+      return
+    }
+    
+    console.log(`🏳️ Pays détecté: ${testData.country}`)
+    
+    try {
+      await saveData(testData, true)
+      console.log('✅ Test de sauvegarde réussi')
+    } catch (error) {
+      console.error('❌ Échec du test de sauvegarde:', error)
+    }
+  }
+
   return {
     data,
     loading,
@@ -87,6 +106,7 @@ export function useProjectData(projectId?: string) {
     savedProjectId,
     saveData,
     submitProject,
-    setData
+    setData,
+    testSaveWithCountry
   }
 }

@@ -17,6 +17,7 @@ interface StepOneProps {
   onComplete: (badge: string) => void
   onNext: () => void
   onSave?: (data: any) => Promise<void>
+  testSaveWithCountry?: (data: any) => Promise<void>
 }
 
 const africanCountries = [
@@ -36,7 +37,7 @@ const africanCountries = [
   { code: "so", name: "Somalie", flag: "🇸🇴" },
 ]
 
-export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneProps) {
+export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, testSaveWithCountry }: StepOneProps) {
   const { t } = useLanguage()
   const [vision, setVision] = useState(data?.vision || "")
   const [problem, setProblem] = useState(data?.problem || "")
@@ -92,14 +93,28 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
         country: selectedCountry,
       }
 
+      console.log('📝 Données Step 1 complètes:', stepData)
+      console.log(`🌍 Pays sélectionné: ${selectedCountry}`)
+      
+      // Vérifier que le pays est bien présent
+      if (!selectedCountry) {
+        console.error('❌ Aucun pays sélectionné!')
+        return
+      }
+
+      const countryName = africanCountries.find(c => c.code === selectedCountry)?.name
+      console.log(`🏳️ Nom du pays: ${countryName}`)
+
       onUpdate(stepData)
 
       // Sauvegarde automatique si disponible
       if (onSave) {
         try {
+          console.log('💾 Tentative de sauvegarde...')
           await onSave(stepData)
+          console.log('✅ Sauvegarde réussie!')
         } catch (error) {
-          console.error('Erreur sauvegarde:', error)
+          console.error('❌ Erreur sauvegarde:', error)
           // Continuer même en cas d'erreur de sauvegarde
         }
       }
@@ -322,6 +337,39 @@ export default function StepOne({ data, onUpdate, onComplete, onNext }: StepOneP
           </CardContent>
         </Card>
       </motion.div>
+
+      {/* Bouton de test (développement uniquement) */}
+      {process.env.NODE_ENV === 'development' && selectedCountry && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          className="flex justify-center"
+        >
+          <Button
+            onClick={async () => {
+              const testData = {
+                vision: vision || "Test vision",
+                problem: problem || "Test problem", 
+                domain: selectedDomain || "tech",
+                country: selectedCountry,
+                status: 'draft' as const
+              }
+              
+              console.log('🧪 Test des données:', testData)
+              
+              if (testSaveWithCountry) {
+                await testSaveWithCountry(testData)
+              }
+            }}
+            variant="outline"
+            size="sm"
+            className="bg-yellow-500/20 border-yellow-400 text-yellow-300 hover:bg-yellow-500/30"
+          >
+            🧪 Tester la sauvegarde avec pays
+          </Button>
+        </motion.div>
+      )}
 
       {/* Navigation */}
       <motion.div

@@ -8,7 +8,7 @@ const api = new Api({
   }
 })
 
-// Types pour les données du formulaire
+// Types pour les données du formulaire (version test sans documents)
 export interface ProjectSubmission {
   id?: string
   created_at?: string
@@ -19,21 +19,17 @@ export interface ProjectSubmission {
   vision: string
   problem: string
   domain: 'tech' | 'engagement' | 'media' | 'legal'
+  country: string  // Rendre obligatoire pour le test
   
   // Step 2 - Technologies
   technologies: string[]
   impact_score: number
   
-  // Step 3 - Équipe
+  // Step 3 - Équipe (optionnel pour le test)
   team_members?: any[]
   team_size?: number
   
-  // Step 4 - Documents
-  uploaded_documents?: any
-  completion_score?: number
-  
   // Métadonnées
-  country?: string
   language?: 'fr' | 'en'
   submission_date?: string
   reviewer_notes?: string
@@ -46,6 +42,8 @@ export class NocoDBService {
 
   async createProject(data: Omit<ProjectSubmission, 'id'>): Promise<ProjectSubmission> {
     try {
+      console.log('🚀 Données à sauvegarder:', data)
+      
       const response = await api.dbTableRow.create(
         'noco',
         this.baseId,
@@ -53,18 +51,23 @@ export class NocoDBService {
         {
           ...data,
           technologies: JSON.stringify(data.technologies),
-          team_members: JSON.stringify(data.team_members || [])
+          team_members: JSON.stringify(data.team_members || []),
+          submission_date: new Date().toISOString()
         }
       )
+      
+      console.log('✅ Projet créé avec succès:', response)
       return response as ProjectSubmission
     } catch (error) {
-      console.error('Erreur création projet:', error)
+      console.error('❌ Erreur création projet:', error)
       throw error
     }
   }
 
   async updateProject(id: string, data: Partial<ProjectSubmission>): Promise<ProjectSubmission> {
     try {
+      console.log('🔄 Mise à jour projet:', id, data)
+      
       const updateData = { ...data }
       if (data.technologies) {
         updateData.technologies = JSON.stringify(data.technologies) as any
@@ -80,9 +83,11 @@ export class NocoDBService {
         id,
         updateData
       )
+      
+      console.log('✅ Projet mis à jour:', response)
       return response as ProjectSubmission
     } catch (error) {
-      console.error('Erreur mise à jour projet:', error)
+      console.error('❌ Erreur mise à jour projet:', error)
       throw error
     }
   }
