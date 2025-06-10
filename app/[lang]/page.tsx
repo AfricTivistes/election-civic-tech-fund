@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/hooks/use-language"
 import LanguageSwitcher from "@/components/language-switcher"
 import HomeDocuments from "@/components/home-documents"
+import { useProjectData } from "@/hooks/use-project-data"
 
 
 interface PageProps {
@@ -37,6 +38,9 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
   const [mounted, setMounted] = useState(false)
   const [isGuideOpen, setIsGuideOpen] = useState(false)
   const { t, isLoading } = useLanguage()
+  
+  // Hook pour la sauvegarde dans NocoDB
+  const { data: projectData, loading: saving, saveData, testSaveWithCountry, savedProjectId } = useProjectData()
 
   const steps = [
     {
@@ -326,21 +330,59 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
     )
   }
 
-  // Placeholder function for saving project data
-  const saveProjectData = () => {
-    console.log("Saving project data...");
-  };
+  // Fonction pour sauvegarder les données du projet
+  const saveProjectData = async (stepData: any) => {
+    try {
+      console.log('💾 Sauvegarde des données du projet:', stepData)
+      await saveData(stepData)
+      console.log('✅ Données sauvegardées avec succès!')
+    } catch (error) {
+      console.error('❌ Erreur lors de la sauvegarde:', error)
+      // Ne pas bloquer l'interface utilisateur en cas d'erreur
+    }
+  }
 
-  // Placeholder function for adding badges
-  const addBadge = (badge: string) => {
-      setBadges((prev) => {
-          const currentBadges = Array.isArray(prev) ? prev : [];
-          if (!currentBadges.includes(badge)) {
-              return [...currentBadges, badge];
-          }
-          return currentBadges;
-      });
-  };
+  // Fonction pour soumettre le projet final
+  const submitFinalProject = async (finalData: any) => {
+    try {
+      console.log('📤 Soumission finale du projet:', finalData)
+      
+      // Compiler toutes les données du formulaire
+      const completeData = {
+        // Step 1 - Vision
+        vision: formData.vision?.vision || '',
+        problem: formData.vision?.problem || '',
+        domain: formData.vision?.domain || '',
+        country: formData.vision?.country || '',
+        
+        // Step 2 - Technologies  
+        technologies: formData.technology?.technologies || [],
+        impact_score: formData.technology?.impactScore || 0,
+        
+        // Step 3 - Équipe
+        team_members: formData.team?.teamMembers || [],
+        team_size: formData.team?.teamMembers?.length || 0,
+        
+        // Step 4 - Documents et soumission
+        uploaded_documents: finalData.uploaded_documents || {},
+        completion_score: finalData.completion_score || 0,
+        
+        // Métadonnées
+        status: 'submitted' as const,
+        submission_date: new Date().toISOString(),
+        language: 'fr' as const
+      }
+      
+      console.log('📋 Données complètes à sauvegarder:', completeData)
+      
+      await saveData(completeData)
+      console.log('✅ Projet soumis avec succès!')
+      
+    } catch (error) {
+      console.error('❌ Erreur lors de la soumission finale:', error)
+      throw error
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
@@ -471,6 +513,8 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
                 onUpdate={(data) => data && updateFormData("vision", data)}
                 onComplete={(badge) => badge && completeStep(1, badge)}
                 onNext={nextStep}
+                onSave={saveProjectData}
+                testSaveWithCountry={testSaveWithCountry}
               />
             )}
             {currentStep === 2 && (
@@ -500,7 +544,7 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
                 onComplete={(badge) => completeStep(4, badge)}
                 onPrev={prevStep}
                 formData={formData || {}}
-                onSave={saveProjectData}
+                onSave={submitFinalProject}
               />
             )}
           </div>

@@ -39,21 +39,28 @@ export function useProjectData(projectId?: string) {
 
     try {
       const updatedData = { ...data, ...newData }
+      
+      console.log('💾 Sauvegarde des données:', updatedData)
 
       if (savedProjectId) {
         // Mise à jour d'un projet existant
+        console.log('🔄 Mise à jour du projet existant ID:', savedProjectId)
         await nocoDBService.updateProject(savedProjectId, updatedData)
       } else {
         // Création d'un nouveau projet
+        console.log('🆕 Création d\'un nouveau projet')
         const created = await nocoDBService.createProject({
           ...updatedData,
-          status: 'draft'
+          status: updatedData.status || 'draft'
         } as Omit<ProjectSubmission, 'id'>)
         setSavedProjectId(created.id!)
+        console.log('✅ Nouveau projet créé avec ID:', created.id)
       }
-
+      
       setData(updatedData)
+      console.log('✅ Sauvegarde réussie!')
     } catch (err) {
+      console.error('❌ Erreur lors de la sauvegarde:', err)
       setError('Erreur lors de la sauvegarde')
       throw err
     } finally {
@@ -69,9 +76,15 @@ export function useProjectData(projectId?: string) {
     setLoading(true)
     try {
       await nocoDBService.updateProject(savedProjectId, {
-        status: 'submitted'
+        status: 'submitted',
+        submission_date: new Date().toISOString()
       })
-      setData(prev => ({ ...prev, status: 'submitted' }))
+      setData(prev => ({ 
+        ...prev, 
+        status: 'submitted',
+        submission_date: new Date().toISOString()
+      }))
+      console.log('📤 Projet soumis avec succès!')
     } catch (err) {
       setError('Erreur lors de la soumission')
       throw err
@@ -106,7 +119,7 @@ export function useProjectData(projectId?: string) {
     savedProjectId,
     saveData,
     submitProject,
-    setData,
-    testSaveWithCountry
+    testSaveWithCountry,
+    setData
   }
 }
