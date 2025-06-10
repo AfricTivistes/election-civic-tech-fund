@@ -598,7 +598,9 @@ export const translations: Record<string, Translation> = {
     },
     hero: {
       title: "ELECTION CIVIC TECH FUND",
+      subtitle: "Digital Democracy Journey",
       description: "Transforms citizen participation in Africa through innovative technologies. Our mission: democratize access to digital tools to strengthen electoral transparency and civic engagement.",
+      platformDescription: "This platform is designed as an interactive tool to facilitate your application. This call for projects invites you to propose your innovative ideas through four key steps.",
       secondDescription: "Join a €175,000 community dedicated to democratic innovation in 14 African countries. Together, let's build the digital future of African democracy.",
       startButton: "Transform African Democracy",
       features: {
