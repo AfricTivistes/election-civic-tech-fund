@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
-import { Users, ArrowRight, ArrowLeft, Plus, X, Sparkles, UserPlus } from "lucide-react"
+import { Users, ArrowRight, ArrowLeft, Plus, X, Sparkles, UserPlus, CheckCircle, Target, Award } from "lucide-react"
 import { useLanguage } from "@/hooks/use-language"
 
 interface TeamMember {
