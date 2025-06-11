@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
-import { Users, ArrowRight, ArrowLeft, Plus, X, Sparkles, UserPlus, Mail, Phone, MapPin } from "lucide-react"
+import { Users, ArrowRight, ArrowLeft, Plus, X, Sparkles, UserPlus, Mail, Phone, MapPin, CheckCircle } from "lucide-react"
 import { useLanguage } from "@/hooks/use-language"
 
 interface TeamMember {
@@ -130,14 +130,18 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
   }
 
   const handleNext = () => {
-    if (teamMembers.length >= 2) {
+    if (teamMembers.length >= 2 && hasCompleteContactInfo()) {
       onUpdate({ teamMembers })
       onComplete("Community Builder")
       onNext()
     }
   }
 
-  const isComplete = teamMembers.length >= 2
+  const hasCompleteContactInfo = () => {
+    return teamMembers.some(member => member.email && member.phone)
+  }
+
+  const isComplete = teamMembers.length >= 2 && hasCompleteContactInfo()
 
   // Fallback text for UI elements
   const uiText = {
@@ -168,6 +172,7 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
     nextButton: t?.steps?.step3?.nextButton || "Continue to Documents",
     prevButton: t?.steps?.step3?.prevButton || "Back to Technology",
     completionMessage: t?.steps?.step3?.completionMessage || "Add at least 2 team members to continue",
+    contactRequirement: t?.steps?.step3?.contactRequirement || "At least one team member must have both email and phone number",
   }
 
   return (
@@ -294,6 +299,12 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
                             <span>{member.location}</span>
                           </div>
                         )}
+                        {member.email && member.phone && (
+                          <div className="flex items-center gap-1 text-green-400">
+                            <CheckCircle className="w-3 h-3" />
+                            <span>Contact complet</span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </motion.div>
@@ -404,7 +415,7 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
                 {uiText.contactInfo}
               </h4>
               <p className="text-orange-300 text-sm mt-1">
-                <span className="text-orange-400">*</span> Au moins un email ou un téléphone est requis
+                <span className="text-orange-400">*</span> Au moins un email ou un téléphone est requis par membre, mais l'équipe doit avoir au moins un membre avec email ET téléphone
               </p>
               
               <div className="grid grid-cols-1 gap-4">
@@ -499,8 +510,13 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
       </motion.div>
 
       {!isComplete && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
-          <p className="text-yellow-400 text-sm">{uiText.completionMessage}</p>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center space-y-2">
+          {teamMembers.length < 2 && (
+            <p className="text-yellow-400 text-sm">{uiText.completionMessage}</p>
+          )}
+          {teamMembers.length >= 2 && !hasCompleteContactInfo() && (
+            <p className="text-orange-400 text-sm">{uiText.contactRequirement}</p>
+          )}
         </motion.div>
       )}
     </div>
