@@ -156,11 +156,11 @@ const africanCountries = [
 ]
 
 export default function HeroSection({ onStart }: HeroSectionProps) {
+  const { t } = useLanguage()
   const [selectedCountry, setSelectedCountry] = useState<(typeof africanCountries)[0] | null>(null)
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null)
   const [isGuideOpen, setIsGuideOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const { t } = useLanguage()
 
   useEffect(() => {
     setMounted(true)
@@ -367,10 +367,16 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
           {/* Right side - Pays Cibles avec Drapeaux */}
           <div className="space-y-6 animate-slide-in-right">
             <Card className="bg-gradient-to-br from-slate-800/90 via-blue-900/80 to-slate-800/90 backdrop-blur-md border-yellow-400/30 p-4 md:p-6 shadow-xl">
-              <h3 className="text-xl md:text-2xl font-bold text-yellow-100 mb-4 md:mb-6 text-center flex items-center justify-center">
-                <Globe className="w-5 md:w-6 h-5 md:h-6 mr-2 text-yellow-400" />
-                Pays Cibles du Fonds
-              </h3>
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-white mb-4 flex items-center justify-center">
+                  <Globe className="w-6 h-6 mr-3 text-yellow-400" />
+                  {t?.hero?.countries?.title || "Pays Cibles du Fonds"}
+                </h3>
+                <p className="text-blue-200 text-lg flex items-center justify-center font-medium">
+                  <Target className="w-5 h-5 mr-2 text-yellow-400" />
+                  {t?.hero?.countries?.subtitle || "Cliquez sur un pays pour découvrir ses défis démocratiques"}
+                </p>
+              </div>
 
               {/* Zone des drapeaux avec fond dégradé */}
               <div className="relative w-full h-64 md:h-80 bg-gradient-to-br from-slate-700/80 via-blue-800/60 to-slate-800/80 rounded-xl overflow-hidden border border-yellow-400/40 shadow-inner">
@@ -450,7 +456,7 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
               <div className="mt-4 text-center">
                 <p className="text-yellow-200 text-sm flex items-center justify-center font-medium">
                   <Target className="w-4 h-4 mr-2 text-yellow-400" />
-                  Cliquez sur un pays pour découvrir ses défis démocratiques
+                  {t?.hero?.countries?.subtitle || "Cliquez sur un pays pour découvrir ses défis démocratiques"}
                 </p>
               </div>
             </Card>

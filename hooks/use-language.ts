@@ -159,6 +159,11 @@ function createFallbackTranslation(lang: string): Translation {
         copyright: "© 2024 Election Civic Tech Fund",
         tagline: isEnglish ? "Building Africa's future" : "Construire l'avenir de l'Afrique",
       },
+      countries: {
+        title: isEnglish ? "Fund Target Countries" : "Pays Cibles du Fonds",
+        subtitle: isEnglish ? "Click on a country to discover its democratic challenges" : "Cliquez sur un pays pour découvrir ses défis démocratiques",
+        challengesTitle: isEnglish ? "Priority Democratic Challenges" : "Défis Démocratiques Prioritaires",
+      },
     },
     steps: {
       step1: {
