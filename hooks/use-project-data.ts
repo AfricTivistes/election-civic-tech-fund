@@ -84,9 +84,16 @@ export function useProjectData(projectId?: string) {
         updatedData.team_size = teamArray.length
       }
 
-      // Les fichiers sont maintenant déjà uploadés et au bon format depuis step-four.tsx
-      // Plus besoin de les traiter ici, ils arrivent déjà sous forme de colonnes de documents
-      console.log('📋 Données reçues pour la sauvegarde:', updatedData)
+      // Les documents arrivent déjà formatés depuis step-four.tsx
+      // Vérifier le format des documents reçus
+      console.log('📋 Données reçues pour la sauvegarde:', {
+        ...updatedData,
+        document_cv: updatedData.document_cv ? '(JSON présent)' : '(absent)',
+        document_portfolio: updatedData.document_portfolio ? '(JSON présent)' : '(absent)',
+        document_budget: updatedData.document_budget ? '(JSON présent)' : '(absent)',
+        document_presentation: updatedData.document_presentation ? '(JSON présent)' : '(absent)',
+        document_other: updatedData.document_other ? '(JSON présent)' : '(absent)'
+      })
 
 
       setData(updatedData)

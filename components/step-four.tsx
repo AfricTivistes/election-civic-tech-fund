@@ -97,7 +97,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
     try {
       // Utiliser notre API route Next.js pour l'upload
       console.log('📤 Upload via API route...')
-      
+
       const formData = new FormData()
       formData.append('file', file)
 
@@ -121,48 +121,35 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
         title: uploadResult[0]?.title || file.name,
         mimetype: uploadResult[0]?.mimetype || file.type,
         size: uploadResult[0]?.size || file.size,
-        icon: uploadResult[0]?.icon || (file.type.includes('pdf') ? 'mdi-pdf-box' : 'mdi-file')
+        icon: uploadResult[0]?.icon || (file.type.includes('pdf') ? 'mdi-pdf-box' : 
+               file.type.includes('image') ? 'mdi-image' : 'mdi-file')
       }]
 
-      // Stocker le fichier avec toutes les informations nécessaires
-      const fileInfo = {
-        name: file.name,
-        size: file.size,
-        type: file.type,
-        lastModified: file.lastModified,
-        // Données brutes de l'upload NocoDB
-        uploadResult: uploadResult,
-        // Format final pour NocoDB (JSON stringifié comme dans le script de test)
-        attachmentData: attachmentData,
-        // JSON stringifié prêt pour la base de données
-        attachmentJson: JSON.stringify(attachmentData)
-      }
+      console.log('📁 Document formaté:', attachmentData)
 
-      const newUploadedFiles = { ...uploadedFiles, [documentId]: fileInfo }
-      setUploadedFiles(newUploadedFiles)
-
-      console.log('✅ Fichier traité et ajouté à l\'état:', {
-        documentId,
-        attachmentData,
-        attachmentJson: JSON.stringify(attachmentData)
-      })
-
-      // Validation automatique après upload réussi
-      const validation = {
-        ...aiValidation,
+      // Mettre à jour l'état local avec le fichier uploadé
+      setUploadedFiles(prev => ({
+        ...prev,
         [documentId]: {
-          status: "valid",
-          message: "Document uploadé et conforme aux exigences",
-        },
-      }
-      setAiValidation(validation)
-      calculateCompletionScore(newUploadedFiles, validation)
+          name: file.name,
+          file: file,
+          attachmentData: attachmentData // Stocker les données formatées
+        }
+      }))
 
-      console.log('🔍 Validation automatique:', validation[documentId])
+      setUploadingFiles(prev => ({ ...prev, [documentId]: false }))
+
+      // Sauvegarder immédiatement dans NocoDB avec le bon nom de colonne
+      const columnName = `document_${documentId}`
+      console.log(`💾 Sauvegarde ${columnName}:`, JSON.stringify(attachmentData))
+
+      await onSave({
+        [columnName]: JSON.stringify(attachmentData)
+      })
     } catch (error) {
       console.error('❌ Erreur lors de l\'upload:', error)
       alert(`Erreur lors de l'upload de ${file.name}: ${error.message}`)
-      
+
       // Marquer la validation comme échouée
       const validation = {
         ...aiValidation,
@@ -188,59 +175,58 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
 
   const handleSubmit = async () => {
     setIsSubmitting(true)
-
     try {
-      console.log('📤 Début de la soumission...')
+      console.log('📤 Soumission du formulaire...')
       console.log('📁 Fichiers uploadés:', uploadedFiles)
 
-      // Utiliser exactement le même mapping que le script de test qui fonctionne
-      const documentMapping = {
-        'cv': 'document_cv',
-        'portfolio': 'document_portfolio', 
-        'budget': 'document_budget',
-        'presentation': 'document_presentation',
-        'other': 'document_other'
-      }
+      // Préparer les données pour la soumission finale
+      const documentData = {}
 
-      const finalData: any = {
+      // Traiter chaque document uploadé avec le même format que le script de test
+      Object.entries(uploadedFiles).forEach(([docId, fileInfo]) => {
+        const columnName = `document_${docId}`
+        if (fileInfo && fileInfo.attachmentData) {
+          // Utiliser exactement le même format que le script de test
+          documentData[columnName] = JSON.stringify(fileInfo.attachmentData)
+          console.log(`📋 ${columnName}:`, fileInfo.attachmentData)
+        }
+      })
+
+      // Calculer le score de completion
+      const totalSteps = Object.keys(DOCUMENT_TYPES).length
+      const completedSteps = Object.keys(uploadedFiles).length
+      const completionScore = Math.round((completedSteps / totalSteps) * 100)
+
+      const finalData = {
+        ...documentData,
         completion_score: completionScore,
-        status: 'submitted' as const,
+        status: 'submitted',
         submission_date: new Date().toISOString()
       }
 
-      // Ajouter les documents uploadés EXACTEMENT comme dans le script de test
-      for (const [docId, fileInfo] of Object.entries(uploadedFiles)) {
-        const columnName = documentMapping[docId as keyof typeof documentMapping]
-        if (columnName && fileInfo) {
-          // Utiliser attachmentJson qui est déjà au bon format JSON stringifié
-          const attachmentJson = (fileInfo as any).attachmentJson
-          if (attachmentJson) {
-            finalData[columnName] = attachmentJson
-            console.log(`✅ Document ${docId} ajouté à ${columnName}:`, attachmentJson)
-          } else {
-            console.warn(`⚠️ attachmentJson manquant pour ${docId}`)
+      console.log('📝 Données finales pour soumission:', finalData)
+      console.log('🔍 Détail des colonnes de documents:')
+      Object.entries(documentData).forEach(([key, value]) => {
+        console.log(`  - ${key}:`, value ? 'Présent ✅' : 'Absent ❌')
+        if (value) {
+          try {
+            const parsed = JSON.parse(value)
+            console.log(`    URL: ${parsed[0]?.url ? 'Présente ✅' : 'Manquante ❌'}`)
+          } catch (e) {
+            console.log(`    Erreur parsing: ${e.message}`)
           }
         }
-      }
+      })
 
-      console.log('📤 Données finales à soumettre (format identique au script de test):', finalData)
+      // Sauvegarder les données finales
+      await onSave(finalData)
 
-      // Sauvegarder dans la base de données avec les fichiers
-      if (onSave && typeof onSave === 'function') {
-        console.log('💾 Sauvegarde en base de données...')
-        await onSave(finalData)
-        console.log('✅ Sauvegarde réussie!')
-        
-        // Mettre à jour les données locales après sauvegarde réussie
-        onUpdate(finalData)
-        onComplete("Submission Master")
-      } else {
-        console.warn('⚠️ Fonction onSave non disponible')
-        throw new Error('Fonction de sauvegarde non disponible')
-      }
+      onComplete("Submission Master")
+
+      console.log('✅ Soumission réussie!')
     } catch (error) {
       console.error('❌ Erreur lors de la soumission:', error)
-      alert(`Erreur lors de la soumission: ${error.message}. Veuillez réessayer.`)
+      // Gérer l'erreur
     } finally {
       setIsSubmitting(false)
     }
