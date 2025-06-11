@@ -407,7 +407,7 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
               <div className="grid grid-cols-1 gap-4">
                 <div>
                   <Label htmlFor="email" className="text-white">
-                    {uiText.email}
+                    {uiText.email} <span className="text-red-400">*</span>
                   </Label>
                   <Input
                     id="email"
@@ -416,12 +416,13 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
                     onChange={(e) => setNewMember({ ...newMember, email: e.target.value })}
                     className="bg-white/5 border-white/20 text-white"
                     placeholder="exemple@email.com"
+                    required
                   />
                 </div>
 
                 <div>
                   <Label htmlFor="phone" className="text-white">
-                    {uiText.phone}
+                    {uiText.phone} <span className="text-red-400">*</span>
                   </Label>
                   <Input
                     id="phone"
@@ -430,6 +431,7 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
                     onChange={(e) => setNewMember({ ...newMember, phone: e.target.value })}
                     className="bg-white/5 border-white/20 text-white"
                     placeholder="+33 6 12 34 56 78"
+                    required
                   />
                 </div>
 
@@ -450,7 +452,7 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
 
             <Button
               onClick={addTeamMember}
-              disabled={!newMember.name || !newMember.role}
+              disabled={!newMember.name || !newMember.role || !newMember.email || !newMember.phone}
               className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700"
             >
               <Plus className="w-4 h-4 mr-2" />
