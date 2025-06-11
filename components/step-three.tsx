@@ -414,14 +414,14 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
                 <Mail className="w-4 h-4 mr-2" />
                 {uiText.contactInfo}
               </h4>
-              <p className="text-orange-300 text-sm mt-1">
-                <span className="text-orange-400">*</span> Au moins un email ou un téléphone est requis par membre, mais l'équipe doit avoir au moins un membre avec email ET téléphone
+              <p className="text-blue-300 text-sm mt-1">
+                <span className="text-blue-400">ℹ️</span> L'équipe doit avoir au moins un membre avec email ET téléphone
               </p>
               
               <div className="grid grid-cols-1 gap-4">
                 <div>
                   <Label htmlFor="email" className="text-white">
-                    {uiText.email} <span className="text-orange-400">*</span>
+                    {uiText.email}
                   </Label>
                   <Input
                     id="email"
@@ -435,7 +435,7 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
 
                 <div>
                   <Label htmlFor="phone" className="text-white">
-                    {uiText.phone} <span className="text-orange-400">*</span>
+                    {uiText.phone}
                   </Label>
                   <Input
                     id="phone"
@@ -464,7 +464,7 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
 
             <Button
               onClick={addTeamMember}
-              disabled={!newMember.name || !newMember.role || (!newMember.email && !newMember.phone)}
+              disabled={!newMember.name || !newMember.role}
               className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700"
             >
               <Plus className="w-4 h-4 mr-2" />
