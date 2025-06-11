@@ -256,14 +256,14 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
       })
 
       // Sauvegarder UNE SEULE FOIS avec toutes les données
-      await onSave(finalData)
+      const result = await onSave(finalData)
 
       // Soumission réussie
-      console.log('✅ Soumission réussie! ID:', result.id)
+      console.log('✅ Soumission réussie! ID:', result?.id || 'GENERATED')
 
       // Stocker les données du projet pour la page de confirmation
       const confirmationData = {
-        id: result.id,
+        id: result?.id || `demo-${Date.now()}`,
         ...formData,
         submission_date: new Date().toISOString()
       }
