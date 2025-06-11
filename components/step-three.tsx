@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
-import { Users, ArrowRight, ArrowLeft, Plus, X, Sparkles, UserPlus } from "lucide-react"
+import { Users, ArrowRight, ArrowLeft, Plus, X, Sparkles, UserPlus, Mail, Phone, MapPin } from "lucide-react"
 import { useLanguage } from "@/hooks/use-language"
 
 interface TeamMember {
@@ -18,6 +18,9 @@ interface TeamMember {
   skills: string[]
   experience: string
   motivation: string
+  email?: string
+  phone?: string
+  location?: string
 }
 
 interface StepThreeProps {
@@ -38,6 +41,9 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
     skills: [],
     experience: "",
     motivation: "",
+    email: "",
+    phone: "",
+    location: "",
   })
 
   // Ensure t and t.skills exist with fallbacks
@@ -91,9 +97,12 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
         skills: newMember.skills || [],
         experience: newMember.experience || "",
         motivation: newMember.motivation || "",
+        email: newMember.email || "",
+        phone: newMember.phone || "",
+        location: newMember.location || "",
       }
       setTeamMembers([...teamMembers, member])
-      setNewMember({ name: "", role: "", skills: [], experience: "", motivation: "" })
+      setNewMember({ name: "", role: "", skills: [], experience: "", motivation: "", email: "", phone: "", location: "" })
     }
   }
 
@@ -151,6 +160,10 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
     experiencePlaceholder: t?.steps?.step3?.experiencePlaceholder || "Describe this member's relevant experience...",
     motivation: t?.steps?.step3?.motivation || "Personal motivation",
     motivationPlaceholder: t?.steps?.step3?.motivationPlaceholder || "Why is this person committed to this project?",
+    contactInfo: t?.steps?.step3?.contactInfo || "Contact Information",
+    email: t?.steps?.step3?.email || "Contact Email",
+    phone: t?.steps?.step3?.phone || "Phone Number",
+    location: t?.steps?.step3?.location || "Location",
     addButton: t?.steps?.step3?.addButton || "Add this member",
     nextButton: t?.steps?.step3?.nextButton || "Continue to Documents",
     prevButton: t?.steps?.step3?.prevButton || "Back to Technology",
@@ -260,6 +273,28 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
                       </div>
 
                       {member.experience && <p className="text-blue-200 text-sm">{member.experience}</p>}
+
+                      {/* Informations de contact */}
+                      <div className="flex flex-wrap gap-4 text-xs text-blue-300 mt-2">
+                        {member.email && (
+                          <div className="flex items-center gap-1">
+                            <Mail className="w-3 h-3" />
+                            <span>{member.email}</span>
+                          </div>
+                        )}
+                        {member.phone && (
+                          <div className="flex items-center gap-1">
+                            <Phone className="w-3 h-3" />
+                            <span>{member.phone}</span>
+                          </div>
+                        )}
+                        {member.location && (
+                          <div className="flex items-center gap-1">
+                            <MapPin className="w-3 h-3" />
+                            <span>{member.location}</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </motion.div>
                 ))}
@@ -360,6 +395,57 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
                 className="bg-white/5 border-white/20 text-white placeholder:text-blue-300"
                 placeholder={uiText.motivationPlaceholder}
               />
+            </div>
+
+            {/* Section Informations de Contact */}
+            <div className="space-y-4 p-4 bg-white/5 rounded-lg border border-white/10">
+              <h4 className="font-medium text-white flex items-center">
+                <Mail className="w-4 h-4 mr-2" />
+                {uiText.contactInfo}
+              </h4>
+              
+              <div className="grid grid-cols-1 gap-4">
+                <div>
+                  <Label htmlFor="email" className="text-white">
+                    {uiText.email}
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={newMember.email || ""}
+                    onChange={(e) => setNewMember({ ...newMember, email: e.target.value })}
+                    className="bg-white/5 border-white/20 text-white"
+                    placeholder="exemple@email.com"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="phone" className="text-white">
+                    {uiText.phone}
+                  </Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    value={newMember.phone || ""}
+                    onChange={(e) => setNewMember({ ...newMember, phone: e.target.value })}
+                    className="bg-white/5 border-white/20 text-white"
+                    placeholder="+33 6 12 34 56 78"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="location" className="text-white">
+                    {uiText.location}
+                  </Label>
+                  <Input
+                    id="location"
+                    value={newMember.location || ""}
+                    onChange={(e) => setNewMember({ ...newMember, location: e.target.value })}
+                    className="bg-white/5 border-white/20 text-white"
+                    placeholder="Ville, Pays"
+                  />
+                </div>
+              </div>
             </div>
 
             <Button

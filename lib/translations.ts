@@ -104,6 +104,15 @@ export interface Translation {
         title: string
         content: string
       }
+      teamOverview: string
+      totalMembers: string
+      totalSkills: string
+      membersWithExperience: string
+      completionRate: string
+      contactInfo: string
+      email: string
+      phone: string
+      location: string
       teamStats: string
       teamMembers: string
       addMember: string
@@ -421,6 +430,15 @@ export const translations: Record<string, Translation> = {
           content:
             "Mettez en avant la diversité, l'équilibre, l'expérience terrain et l'ancrage local. Une démocratie forte repose sur des équipes engagées.",
         },
+        teamOverview: "Aperçu de l'équipe",
+        totalMembers: "Nombre total de membres",
+        totalSkills: "Nombre total de compétences",
+        membersWithExperience: "Membres avec expérience",
+        completionRate: "Taux de complétion",
+        contactInfo: "Informations de contact",
+        email: "Email de contact",
+        phone: "Téléphone",
+        location: "Localisation",
         teamStats: "Radar de Compétences de l'Équipe",
         teamMembers: "Membres de l'équipe",
         addMember: "Ajouter un membre d'équipe",
@@ -726,6 +744,15 @@ export const translations: Record<string, Translation> = {
           content:
             "Highlight diversity, balance, field experience and local anchoring. A strong democracy relies on committed teams.",
         },
+        teamOverview: "Team Overview",
+        totalMembers: "Total Members",
+        totalSkills: "Total Skills",
+        membersWithExperience: "Members with experience",
+        completionRate: "Completion Rate",
+        contactInfo: "Contact Information",
+        email: "Contact Email",
+        phone: "Phone Number",
+        location: "Location",
         teamStats: "Team Skills Radar",
         teamMembers: "Team members",
         addMember: "Add team member",
