@@ -84,8 +84,7 @@ export function useProjectData(projectId?: string) {
         updatedData.team_size = teamArray.length
       }
 
-      // Les documents arrivent déjà formatés depuis step-four.tsx
-      // Vérifier le format des documents reçus
+      // Vérifier le format des documents reçus (format JSON string comme dans le script de test)
       console.log('📋 Données reçues pour la sauvegarde:', {
         ...updatedData,
         document_cv: updatedData.document_cv ? '(JSON présent)' : '(absent)',
@@ -93,6 +92,22 @@ export function useProjectData(projectId?: string) {
         document_budget: updatedData.document_budget ? '(JSON présent)' : '(absent)',
         document_presentation: updatedData.document_presentation ? '(JSON présent)' : '(absent)',
         document_other: updatedData.document_other ? '(JSON présent)' : '(absent)'
+      })
+
+      // Vérifier que les documents sont bien au format JSON string
+      ['document_cv', 'document_portfolio', 'document_budget', 'document_presentation', 'document_other'].forEach(docCol => {
+        if (updatedData[docCol]) {
+          try {
+            const parsed = JSON.parse(updatedData[docCol])
+            console.log(`✅ ${docCol} validé:`, {
+              url: parsed[0]?.url ? 'Présente' : 'Manquante',
+              title: parsed[0]?.title,
+              size: parsed[0]?.size
+            })
+          } catch (e) {
+            console.error(`❌ ${docCol} format invalide:`, e.message)
+          }
+        }
       })
 
 

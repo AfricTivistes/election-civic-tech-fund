@@ -45,8 +45,13 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
   const [uploadedFiles, setUploadedFiles] = useState((data && data.uploadedFiles) || {})
   const [aiValidation, setAiValidation] = useState((data && data.aiValidation) || {})
   const [uploadingFiles, setUploadingFiles] = useState<{[key: string]: boolean}>({})
-  const [completionScore, setCompletionScore] = useState(0)
+  const [completionScore, setCompletionScore] = useState(data?.completionScore || 0)
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  // Recalculer le score quand les fichiers ou validations changent
+  useEffect(() => {
+    calculateCompletionScore(uploadedFiles, aiValidation)
+  }, [uploadedFiles, aiValidation])
 
   const requiredDocuments = [
     {
@@ -117,48 +122,50 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
 
       // Utiliser exactement le même format que le script de test qui fonctionne
       const attachmentData = [{
-        url: uploadResult[0]?.url || uploadResult[0]?.signedUrl,
-        title: uploadResult[0]?.title || file.name,
-        mimetype: uploadResult[0]?.mimetype || file.type,
-        size: uploadResult[0]?.size || file.size,
-        icon: uploadResult[0]?.icon || (file.type.includes('pdf') ? 'mdi-pdf-box' : 
-               file.type.includes('image') ? 'mdi-image' : 'mdi-file')
+        url: uploadResult[0]?.url,
+        title: uploadResult[0]?.title,
+        mimetype: uploadResult[0]?.mimetype,
+        size: uploadResult[0]?.size,
+        icon: uploadResult[0]?.icon
       }]
 
-      console.log('📁 Document formaté:', attachmentData)
+      console.log('📁 Document formaté selon script de test:', attachmentData)
 
-      // Mettre à jour l'état local avec le fichier uploadé
+      // Stocker SEULEMENT localement, ne pas sauvegarder maintenant
       setUploadedFiles(prev => ({
         ...prev,
         [documentId]: {
           name: file.name,
-          file: file,
-          attachmentData: attachmentData // Stocker les données formatées
+          size: file.size,
+          type: file.type,
+          attachmentData: attachmentData // Format exact du script de test
+        }
+      }))
+
+      // Marquer comme validé
+      setAiValidation(prev => ({
+        ...prev,
+        [documentId]: {
+          status: "valid",
+          message: `${file.name} uploadé avec succès`,
         }
       }))
 
       setUploadingFiles(prev => ({ ...prev, [documentId]: false }))
 
-      // Sauvegarder immédiatement dans NocoDB avec le bon nom de colonne
-      const columnName = `document_${documentId}`
-      console.log(`💾 Sauvegarde ${columnName}:`, JSON.stringify(attachmentData))
-
-      await onSave({
-        [columnName]: JSON.stringify(attachmentData)
-      })
+      console.log('✅ Fichier stocké localement, sera envoyé lors de la soumission finale')
     } catch (error) {
       console.error('❌ Erreur lors de l\'upload:', error)
       alert(`Erreur lors de l'upload de ${file.name}: ${error.message}`)
 
       // Marquer la validation comme échouée
-      const validation = {
-        ...aiValidation,
+      setAiValidation(prev => ({
+        ...prev,
         [documentId]: {
           status: "error",
           message: "Erreur lors de l'upload du document",
-        },
-      }
-      setAiValidation(validation)
+        }
+      }))
     } finally {
       setUploadingFiles(prev => ({ ...prev, [documentId]: false }))
     }
@@ -171,31 +178,38 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
 
     const score = Math.min(100, (validCount / requiredCount) * 100)
     setCompletionScore(score)
+    
+    // Mettre à jour les données locales avec le score
+    onUpdate({
+      uploadedFiles: files,
+      aiValidation: validation,
+      completionScore: score
+    })
   }
 
   const handleSubmit = async () => {
     setIsSubmitting(true)
     try {
-      console.log('📤 Soumission du formulaire...')
-      console.log('📁 Fichiers uploadés:', uploadedFiles)
+      console.log('📤 Soumission finale du formulaire...')
+      console.log('📁 Fichiers uploadés localement:', uploadedFiles)
 
-      // Préparer les données pour la soumission finale
+      // Préparer les données selon le format exact du script de test
       const documentData = {}
 
-      // Traiter chaque document uploadé avec le même format que le script de test
+      // Traiter chaque document uploadé avec le format exact du script
       Object.entries(uploadedFiles).forEach(([docId, fileInfo]) => {
         const columnName = `document_${docId}`
         if (fileInfo && fileInfo.attachmentData) {
-          // Utiliser exactement le même format que le script de test
+          // Format JSON exact comme dans le script de test
           documentData[columnName] = JSON.stringify(fileInfo.attachmentData)
           console.log(`📋 ${columnName}:`, fileInfo.attachmentData)
         }
       })
 
       // Calculer le score de completion
-      const totalSteps = Object.keys(DOCUMENT_TYPES).length
-      const completedSteps = Object.keys(uploadedFiles).length
-      const completionScore = Math.round((completedSteps / totalSteps) * 100)
+      const requiredCount = requiredDocuments.filter(doc => doc.required).length
+      const uploadedCount = Object.keys(uploadedFiles).length
+      const completionScore = Math.round((uploadedCount / requiredCount) * 100)
 
       const finalData = {
         ...documentData,
@@ -204,29 +218,32 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
         submission_date: new Date().toISOString()
       }
 
-      console.log('📝 Données finales pour soumission:', finalData)
-      console.log('🔍 Détail des colonnes de documents:')
+      console.log('📝 Données finales pour soumission (format script de test):')
+      console.log('🎯 Colonnes document envoyées:')
       Object.entries(documentData).forEach(([key, value]) => {
         console.log(`  - ${key}:`, value ? 'Présent ✅' : 'Absent ❌')
         if (value) {
           try {
             const parsed = JSON.parse(value)
-            console.log(`    URL: ${parsed[0]?.url ? 'Présente ✅' : 'Manquante ❌'}`)
+            console.log(`    • URL: ${parsed[0]?.url ? 'Présente ✅' : 'Manquante ❌'}`)
+            console.log(`    • Title: ${parsed[0]?.title || 'N/A'}`)
+            console.log(`    • Mimetype: ${parsed[0]?.mimetype || 'N/A'}`)
+            console.log(`    • Size: ${parsed[0]?.size || 'N/A'}`)
           } catch (e) {
-            console.log(`    Erreur parsing: ${e.message}`)
+            console.log(`    ❌ Erreur parsing: ${e.message}`)
           }
         }
       })
 
-      // Sauvegarder les données finales
+      // Sauvegarder UNE SEULE FOIS avec toutes les données
       await onSave(finalData)
 
       onComplete("Submission Master")
 
-      console.log('✅ Soumission réussie!')
+      console.log('✅ Soumission réussie avec documents!')
     } catch (error) {
       console.error('❌ Erreur lors de la soumission:', error)
-      // Gérer l'erreur
+      alert(`Erreur lors de la soumission: ${error.message}`)
     } finally {
       setIsSubmitting(false)
     }
