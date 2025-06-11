@@ -46,7 +46,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
   const { t } = useLanguage()
   const [uploadedFiles, setUploadedFiles] = useState((data && data.uploadedFiles) || {})
   const [aiValidation, setAiValidation] = useState((data && data.aiValidation) || {})
-  const [uploadingFiles, setUploadingFiles] = useState<{[key: string]: boolean}>({})
+  const [uploadingFiles, setUploadingFiles = useState<{[key: string]: boolean}>({})
   const [completionScore, setCompletionScore] = useState(data?.completionScore || 0)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({})
@@ -119,7 +119,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
       if (!uploadResponse.ok) {
         const errorText = await uploadResponse.text()
         console.error('❌ Erreur upload:', errorText)
-        throw new Error(`Erreur upload: ${uploadResponse.status} ${uploadResponse.statusText}`)
+        throw new Error(`Erreur upload: ${uploadResponse.status} ${uploadResponsestatusText}`)
       }
 
       const uploadResult = await uploadResponse.json()
