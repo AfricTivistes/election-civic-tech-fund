@@ -50,39 +50,39 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
 
   const requiredDocuments = [
     {
-      id: "registration",
-      name: t?.documents?.registration?.name || "Registration certificate",
-      description: t?.documents?.registration?.description || "Official registration document",
-      icon: Building,
-      required: true,
-    },
-    {
-      id: "cvs",
-      name: t?.documents?.cvs?.name || "Team CVs",
-      description: t?.documents?.cvs?.description || "Curriculum vitae of key team members",
+      id: "cv",
+      name: t?.documents?.cv?.name || "CV du porteur",
+      description: t?.documents?.cv?.description || "Curriculum vitae du porteur de projet",
       icon: Users,
       required: true,
     },
     {
-      id: "project",
-      name: t?.documents?.project?.name || "Project description",
-      description: t?.documents?.project?.description || "Detailed project description",
+      id: "portfolio",
+      name: t?.documents?.portfolio?.name || "Portfolio",
+      description: t?.documents?.portfolio?.description || "Portfolio ou exemples de travaux antérieurs",
       icon: FileText,
       required: true,
     },
     {
-      id: "theory",
-      name: t?.documents?.theory?.name || "Theory of change",
-      description: t?.documents?.theory?.description || "Your theoretical approach",
+      id: "budget",
+      name: t?.documents?.budget?.name || "Budget détaillé",
+      description: t?.documents?.budget?.description || "Budget complet du projet",
+      icon: DollarSign,
+      required: true,
+    },
+    {
+      id: "presentation",
+      name: t?.documents?.presentation?.name || "Présentation projet",
+      description: t?.documents?.presentation?.description || "Présentation détaillée du projet",
       icon: Target,
       required: true,
     },
     {
-      id: "budget",
-      name: t?.documents?.budget?.name || "Detailed budget",
-      description: t?.documents?.budget?.description || "Complete financial breakdown",
-      icon: DollarSign,
-      required: true,
+      id: "other",
+      name: t?.documents?.other?.name || "Autres documents",
+      description: t?.documents?.other?.description || "Documents complémentaires",
+      icon: Building,
+      required: false,
     },
   ]
 
@@ -100,7 +100,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
       size: file.size,
       type: file.type,
       lastModified: file.lastModified,
-      file: file // Garder une référence au fichier original
+      file: file // Garder une référence au fichier original pour l'upload
     }
 
     const newUploadedFiles = { ...uploadedFiles, [documentId]: fileInfo }
@@ -140,7 +140,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
     try {
       // Préparer les données finales pour la soumission
       const finalData = {
-        // Documents uploadés (pour l'instant juste les métadonnées)
+        // Documents uploadés avec les fichiers réels
         uploaded_documents: uploadedFiles,
         completion_score: completionScore,
         // Marquer comme soumis

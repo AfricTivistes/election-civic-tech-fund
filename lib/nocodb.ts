@@ -1,4 +1,3 @@
-
 import { Api } from 'nocodb-sdk'
 
 const api = new Api({
@@ -37,15 +36,49 @@ export class NocoDBService {
   private tableName = 'democracy_projects'
   private baseId = process.env.NEXT_PUBLIC_NOCODB_BASE_ID || ''
 
+  // Upload d'un fichier vers NocoDB
+  async uploadFile(file: File, columnName: string): Promise<any> {
+    try {
+      console.log('📤 Upload fichier vers NocoDB:', { 
+        fileName: file.name, 
+        columnName,
+        size: file.size 
+      })
+
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const uploadResponse = await fetch(`${process.env.NEXT_PUBLIC_NOCODB_URL}/api/v1/db/storage/upload`, {
+        method: 'POST',
+        headers: {
+          'xc-token': process.env.NEXT_PUBLIC_NOCODB_TOKEN,
+        },
+        body: formData
+      })
+
+      if (!uploadResponse.ok) {
+        throw new Error(`Erreur upload: ${uploadResponse.status} ${uploadResponse.statusText}`)
+      }
+
+      const uploadResult = await uploadResponse.json()
+      console.log('✅ Fichier uploadé:', uploadResult)
+
+      return uploadResult
+    } catch (error) {
+      console.error('❌ Erreur upload fichier:', error)
+      throw error
+    }
+  }
+
   async createProject(data: Omit<ProjectSubmission, 'id'>): Promise<ProjectSubmission> {
     try {
       console.log('🚀 Création projet:', data)
-      
+
       // Validation des données requises
       if (!data.vision || !data.problem || !data.domain || !data.country) {
         throw new Error('Données obligatoires manquantes pour la création du projet')
       }
-      
+
       // Convertir les arrays en JSON strings si nécessaire
       const processedData = {
         ...data,
@@ -55,9 +88,6 @@ export class NocoDBService {
         team_members: Array.isArray(data.team_members) 
           ? JSON.stringify(data.team_members) 
           : (data.team_members || JSON.stringify([])),
-        uploaded_documents: typeof data.uploaded_documents === 'object' 
-          ? JSON.stringify(data.uploaded_documents) 
-          : (data.uploaded_documents || JSON.stringify({})),
         status: data.status || 'draft',
         language: data.language || 'fr'
       }
@@ -70,7 +100,7 @@ export class NocoDBService {
         this.tableName,
         processedData
       )
-      
+
       console.log('✅ Projet créé avec ID:', response.id)
       return this.parseProject(response)
     } catch (error: any) {
@@ -83,20 +113,48 @@ export class NocoDBService {
   async updateProject(id: string, data: Partial<ProjectSubmission>): Promise<ProjectSubmission> {
     try {
       console.log('🔄 Mise à jour projet ID:', id)
-      
+
       if (!id || typeof id !== 'string' || id.trim() === '') {
         throw new Error('ID du projet manquant ou invalide pour la mise à jour')
       }
-      
+
       // Convertir les arrays en JSON strings si nécessaire
       const processedData = { ...data }
-      if (data.technologies && Array.isArray(data.technologies)) {
-        processedData.technologies = JSON.stringify(data.technologies)
+
+      if (processedData.technologies && Array.isArray(processedData.technologies)) {
+        processedData.technologies = JSON.stringify(processedData.technologies)
       }
-      if (data.team_members && Array.isArray(data.team_members)) {
-        processedData.team_members = JSON.stringify(data.team_members)
+
+      if (processedData.team_members && Array.isArray(processedData.team_members)) {
+        processedData.team_members = JSON.stringify(processedData.team_members)
       }
-      // Les attachements sont gérés directement par NocoDB, pas besoin de JSON.stringify
+
+      // Traiter les fichiers uploadés s'ils existent
+      if (processedData.uploaded_documents) {
+        const documentMapping = {
+          'cv': 'document_cv',
+          'portfolio': 'document_portfolio', 
+          'budget': 'document_budget',
+          'presentation': 'document_presentation',
+          'other': 'document_other'
+        }
+
+        for (const [docId, fileInfo] of Object.entries(processedData.uploaded_documents)) {
+          const columnName = documentMapping[docId as keyof typeof documentMapping]
+          if (columnName && fileInfo && (fileInfo as any).file) {
+            try {
+              const uploadResult = await this.uploadFile((fileInfo as any).file, columnName)
+              // Stocker l'URL du fichier uploadé dans la colonne appropriée
+              processedData[columnName] = uploadResult
+            } catch (error) {
+              console.error(`❌ Erreur upload ${docId}:`, error)
+            }
+          }
+        }
+
+        // Supprimer uploaded_documents des données à sauvegarder
+        delete processedData.uploaded_documents
+      }
 
       const response = await api.dbTableRow.update(
         'noco',
@@ -105,7 +163,7 @@ export class NocoDBService {
         id,
         processedData
       )
-      
+
       console.log('✅ Projet mis à jour')
       return this.parseProject(response)
     } catch (error) {
@@ -122,7 +180,7 @@ export class NocoDBService {
         this.tableName,
         id
       )
-      
+
       return response ? this.parseProject(response) : null
     } catch (error) {
       console.error('❌ Erreur récupération projet:', error)
@@ -141,7 +199,7 @@ export class NocoDBService {
           ...filters
         }
       )
-      
+
       return response.list?.map(project => this.parseProject(project)) || []
     } catch (error) {
       console.error('❌ Erreur liste projets:', error)
