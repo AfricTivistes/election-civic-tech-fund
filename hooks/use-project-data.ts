@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { nocoDBService, ProjectSubmission } from '@/lib/nocodb'
+import { useLanguage } from '@/hooks/use-language'
 
 export function useProjectData(projectId?: string) {
+  const { language } = useLanguage()
   const [data, setData] = useState<Partial<ProjectSubmission>>({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -226,7 +228,7 @@ export function useProjectData(projectId?: string) {
         // Métadonnées
         completion_score: finalData.completion_score || 0,
         status: finalData.status || 'submitted',
-        language: 'fr',
+        language: language || 'en',
         submission_date: finalData.submission_date || new Date().toISOString()
       }
 

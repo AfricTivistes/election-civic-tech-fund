@@ -38,7 +38,7 @@ const africanCountries = [
 ]
 
 export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, testSaveWithCountry }: StepOneProps) {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const [vision, setVision] = useState(data?.vision || "")
   const [problem, setProblem] = useState(data?.problem || "")
   const [selectedDomain, setSelectedDomain] = useState(data?.domain || "")
@@ -91,6 +91,7 @@ export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, te
         problem,
         domain: selectedDomain,
         country: selectedCountry,
+        language: language || 'en', // Ajouter la langue actuelle
       }
 
       console.log('📝 Données Step 1 complètes:', stepData)
