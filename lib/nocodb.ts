@@ -48,20 +48,29 @@ export class NocoDBService {
       const formData = new FormData()
       formData.append('file', file)
 
+      // Utiliser l'API correcte selon la documentation NocoDB
       const uploadResponse = await fetch(`${process.env.NEXT_PUBLIC_NOCODB_URL}/api/v1/db/storage/upload`, {
         method: 'POST',
         headers: {
-          'xc-token': process.env.NEXT_PUBLIC_NOCODB_TOKEN,
+          'xc-token': process.env.NEXT_PUBLIC_NOCODB_TOKEN || '',
         },
         body: formData
       })
 
       if (!uploadResponse.ok) {
-        throw new Error(`Erreur upload: ${uploadResponse.status} ${uploadResponse.statusText}`)
+        const errorText = await uploadResponse.text()
+        console.error('❌ Réponse d\'erreur:', errorText)
+        throw new Error(`Erreur upload: ${uploadResponse.status} ${uploadResponse.statusText} - ${errorText}`)
       }
 
       const uploadResult = await uploadResponse.json()
       console.log('✅ Fichier uploadé:', uploadResult)
+
+      // Selon la doc NocoDB, le résultat devrait contenir un tableau d'objets
+      // avec url, title, mimetype, size, etc.
+      if (uploadResult && Array.isArray(uploadResult) && uploadResult.length > 0) {
+        return uploadResult[0] // Retourner le premier fichier uploadé
+      }
 
       return uploadResult
     } catch (error) {
@@ -144,8 +153,19 @@ export class NocoDBService {
           if (columnName && fileInfo && (fileInfo as any).file) {
             try {
               const uploadResult = await this.uploadFile((fileInfo as any).file, columnName)
-              // Stocker l'URL du fichier uploadé dans la colonne appropriée
-              processedData[columnName] = uploadResult
+              
+              // Formater le résultat selon le format NocoDB pour les colonnes Attachment
+              const attachmentData = [{
+                url: uploadResult.url || uploadResult.signedUrl,
+                title: uploadResult.title || (fileInfo as any).name,
+                mimetype: uploadResult.mimetype || (fileInfo as any).type,
+                size: uploadResult.size || (fileInfo as any).size
+              }]
+              
+              // Stocker le JSON stringifié pour les colonnes d'attachement
+              processedData[columnName] = JSON.stringify(attachmentData)
+              
+              console.log(`✅ Fichier ${docId} traité:`, attachmentData)
             } catch (error) {
               console.error(`❌ Erreur upload ${docId}:`, error)
             }
