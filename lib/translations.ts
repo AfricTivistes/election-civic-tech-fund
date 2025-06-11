@@ -686,9 +686,9 @@ export const translations: Record<string, Translation> = {
         majorProjects: "4-6",
         majorProjectsDesc: "Major projects - €25,000 maximum",
         microGrants: "10+",
-        microGrantsDesc: "small grants - €10,000 minimum",
+        microGrantsDesc: "micro-grants - €10,000 minimum",
         support: "10",
-        supportDesc: "month support - Training and assistance",
+        supportDesc: "months of support - Training and assistance",
       },
       footer: {
         ledBy: "Led by",
