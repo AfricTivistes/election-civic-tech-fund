@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useEffect } from "react"
@@ -34,12 +33,17 @@ export default function SubmissionSuccess({
 }: SubmissionSuccessProps) {
   const { t } = useLanguage()
   const [showConfetti, setShowConfetti] = useState(false)
+  const [data, setData] = useState(null)
 
   useEffect(() => {
     setShowConfetti(true)
     const timer = setTimeout(() => setShowConfetti(false), 3000)
     return () => clearTimeout(timer)
   }, [])
+
+  useEffect(() => {
+    setData(projectData)
+  }, [projectData])
 
   const nextSteps = [
     {
@@ -68,19 +72,19 @@ export default function SubmissionSuccess({
   const projectStats = [
     {
       label: "Score d'impact",
-      value: projectData?.impact_score || 0,
+      value: data?.formData?.technology?.impactScore || data?.technology?.impactScore || 0,
       max: 100,
       color: "from-green-400 to-emerald-500"
     },
     {
       label: "Score de completion",
-      value: projectData?.completion_score || 0,
+      value: data?.formData?.details?.completionScore || data?.details?.completionScore || 0,
       max: 100,
       color: "from-blue-400 to-cyan-500"
     },
     {
       label: "Financement demandé",
-      value: `${projectData?.funding_amount || 0}€`,
+      value: `${data?.formData?.funding?.fundingAmount || data?.funding?.fundingAmount || 0}€`,
       max: null,
       color: "from-yellow-400 to-orange-500"
     }
@@ -188,7 +192,7 @@ export default function SubmissionSuccess({
           >
             <Sparkles className="w-5 h-5" />
             <span className="font-semibold">
-              Projet #{projectData?.id || "DEMO"} - {projectData?.domain?.toUpperCase() || "TECH"}
+              Projet #{data?.id || "DEMO"} - {data?.domain?.toUpperCase() || "TECH"}
             </span>
             <Sparkles className="w-5 h-5" />
           </motion.div>
@@ -240,7 +244,7 @@ export default function SubmissionSuccess({
               <h2 className="text-2xl font-bold text-white mb-6 text-center">
                 Prochaines étapes de votre candidature
               </h2>
-              
+
               <div className="space-y-6">
                 {nextSteps.map((step, index) => {
                   const IconComponent = step.icon
@@ -257,7 +261,7 @@ export default function SubmissionSuccess({
                           <IconComponent className="w-6 h-6 text-white" />
                         </div>
                       </div>
-                      
+
                       <div className="flex-1">
                         <div className="flex items-center justify-between mb-2">
                           <h3 className="font-semibold text-white">{step.title}</h3>
