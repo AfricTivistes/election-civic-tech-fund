@@ -260,7 +260,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-        <div className="flex items-center justify-center mb-4">
+                <div className="flex items-center justify-center mb-4">
           <div className="p-3 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full">
             <FileText className="w-8 h-8 text-white" />
           </div>
@@ -537,7 +537,6 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
         </Button>
 
         <Button
-          onClick={handleSubmit}
           disabled={!isComplete || isSubmitting}
           size="lg"
           className={`
@@ -548,6 +547,19 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
                 : "bg-gray-600 text-gray-300 cursor-not-allowed"
             }
           `}
+          onClick={() => {
+            // Finaliser et soumettre
+            const finalData = {
+              ...formData,
+              uploaded_documents: uploadedFiles,
+              completion_score: completionScore,
+              status: 'submitted' as const,
+              submission_date: new Date().toISOString()
+            }
+            onUpdate(finalData)
+            onComplete("Submission Master")
+            handleSubmit()
+          }}
         >
           {isSubmitting ? (
             <>
