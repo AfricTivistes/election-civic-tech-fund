@@ -347,7 +347,7 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
     try {
       console.log('📤 Soumission finale du projet:', finalData)
 
-      // Compiler toutes les données du formulaire
+      // Compiler toutes les données du formulaire avec le format exact du script de test
       const completeData = {
         // Step 1 - Vision
         vision: formData.vision?.vision || '',
@@ -363,17 +363,28 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
         team_members: formData.team?.teamMembers || [],
         team_size: formData.team?.teamMembers?.length || 0,
 
-        // Step 4 - Documents et soumission
-        uploaded_documents: finalData.uploaded_documents || {},
-        completion_score: finalData.completion_score || 0,
-
+        // Step 4 - Documents avec colonnes exactes comme dans le script de test
+        document_cv: finalData.document_cv || null,
+        document_portfolio: finalData.document_portfolio || null,
+        document_budget: finalData.document_budget || null,
+        document_presentation: finalData.document_presentation || null,
+        document_other: finalData.document_other || null,
+        
         // Métadonnées
+        completion_score: finalData.completion_score || 0,
         status: 'submitted' as const,
         submission_date: new Date().toISOString(),
         language: 'fr' as const
       }
 
-      console.log('📋 Données complètes à sauvegarder:', completeData)
+      console.log('📋 Données complètes à sauvegarder (format script de test):', {
+        ...completeData,
+        document_cv: completeData.document_cv ? '(JSON présent)' : '(absent)',
+        document_portfolio: completeData.document_portfolio ? '(JSON présent)' : '(absent)',
+        document_budget: completeData.document_budget ? '(JSON présent)' : '(absent)',
+        document_presentation: completeData.document_presentation ? '(JSON présent)' : '(absent)',
+        document_other: completeData.document_other ? '(JSON présent)' : '(absent)'
+      })
       console.log('🎯 Impact Score dans les données finales:', completeData.impact_score)
       console.log('🔍 FormData technology:', formData.technology)
       console.log('🔍 savedProjectId actuel:', savedProjectId)

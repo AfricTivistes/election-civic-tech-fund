@@ -212,7 +212,14 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
       const completionScore = Math.round((uploadedCount / requiredCount) * 100)
 
       const finalData = {
-        ...documentData,
+        // Documents avec format exact du script de test
+        document_cv: documentData.document_cv || null,
+        document_portfolio: documentData.document_portfolio || null,
+        document_budget: documentData.document_budget || null,
+        document_presentation: documentData.document_presentation || null,
+        document_other: documentData.document_other || null,
+        
+        // Métadonnées
         completion_score: completionScore,
         status: 'submitted',
         submission_date: new Date().toISOString()
@@ -220,17 +227,25 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
 
       console.log('📝 Données finales pour soumission (format script de test):')
       console.log('🎯 Colonnes document envoyées:')
-      Object.entries(documentData).forEach(([key, value]) => {
-        console.log(`  - ${key}:`, value ? 'Présent ✅' : 'Absent ❌')
-        if (value) {
+      console.log('  - document_cv:', finalData.document_cv ? 'Présent ✅' : 'Absent ❌')
+      console.log('  - document_portfolio:', finalData.document_portfolio ? 'Présent ✅' : 'Absent ❌')
+      console.log('  - document_budget:', finalData.document_budget ? 'Présent ✅' : 'Absent ❌')
+      console.log('  - document_presentation:', finalData.document_presentation ? 'Présent ✅' : 'Absent ❌')
+      console.log('  - document_other:', finalData.document_other ? 'Présent ✅' : 'Absent ❌')
+      
+      // Vérifier chaque document
+      Object.entries(finalData).forEach(([key, value]) => {
+        if (key.startsWith('document_') && value) {
           try {
             const parsed = JSON.parse(value)
-            console.log(`    • URL: ${parsed[0]?.url ? 'Présente ✅' : 'Manquante ❌'}`)
-            console.log(`    • Title: ${parsed[0]?.title || 'N/A'}`)
-            console.log(`    • Mimetype: ${parsed[0]?.mimetype || 'N/A'}`)
-            console.log(`    • Size: ${parsed[0]?.size || 'N/A'}`)
+            console.log(`    ${key} détails:`, {
+              url: parsed[0]?.url ? 'Présente ✅' : 'Manquante ❌',
+              title: parsed[0]?.title || 'N/A',
+              mimetype: parsed[0]?.mimetype || 'N/A',
+              size: parsed[0]?.size || 'N/A'
+            })
           } catch (e) {
-            console.log(`    ❌ Erreur parsing: ${e.message}`)
+            console.log(`    ❌ ${key} erreur parsing:`, e.message)
           }
         }
       })
