@@ -138,37 +138,39 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
     setIsSubmitting(true)
 
     try {
-      // Préparer les données finales pour la soumission
+      console.log('📤 Début de la soumission...')
+      console.log('📁 Fichiers uploadés:', uploadedFiles)
+
+      // Préparer les données finales avec les fichiers uploadés
       const finalData = {
-        // Documents uploadés avec les fichiers réels
+        ...formData,
         uploaded_documents: uploadedFiles,
         completion_score: completionScore,
-        // Marquer comme soumis
         status: 'submitted' as const,
         submission_date: new Date().toISOString()
       }
 
-      console.log('📤 Soumission finale des données:', finalData)
+      console.log('📤 Données finales à soumettre:', finalData)
 
-      // Mettre à jour les données locales
-      onUpdate(finalData)
-
-      // Sauvegarder dans la base de données si la fonction est disponible
+      // Sauvegarder dans la base de données avec les fichiers
       if (onSave && typeof onSave === 'function') {
-        console.log('💾 Sauvegarde en base de données...')
+        console.log('💾 Sauvegarde en base de données avec upload des fichiers...')
         await onSave(finalData)
-        console.log('✅ Sauvegarde réussie!')
+        console.log('✅ Sauvegarde et upload des fichiers réussis!')
       } else {
         console.warn('⚠️ Fonction onSave non disponible')
+        throw new Error('Fonction de sauvegarde non disponible')
       }
 
+      // Mettre à jour les données locales après sauvegarde réussie
+      onUpdate(finalData)
       onComplete("Submission Master")
 
       // Show success message
       alert("Votre candidature a été soumise avec succès ! Vous recevrez une confirmation par email.")
     } catch (error) {
       console.error('❌ Erreur lors de la soumission:', error)
-      alert("Erreur lors de la soumission. Veuillez réessayer.")
+      alert(`Erreur lors de la soumission: ${error.message}. Veuillez réessayer.`)
     } finally {
       setIsSubmitting(false)
     }
@@ -547,19 +549,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
                 : "bg-gray-600 text-gray-300 cursor-not-allowed"
             }
           `}
-          onClick={() => {
-            // Finaliser et soumettre
-            const finalData = {
-              ...formData,
-              uploaded_documents: uploadedFiles,
-              completion_score: completionScore,
-              status: 'submitted' as const,
-              submission_date: new Date().toISOString()
-            }
-            onUpdate(finalData)
-            onComplete("Submission Master")
-            handleSubmit()
-          }}
+          onClick={handleSubmit}
         >
           {isSubmitting ? (
             <>
