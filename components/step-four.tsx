@@ -143,7 +143,6 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
 
       // Préparer les données finales avec les fichiers uploadés
       const finalData = {
-        ...formData,
         uploaded_documents: uploadedFiles,
         completion_score: completionScore,
         status: 'submitted' as const,
@@ -157,17 +156,14 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
         console.log('💾 Sauvegarde en base de données avec upload des fichiers...')
         await onSave(finalData)
         console.log('✅ Sauvegarde et upload des fichiers réussis!')
+        
+        // Mettre à jour les données locales après sauvegarde réussie
+        onUpdate(finalData)
+        onComplete("Submission Master")
       } else {
         console.warn('⚠️ Fonction onSave non disponible')
         throw new Error('Fonction de sauvegarde non disponible')
       }
-
-      // Mettre à jour les données locales après sauvegarde réussie
-      onUpdate(finalData)
-      onComplete("Submission Master")
-
-      // Show success message
-      alert("Votre candidature a été soumise avec succès ! Vous recevrez une confirmation par email.")
     } catch (error) {
       console.error('❌ Erreur lors de la soumission:', error)
       alert(`Erreur lors de la soumission: ${error.message}. Veuillez réessayer.`)

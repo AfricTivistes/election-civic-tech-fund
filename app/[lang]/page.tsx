@@ -38,7 +38,7 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
   const [mounted, setMounted] = useState(false)
   const [isGuideOpen, setIsGuideOpen] = useState(false)
   const { t, isLoading } = useLanguage()
-  
+
   // Hook pour la sauvegarde dans NocoDB
   const { data: projectData, loading: saving, saveData, testSaveWithCountry, savedProjectId } = useProjectData()
 
@@ -346,7 +346,7 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
   const submitFinalProject = async (finalData: any) => {
     try {
       console.log('📤 Soumission finale du projet:', finalData)
-      
+
       // Compiler toutes les données du formulaire
       const completeData = {
         // Step 1 - Vision
@@ -354,38 +354,40 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
         problem: formData.vision?.problem || '',
         domain: formData.vision?.domain || '',
         country: formData.vision?.country || '',
-        
+
         // Step 2 - Technologies  
         technologies: formData.technology?.technologies || [],
         impact_score: formData.technology?.impact_score || formData.technology?.impactScore || 0,
-        
+
         // Step 3 - Équipe
         team_members: formData.team?.teamMembers || [],
         team_size: formData.team?.teamMembers?.length || 0,
-        
+
         // Step 4 - Documents et soumission
         uploaded_documents: finalData.uploaded_documents || {},
         completion_score: finalData.completion_score || 0,
-        
+
         // Métadonnées
         status: 'submitted' as const,
         submission_date: new Date().toISOString(),
         language: 'fr' as const
       }
-      
+
       console.log('📋 Données complètes à sauvegarder:', completeData)
       console.log('🎯 Impact Score dans les données finales:', completeData.impact_score)
       console.log('🔍 FormData technology:', formData.technology)
       console.log('🔍 savedProjectId actuel:', savedProjectId)
-      
+
       // Toujours utiliser saveData qui gère automatiquement création vs mise à jour
       await saveData(completeData, true) // Force la sauvegarde
-      
+
       console.log('✅ Projet soumis avec succès!')
-      
+
+      // Show success message
+      alert("Votre candidature a été soumise avec succès ! Vous recevrez une confirmation par email.")
     } catch (error) {
       console.error('❌ Erreur lors de la soumission finale:', error)
-      throw error
+      alert(`Erreur lors de la soumission: ${error.message}. Veuillez réessayer.`)
     }
   }
 

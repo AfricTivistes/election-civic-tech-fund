@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react'
 import { nocoDBService, ProjectSubmission } from '@/lib/nocodb'
 
@@ -39,10 +38,10 @@ export function useProjectData(projectId?: string) {
 
     try {
       const updatedData = { ...data, ...newData }
-      
+
       console.log('💾 Sauvegarde des données:', updatedData)
       console.log('🎯 Impact Score à sauvegarder:', updatedData.impact_score)
-      
+
       // Validation des données requises
       if (!updatedData.vision || !updatedData.problem || !updatedData.domain || !updatedData.country) {
         throw new Error('Données obligatoires manquantes (vision, problem, domain, country)')
@@ -73,7 +72,19 @@ export function useProjectData(projectId?: string) {
         setSavedProjectId(created.id!)
         console.log('✅ Nouveau projet créé avec ID:', created.id)
       }
-      
+      if (updatedData.team_members && Array.isArray(updatedData.team_members)) {
+        updatedData.team_members = JSON.stringify(updatedData.team_members)
+      }
+
+      // Calculer team_size si pas déjà défini
+      if (updatedData.team_members && !updatedData.team_size) {
+        const teamArray = Array.isArray(updatedData.team_members) 
+          ? updatedData.team_members 
+          : JSON.parse(updatedData.team_members || '[]')
+        updatedData.team_size = teamArray.length
+      }
+
+
       setData(updatedData)
       console.log('✅ Sauvegarde réussie!')
     } catch (err: any) {
@@ -114,14 +125,14 @@ export function useProjectData(projectId?: string) {
   // Fonction de test pour vérifier les données
   const testSaveWithCountry = async (testData: Partial<ProjectSubmission>) => {
     console.log('🧪 Test de sauvegarde avec pays:', testData)
-    
+
     if (!testData.country) {
       console.warn('⚠️ Aucun pays détecté dans les données de test')
       return
     }
-    
+
     console.log(`🏳️ Pays détecté: ${testData.country}`)
-    
+
     try {
       await saveData(testData, true)
       console.log('✅ Test de sauvegarde réussi')
