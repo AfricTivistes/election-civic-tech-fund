@@ -528,22 +528,25 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up">
           <Card className="bg-white/10 backdrop-blur-md border-white/20 text-center">
             <CardContent className="p-6">
-              <div className="text-3xl font-bold text-yellow-400 mb-2">{t?.hero?.stats?.majorProjects || "4-6"}</div>
-              <div className="text-white">{t?.hero?.stats?.majorProjectsDesc || "Projets Majeurs"}</div>
+              <div className="text-3xl font-bold text-yellow-400 mb-2">4-6</div>
+              <div className="text-white">Projets Majeurs</div>
+              <div className="text-blue-200 text-sm">25 000€ maximum</div>
             </CardContent>
           </Card>
 
           <Card className="bg-white/10 backdrop-blur-md border-white/20 text-center">
             <CardContent className="p-6">
-              <div className="text-3xl font-bold text-green-400 mb-2">{t?.hero?.stats?.microGrants || "10+"}</div>
-              <div className="text-white">{t?.hero?.stats?.microGrantsDesc || "Micro-subventions"}</div>
+              <div className="text-3xl font-bold text-green-400 mb-2">10+</div>
+              <div className="text-white">Micro-subventions</div>
+              <div className="text-blue-200 text-sm">10 000€ minimum</div>
             </CardContent>
           </Card>
 
           <Card className="bg-white/10 backdrop-blur-md border-white/20 text-center">
             <CardContent className="p-6">
-              <div className="text-3xl font-bold text-blue-400 mb-2">{t?.hero?.stats?.support || "10"}</div>
-              <div className="text-white">{t?.hero?.stats?.supportDesc || "Mois d'accompagnement"}</div>
+              <div className="text-3xl font-bold text-blue-400 mb-2">10</div>
+              <div className="text-white">Mois d'accompagnement</div>
+              <div className="text-blue-200 text-sm">Formation & suivi</div>
             </CardContent>
           </Card>
         </div>
