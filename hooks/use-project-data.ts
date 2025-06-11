@@ -42,6 +42,22 @@ export function useProjectData(projectId?: string) {
 
       // Validation des données requises sera faite après la fusion des données
 
+      // Fusionner les données avant de les utiliser
+      const updatedData = { ...data, ...newData }
+
+      // Processor les team_members si nécessaire
+      if (updatedData.team_members && Array.isArray(updatedData.team_members)) {
+        updatedData.team_members = JSON.stringify(updatedData.team_members)
+      }
+
+      // Calculer team_size si pas déjà défini
+      if (updatedData.team_members && !updatedData.team_size) {
+        const teamArray = Array.isArray(updatedData.team_members) 
+          ? updatedData.team_members 
+          : JSON.parse(updatedData.team_members || '[]')
+        updatedData.team_size = teamArray.length
+      }
+
       if (savedProjectId && typeof savedProjectId === 'string' && savedProjectId.trim() !== '') {
         // Mise à jour d'un projet existant
         console.log('🔄 Mise à jour du projet existant ID:', savedProjectId)
@@ -67,20 +83,6 @@ export function useProjectData(projectId?: string) {
         setSavedProjectId(created.id!)
         console.log('✅ Nouveau projet créé avec ID:', created.id)
       }
-      if (updatedData.team_members && Array.isArray(updatedData.team_members)) {
-        updatedData.team_members = JSON.stringify(updatedData.team_members)
-      }
-
-      // Calculer team_size si pas déjà défini
-      if (updatedData.team_members && !updatedData.team_size) {
-        const teamArray = Array.isArray(updatedData.team_members) 
-          ? updatedData.team_members 
-          : JSON.parse(updatedData.team_members || '[]')
-        updatedData.team_size = teamArray.length
-      }
-
-      // Fusionner les données avant de les utiliser
-      const updatedData = { ...data, ...newData }
 
       // Vérifier le format des documents reçus (format JSON string comme dans le script de test)
       console.log('📋 Données reçues pour la sauvegarde:', {
