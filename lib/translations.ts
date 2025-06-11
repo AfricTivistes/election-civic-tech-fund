@@ -349,11 +349,11 @@ export const translations: Record<string, Translation> = {
       },
       stats: {
         majorProjects: "4-6",
-        majorProjectsDesc: "Projets Majeurs",
+        majorProjectsDesc: "Projets majeurs - 25 000€ maximum",
         microGrants: "10+",
-        microGrantsDesc: "Micro-subventions",
+        microGrantsDesc: "micro-subventions - 10 000€ minimum",
         support: "10",
-        supportDesc: "Mois d'accompagnement",
+        supportDesc: "mois d'accompagnement - Formation et suivi",
       },
       footer: {
         ledBy: "Mené par",
@@ -684,11 +684,11 @@ export const translations: Record<string, Translation> = {
       },
       stats: {
         majorProjects: "4-6",
-        majorProjectsDesc: "Major Projects",
+        majorProjectsDesc: "Major projects - €25,000 maximum",
         microGrants: "10+",
-        microGrantsDesc: "Micro-grants",
+        microGrantsDesc: "small grants - €10,000 minimum",
         support: "10",
-        supportDesc: "Months of support",
+        supportDesc: "month support - Training and assistance",
       },
       footer: {
         ledBy: "Led by",
