@@ -221,10 +221,10 @@ export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, te
         <Card className="bg-white/10 backdrop-blur-md border-white/20">
           <CardHeader>
             <CardTitle className="text-white">
-              {t?.steps?.step1?.countryTitle || "Sélectionnez votre pays"}
+              {t?.steps?.step1?.countryTitle || "Select your country"}
             </CardTitle>
             <CardDescription className="text-blue-200">
-              {t?.steps?.step1?.countryDescription || "Choisissez le pays dans lequel votre projet sera mis en œuvre."}
+              {t?.steps?.step1?.countryDescription || "Choose the country in which your project will be implemented."}
             </CardDescription>
           </CardHeader>
           <CardContent>
