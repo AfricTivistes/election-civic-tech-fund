@@ -1,0 +1,60 @@
+
+> my-v0-project@0.1.0 test-upload
+> node scripts/test-file-upload.js
+
+🧪 Test d'upload de fichier et soumission complète
+📂 Vérification du dossier public/documents...
+📁 Fichiers disponibles: [
+  'appel_a_projet_fr.pdf',
+  'budget_en.xlsx',
+  'budget_fr.xlsx',
+  'call_for_projects_en.pdf',
+  'descriptif_projet_fr.docx',
+  'framing_note_en.pdf',
+  'note_de_cadrage_fr.pdf',
+  'project_description_en.docx'
+]
+📄 Fichier de test sélectionné: appel_a_projet_fr.pdf
+
+🔄 Étape 1: Upload du fichier...
+📤 Upload fichier avec fetch: {
+  fileName: 'appel_a_projet_fr.pdf',
+  filePath: '/home/runner/workspace/public/documents/appel_a_projet_fr.pdf'
+}
+✅ Upload réussi: [
+  {
+    url: 'https://nocohub-001-prod-app-attachments.s3.us-east-2.amazonaws.com/nc/uploads/2025/06/11/8e7e9deae3e08abfc886bfad244e99441e7b1ddf/appel_a_projet_fr_v3kVR.pdf',
+    title: 'appel_a_projet_fr.pdf',
+    mimetype: 'application/pdf',
+    size: 1782774,
+    icon: 'mdi-pdf-box',
+    signedUrl: 'https://nocohub-001-prod-app-attachments.s3.us-east-2.amazonaws.com/nc/uploads/2025/06/11/8e7e9deae3e08abfc886bfad244e99441e7b1ddf/appel_a_projet_fr_v3kVR.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIATUJCOBWTKOMQ5JMU%2F20250611%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20250611T013834Z&X-Amz-Expires=7286&X-Amz-Signature=95a2b1c23caf870e70532f4b859b0932fbb37e77ee1f1f93ae9a942cf9a593d0&X-Amz-SignedHeaders=host&response-content-disposition=inline%3B&response-content-type=application%2Fpdf&x-amz-checksum-mode=ENABLED&x-id=GetObject'
+  }
+]
+
+🔄 Étape 2: Création d'un projet de test...
+📝 Données du projet de test: {
+  vision: "Test d'upload de fichier - Vision de test",
+  problem: "Test du problème d'upload de fichiers",
+  domain: 'tech',
+  country: 'sn',
+  technologies: '["test","upload","nocodb"]',
+  impact_score: 95,
+  status: 'submitted',
+  language: 'fr',
+  submission_date: '2025-06-11T01:38:34.701Z',
+  document_cv: '[{"title":"appel_a_projet_fr.pdf","mimetype":"application/pdf","size":1782774}]',
+  document_portfolio: '[{"title":"appel_a_projet_fr.pdf","mimetype":"application/pdf","size":1782774}]',
+  document_budget: '[{"title":"appel_a_projet_fr.pdf","mimetype":"application/pdf","size":1782774}]',
+  completion_score: 100
+}
+❌ Erreur lors du test: AxiosError: Request failed with status code 422
+    at settle (/home/runner/workspace/node_modules/axios/dist/node/axios.cjs:2049:12)
+    at IncomingMessage.handleStreamEnd (/home/runner/workspace/node_modules/axios/dist/node/axios.cjs:3166:11)
+    at IncomingMessage.emit (node:events:530:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+    at Axios.request (/home/runner/workspace/node_modules/axios/dist/node/axios.cjs:4276:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async testFileUploadAndSubmission (/home/runner/workspace/scripts/test-file-upload.js:147:28) {
+  code: 'ERR_BAD_REQ
