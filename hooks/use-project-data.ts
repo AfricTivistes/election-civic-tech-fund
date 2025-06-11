@@ -84,8 +84,9 @@ export function useProjectData(projectId?: string) {
         updatedData.team_size = teamArray.length
       }
 
-      // Les fichiers sont maintenant uploadés directement dans le composant
-      // Les données de documents arrivent déjà formatées pour NocoDB
+      // Les fichiers sont maintenant déjà uploadés et au bon format depuis step-four.tsx
+      // Plus besoin de les traiter ici, ils arrivent déjà sous forme de colonnes de documents
+      console.log('📋 Données reçues pour la sauvegarde:', updatedData)
 
 
       setData(updatedData)

@@ -95,13 +95,13 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
     setUploadingFiles(prev => ({ ...prev, [documentId]: true }))
 
     try {
-      // Faire l'upload réel vers NocoDB
+      // Faire l'upload réel vers NocoDB - utiliser la même méthode que le script de test
       console.log('📤 Upload vers NocoDB...')
       
       const formData = new FormData()
       formData.append('file', file)
 
-      // Vérifier que les variables d'environnement sont disponibles
+      // Vérifier que les variables d'environnement sont disponibles côté client
       const nocoUrl = process.env.NEXT_PUBLIC_NOCODB_URL
       const nocoToken = process.env.NEXT_PUBLIC_NOCODB_TOKEN
 
@@ -126,28 +126,37 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
       const uploadResult = await uploadResponse.json()
       console.log('✅ Upload NocoDB réussi:', uploadResult)
 
-      // Créer l'objet fichier avec les données de NocoDB
+      // Utiliser exactement le même format que le script de test qui fonctionne
+      const attachmentData = [{
+        url: uploadResult[0]?.url || uploadResult[0]?.signedUrl,
+        title: uploadResult[0]?.title || file.name,
+        mimetype: uploadResult[0]?.mimetype || file.type,
+        size: uploadResult[0]?.size || file.size,
+        icon: uploadResult[0]?.icon || (file.type.includes('pdf') ? 'mdi-pdf-box' : 'mdi-file')
+      }]
+
+      // Stocker le fichier avec toutes les informations nécessaires
       const fileInfo = {
         name: file.name,
         size: file.size,
         type: file.type,
         lastModified: file.lastModified,
-        // Données NocoDB pour la sauvegarde
-        nocoData: uploadResult[0] || uploadResult,
-        // Format attendu par NocoDB pour les colonnes Attachment
-        attachmentData: [{
-          url: uploadResult[0]?.url || uploadResult[0]?.signedUrl,
-          title: uploadResult[0]?.title || file.name,
-          mimetype: uploadResult[0]?.mimetype || file.type,
-          size: uploadResult[0]?.size || file.size,
-          icon: uploadResult[0]?.icon || 'mdi-file'
-        }]
+        // Données brutes de l'upload NocoDB
+        uploadResult: uploadResult,
+        // Format final pour NocoDB (JSON stringifié comme dans le script de test)
+        attachmentData: attachmentData,
+        // JSON stringifié prêt pour la base de données
+        attachmentJson: JSON.stringify(attachmentData)
       }
 
       const newUploadedFiles = { ...uploadedFiles, [documentId]: fileInfo }
       setUploadedFiles(newUploadedFiles)
 
-      console.log('✅ Fichier traité et ajouté à l\'état:', newUploadedFiles)
+      console.log('✅ Fichier traité et ajouté à l\'état:', {
+        documentId,
+        attachmentData,
+        attachmentJson: JSON.stringify(attachmentData)
+      })
 
       // Validation automatique après upload réussi
       const validation = {
@@ -195,7 +204,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
       console.log('📤 Début de la soumission...')
       console.log('📁 Fichiers uploadés:', uploadedFiles)
 
-      // Préparer les données finales avec les fichiers uploadés au format NocoDB
+      // Utiliser exactement le même mapping que le script de test qui fonctionne
       const documentMapping = {
         'cv': 'document_cv',
         'portfolio': 'document_portfolio', 
@@ -210,16 +219,22 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
         submission_date: new Date().toISOString()
       }
 
-      // Ajouter les documents uploadés au format NocoDB Attachment
+      // Ajouter les documents uploadés EXACTEMENT comme dans le script de test
       for (const [docId, fileInfo] of Object.entries(uploadedFiles)) {
         const columnName = documentMapping[docId as keyof typeof documentMapping]
-        if (columnName && fileInfo && (fileInfo as any).attachmentData) {
-          finalData[columnName] = JSON.stringify((fileInfo as any).attachmentData)
-          console.log(`✅ Document ${docId} ajouté à ${columnName}:`, (fileInfo as any).attachmentData)
+        if (columnName && fileInfo) {
+          // Utiliser attachmentJson qui est déjà au bon format JSON stringifié
+          const attachmentJson = (fileInfo as any).attachmentJson
+          if (attachmentJson) {
+            finalData[columnName] = attachmentJson
+            console.log(`✅ Document ${docId} ajouté à ${columnName}:`, attachmentJson)
+          } else {
+            console.warn(`⚠️ attachmentJson manquant pour ${docId}`)
+          }
         }
       }
 
-      console.log('📤 Données finales à soumettre:', finalData)
+      console.log('📤 Données finales à soumettre (format identique au script de test):', finalData)
 
       // Sauvegarder dans la base de données avec les fichiers
       if (onSave && typeof onSave === 'function') {
