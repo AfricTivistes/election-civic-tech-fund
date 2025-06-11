@@ -98,7 +98,7 @@ export class NocoDBService {
           ? JSON.stringify(data.team_members) 
           : (data.team_members || JSON.stringify([])),
         status: data.status || 'draft',
-        language: data.language || 'fr'
+        language: data.language || 'en'
       }
 
       console.log('📝 Données traitées pour NocoDB:', processedData)

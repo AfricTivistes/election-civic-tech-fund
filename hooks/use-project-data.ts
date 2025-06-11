@@ -153,6 +153,7 @@ export function useProjectData(projectId?: string) {
     try {
       await nocoDBService.updateProject(savedProjectId, {
         status: 'submitted',
+        language: language || 'en',
         submission_date: new Date().toISOString()
       })
       setData(prev => ({ 
