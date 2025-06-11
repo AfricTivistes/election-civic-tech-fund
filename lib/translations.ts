@@ -640,6 +640,23 @@ export const translations: Record<string, Translation> = {
       Niger: {
         challenges: ["Accès à l'information", "Éducation civique"],
       },
+      // Noms des pays (restent en français)
+      countryNames: {
+        "Sénégal": "Sénégal",
+        "Mali": "Mali",
+        "Niger": "Niger",
+        "Tchad": "Tchad",
+        "Soudan": "Soudan",
+        "Éthiopie": "Éthiopie",
+        "Cameroun": "Cameroun",
+        "Bénin": "Bénin",
+        "Togo": "Togo",
+        "Burkina Faso": "Burkina Faso",
+        "Guinée": "Guinée",
+        "Mauritanie": "Mauritanie",
+        "Soudan du Sud": "Soudan du Sud",
+        "Somalie": "Somalie"
+      },
     },
   },
   en: {
@@ -955,6 +972,23 @@ export const translations: Record<string, Translation> = {
       },
       Niger: {
         challenges: ["Access to information", "Civic education"],
+      },
+      // Noms des pays traduits
+      countryNames: {
+        "Sénégal": "Senegal",
+        "Mali": "Mali",
+        "Niger": "Niger",
+        "Tchad": "Chad",
+        "Soudan": "Sudan",
+        "Éthiopie": "Ethiopia",
+        "Cameroun": "Cameroon",
+        "Bénin": "Benin",
+        "Togo": "Togo",
+        "Burkina Faso": "Burkina Faso",
+        "Guinée": "Guinea",
+        "Mauritanie": "Mauritania",
+        "Soudan du Sud": "South Sudan",
+        "Somalie": "Somalia"
       },
     },
   },

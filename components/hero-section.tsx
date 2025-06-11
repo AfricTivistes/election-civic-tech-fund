@@ -469,7 +469,9 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
                           {selectedCountry.flag}
                         </div>
                         <div>
-                          <h4 className="text-xl font-bold text-white">{selectedCountry.name}</h4>
+                          <h4 className="text-xl font-bold text-white">
+                            {t?.countries?.countryNames?.[selectedCountry.name] || selectedCountry.name}
+                          </h4>
                           <div className="flex items-center space-x-4 text-sm text-blue-200">
                             <span className="flex items-center">
                               <Users className="w-4 h-4 mr-1" />
