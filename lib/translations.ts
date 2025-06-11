@@ -77,6 +77,8 @@ export interface Translation {
       problemTitle: string
       problemDescription: string
       problemPlaceholder: string
+      countryTitle: string
+      countryDescription: string
       domainTitle: string
       domainDescription: string
       nextButton: string
@@ -403,6 +405,8 @@ export const translations: Record<string, Translation> = {
         problemTitle: "Le problème électoral que vous ciblez",
         problemDescription: "Identifiez clairement le défi démocratique que votre projet souhaite résoudre.",
         problemPlaceholder: "Quel problème électoral spécifique votre projet va-t-il résoudre ?",
+        countryTitle: "Sélectionnez le pays cible",
+        countryDescription: "Choisissez le pays africain où vous souhaitez implémenter votre projet.",
         domainTitle: "Choisissez votre domaine prioritaire",
         domainDescription: "Sélectionnez le domaine principal dans lequel votre projet s'inscrit.",
         nextButton: "Continuer vers l'Impact Technologique",
@@ -738,6 +742,8 @@ export const translations: Record<string, Translation> = {
         problemTitle: "The electoral problem you're targeting",
         problemDescription: "Clearly identify the democratic challenge your project aims to solve.",
         problemPlaceholder: "What specific electoral problem will your project solve?",
+        countryTitle: "Select target country",
+        countryDescription: "Choose the African country where you want to implement your project.",
         domainTitle: "Choose your priority domain",
         domainDescription: "Select the main domain in which your project fits.",
         nextButton: "Continue to Technological Impact",
