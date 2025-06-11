@@ -145,6 +145,79 @@ export function useProjectData(projectId?: string) {
     }
   }
 
+  const saveProject = async (finalData: any) => {
+    console.log('💾 Sauvegarde du projet...', finalData)
+
+    try {
+      // Fusionner toutes les données
+      const completeData = {
+        ...data,
+        ...finalData
+      }
+
+      // Traiter les données step par step
+      const processedData = {
+        // Step 1 - Vision
+        vision: completeData.vision?.vision || '',
+        problem: completeData.vision?.problem || '',
+        domain: completeData.vision?.domain || '',
+        country: completeData.vision?.country || '',
+
+        // Step 2 - Technology
+        technologies: completeData.technology?.technologies ? 
+          JSON.stringify(completeData.technology.technologies) : 
+          JSON.stringify([]),
+        impact_score: completeData.technology?.impactScore || 0,
+
+        // Step 3 - Team
+        team_members: completeData.team?.teamMembers ? 
+          JSON.stringify(completeData.team.teamMembers) : 
+          JSON.stringify([]),
+        team_size: completeData.team?.teamMembers?.length || 0,
+
+        // Step 4 - Documents (les colonnes d'attachement)
+        document_cv: finalData.document_cv || null,
+        document_portfolio: finalData.document_portfolio || null,
+        document_budget: finalData.document_budget || null,
+        document_presentation: finalData.document_presentation || null,
+        document_other: finalData.document_other || null,
+
+        // Métadonnées
+        completion_score: finalData.completion_score || 0,
+        status: finalData.status || 'submitted',
+        language: 'fr',
+        submission_date: finalData.submission_date || new Date().toISOString()
+      }
+
+      console.log('📝 Données traitées pour NocoDB:', {
+        ...processedData,
+        document_cv: processedData.document_cv ? '(présent)' : '(absent)',
+        document_portfolio: processedData.document_portfolio ? '(présent)' : '(absent)',
+        document_budget: processedData.document_budget ? '(présent)' : '(absent)',
+        document_presentation: processedData.document_presentation ? '(présent)' : '(absent)',
+        document_other: processedData.document_other ? '(présent)' : '(absent)'
+      })
+
+      if (!savedProjectId) {
+        // Créer un nouveau projet
+        const newProject = await nocoDBService.createProject(processedData)
+
+        console.log('✅ Nouveau projet créé:', newProject.id)
+        setSavedProjectId(newProject.id)
+        return newProject
+      } else {
+        // Mettre à jour le projet existant
+        const updatedProject = await nocoDBService.updateProject(savedProjectId, processedData)
+
+        console.log('✅ Projet mis à jour:', updatedProject.id)
+        return updatedProject
+      }
+    } catch (error) {
+      console.error('❌ Erreur sauvegarde projet:', error)
+      throw error
+    }
+  }
+
   return {
     data,
     loading,
@@ -153,6 +226,7 @@ export function useProjectData(projectId?: string) {
     saveData,
     submitProject,
     testSaveWithCountry,
-    setData
+    setData,
+    saveProject
   }
 }

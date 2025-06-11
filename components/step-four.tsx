@@ -95,25 +95,14 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
     setUploadingFiles(prev => ({ ...prev, [documentId]: true }))
 
     try {
-      // Faire l'upload réel vers NocoDB - utiliser la même méthode que le script de test
-      console.log('📤 Upload vers NocoDB...')
+      // Utiliser notre API route Next.js pour l'upload
+      console.log('📤 Upload via API route...')
       
       const formData = new FormData()
       formData.append('file', file)
 
-      // Vérifier que les variables d'environnement sont disponibles côté client
-      const nocoUrl = process.env.NEXT_PUBLIC_NOCODB_URL
-      const nocoToken = process.env.NEXT_PUBLIC_NOCODB_TOKEN
-
-      if (!nocoUrl || !nocoToken) {
-        throw new Error('Variables d\'environnement NocoDB manquantes')
-      }
-
-      const uploadResponse = await fetch(`${nocoUrl}/api/v1/db/storage/upload`, {
+      const uploadResponse = await fetch('/api/upload', {
         method: 'POST',
-        headers: {
-          'xc-token': nocoToken,
-        },
         body: formData
       })
 
