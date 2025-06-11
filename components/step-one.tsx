@@ -152,11 +152,11 @@ export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, te
               <Sparkles className="w-6 h-6 text-yellow-400 mt-1 flex-shrink-0" />
               <div>
                 <h4 className="font-bold text-yellow-900 mb-2 text-lg">
-                  {t?.steps?.step1?.expertTip?.title || "Conseil d'Expert"}
+                  {t?.steps?.step1?.expertTip?.title || "Expert Advice"}
                 </h4>
                 <p className="text-yellow-800 font-medium leading-relaxed">
                   {t?.steps?.step1?.expertTip?.content ||
-                    "Plus votre vision est claire et spécifique, plus elle aura d'impact. Ce que vous proposez ici deviendra l'âme de votre projet et guidera toutes les étapes suivantes."}
+                    "The clearer and more specific your vision, the greater its impact. What you propose here will become the soul of your project and guide all subsequent steps."}
                 </p>
               </div>
             </div>
@@ -169,11 +169,11 @@ export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, te
         <Card className="bg-white/10 backdrop-blur-md border-white/20">
           <CardHeader>
             <CardTitle className="text-white">
-              {t?.steps?.step1?.visionTitle || "Décrivez votre ambition démocratique"}
+              {t?.steps?.step1?.visionTitle || "Describe your democratic ambition"}
             </CardTitle>
             <CardDescription className="text-blue-200">
               {t?.steps?.step1?.visionDescription ||
-                "Racontez-nous votre vision, ce que vous cherchez à transformer dans votre pays, et comment la technologie peut être un levier."}
+                "Tell us about your vision, what you seek to transform in your country, and how technology can be a lever."}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -182,7 +182,7 @@ export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, te
               onChange={(e) => setVision(e.target.value)}
               placeholder={
                 t?.steps?.step1?.visionPlaceholder ||
-                "Décrivez votre vision pour transformer la démocratie dans votre pays..."
+                "Describe your vision to transform democracy in your country..."
               }
               className="min-h-32 bg-white/5 border-white/20 text-white placeholder:text-blue-300"
             />
@@ -195,11 +195,11 @@ export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, te
         <Card className="bg-white/10 backdrop-blur-md border-white/20">
           <CardHeader>
             <CardTitle className="text-white">
-              {t?.steps?.step1?.problemTitle || "Le problème électoral que vous ciblez"}
+              {t?.steps?.step1?.problemTitle || "The electoral problem you're targeting"}
             </CardTitle>
             <CardDescription className="text-blue-200">
               {t?.steps?.step1?.problemDescription ||
-                "Identifiez clairement le défi démocratique que votre projet souhaite résoudre."}
+                "Clearly identify the democratic challenge your project aims to solve."}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -208,7 +208,7 @@ export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, te
               onChange={(e) => setProblem(e.target.value)}
               placeholder={
                 t?.steps?.step1?.problemPlaceholder ||
-                "Quel problème électoral spécifique votre projet va-t-il résoudre ?"
+                "What specific electoral problem will your project solve?"
               }
               className="min-h-24 bg-white/5 border-white/20 text-white placeholder:text-blue-300"
             />
@@ -274,10 +274,10 @@ export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, te
         <Card className="bg-white/10 backdrop-blur-md border-white/20">
           <CardHeader>
             <CardTitle className="text-white">
-              {t?.steps?.step1?.domainTitle || "Choisissez votre domaine prioritaire"}
+              {t?.steps?.step1?.domainTitle || "Choose your priority domain"}
             </CardTitle>
             <CardDescription className="text-blue-200">
-              {t?.steps?.step1?.domainDescription || "Sélectionnez le domaine principal dans lequel votre projet s'inscrit."}
+              {t?.steps?.step1?.domainDescription || "Select the main domain in which your project fits."}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -363,7 +363,7 @@ export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, te
             }
           `}
         >
-          {t?.steps?.step1?.nextButton || "Continuer vers l'Impact Technologique"}
+          {t?.steps?.step1?.nextButton || "Continue to Technological Impact"}
           <ArrowRight className="ml-2 w-5 h-5" />
         </Button>
       </motion.div>
@@ -372,7 +372,7 @@ export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, te
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
           <p className="text-yellow-400 text-sm">
             {t?.steps?.step1?.completionMessage ||
-              "Complétez tous les champs (vision, problème, pays et domaine) pour continuer votre parcours démocratique"}
+              "Complete all fields to continue your democratic journey"}
           </p>
         </motion.div>
       )}
