@@ -203,7 +203,7 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
                         {stat.count}/{stat.total}
                       </span>
                     </div>
-                    <p className="text-white font-medium">{stat.category}</p>
+                    <p className="text-gray-900 font-medium">{stat.category}</p>
                     <div className="w-full bg-white/20 rounded-full h-2 mt-2">
                       <div
                         className={`h-2 rounded-full ${stat.color}`}
