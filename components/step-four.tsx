@@ -27,7 +27,8 @@ interface StepFourProps {
   data: any
   onUpdate: (data: any) => void
   onComplete: (badge: string) => void
-  onSubmit: () => void
+  onPrev: () => void
+  formData: any
   onSave?: (data: any) => Promise<void>
 }
 
@@ -39,7 +40,7 @@ interface DocumentState {
   document_other?: File[]
 }
 
-export default function StepFour({ data, onUpdate, onComplete, onSubmit, onSave }: StepFourProps) {
+export default function StepFour({ data, onUpdate, onComplete, onPrev, formData, onSave }: StepFourProps) {
   const { t } = useLanguage()
   const [uploadedFiles, setUploadedFiles] = useState((data && data.uploadedFiles) || {})
   const [aiValidation, setAiValidation] = useState((data && data.aiValidation) || {})
