@@ -190,7 +190,7 @@ export default function StepThree({ data, onUpdate, onComplete, onNext, onPrev, 
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 }}>
           <Card className="bg-gradient-to-r from-green-500/20 to-blue-500/20 border-green-400/30">
             <CardHeader>
-              <CardTitle className="text-white">{uiText.teamStats}</CardTitle>
+              <CardTitle className="text-gray-900">{uiText.teamStats}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
