@@ -713,4 +713,3 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
     </div>
   )
 }
-```

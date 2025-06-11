@@ -211,7 +211,7 @@ export default function SubmissionSuccess({
         >
 
           <Button
-            onClick={onNewSubmission}
+            onClick={() => window.location.reload()}
             variant="outline"
             size="lg"
             className="bg-transparent border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black px-8"
