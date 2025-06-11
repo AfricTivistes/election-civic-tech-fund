@@ -37,15 +37,10 @@ export function useProjectData(projectId?: string) {
     setError(null)
 
     try {
-      const updatedData = { ...data, ...newData }
+      console.log('💾 Sauvegarde des données:', { ...data, ...newData })
+      console.log('🎯 Impact Score à sauvegarder:', newData.impact_score || data.impact_score)
 
-      console.log('💾 Sauvegarde des données:', updatedData)
-      console.log('🎯 Impact Score à sauvegarder:', updatedData.impact_score)
-
-      // Validation des données requises
-      if (!updatedData.vision || !updatedData.problem || !updatedData.domain || !updatedData.country) {
-        throw new Error('Données obligatoires manquantes (vision, problem, domain, country)')
-      }
+      // Validation des données requises sera faite après la fusion des données
 
       if (savedProjectId && typeof savedProjectId === 'string' && savedProjectId.trim() !== '') {
         // Mise à jour d'un projet existant
@@ -84,6 +79,9 @@ export function useProjectData(projectId?: string) {
         updatedData.team_size = teamArray.length
       }
 
+      // Fusionner les données avant de les utiliser
+      const updatedData = { ...data, ...newData }
+
       // Vérifier le format des documents reçus (format JSON string comme dans le script de test)
       console.log('📋 Données reçues pour la sauvegarde:', {
         ...updatedData,
@@ -110,6 +108,10 @@ export function useProjectData(projectId?: string) {
         }
       })
 
+      // Validation des données requises
+      if (!updatedData.vision || !updatedData.problem || !updatedData.domain || !updatedData.country) {
+        throw new Error('Données obligatoires manquantes (vision, problem, domain, country)')
+      }
 
       setData(updatedData)
       console.log('✅ Sauvegarde réussie!')
