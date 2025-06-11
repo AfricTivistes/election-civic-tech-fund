@@ -7,15 +7,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { 
   CheckCircle, 
-  Sparkles, 
-  Calendar, 
   Mail, 
-  Download, 
-  Share2, 
   ArrowRight,
-  Trophy,
   Users,
-  FileText,
+  Trophy,
   Clock
 } from "lucide-react"
 import { useLanguage } from "@/hooks/use-language"
@@ -23,13 +18,11 @@ import { useLanguage } from "@/hooks/use-language"
 interface SubmissionSuccessProps {
   projectData: any
   onNewSubmission: () => void
-  onDownloadSummary?: () => void
 }
 
 export default function SubmissionSuccess({ 
   projectData, 
-  onNewSubmission, 
-  onDownloadSummary 
+  onNewSubmission
 }: SubmissionSuccessProps) {
   const { t } = useLanguage()
   const [showConfetti, setShowConfetti] = useState(false)
@@ -50,43 +43,19 @@ export default function SubmissionSuccess({
       icon: Mail,
       title: "Confirmation par email",
       description: "Vous recevrez un email de confirmation sous 24h",
-      timeframe: "24h",
-      status: "pending"
+      timeframe: "24h"
     },
     {
       icon: Users,
       title: "Évaluation par le comité",
       description: "Nos experts évalueront votre projet",
-      timeframe: "2-3 semaines",
-      status: "upcoming"
+      timeframe: "2-3 semaines"
     },
     {
       icon: Trophy,
       title: "Résultats et financement",
       description: "Notification des projets sélectionnés",
-      timeframe: "4-6 semaines",
-      status: "upcoming"
-    }
-  ]
-
-  const projectStats = [
-    {
-      label: "Score d'impact",
-      value: data?.formData?.technology?.impactScore || data?.technology?.impactScore || 0,
-      max: 100,
-      color: "from-green-400 to-emerald-500"
-    },
-    {
-      label: "Score de completion",
-      value: data?.formData?.details?.completionScore || data?.details?.completionScore || 0,
-      max: 100,
-      color: "from-blue-400 to-cyan-500"
-    },
-    {
-      label: "Financement demandé",
-      value: `${data?.formData?.funding?.fundingAmount || data?.funding?.fundingAmount || 0}€`,
-      max: null,
-      color: "from-yellow-400 to-orange-500"
+      timeframe: "4-6 semaines"
     }
   ]
 
