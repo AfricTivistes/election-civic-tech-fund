@@ -43,8 +43,12 @@ const tableSchema = {
     { column_name: 'team_members', uidt: 'LongText' }, // JSON stringifié
     { column_name: 'team_size', uidt: 'Number', cdf: '0' },
     
-    // Step 4 - Documents
-    { column_name: 'uploaded_documents', uidt: 'LongText' }, // JSON stringifié
+    // Step 4 - Documents (5 colonnes d'attachement)
+    { column_name: 'document_cv', uidt: 'Attachment' },
+    { column_name: 'document_portfolio', uidt: 'Attachment' },
+    { column_name: 'document_budget', uidt: 'Attachment' },
+    { column_name: 'document_presentation', uidt: 'Attachment' },
+    { column_name: 'document_other', uidt: 'Attachment' },
     { column_name: 'completion_score', uidt: 'Number', cdf: '0' },
     
     // Métadonnées

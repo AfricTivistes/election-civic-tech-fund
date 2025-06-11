@@ -18,7 +18,11 @@ export interface ProjectSubmission {
   impact_score?: number
   team_members?: any[] | string
   team_size?: number
-  uploaded_documents?: any[] | string
+  document_cv?: any[] | string
+  document_portfolio?: any[] | string
+  document_budget?: any[] | string
+  document_presentation?: any[] | string
+  document_other?: any[] | string
   completion_score?: number
   status: 'draft' | 'submitted' | 'under_review' | 'approved' | 'rejected'
   language?: 'fr' | 'en'
@@ -92,9 +96,7 @@ export class NocoDBService {
       if (data.team_members && Array.isArray(data.team_members)) {
         processedData.team_members = JSON.stringify(data.team_members)
       }
-      if (data.uploaded_documents && Array.isArray(data.uploaded_documents)) {
-        processedData.uploaded_documents = JSON.stringify(data.uploaded_documents)
-      }
+      // Les attachements sont gérés directement par NocoDB, pas besoin de JSON.stringify
 
       const response = await api.dbTableRow.update(
         'noco',
@@ -151,8 +153,7 @@ export class NocoDBService {
     return {
       ...rawProject,
       technologies: this.parseJSON(rawProject.technologies),
-      team_members: this.parseJSON(rawProject.team_members),
-      uploaded_documents: this.parseJSON(rawProject.uploaded_documents)
+      team_members: this.parseJSON(rawProject.team_members)
     }
   }
 

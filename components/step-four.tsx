@@ -27,12 +27,19 @@ interface StepFourProps {
   data: any
   onUpdate: (data: any) => void
   onComplete: (badge: string) => void
-  onPrev: () => void
-  formData: any
+  onSubmit: () => void
   onSave?: (data: any) => Promise<void>
 }
 
-export default function StepFour({ data, onUpdate, onComplete, onPrev, formData, onSave }: StepFourProps) {
+interface DocumentState {
+  document_cv?: File[]
+  document_portfolio?: File[]
+  document_budget?: File[]
+  document_presentation?: File[]
+  document_other?: File[]
+}
+
+export default function StepFour({ data, onUpdate, onComplete, onSubmit, onSave }: StepFourProps) {
   const { t } = useLanguage()
   const [uploadedFiles, setUploadedFiles] = useState((data && data.uploadedFiles) || {})
   const [aiValidation, setAiValidation] = useState((data && data.aiValidation) || {})
@@ -82,10 +89,10 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
     if (!file) return
 
     console.log('📎 Upload de fichier:', { documentId, fileName: file.name, fileSize: file.size })
-    
+
     // Marquer le fichier comme en cours d'upload
     setUploadingFiles(prev => ({ ...prev, [documentId]: true }))
-    
+
     // Créer un objet fichier avec les informations nécessaires
     const fileInfo = {
       name: file.name,
@@ -94,10 +101,10 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
       lastModified: file.lastModified,
       file: file // Garder une référence au fichier original
     }
-    
+
     const newUploadedFiles = { ...uploadedFiles, [documentId]: fileInfo }
     setUploadedFiles(newUploadedFiles)
-    
+
     console.log('✅ Fichier ajouté à l\'état:', newUploadedFiles)
 
     // Simulate AI validation
@@ -112,7 +119,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
       setAiValidation(validation)
       setUploadingFiles(prev => ({ ...prev, [documentId]: false }))
       calculateCompletionScore(newUploadedFiles, validation)
-      
+
       console.log('🔍 Validation IA terminée:', validation[documentId])
     }, 1500)
   }
@@ -169,7 +176,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
   const handleFileInputChange = (documentId: string) => {
     try {
       console.log('🔍 Ouverture du sélecteur de fichier pour:', documentId)
-      
+
       const input = document.createElement("input")
       if (!input) {
         console.error("❌ Impossible de créer l'élément input")
@@ -182,7 +189,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
 
       const handleChange = (e: Event) => {
         console.log('📂 Événement de changement de fichier déclenché')
-        
+
         try {
           if (!e || !e.target) {
             console.warn("⚠️ Événement ou target null")
@@ -226,7 +233,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
       }
 
       input.addEventListener("change", handleChange, { once: true })
-      
+
       // Ajouter l'input au DOM temporairement
       document.body.appendChild(input)
       input.click()
@@ -377,13 +384,13 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
                             )}
                           </h3>
                           <p className="text-blue-200 text-sm">{doc.description}</p>
-                          
+
                           {isUploaded && (
                             <p className="text-green-300 text-sm mt-1">
                               📎 {isUploaded.name} ({(isUploaded.size / 1024).toFixed(1)} KB)
                             </p>
                           )}
-                          
+
                           {isUploading && (
                             <p className="text-yellow-300 text-sm mt-1 animate-pulse">
                               ⏳ Upload en cours...
