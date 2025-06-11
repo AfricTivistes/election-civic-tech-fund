@@ -357,7 +357,7 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
         
         // Step 2 - Technologies  
         technologies: formData.technology?.technologies || [],
-        impact_score: formData.technology?.impactScore || 0,
+        impact_score: formData.technology?.impact_score || formData.technology?.impactScore || 0,
         
         // Step 3 - Équipe
         team_members: formData.team?.teamMembers || [],
@@ -374,6 +374,8 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
       }
       
       console.log('📋 Données complètes à sauvegarder:', completeData)
+      console.log('🎯 Impact Score dans les données finales:', completeData.impact_score)
+      console.log('🔍 FormData technology:', formData.technology)
       console.log('🔍 savedProjectId actuel:', savedProjectId)
       
       // Toujours utiliser saveData qui gère automatiquement création vs mise à jour

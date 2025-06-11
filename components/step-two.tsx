@@ -124,13 +124,16 @@ export default function StepTwo({ data, onUpdate, onComplete, onNext, onPrev, on
         impact_score: impactScore,
       }
       
+      console.log('📊 Step 2 - Données à sauvegarder:', stepData)
+      console.log('🎯 Impact Score calculé:', impactScore)
+      
       onUpdate(stepData)
       
       // Sauvegarde automatique si disponible
       if (onSave && typeof onSave === 'function') {
         try {
           await onSave(stepData)
-          console.log('✅ Sauvegarde Step 2 réussie!')
+          console.log('✅ Sauvegarde Step 2 réussie avec impact_score:', impactScore)
         } catch (error) {
           console.error('❌ Erreur sauvegarde Step 2:', error)
           // Continuer même en cas d'erreur de sauvegarde

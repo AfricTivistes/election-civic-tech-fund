@@ -41,6 +41,7 @@ export function useProjectData(projectId?: string) {
       const updatedData = { ...data, ...newData }
       
       console.log('💾 Sauvegarde des données:', updatedData)
+      console.log('🎯 Impact Score à sauvegarder:', updatedData.impact_score)
       
       // Validation des données requises
       if (!updatedData.vision || !updatedData.problem || !updatedData.domain || !updatedData.country) {
