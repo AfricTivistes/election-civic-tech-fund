@@ -235,6 +235,26 @@ export interface Translation {
 
   // Documents
   documents: {
+    cv: {
+      name: string
+      description: string
+    }
+    portfolio: {
+      name: string
+      description: string
+    }
+    budget: {
+      name: string
+      description: string
+    }
+    presentation: {
+      name: string
+      description: string
+    }
+    other: {
+      name: string
+      description: string
+    }
     registration: {
       name: string
       description: string
@@ -248,10 +268,6 @@ export interface Translation {
       description: string
     }
     theory: {
-      name: string
-      description: string
-    }
-    budget: {
       name: string
       description: string
     }
@@ -526,6 +542,26 @@ export const translations: Record<string, Translation> = {
       management: ["Management", "Finance", "Juridique", "Stratégie"],
     },
     documents: {
+      cv: {
+        name: "CV du porteur",
+        description: "Curriculum vitae du porteur de projet",
+      },
+      portfolio: {
+        name: "Portfolio",
+        description: "Portfolio ou exemples de travaux antérieurs",
+      },
+      budget: {
+        name: "Budget détaillé",
+        description: "Budget complet du projet",
+      },
+      presentation: {
+        name: "Présentation projet",
+        description: "Présentation détaillée du projet",
+      },
+      other: {
+        name: "Autres documents",
+        description: "Documents complémentaires",
+      },
       registration: {
         name: "Enregistrement Officiel",
         description: "Document d'enregistrement de votre organisation",
@@ -541,10 +577,6 @@ export const translations: Record<string, Translation> = {
       theory: {
         name: "Théorie du Changement",
         description: "Plan d'action sur 10 mois",
-      },
-      budget: {
-        name: "Budget Prévisionnel",
-        description: "Budget détaillé selon le modèle",
       },
     },
     home: {
@@ -814,6 +846,26 @@ export const translations: Record<string, Translation> = {
       management: ["Management", "Finance", "Legal", "Strategy"],
     },
     documents: {
+      cv: {
+        name: "CV of the lead",
+        description: "Curriculum vitae of the project lead",
+      },
+      portfolio: {
+        name: "Portfolio",
+        description: "Portfolio or examples of previous work",
+      },
+      budget: {
+        name: "Detailed budget",
+        description: "Complete project budget",
+      },
+      presentation: {
+        name: "Project presentation",
+        description: "Detailed project presentation",
+      },
+      other: {
+        name: "Other documents",
+        description: "Additional supporting documents",
+      },
       registration: {
         name: "Official Registration",
         description: "Your organization's registration document",
@@ -829,10 +881,6 @@ export const translations: Record<string, Translation> = {
       theory: {
         name: "Theory of Change",
         description: "10-month action plan",
-      },
-      budget: {
-        name: "Budget Forecast",
-        description: "Detailed budget according to the template",
       },
     },
     home: {

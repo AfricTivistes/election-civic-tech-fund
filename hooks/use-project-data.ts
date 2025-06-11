@@ -41,7 +41,9 @@ export function useProjectData(projectId?: string) {
     try {
       const currentLanguage = language || 'en'
       console.log('💾 Sauvegarde des données:', { ...data, ...newData })
+      console.log('🌍 Langue du contexte:', language)
       console.log('🌍 Langue actuelle lors de la sauvegarde:', currentLanguage)
+      console.log('🌍 Langue dans newData:', newData.language)
       console.log('🎯 Impact Score à sauvegarder:', newData.impact_score || data.impact_score)
 
       // Fusionner les données avant de les utiliser avec valeurs par défaut

@@ -24,9 +24,11 @@ export function useLanguage() {
     try {
       // Determine language from URL parameters
       const lang = params?.lang as string
+      console.log('🌍 Langue détectée depuis URL:', lang)
 
       // Check if the language is supported, otherwise use English
       const supportedLang = lang === "fr" || lang === "en" ? (lang as Language) : "en"
+      console.log('🌍 Langue supportée sélectionnée:', supportedLang)
 
       setLanguage(supportedLang)
 

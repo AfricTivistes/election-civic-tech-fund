@@ -86,15 +86,17 @@ export default function StepOne({ data, onUpdate, onComplete, onNext, onSave, te
 
   const handleNext = async () => {
     if (isComplete) {
+      const currentLanguage = language || 'en'
       const stepData = {
         vision,
         problem,
         domain: selectedDomain,
         country: selectedCountry,
-        language: language || 'en', // Ajouter la langue actuelle
+        language: currentLanguage, // Ajouter la langue actuelle
       }
 
       console.log('📝 Données Step 1 complètes:', stepData)
+      console.log(`🌍 Langue actuelle dans Step 1: ${currentLanguage}`)
       console.log(`🌍 Pays sélectionné: ${selectedCountry}`)
       
       // Vérifier que le pays est bien présent
