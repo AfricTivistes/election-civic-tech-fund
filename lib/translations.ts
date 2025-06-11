@@ -312,7 +312,10 @@ export interface Translation {
 
   // Countries challenges
   countries: {
-    [key: string]: {
+    title: string
+    clickInstruction: string
+    challengesTitle: string
+    [key: string]: string | {
       challenges: string[]
     }
   }
@@ -625,6 +628,9 @@ export const translations: Record<string, Translation> = {
       }
     },
     countries: {
+      title: "Pays Cibles du Fonds",
+      clickInstruction: "Cliquez sur un pays pour découvrir ses défis démocratiques",
+      challengesTitle: "Défis Démocratiques Prioritaires",
       Sénégal: {
         challenges: ["Transparence électorale", "Participation jeunesse"],
       },
@@ -938,6 +944,9 @@ export const translations: Record<string, Translation> = {
       }
     },
     countries: {
+      title: "Funds Target Countries",
+      clickInstruction: "Click on a country to find out about its democratic challenges",
+      challengesTitle: "Priority Democratic Challenges",
       Senegal: {
         challenges: ["Electoral transparency", "Youth participation"],
       },

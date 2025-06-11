@@ -369,7 +369,7 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
             <Card className="bg-gradient-to-br from-slate-800/90 via-blue-900/80 to-slate-800/90 backdrop-blur-md border-yellow-400/30 p-4 md:p-6 shadow-xl">
               <h3 className="text-xl md:text-2xl font-bold text-yellow-100 mb-4 md:mb-6 text-center flex items-center justify-center">
                 <Globe className="w-5 md:w-6 h-5 md:h-6 mr-2 text-yellow-400" />
-                Pays Cibles du Fonds
+                {t?.countries?.title || "Pays Cibles du Fonds"}
               </h3>
 
               {/* Zone des drapeaux avec fond dégradé */}
@@ -450,7 +450,7 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
               <div className="mt-4 text-center">
                 <p className="text-yellow-200 text-sm flex items-center justify-center font-medium">
                   <Target className="w-4 h-4 mr-2 text-yellow-400" />
-                  Cliquez sur un pays pour découvrir ses défis démocratiques
+                  {t?.countries?.clickInstruction || "Cliquez sur un pays pour découvrir ses défis démocratiques"}
                 </p>
               </div>
             </Card>
@@ -458,13 +458,13 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
             {/* Panel détaillé du pays sélectionné */}
             {selectedCountry && selectedCountry.challenges && Array.isArray(selectedCountry.challenges) && (
               <div className="animate-fade-in">
-                <Card className="bg-gradient-to-br from-yellow-400/10 to-blue-400/10 border-yellow-400/30">
+                <Card className="bg-gradient-to-br from-slate-800/95 via-blue-900/90 to-slate-800/95 border-blue-400/40 backdrop-blur-md">
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center">
                         <div
-                          className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 
-                                        flex items-center justify-center text-2xl mr-3 border-2 border-yellow-300"
+                          className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 
+                                        flex items-center justify-center text-2xl mr-3 border-2 border-blue-300 shadow-lg"
                         >
                           {selectedCountry.flag}
                         </div>
@@ -495,18 +495,24 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
                     <div>
                       <h5 className="font-semibold text-white mb-3 flex items-center">
                         <Vote className="w-4 h-4 mr-2" />
-                        Défis Démocratiques Prioritaires
+                        {t?.countries?.challengesTitle || "Défis Démocratiques Prioritaires"}
                       </h5>
                       <div className="flex flex-wrap gap-2">
-                        {selectedCountry.challenges.map((challenge, index) => (
-                          <Badge
-                            key={`challenge-${index}`}
-                            variant="outline"
-                            className="border-yellow-400/50 text-yellow-300 text-xs"
-                          >
-                            {challenge}
-                          </Badge>
-                        ))}
+                        {(() => {
+                          // Get translated challenges based on current language
+                          const countryKey = selectedCountry.name === "Sénégal" ? "Sénégal" : selectedCountry.name;
+                          const translatedChallenges = t?.countries?.[countryKey]?.challenges || selectedCountry.challenges;
+                          
+                          return translatedChallenges.map((challenge, index) => (
+                            <Badge
+                              key={`challenge-${index}`}
+                              variant="outline"
+                              className="border-blue-400/60 text-blue-200 bg-blue-900/30 text-xs font-medium"
+                            >
+                              {challenge}
+                            </Badge>
+                          ));
+                        })()}
                       </div>
                     </div>
                   </CardContent>
