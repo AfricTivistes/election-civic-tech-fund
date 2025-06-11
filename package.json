@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "setup-nocodb": "node scripts/setup-nocodb-table.js",
-    "test-nocodb": "node scripts/test-existing-table.js"
+    "test-nocodb": "node scripts/test-existing-table.js",
+    "test-upload": "node scripts/test-file-upload.js",
+    "test-upload-only": "node scripts/test-file-upload.js upload"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
