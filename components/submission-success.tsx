@@ -183,53 +183,6 @@ export default function SubmissionSuccess({
           >
             Votre projet a été soumis avec succès
           </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.9 }}
-            className="flex items-center justify-center space-x-2 text-yellow-400"
-          >
-            <Sparkles className="w-5 h-5" />
-            <span className="font-semibold">
-              Projet #{data?.id || "DEMO"} - {data?.domain?.toUpperCase() || "TECH"}
-            </span>
-            <Sparkles className="w-5 h-5" />
-          </motion.div>
-        </motion.div>
-
-        {/* Statistiques du projet */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
-        >
-          {projectStats.map((stat, index) => (
-            <Card key={index} className="bg-white/10 backdrop-blur-md border-white/20">
-              <CardContent className="p-6 text-center">
-                <div className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r ${stat.color} rounded-full mb-4`}>
-                  <Trophy className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-white font-semibold mb-2">{stat.label}</h3>
-                {stat.max ? (
-                  <div className="space-y-2">
-                    <div className="text-2xl font-bold text-yellow-400">{stat.value}%</div>
-                    <div className="w-full bg-white/20 rounded-full h-2">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${stat.value}%` }}
-                        transition={{ delay: 1.3 + index * 0.2, duration: 1 }}
-                        className={`h-2 bg-gradient-to-r ${stat.color} rounded-full`}
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  <div className="text-2xl font-bold text-yellow-400">{stat.value}</div>
-                )}
-              </CardContent>
-            </Card>
-          ))}
         </motion.div>
 
         {/* Prochaines étapes */}
@@ -287,23 +240,6 @@ export default function SubmissionSuccess({
           transition={{ delay: 1.7 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <Button
-            onClick={onDownloadSummary}
-            variant="outline"
-            size="lg"
-            className="bg-white/10 border-white/20 text-white hover:bg-white/20 hover:text-white px-8"
-          >
-            <Download className="w-5 h-5 mr-2" />
-            Télécharger le récapitulatif
-          </Button>
-
-          <Button
-            size="lg"
-            className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black hover:text-white font-semibold px-8"
-          >
-            <Share2 className="w-5 h-5 mr-2" />
-            Partager mon projet
-          </Button>
 
           <Button
             onClick={onNewSubmission}
@@ -316,28 +252,6 @@ export default function SubmissionSuccess({
           </Button>
         </motion.div>
 
-        {/* Message d'encouragement */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2 }}
-          className="text-center mt-12"
-        >
-          <Card className="bg-gradient-to-r from-yellow-400/20 to-orange-500/20 border-yellow-400/50 backdrop-blur-sm">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-center mb-4">
-                <Sparkles className="w-6 h-6 text-yellow-400" />
-              </div>
-              <p className="text-yellow-100 font-medium text-lg">
-                "Votre vision pour transformer la démocratie en Afrique nous inspire. 
-                Ensemble, construisons un avenir plus participatif et transparent."
-              </p>
-              <p className="text-yellow-300 text-sm mt-2 font-semibold">
-                — L'équipe du Fonds Civic Tech Électorale
-              </p>
-            </CardContent>
-          </Card>
-        </motion.div>
       </div>
     </div>
   )
