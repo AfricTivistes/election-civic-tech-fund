@@ -84,6 +84,9 @@ export function useProjectData(projectId?: string) {
         updatedData.team_size = teamArray.length
       }
 
+      // Les fichiers sont maintenant uploadés directement dans le composant
+      // Les données de documents arrivent déjà formatées pour NocoDB
+
 
       setData(updatedData)
       console.log('✅ Sauvegarde réussie!')

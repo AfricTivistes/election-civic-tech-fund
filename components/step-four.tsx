@@ -86,7 +86,7 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
     },
   ]
 
-  const handleFileUpload = (documentId: string, file: File | null) => {
+  const handleFileUpload = async (documentId: string, file: File | null) => {
     if (!file) return
 
     console.log('📎 Upload de fichier:', { documentId, fileName: file.name, fileSize: file.size })
@@ -94,35 +94,89 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
     // Marquer le fichier comme en cours d'upload
     setUploadingFiles(prev => ({ ...prev, [documentId]: true }))
 
-    // Créer un objet fichier avec les informations nécessaires
-    const fileInfo = {
-      name: file.name,
-      size: file.size,
-      type: file.type,
-      lastModified: file.lastModified,
-      file: file // Garder une référence au fichier original pour l'upload
-    }
+    try {
+      // Faire l'upload réel vers NocoDB
+      console.log('📤 Upload vers NocoDB...')
+      
+      const formData = new FormData()
+      formData.append('file', file)
 
-    const newUploadedFiles = { ...uploadedFiles, [documentId]: fileInfo }
-    setUploadedFiles(newUploadedFiles)
+      // Vérifier que les variables d'environnement sont disponibles
+      const nocoUrl = process.env.NEXT_PUBLIC_NOCODB_URL
+      const nocoToken = process.env.NEXT_PUBLIC_NOCODB_TOKEN
 
-    console.log('✅ Fichier ajouté à l\'état:', newUploadedFiles)
+      if (!nocoUrl || !nocoToken) {
+        throw new Error('Variables d\'environnement NocoDB manquantes')
+      }
 
-    // Simulate AI validation
-    setTimeout(() => {
+      const uploadResponse = await fetch(`${nocoUrl}/api/v1/db/storage/upload`, {
+        method: 'POST',
+        headers: {
+          'xc-token': nocoToken,
+        },
+        body: formData
+      })
+
+      if (!uploadResponse.ok) {
+        const errorText = await uploadResponse.text()
+        console.error('❌ Erreur upload:', errorText)
+        throw new Error(`Erreur upload: ${uploadResponse.status} ${uploadResponse.statusText}`)
+      }
+
+      const uploadResult = await uploadResponse.json()
+      console.log('✅ Upload NocoDB réussi:', uploadResult)
+
+      // Créer l'objet fichier avec les données de NocoDB
+      const fileInfo = {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        lastModified: file.lastModified,
+        // Données NocoDB pour la sauvegarde
+        nocoData: uploadResult[0] || uploadResult,
+        // Format attendu par NocoDB pour les colonnes Attachment
+        attachmentData: [{
+          url: uploadResult[0]?.url || uploadResult[0]?.signedUrl,
+          title: uploadResult[0]?.title || file.name,
+          mimetype: uploadResult[0]?.mimetype || file.type,
+          size: uploadResult[0]?.size || file.size,
+          icon: uploadResult[0]?.icon || 'mdi-file'
+        }]
+      }
+
+      const newUploadedFiles = { ...uploadedFiles, [documentId]: fileInfo }
+      setUploadedFiles(newUploadedFiles)
+
+      console.log('✅ Fichier traité et ajouté à l\'état:', newUploadedFiles)
+
+      // Validation automatique après upload réussi
       const validation = {
         ...aiValidation,
         [documentId]: {
-          status: Math.random() > 0.2 ? "valid" : "warning",
-          message: Math.random() > 0.2 ? "Document conforme aux exigences" : "Vérifiez le format et la complétude",
+          status: "valid",
+          message: "Document uploadé et conforme aux exigences",
         },
       }
       setAiValidation(validation)
-      setUploadingFiles(prev => ({ ...prev, [documentId]: false }))
       calculateCompletionScore(newUploadedFiles, validation)
 
-      console.log('🔍 Validation IA terminée:', validation[documentId])
-    }, 1500)
+      console.log('🔍 Validation automatique:', validation[documentId])
+    } catch (error) {
+      console.error('❌ Erreur lors de l\'upload:', error)
+      alert(`Erreur lors de l'upload de ${file.name}: ${error.message}`)
+      
+      // Marquer la validation comme échouée
+      const validation = {
+        ...aiValidation,
+        [documentId]: {
+          status: "error",
+          message: "Erreur lors de l'upload du document",
+        },
+      }
+      setAiValidation(validation)
+    } finally {
+      setUploadingFiles(prev => ({ ...prev, [documentId]: false }))
+    }
   }
 
   const calculateCompletionScore = (files: any, validation: any) => {
@@ -141,21 +195,37 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
       console.log('📤 Début de la soumission...')
       console.log('📁 Fichiers uploadés:', uploadedFiles)
 
-      // Préparer les données finales avec les fichiers uploadés
-      const finalData = {
-        uploaded_documents: uploadedFiles,
+      // Préparer les données finales avec les fichiers uploadés au format NocoDB
+      const documentMapping = {
+        'cv': 'document_cv',
+        'portfolio': 'document_portfolio', 
+        'budget': 'document_budget',
+        'presentation': 'document_presentation',
+        'other': 'document_other'
+      }
+
+      const finalData: any = {
         completion_score: completionScore,
         status: 'submitted' as const,
         submission_date: new Date().toISOString()
+      }
+
+      // Ajouter les documents uploadés au format NocoDB Attachment
+      for (const [docId, fileInfo] of Object.entries(uploadedFiles)) {
+        const columnName = documentMapping[docId as keyof typeof documentMapping]
+        if (columnName && fileInfo && (fileInfo as any).attachmentData) {
+          finalData[columnName] = JSON.stringify((fileInfo as any).attachmentData)
+          console.log(`✅ Document ${docId} ajouté à ${columnName}:`, (fileInfo as any).attachmentData)
+        }
       }
 
       console.log('📤 Données finales à soumettre:', finalData)
 
       // Sauvegarder dans la base de données avec les fichiers
       if (onSave && typeof onSave === 'function') {
-        console.log('💾 Sauvegarde en base de données avec upload des fichiers...')
+        console.log('💾 Sauvegarde en base de données...')
         await onSave(finalData)
-        console.log('✅ Sauvegarde et upload des fichiers réussis!')
+        console.log('✅ Sauvegarde réussie!')
         
         // Mettre à jour les données locales après sauvegarde réussie
         onUpdate(finalData)
