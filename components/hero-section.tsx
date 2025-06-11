@@ -529,21 +529,21 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
           <Card className="bg-white/10 backdrop-blur-md border-white/20 text-center">
             <CardContent className="p-6">
               <div className="text-3xl font-bold text-yellow-400 mb-2">{t?.hero?.stats?.majorProjects || "4-6"}</div>
-              <div className="text-white">{t?.hero?.stats?.majorProjectsDesc || "Projets Majeurs"}</div>
+              <div className="text-white">{t?.hero?.stats?.majorProjectsDesc || "Projets majeurs - 25 000€ maximum"}</div>
             </CardContent>
           </Card>
 
           <Card className="bg-white/10 backdrop-blur-md border-white/20 text-center">
             <CardContent className="p-6">
               <div className="text-3xl font-bold text-green-400 mb-2">{t?.hero?.stats?.microGrants || "10+"}</div>
-              <div className="text-white">{t?.hero?.stats?.microGrantsDesc || "Micro-subventions"}</div>
+              <div className="text-white">{t?.hero?.stats?.microGrantsDesc || "micro-subventions - 10 000€ minimum"}</div>
             </CardContent>
           </Card>
 
           <Card className="bg-white/10 backdrop-blur-md border-white/20 text-center">
             <CardContent className="p-6">
               <div className="text-3xl font-bold text-blue-400 mb-2">{t?.hero?.stats?.support || "10"}</div>
-              <div className="text-white">{t?.hero?.stats?.supportDesc || "Mois d'accompagnement"}</div>
+              <div className="text-white">{t?.hero?.stats?.supportDesc || "mois d'accompagnement - Formation et suivi"}</div>
             </CardContent>
           </Card>
         </div>
