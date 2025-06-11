@@ -395,7 +395,7 @@ export default function ElectionCivicTechFund({ params }: PageProps) {
       console.log('✅ Projet soumis avec succès!')
 
       // Show success message
-      alert("Votre candidature a été soumise avec succès ! Vous recevrez une confirmation par email.")
+      // alert("Votre candidature a été soumise avec succès ! Vous recevrez une confirmation par email.")
     } catch (error) {
       console.error('❌ Erreur lors de la soumission finale:', error)
       alert(`Erreur lors de la soumission: ${error.message}. Veuillez réessayer.`)
