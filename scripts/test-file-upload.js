@@ -118,27 +118,93 @@ async function testFileUploadAndSubmission() {
     
     // Formater le résultat d'upload selon le format NocoDB pour les colonnes Attachment
     const attachmentData = [{
-      url: uploadResult.url || uploadResult.signedUrl,
-      title: uploadResult.title || pdfFile,
-      mimetype: uploadResult.mimetype || 'application/pdf',
-      size: uploadResult.size || fs.statSync(filePath).size
+      url: uploadResult[0]?.url || uploadResult[0]?.signedUrl,
+      title: uploadResult[0]?.title || pdfFile,
+      mimetype: uploadResult[0]?.mimetype || 'application/pdf',
+      size: uploadResult[0]?.size || fs.statSync(filePath).size,
+      icon: uploadResult[0]?.icon || 'mdi-pdf-box'
     }]
     
     const testProjectData = {
-      vision: "Test d'upload de fichier - Vision de test",
-      problem: "Test du problème d'upload de fichiers",
+      // Données obligatoires pour la validation
+      vision: "Développer une plateforme numérique révolutionnaire pour la démocratie participative en Afrique. Cette vision vise à transformer la manière dont les citoyens interagissent avec leurs gouvernements et participent aux décisions qui affectent leur vie quotidienne.",
+      problem: "L'engagement civique en Afrique souffre d'un manque d'outils numériques adaptés au contexte local. Les citoyens ont des difficultés à accéder à l'information gouvernementale, à participer aux consultations publiques et à faire entendre leur voix dans les processus démocratiques.",
+      solution: "Création d'une application mobile et web multilingue qui permet aux citoyens de suivre les activités gouvernementales, participer à des sondages, signaler des problèmes communautaires et recevoir des notifications sur les consultations publiques.",
       domain: "tech",
       country: "sn",
-      technologies: JSON.stringify(["test", "upload", "nocodb"]),
+      
+      // Informations techniques
+      technologies: JSON.stringify(["React Native", "Node.js", "MongoDB", "Socket.io", "AI/ML"]),
+      technical_approach: "Architecture microservices avec API REST, base de données NoSQL pour la scalabilité, intégration d'IA pour l'analyse de sentiment et notifications push en temps réel.",
+      
+      // Équipe
+      team_members: JSON.stringify([
+        {
+          name: "Marie Diop",
+          role: "Chef de projet",
+          experience: "10 ans en développement d'applications citoyennes",
+          email: "marie@test-project.org"
+        },
+        {
+          name: "Amadou Ba",
+          role: "Développeur Full-stack",
+          experience: "8 ans en développement web/mobile",
+          email: "amadou@test-project.org"
+        },
+        {
+          name: "Fatou Sall",
+          role: "Designer UX/UI",
+          experience: "6 ans en design d'interfaces utilisateur",
+          email: "fatou@test-project.org"
+        }
+      ]),
+      team_size: 3,
+      
+      // Impact et métriques
       impact_score: 95,
+      target_beneficiaries: "2 millions de citoyens sénégalais, avec extension prévue dans 5 pays d'Afrique de l'Ouest",
+      expected_outcomes: "Augmentation de 40% de la participation citoyenne aux consultations publiques, amélioration de 60% de la transparence gouvernementale perçue",
+      success_metrics: JSON.stringify([
+        "Nombre d'utilisateurs actifs mensuels",
+        "Taux de participation aux sondages",
+        "Nombre de problèmes communautaires signalés et résolus",
+        "Score de satisfaction utilisateur"
+      ]),
+      
+      // Informations projet
+      project_timeline: JSON.stringify({
+        "Phase 1": "Recherche et conception (3 mois)",
+        "Phase 2": "Développement MVP (6 mois)", 
+        "Phase 3": "Tests et déploiement pilote (3 mois)",
+        "Phase 4": "Lancement et scaling (6 mois)"
+      }),
+      budget_breakdown: JSON.stringify({
+        "Développement": 45000,
+        "Design et UX": 15000,
+        "Infrastructure": 10000,
+        "Marketing": 8000,
+        "Formation": 5000,
+        "Autres": 2000
+      }),
+      funding_amount: 85000,
+      
+      // Fichiers uploadés - toutes les colonnes d'attachement
+      document_cv: JSON.stringify(attachmentData),
+      document_portfolio: JSON.stringify(attachmentData), 
+      document_budget: JSON.stringify(attachmentData),
+      document_presentation: JSON.stringify(attachmentData),
+      document_other: JSON.stringify(attachmentData),
+      
+      // Statut et métadonnées
       status: "submitted",
       language: "fr",
       submission_date: new Date().toISOString(),
-      // Colonnes d'attachement avec le fichier uploadé
-      document_cv: JSON.stringify(attachmentData),
-      document_portfolio: JSON.stringify(attachmentData),
-      document_budget: JSON.stringify(attachmentData),
-      completion_score: 100
+      completion_score: 100,
+      
+      // Informations additionnelles
+      sustainability_plan: "Modèle freemium avec abonnements premium pour les organisations, partenariats avec les gouvernements locaux, formation continue des équipes techniques locales",
+      risks_mitigation: "Stratégie de sécurité des données robuste, conformité RGPD, tests de charge réguliers, plan de continuité d'activité",
+      innovation_aspects: "Utilisation d'IA pour l'analyse de sentiment des retours citoyens, interface vocale en langues locales, blockchain pour la transparence des votes"
     }
     
     console.log('📝 Données du projet de test:', testProjectData)
@@ -165,18 +231,55 @@ async function testFileUploadAndSubmission() {
     
     console.log('📊 Projet récupéré:')
     console.log('  - ID:', retrievedProject.id)
-    console.log('  - Vision:', retrievedProject.vision)
-    console.log('  - Status:', retrievedProject.status)
+    console.log('  - Vision:', retrievedProject.vision?.substring(0, 80) + '...')
+    console.log('  - Problème:', retrievedProject.problem?.substring(0, 80) + '...')
+    console.log('  - Domaine:', retrievedProject.domain)
+    console.log('  - Pays:', retrievedProject.country)
+    console.log('  - Statut:', retrievedProject.status)
+    console.log('  - Score d\'impact:', retrievedProject.impact_score)
+    console.log('  - Score de completion:', retrievedProject.completion_score)
+    console.log('  - Taille équipe:', retrievedProject.team_size)
+    console.log('  - Budget demandé:', retrievedProject.funding_amount, '€')
+    
+    // Vérifier tous les documents
+    console.log('📁 Documents uploadés:')
     console.log('  - Document CV:', retrievedProject.document_cv ? 'Présent ✅' : 'Absent ❌')
     console.log('  - Document Portfolio:', retrievedProject.document_portfolio ? 'Présent ✅' : 'Absent ❌')
     console.log('  - Document Budget:', retrievedProject.document_budget ? 'Présent ✅' : 'Absent ❌')
+    console.log('  - Document Présentation:', retrievedProject.document_presentation ? 'Présent ✅' : 'Absent ❌')
+    console.log('  - Document Autre:', retrievedProject.document_other ? 'Présent ✅' : 'Absent ❌')
     
+    // Détails d'un document
     if (retrievedProject.document_cv) {
       try {
         const cvData = JSON.parse(retrievedProject.document_cv)
-        console.log('  - Détails CV:', cvData)
+        console.log('  - Détails CV:', {
+          titre: cvData[0]?.title,
+          taille: cvData[0]?.size + ' bytes',
+          type: cvData[0]?.mimetype,
+          url: cvData[0]?.url ? 'URL présente ✅' : 'URL manquante ❌'
+        })
       } catch (e) {
         console.log('  - CV brut:', retrievedProject.document_cv)
+      }
+    }
+    
+    // Vérifier les technologies et équipe
+    if (retrievedProject.technologies) {
+      try {
+        const tech = JSON.parse(retrievedProject.technologies)
+        console.log('  - Technologies:', tech)
+      } catch (e) {
+        console.log('  - Technologies brut:', retrievedProject.technologies)
+      }
+    }
+    
+    if (retrievedProject.team_members) {
+      try {
+        const team = JSON.parse(retrievedProject.team_members)
+        console.log('  - Équipe:', team.length + ' membres')
+      } catch (e) {
+        console.log('  - Équipe brut:', retrievedProject.team_members)
       }
     }
     
