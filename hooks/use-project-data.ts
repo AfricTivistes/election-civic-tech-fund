@@ -39,13 +39,19 @@ export function useProjectData(projectId?: string) {
     setError(null)
 
     try {
+      const currentLanguage = language || 'en'
       console.log('💾 Sauvegarde des données:', { ...data, ...newData })
+      console.log('🌍 Langue actuelle lors de la sauvegarde:', currentLanguage)
       console.log('🎯 Impact Score à sauvegarder:', newData.impact_score || data.impact_score)
 
       // Fusionner les données avant de les utiliser avec valeurs par défaut
       const currentData = data || {}
       const incomingData = newData || {}
-      const updatedData = { ...currentData, ...incomingData }
+      const updatedData = { 
+        ...currentData, 
+        ...incomingData, 
+        language: currentLanguage // Toujours inclure la langue actuelle
+      }
 
       // Processor les team_members si nécessaire
       if (updatedData.team_members && Array.isArray(updatedData.team_members)) {
@@ -151,17 +157,23 @@ export function useProjectData(projectId?: string) {
 
     setLoading(true)
     try {
+      const currentLanguage = language || 'en'
+      console.log('🌍 Langue lors de la soumission:', currentLanguage)
+      
       await nocoDBService.updateProject(savedProjectId, {
         status: 'submitted',
-        language: language || 'en',
+        language: currentLanguage,
         submission_date: new Date().toISOString()
       })
+      
       setData(prev => ({ 
         ...prev, 
         status: 'submitted',
+        language: currentLanguage,
         submission_date: new Date().toISOString()
       }))
-      console.log('📤 Projet soumis avec succès!')
+      
+      console.log('📤 Projet soumis avec succès! Langue:', currentLanguage)
     } catch (err) {
       setError('Erreur lors de la soumission')
       throw err
@@ -200,6 +212,9 @@ export function useProjectData(projectId?: string) {
       }
 
       // Traiter les données step par step
+      const currentLanguage = language || 'en'
+      console.log('🌍 Langue lors de saveProject:', currentLanguage)
+      
       const processedData = {
         // Step 1 - Vision
         vision: completeData.vision?.vision || '',
@@ -229,7 +244,7 @@ export function useProjectData(projectId?: string) {
         // Métadonnées
         completion_score: finalData.completion_score || 0,
         status: finalData.status || 'submitted',
-        language: language || 'en',
+        language: currentLanguage, // Utiliser la langue actuelle du contexte
         submission_date: finalData.submission_date || new Date().toISOString()
       }
 
