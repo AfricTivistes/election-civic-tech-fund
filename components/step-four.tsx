@@ -272,8 +272,8 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
       onComplete("Democracy Champion")
 
       // Déclencher l'affichage de la page de confirmation
-      setShowSuccessPage(true)
       setSubmissionResult(confirmationData)
+      setShowSuccessPage(true)
 
       console.log('✅ Soumission réussie avec documents!')
     } catch (error) {
@@ -713,3 +713,4 @@ export default function StepFour({ data, onUpdate, onComplete, onPrev, formData,
     </div>
   )
 }
+```
