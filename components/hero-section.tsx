@@ -344,7 +344,7 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
                         <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
                       </div>
                       <p className="text-red-200 text-sm text-center">
-                        {t?.messages?.submissionsClosedDesc || (t?.language === 'en' ? 'Submissions are temporarily closed. Thank you for your understanding.' : 'Les soumissions sont temporairement fermées. Merci de votre compréhension.')}abledMessageEn : submissionDisabledMessage}
+                        {t?.messages?.submissionsClosedDesc || (t?.language === 'en' ? 'Submissions are temporarily closed. Thank you for your understanding.' : 'Les soumissions sont temporairement fermées. Merci de votre compréhension.')}
                       </p>
                     </div>
                   </div>
@@ -397,7 +397,7 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
               <div className="text-center mt-4">
                 <div className="bg-orange-500/20 border border-orange-400/30 rounded-lg p-3">
                   <p className="text-orange-300 text-sm font-medium">
-                    ⚠️ {t?.language === 'en' ? submissionDisabledMessageEn : submissionDisabledMessage}
+                    ⚠️ {t?.messages?.submissionsClosedDesc || (t?.language === 'en' ? 'Submissions are temporarily closed. Thank you for your understanding.' : 'Les soumissions sont temporairement fermées. Merci de votre compréhension.')}
                   </p>
                 </div>
               </div>
