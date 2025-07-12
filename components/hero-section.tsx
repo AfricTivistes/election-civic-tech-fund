@@ -164,8 +164,6 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
 
   // Configuration pour désactiver temporairement les soumissions
   const [isSubmissionDisabled, setIsSubmissionDisabled] = useState(true) // Mettre à false pour réactiver
-  const submissionDisabledMessage = "Les soumissions sont temporairement fermées. Merci de votre compréhension."
-  const submissionDisabledMessageEn = "Submissions are temporarily closed. Thank you for your understanding."
 
   useEffect(() => {
     setMounted(true)
@@ -341,12 +339,12 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
                       <div className="flex items-center justify-center space-x-2 mb-2">
                         <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
                         <span className="text-red-300 font-semibold text-sm uppercase tracking-wide">
-                          {t?.language === 'en' ? 'Submissions Closed' : 'Soumissions Fermées'}
+                          {t?.messages?.submissionsClosed || (t?.language === 'en' ? 'Submissions Closed' : 'Soumissions Fermées')}
                         </span>
                         <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
                       </div>
                       <p className="text-red-200 text-sm text-center">
-                        {t?.language === 'en' ? submissionDisabledMessageEn : submissionDisabledMessage}
+                        {t?.messages?.submissionsClosedDesc || (t?.language === 'en' ? 'Submissions are temporarily closed. Thank you for your understanding.' : 'Les soumissions sont temporairement fermées. Merci de votre compréhension.')}abledMessageEn : submissionDisabledMessage}
                       </p>
                     </div>
                   </div>
@@ -386,7 +384,7 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
               >
                 <span className="relative flex items-center justify-center">
                   {isSubmissionDisabled 
-                    ? (t?.language === 'en' ? 'Submissions Closed' : 'Soumissions Fermées')
+                    ? (t?.messages?.submissionsClosed || (t?.language === 'en' ? 'Submissions Closed' : 'Soumissions Fermées'))
                     : (t?.hero?.startButton || "Commencer")
                   }
                   {!isSubmissionDisabled && <ArrowRight className="ml-2 w-6 h-6" />}

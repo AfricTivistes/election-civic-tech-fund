@@ -321,10 +321,18 @@ export interface Translation {
       challenges: string[]
     }
   }
+  messages?: {
+    submissionsClosed: string
+    submissionsClosedDesc: string
+  }
 }
 
 export const translations: Record<string, Translation> = {
   fr: {
+    messages: {
+      submissionsClosed: "Soumissions Fermées",
+      submissionsClosedDesc: "Les soumissions sont temporairement fermées. Merci de votre compréhension."
+    },
     header: {
       title: "Election Civic Tech Fund",
       subtitle: "Digital Democracy Journey",
@@ -664,6 +672,10 @@ export const translations: Record<string, Translation> = {
     },
   },
   en: {
+    messages: {
+      submissionsClosed: "Submissions Closed",
+      submissionsClosedDesc: "Submissions are temporarily closed. Thank you for your understanding."
+    },
     header: {
       title: "Election Civic Tech Fund",
       subtitle: "Digital Democracy Journey",
@@ -959,7 +971,7 @@ export const translations: Record<string, Translation> = {
           name: "Budget Template",
           description: "Detailed Excel template to structure your projected budget and resources"
         },
-        preview: "Preview",
+        preview: "Aperçu",
         download: "Download",
         readyTitle: "Ready to Start?",
         readyText: "All documents are regularly updated to ensure the best chances of success for your application.",
