@@ -352,7 +352,7 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
                   </div>
                 )}
 
-                <div className="grid grid-cols-2 gap-4 mb-6"></div>
+                <div className="grid grid-cols-2 gap-4 mb-6">
                   <div className="flex items-center text-green-300">
                     <Target className="w-5 h-5 mr-2" />
                     <span>{t?.hero?.features?.innovation || "Innovation"}</span>
