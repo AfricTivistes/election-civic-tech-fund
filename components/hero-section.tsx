@@ -162,6 +162,11 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
   const [mounted, setMounted] = useState(false)
   const { t } = useLanguage()
 
+  // Configuration pour désactiver temporairement les soumissions
+  const [isSubmissionDisabled, setIsSubmissionDisabled] = useState(true) // Mettre à false pour réactiver
+  const submissionDisabledMessage = "Les soumissions sont temporairement fermées. Merci de votre compréhension."
+  const submissionDisabledMessageEn = "Submissions are temporarily closed. Thank you for your understanding."
+
   useEffect(() => {
     setMounted(true)
   }, [])
@@ -195,7 +200,7 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
 
   const handleStartClick = () => {
     try {
-      if (!mounted || typeof onStart !== "function") return
+      if (!mounted || typeof onStart !== "function" || isSubmissionDisabled) return
       onStart()
     } catch (error) {
       console.error("Error starting:", error)
@@ -329,7 +334,25 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
                 </p>
                 <p className="text-blue-200 mb-6">{t?.hero?.secondDescription || ""}</p>
 
-                <div className="grid grid-cols-2 gap-4 mb-6">
+                {/* Message d'information sur la fermeture des soumissions */}
+                {isSubmissionDisabled && (
+                  <div className="mb-6">
+                    <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-400/30 rounded-xl p-4">
+                      <div className="flex items-center justify-center space-x-2 mb-2">
+                        <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+                        <span className="text-red-300 font-semibold text-sm uppercase tracking-wide">
+                          {t?.language === 'en' ? 'Submissions Closed' : 'Soumissions Fermées'}
+                        </span>
+                        <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+                      </div>
+                      <p className="text-red-200 text-sm text-center">
+                        {t?.language === 'en' ? submissionDisabledMessageEn : submissionDisabledMessage}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                <div className="grid grid-cols-2 gap-4 mb-6"></div>
                   <div className="flex items-center text-green-300">
                     <Target className="w-5 h-5 mr-2" />
                     <span>{t?.hero?.features?.innovation || "Innovation"}</span>
@@ -350,18 +373,37 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
               </CardContent>
             </Card>
 
-            <div className="hover:scale-105 transition-transform duration-300">
+            <div className={`transition-transform duration-300 ${!isSubmissionDisabled ? 'hover:scale-105' : ''}`}>
               <Button
                 onClick={handleStartClick}
                 size="lg"
-                className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-bold py-6 text-xl relative overflow-hidden group"
+                disabled={isSubmissionDisabled}
+                className={`w-full font-bold py-6 text-xl relative overflow-hidden group ${
+                  isSubmissionDisabled
+                    ? "bg-gray-600 text-gray-300 cursor-not-allowed"
+                    : "bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black"
+                }`}
               >
                 <span className="relative flex items-center justify-center">
-                  {t?.hero?.startButton || "Commencer"}
-                  <ArrowRight className="ml-2 w-6 h-6" />
+                  {isSubmissionDisabled 
+                    ? (t?.language === 'en' ? 'Submissions Closed' : 'Soumissions Fermées')
+                    : (t?.hero?.startButton || "Commencer")
+                  }
+                  {!isSubmissionDisabled && <ArrowRight className="ml-2 w-6 h-6" />}
                 </span>
               </Button>
             </div>
+
+            {/* Message sous le bouton quand désactivé */}
+            {isSubmissionDisabled && (
+              <div className="text-center mt-4">
+                <div className="bg-orange-500/20 border border-orange-400/30 rounded-lg p-3">
+                  <p className="text-orange-300 text-sm font-medium">
+                    ⚠️ {t?.language === 'en' ? submissionDisabledMessageEn : submissionDisabledMessage}
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Right side - Pays Cibles avec Drapeaux */}
