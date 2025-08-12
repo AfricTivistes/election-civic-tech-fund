@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect } from "react"
@@ -21,13 +22,10 @@ import {
   Trophy,
   Heart,
   Zap,
-  Image as ImageIcon,
-  Home,
-  FileText
+  Image as ImageIcon
 } from "lucide-react"
 import { useLanguage } from "@/hooks/use-language"
 import Image from "next/image"
-import Link from "next/link"
 
 interface Winner {
   id: string
@@ -187,38 +185,46 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
         ))}
       </div>
 
-      {/* Header */}
-      <header className="relative z-10 bg-black/40 backdrop-blur-md border-b border-white/10 py-4">
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <Trophy className="w-5 h-5 text-white" />
+      <div className="relative z-10 container mx-auto px-4 py-8">
+        {/* Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          className="text-center mb-12"
+        >
+          <div className="flex justify-center mb-6">
+            <div className="relative p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl">
+              <Trophy className="h-16 w-16 text-yellow-400 mx-auto" />
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-blue-400/20 rounded-2xl animate-pulse"></div>
             </div>
-            <span className="text-xl font-bold text-white">ECTF</span>
           </div>
-          <nav className="flex items-center space-x-6">
-            <Link 
-              href={`/${lang}`}
-              className="flex items-center space-x-2 text-blue-200 hover:text-white transition-colors font-medium"
-            >
-              <Home className="w-5 h-5" />
-              <span>{t?.header?.homeButton || "Accueil"}</span>
-            </Link>
-            <Link 
-              href={`/${lang}/winners`}
-              className="flex items-center space-x-2 text-blue-200 hover:text-white transition-colors font-medium border-b-2 border-transparent hover:border-yellow-400"
-            >
-              <Trophy className="w-5 h-5" />
-              <span>Gagnants</span>
-            </Link>
-            <Button variant="outline" className="text-white border-white/20 hover:bg-white/10 backdrop-blur-sm px-4 py-2">
-              {t?.header?.donateButton || "Faire un don"}
-            </Button>
-          </nav>
-        </div>
-      </header>
 
-      <main className="relative z-10 container mx-auto px-4 py-8">
+          <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-blue-400 to-green-400 mb-4">
+            🏆 {getTranslation('winners.title', 'Bénéficiaires Sélectionnés')}
+          </h1>
+          
+          <p className="text-xl text-blue-200 mb-8 max-w-3xl mx-auto">
+            {getTranslation('winners.subtitle', 'Découvrez les 14 projets innovants qui transformeront la démocratie en Afrique')}
+          </p>
+
+          <div className="flex justify-center items-center space-x-4 text-lg text-blue-200">
+            <Badge variant="outline" className="border-yellow-400 text-yellow-400 px-4 py-2">
+              <Award className="w-4 h-4 mr-2" />
+              {winners.length} {getTranslation('winners.projects', 'Projets')}
+            </Badge>
+            <span>•</span>
+            <Badge variant="outline" className="border-blue-400 text-blue-400 px-4 py-2">
+              <Globe className="w-4 h-4 mr-2" />
+              {countriesCount} {getTranslation('winners.countries', 'Pays')}
+            </Badge>
+            <span>•</span>
+            <Badge variant="outline" className="border-green-400 text-green-400 px-4 py-2">
+              <DollarSign className="w-4 h-4 mr-2" />
+              {totalFunding.toLocaleString()}€
+            </Badge>
+          </div>
+        </motion.div>
+
         {/* Statistics Dashboard */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
@@ -562,99 +568,12 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                 {getTranslation('winners.congratulations', '🎉 Félicitations à tous les bénéficiaires !')}
               </h2>
               <p className="text-green-200 text-lg leading-relaxed">
-                {getTranslation('winners.transformMessage', 'Ces 14 projets innovants vont transformer la démocratie en Afrique. Ensemble, ils représentent l afture de l engagement civique numérique et contribueront à renforcer les processus démocratiques sur le continent.')}
+                {getTranslation('winners.transformMessage', 'Ces 14 projets innovants vont transformer la démocratie en Afrique. Ensemble, ils représentent l\'avenir de l\'engagement civique numérique et contribueront à renforcer les processus démocratiques sur le continent.')}
               </p>
             </CardContent>
           </Card>
         </motion.div>
-      </main>
-
-      {/* Footer */}
-      <footer className="relative z-10 bg-black/40 backdrop-blur-sm border-t border-white/10 mt-20">
-        <div className="container mx-auto px-4 py-12">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
-            {/* Logo et description */}
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                  <Trophy className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-bold text-white">ECTF</span>
-              </div>
-              <p className="text-blue-200 text-sm leading-relaxed">
-                {t?.hero?.footer?.projectDescription || "Ce fonds fait partie du projet 'Digitalise Youth'..."}
-              </p>
-            </div>
-
-            {/* Partenaires */}
-            <div className="space-y-4">
-              <h3 className="text-white font-semibold">
-                {t?.hero?.footer?.ledBy || "Mené par"}
-              </h3>
-              <div className="flex flex-wrap gap-4">
-                <Image
-                  src="/logo-africtivites.svg"
-                  alt="AfricTivistes"
-                  width={120}
-                  height={40}
-                  className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
-                />
-              </div>
-
-              <h4 className="text-white font-semibold mt-6">
-                {t?.hero?.footer?.poweredBy || "Propulsé par"}
-              </h4>
-              <div className="flex flex-wrap gap-4">
-                <Image
-                  src="/partners/digitalise-youth.webp"
-                  alt="Digitalise Youth"
-                  width={100}
-                  height={30}
-                  className="h-6 w-auto opacity-80 hover:opacity-100 transition-opacity"
-                />
-                <Image
-                  src="/partners/eu-logo.webp"
-                  alt="Union Européenne"
-                  width={80}
-                  height={30}
-                  className="h-6 w-auto opacity-80 hover:opacity-100 transition-opacity"
-                />
-              </div>
-            </div>
-
-            {/* Navigation */}
-            <div className="space-y-4">
-              <h3 className="text-white font-semibold">Navigation</h3>
-              <div className="space-y-2">
-                <Link 
-                  href={`/${lang}`}
-                  className="flex items-center space-x-2 text-blue-200 hover:text-white transition-colors text-sm"
-                >
-                  <Home className="w-4 h-4" />
-                  <span>{t?.header?.homeButton || "Accueil"}</span>
-                </Link>
-                <Link 
-                  href={`/${lang}/winners`}
-                  className="flex items-center space-x-2 text-blue-200 hover:text-white transition-colors text-sm"
-                >
-                  <Trophy className="w-4 h-4" />
-                  <span>Gagnants</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Copyright */}
-          <div className="text-center border-t border-white/10 pt-6">
-            <p className="text-sm text-blue-200">
-              {t?.hero?.footer?.copyright || "© 2024 Election Civic Tech Fund - AfricTivistes"}
-            </p>
-            <p className="text-xs text-blue-300 mt-1">
-              {t?.hero?.footer?.tagline || "Ensemble, nous construisons l'avenir démocratique de l'Afrique"}
-            </p>
-          </div>
-        </div>
-      </footer>
+      </div>
     </div>
   )
 }

@@ -2,12 +2,11 @@
 import WinnersShowcase from "@/components/winners-showcase"
 
 interface WinnersPageProps {
-  params: Promise<{
+  params: {
     lang: string
-  }>
+  }
 }
 
-export default async function WinnersPage({ params }: WinnersPageProps) {
-  const { lang } = await params
-  return <WinnersShowcase lang={lang} />
+export default function WinnersPage({ params }: WinnersPageProps) {
+  return <WinnersShowcase lang={params.lang} />
 }
