@@ -134,11 +134,15 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
     : winners.filter(w => w.category === selectedCategory)
 
   const nextWinner = () => {
-    setCurrentIndex((prev) => (prev + 1) % filteredWinners.length)
+    if (filteredWinners.length > 0) {
+      setCurrentIndex((prev) => (prev + 1) % filteredWinners.length)
+    }
   }
 
   const prevWinner = () => {
-    setCurrentIndex((prev) => (prev - 1 + filteredWinners.length) % filteredWinners.length)
+    if (filteredWinners.length > 0) {
+      setCurrentIndex((prev) => (prev - 1 + filteredWinners.length) % filteredWinners.length)
+    }
   }
 
   const majorProjects = winners.filter(w => w.category === "major")
@@ -295,7 +299,7 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
         </motion.div>
 
         {/* Main Winner Carousel */}
-        {filteredWinners.length > 0 && (
+        {filteredWinners.length > 0 && filteredWinners[currentIndex] && (
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }} 
             animate={{ opacity: 1, scale: 1 }} 
@@ -310,16 +314,16 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                     <div className="flex items-center justify-between mb-6">
                       <Badge 
                         className={`px-4 py-2 text-sm font-bold ${
-                          filteredWinners[currentIndex].category === "major"
+                          filteredWinners[currentIndex]?.category === "major"
                             ? "bg-yellow-500 text-black"
                             : "bg-blue-500 text-white"
                         }`}
                       >
-                        {filteredWinners[currentIndex].category === "major" ? getTranslation('winners.majorProjects', 'Projets Majeurs') : getTranslation('winners.microGrants', 'Micro-subventions')}
+                        {filteredWinners[currentIndex]?.category === "major" ? getTranslation('winners.majorProjects', 'Projets Majeurs') : getTranslation('winners.microGrants', 'Micro-subventions')}
                       </Badge>
                       <div className="text-right">
                         <div className="text-2xl font-bold text-white">
-                          {filteredWinners[currentIndex].amount.toLocaleString()}€
+                          {filteredWinners[currentIndex]?.amount?.toLocaleString() || '0'}€
                         </div>
                         <div className="text-blue-200 text-sm">{getTranslation('winners.funding', 'Financement')}</div>
                       </div>
@@ -327,13 +331,13 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
 
                     <div className="mb-6">
                       <h2 className="text-3xl font-bold text-white mb-2">
-                        {filteredWinners[currentIndex].projectName}
+                        {filteredWinners[currentIndex]?.projectName || 'Nom du projet'}
                       </h2>
                       <div className="flex items-center text-blue-200 mb-4">
-                        <span className="text-2xl mr-2">{filteredWinners[currentIndex].countryFlag}</span>
-                        <span className="font-semibold">{filteredWinners[currentIndex].organization}</span>
+                        <span className="text-2xl mr-2">{filteredWinners[currentIndex]?.countryFlag || '🌍'}</span>
+                        <span className="font-semibold">{filteredWinners[currentIndex]?.organization || 'Organisation'}</span>
                         <MapPin className="w-4 h-4 mx-2" />
-                        <span>{filteredWinners[currentIndex].country}</span>
+                        <span>{filteredWinners[currentIndex]?.country || 'Pays'}</span>
                       </div>
                     </div>
 
@@ -344,14 +348,14 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                           {getTranslation('winners.domain', 'Domaine')}
                         </h4>
                         <Badge variant="outline" className="border-yellow-400/60 text-yellow-300 bg-yellow-400/10">
-                          {filteredWinners[currentIndex].domain}
+                          {filteredWinners[currentIndex]?.domain || 'Domaine'}
                         </Badge>
                       </div>
 
                       <div>
                         <h4 className="font-semibold text-white mb-2">{getTranslation('winners.description', 'Description')}</h4>
                         <p className="text-blue-200 leading-relaxed">
-                          {filteredWinners[currentIndex].description}
+                          {filteredWinners[currentIndex]?.description || 'Description du projet'}
                         </p>
                       </div>
 
@@ -361,7 +365,7 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                           {getTranslation('winners.expectedImpact', 'Impact attendu')}
                         </h4>
                         <p className="text-green-300 font-medium">
-                          {filteredWinners[currentIndex].impact}
+                          {filteredWinners[currentIndex]?.impact || 'Impact du projet'}
                         </p>
                       </div>
                     </div>
@@ -372,7 +376,7 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                           <Users className="w-4 h-4 mr-2" />
                           {getTranslation('winners.team', 'Équipe')}
                         </div>
-                        <div className="text-blue-300">{filteredWinners[currentIndex].teamSize} {getTranslation('winners.members', 'membres')}</div>
+                        <div className="text-blue-300">{filteredWinners[currentIndex]?.teamSize || 0} {getTranslation('winners.members', 'membres')}</div>
                       </div>
                       <div className="bg-white/5 rounded-lg p-3">
                         <div className="text-white font-semibold flex items-center">
@@ -380,7 +384,7 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                           {getTranslation('winners.selection', 'Sélection')}
                         </div>
                         <div className="text-blue-300">
-                          {new Date(filteredWinners[currentIndex].selectedDate).toLocaleDateString('fr-FR')}
+                          {filteredWinners[currentIndex]?.selectedDate ? new Date(filteredWinners[currentIndex].selectedDate).toLocaleDateString('fr-FR') : 'Date'}
                         </div>
                       </div>
                     </div>
@@ -391,7 +395,7 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                         {getTranslation('winners.technologiesUsed', 'Technologies utilisées')}
                       </h4>
                       <div className="flex flex-wrap gap-2">
-                        {filteredWinners[currentIndex].technologies.map((tech, index) => (
+                        {(filteredWinners[currentIndex]?.technologies || []).map((tech, index) => (
                           <Badge 
                             key={index}
                             variant="outline" 
@@ -408,10 +412,10 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                   <div className="relative bg-gradient-to-br from-yellow-400/20 to-blue-500/30 flex flex-col items-center justify-center p-8">
                     {/* Project Image */}
                     <div className="w-full h-48 bg-white/10 rounded-2xl mb-6 overflow-hidden border border-white/20 shadow-xl">
-                      {filteredWinners[currentIndex].projectImage ? (
+                      {filteredWinners[currentIndex]?.projectImage ? (
                         <Image
                           src={filteredWinners[currentIndex].projectImage!}
-                          alt={filteredWinners[currentIndex].projectName}
+                          alt={filteredWinners[currentIndex]?.projectName || 'Project'}
                           width={400}
                           height={200}
                           className="w-full h-full object-cover"
@@ -426,13 +430,13 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                     {/* Country Flag and Info */}
                     <div className="text-center">
                       <div className="w-24 h-24 bg-gradient-to-br from-yellow-400 to-blue-500 rounded-full flex items-center justify-center text-4xl mb-4 shadow-2xl">
-                        {filteredWinners[currentIndex].countryFlag}
+                        {filteredWinners[currentIndex]?.countryFlag || '🌍'}
                       </div>
                       <h3 className="text-2xl font-bold text-white mb-2">
                         #{currentIndex + 1} / {filteredWinners.length}
                       </h3>
                       <p className="text-blue-200">
-                        {filteredWinners[currentIndex].country}
+                        {filteredWinners[currentIndex]?.country || 'Pays'}
                       </p>
                     </div>
 
