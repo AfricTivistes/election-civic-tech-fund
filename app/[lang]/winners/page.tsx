@@ -1,6 +1,12 @@
 
 import WinnersShowcase from "@/components/winners-showcase"
 
-export default function WinnersPage() {
-  return <WinnersShowcase />
+interface WinnersPageProps {
+  params: {
+    lang: string
+  }
+}
+
+export default function WinnersPage({ params }: WinnersPageProps) {
+  return <WinnersShowcase lang={params.lang} />
 }

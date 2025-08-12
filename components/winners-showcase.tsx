@@ -115,7 +115,11 @@ const winners: Winner[] = [
   // Ajoutez les autres projets avec leurs images...
 ]
 
-export default function WinnersShowcase() {
+interface WinnersShowcaseProps {
+  lang?: string
+}
+
+export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
   const { t } = useLanguage()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedCategory, setSelectedCategory] = useState<"all" | "major" | "micro">("all")
@@ -142,10 +146,24 @@ export default function WinnersShowcase() {
   const totalFunding = winners.reduce((sum, w) => sum + w.amount, 0)
   const countriesCount = new Set(winners.map(w => w.country)).size
 
-  if (!mounted || !t) {
+  // Use fallback translations if t is not available
+  const getTranslation = (key: string, fallback: string) => {
+    try {
+      const keys = key.split('.')
+      let value = t as any
+      for (const k of keys) {
+        value = value?.[k]
+      }
+      return value || fallback
+    } catch {
+      return fallback
+    }
+  }
+
+  if (!mounted) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex items-center justify-center">
-        <div className="text-white text-xl">{t?.common?.loading || "Loading"}...</div>
+        <div className="text-white text-xl">Loading...</div>
       </div>
     )
   }
@@ -182,22 +200,22 @@ export default function WinnersShowcase() {
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-blue-400 to-green-400 mb-4">
-            🏆 {t('winners.title')}
+            🏆 {getTranslation('winners.title', 'Bénéficiaires Sélectionnés')}
           </h1>
           
           <p className="text-xl text-blue-200 mb-8 max-w-3xl mx-auto">
-            {t('winners.subtitle')}
+            {getTranslation('winners.subtitle', 'Découvrez les 14 projets innovants qui transformeront la démocratie en Afrique')}
           </p>
 
           <div className="flex justify-center items-center space-x-4 text-lg text-blue-200">
             <Badge variant="outline" className="border-yellow-400 text-yellow-400 px-4 py-2">
               <Award className="w-4 h-4 mr-2" />
-              {winners.length} {t('winners.projects')}
+              {winners.length} {getTranslation('winners.projects', 'Projets')}
             </Badge>
             <span>•</span>
             <Badge variant="outline" className="border-blue-400 text-blue-400 px-4 py-2">
               <Globe className="w-4 h-4 mr-2" />
-              {countriesCount} {t('winners.countries')}
+              {countriesCount} {getTranslation('winners.countries', 'Pays')}
             </Badge>
             <span>•</span>
             <Badge variant="outline" className="border-green-400 text-green-400 px-4 py-2">
@@ -218,7 +236,7 @@ export default function WinnersShowcase() {
             <CardContent className="p-6 text-center">
               <Trophy className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <div className="text-3xl font-bold text-yellow-400 mb-2">{majorProjects.length}</div>
-              <div className="text-white font-semibold">{t('winners.majorProjects')}</div>
+              <div className="text-white font-semibold">{getTranslation('winners.majorProjects', 'Projets Majeurs')}</div>
               <div className="text-yellow-200 text-sm">jusqu'à 25,000€</div>
             </CardContent>
           </Card>
@@ -227,7 +245,7 @@ export default function WinnersShowcase() {
             <CardContent className="p-6 text-center">
               <Zap className="w-12 h-12 text-blue-400 mx-auto mb-4" />
               <div className="text-3xl font-bold text-blue-400 mb-2">{microGrants.length}</div>
-              <div className="text-white font-semibold">{t('winners.microGrants')}</div>
+              <div className="text-white font-semibold">{getTranslation('winners.microGrants', 'Micro-subventions')}</div>
               <div className="text-blue-200 text-sm">jusqu'à 10,000€</div>
             </CardContent>
           </Card>
@@ -236,8 +254,8 @@ export default function WinnersShowcase() {
             <CardContent className="p-6 text-center">
               <Heart className="w-12 h-12 text-green-400 mx-auto mb-4" />
               <div className="text-3xl font-bold text-green-400 mb-2">{countriesCount}</div>
-              <div className="text-white font-semibold">{t('winners.beneficiaryCountries')}</div>
-              <div className="text-green-200 text-sm">{t('winners.continentalImpact')}</div>
+              <div className="text-white font-semibold">{getTranslation('winners.beneficiaryCountries', 'Pays Bénéficiaires')}</div>
+              <div className="text-green-200 text-sm">{getTranslation('winners.continentalImpact', 'Impact continental')}</div>
             </CardContent>
           </Card>
         </motion.div>
@@ -252,9 +270,9 @@ export default function WinnersShowcase() {
           <div className="bg-white/10 backdrop-blur-md rounded-full p-2 border border-white/20">
             <div className="flex space-x-2">
               {[
-                { key: "all", label: t('winners.allProjects'), icon: Globe },
-                { key: "major", label: t('winners.majorProjects'), icon: Trophy },
-                { key: "micro", label: t('winners.microGrants'), icon: Zap }
+                { key: "all", label: getTranslation('winners.allProjects', 'Tous les projets'), icon: Globe },
+                { key: "major", label: getTranslation('winners.majorProjects', 'Projets Majeurs'), icon: Trophy },
+                { key: "micro", label: getTranslation('winners.microGrants', 'Micro-subventions'), icon: Zap }
               ].map(({ key, label, icon: Icon }) => (
                 <Button
                   key={key}
@@ -297,13 +315,13 @@ export default function WinnersShowcase() {
                             : "bg-blue-500 text-white"
                         }`}
                       >
-                        {filteredWinners[currentIndex].category === "major" ? t('winners.majorProjects') : t('winners.microGrants')}
+                        {filteredWinners[currentIndex].category === "major" ? getTranslation('winners.majorProjects', 'Projets Majeurs') : getTranslation('winners.microGrants', 'Micro-subventions')}
                       </Badge>
                       <div className="text-right">
                         <div className="text-2xl font-bold text-white">
                           {filteredWinners[currentIndex].amount.toLocaleString()}€
                         </div>
-                        <div className="text-blue-200 text-sm">{t('winners.funding')}</div>
+                        <div className="text-blue-200 text-sm">{getTranslation('winners.funding', 'Financement')}</div>
                       </div>
                     </div>
 
@@ -323,7 +341,7 @@ export default function WinnersShowcase() {
                       <div>
                         <h4 className="font-semibold text-white mb-2 flex items-center">
                           <Target className="w-4 h-4 mr-2 text-yellow-400" />
-                          {t('winners.domain')}
+                          {getTranslation('winners.domain', 'Domaine')}
                         </h4>
                         <Badge variant="outline" className="border-yellow-400/60 text-yellow-300 bg-yellow-400/10">
                           {filteredWinners[currentIndex].domain}
@@ -331,7 +349,7 @@ export default function WinnersShowcase() {
                       </div>
 
                       <div>
-                        <h4 className="font-semibold text-white mb-2">{t('winners.description')}</h4>
+                        <h4 className="font-semibold text-white mb-2">{getTranslation('winners.description', 'Description')}</h4>
                         <p className="text-blue-200 leading-relaxed">
                           {filteredWinners[currentIndex].description}
                         </p>
@@ -340,7 +358,7 @@ export default function WinnersShowcase() {
                       <div>
                         <h4 className="font-semibold text-white mb-2 flex items-center">
                           <TrendingUp className="w-4 h-4 mr-2 text-green-400" />
-                          {t('winners.expectedImpact')}
+                          {getTranslation('winners.expectedImpact', 'Impact attendu')}
                         </h4>
                         <p className="text-green-300 font-medium">
                           {filteredWinners[currentIndex].impact}
@@ -352,14 +370,14 @@ export default function WinnersShowcase() {
                       <div className="bg-white/5 rounded-lg p-3">
                         <div className="text-white font-semibold flex items-center">
                           <Users className="w-4 h-4 mr-2" />
-                          {t('winners.team')}
+                          {getTranslation('winners.team', 'Équipe')}
                         </div>
-                        <div className="text-blue-300">{filteredWinners[currentIndex].teamSize} {t('winners.members')}</div>
+                        <div className="text-blue-300">{filteredWinners[currentIndex].teamSize} {getTranslation('winners.members', 'membres')}</div>
                       </div>
                       <div className="bg-white/5 rounded-lg p-3">
                         <div className="text-white font-semibold flex items-center">
                           <Calendar className="w-4 h-4 mr-2" />
-                          {t('winners.selection')}
+                          {getTranslation('winners.selection', 'Sélection')}
                         </div>
                         <div className="text-blue-300">
                           {new Date(filteredWinners[currentIndex].selectedDate).toLocaleDateString('fr-FR')}
@@ -370,7 +388,7 @@ export default function WinnersShowcase() {
                     <div className="mb-6">
                       <h4 className="font-semibold text-white mb-3 flex items-center">
                         <Sparkles className="w-4 h-4 mr-2 text-purple-400" />
-                        {t('winners.technologiesUsed')}
+                        {getTranslation('winners.technologiesUsed', 'Technologies utilisées')}
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {filteredWinners[currentIndex].technologies.map((tech, index) => (
@@ -547,10 +565,10 @@ export default function WinnersShowcase() {
                 </div>
               </div>
               <h2 className="text-3xl font-bold text-white mb-4">
-                {t('winners.congratulations')}
+                {getTranslation('winners.congratulations', '🎉 Félicitations à tous les bénéficiaires !')}
               </h2>
               <p className="text-green-200 text-lg leading-relaxed">
-                {t('winners.transformMessage')}
+                {getTranslation('winners.transformMessage', 'Ces 14 projets innovants vont transformer la démocratie en Afrique. Ensemble, ils représentent l\'avenir de l\'engagement civique numérique et contribueront à renforcer les processus démocratiques sur le continent.')}
               </p>
             </CardContent>
           </Card>
