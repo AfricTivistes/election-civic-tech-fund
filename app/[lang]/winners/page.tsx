@@ -1,16 +1,16 @@
 import WinnersShowcase from "@/components/winners-showcase"
-import { useLanguage } from "@/hooks/use-language"
 
 interface WinnersPageProps {
-  params: {
+  params: Promise<{
     lang: string
-  }
+  }>
 }
 
-export default function WinnersPage({ params }: WinnersPageProps) {
+export default async function WinnersPage({ params }: WinnersPageProps) {
+  const { lang } = await params
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
-      <WinnersShowcase lang={params.lang} />
+      <WinnersShowcase lang={lang} />
 
       {/* Footer */}
       <footer className="mt-20 border-t border-white/10 pt-8">
@@ -27,9 +27,6 @@ export default function WinnersPage({ params }: WinnersPageProps) {
                   src="/partners/ahead-africa.webp"
                   alt="AHEAD Africa"
                   className="h-12 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 filter brightness-110 mx-auto"
-                  onError={() => {
-                    console.error("Error loading AHEAD Africa logo")
-                  }}
                 />
               </div>
 
@@ -56,9 +53,6 @@ export default function WinnersPage({ params }: WinnersPageProps) {
                     filter:
                       "brightness(0) saturate(100%) invert(94%) sepia(6%) saturate(1044%) hue-rotate(183deg) brightness(106%) contrast(94%)",
                   }}
-                  onError={() => {
-                    console.error("Error loading AfricTivistes logo")
-                  }}
                 />
               </div>
 
@@ -81,9 +75,6 @@ export default function WinnersPage({ params }: WinnersPageProps) {
                   src="/partners/ddi-logo.jpeg"
                   alt="Digital Democracy Initiative"
                   className="h-12 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 filter brightness-110 mx-auto"
-                  onError={() => {
-                    console.error("Error loading DDI logo")
-                  }}
                 />
               </div>
             </div>
