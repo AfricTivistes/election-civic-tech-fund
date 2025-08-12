@@ -1031,7 +1031,7 @@ export const translations: Record<string, Translation> = {
       title: "Funds Target Countries",
       clickInstruction: "Click on a country to find out about its democratic challenges",
       challengesTitle: "Priority Democratic Challenges",
-      Senegal: {
+      Sénégal: {
         challenges: ["Electoral transparency", "Youth participation"],
       },
       Mali: {

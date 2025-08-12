@@ -142,10 +142,10 @@ export default function WinnersShowcase() {
   const totalFunding = winners.reduce((sum, w) => sum + w.amount, 0)
   const countriesCount = new Set(winners.map(w => w.country)).size
 
-  if (!mounted) {
+  if (!mounted || !t) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex items-center justify-center">
-        <div className="text-white text-xl">{t('common.loading')}...</div>
+        <div className="text-white text-xl">{t?.common?.loading || "Loading"}...</div>
       </div>
     )
   }
