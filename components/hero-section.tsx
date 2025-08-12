@@ -309,8 +309,21 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
             </Badge>
             <span>•</span>
             <Badge variant="outline" className="border-green-400 text-green-400 px-4 py-2">
-              ∞ Possibilités
+              ✅ Sélection terminée
             </Badge>
+          </div>
+
+          {/* Lien vers les bénéficiaires */}
+          <div className="mb-8">
+            <a href="/winners" className="inline-block">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-green-400 to-emerald-500 hover:from-green-500 hover:to-emerald-600 text-black font-bold py-4 px-8 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 group"
+              >
+                🏆 Découvrir les Bénéficiaires
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </a>
           </div>
         </div>
 
@@ -332,19 +345,19 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
                 </p>
                 <p className="text-blue-200 mb-6">{t?.hero?.secondDescription || ""}</p>
 
-                {/* Message d'information sur la fermeture des soumissions */}
+                {/* Message de fin du processus de sélection */}
                 {isSubmissionDisabled && (
                   <div className="mb-6">
-                    <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-400/30 rounded-xl p-4">
+                    <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-400/30 rounded-xl p-4">
                       <div className="flex items-center justify-center space-x-2 mb-2">
-                        <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
-                        <span className="text-red-300 font-semibold text-sm uppercase tracking-wide">
-                          {t?.messages?.submissionsClosed || (t?.language === 'en' ? 'Submissions Closed' : 'Soumissions Fermées')}
+                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span className="text-green-300 font-semibold text-sm uppercase tracking-wide">
+                          🏆 Processus de Sélection Terminé
                         </span>
-                        <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                       </div>
-                      <p className="text-red-200 text-sm text-center">
-                        {t?.messages?.submissionsClosedDesc || (t?.language === 'en' ? 'Submissions are temporarily closed. Thank you for your understanding.' : 'Les soumissions sont temporairement fermées. Merci de votre compréhension.')}
+                      <p className="text-green-200 text-sm text-center">
+                        Le processus de sélection est maintenant terminé. Découvrez les 14 projets bénéficiaires du Fonds !
                       </p>
                     </div>
                   </div>
