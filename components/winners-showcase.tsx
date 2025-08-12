@@ -21,9 +21,11 @@ import {
   ChevronRight,
   Trophy,
   Heart,
-  Zap
+  Zap,
+  Image as ImageIcon
 } from "lucide-react"
 import { useLanguage } from "@/hooks/use-language"
+import Image from "next/image"
 
 interface Winner {
   id: string
@@ -40,6 +42,7 @@ interface Winner {
   teamSize: number
   website?: string
   logo?: string
+  projectImage?: string
   selectedDate: string
 }
 
@@ -58,6 +61,7 @@ const winners: Winner[] = [
     impact: "Améliorer la transparence des élections pour 17M de citoyens",
     technologies: ["React", "AI/ML", "Blockchain"],
     teamSize: 4,
+    projectImage: "/placeholder.jpg",
     selectedDate: "2024-12-15"
   },
   {
@@ -73,9 +77,42 @@ const winners: Winner[] = [
     impact: "Mobiliser 50,000 jeunes électeurs",
     technologies: ["Mobile App", "React Native"],
     teamSize: 3,
+    projectImage: "/placeholder.jpg",
     selectedDate: "2024-12-15"
   },
-  // Ajoutez les 12 autres bénéficiaires ici...
+  {
+    id: "3",
+    projectName: "CivicChain",
+    organization: "BlockGov Ghana",
+    country: "Ghana",
+    countryFlag: "🇬🇭",
+    category: "major",
+    amount: 23000,
+    domain: "Gouvernance numérique",
+    description: "Solution blockchain pour la transparence des votes et la traçabilité des décisions publiques",
+    impact: "Renforcer la confiance démocratique pour 32M de citoyens",
+    technologies: ["Blockchain", "Smart Contracts", "Web3"],
+    teamSize: 6,
+    projectImage: "/placeholder.jpg",
+    selectedDate: "2024-12-15"
+  },
+  {
+    id: "4",
+    projectName: "AfriVote",
+    organization: "E-Democracy Kenya",
+    country: "Kenya",
+    countryFlag: "🇰🇪",
+    category: "major",
+    amount: 22000,
+    domain: "Éducation civique",
+    description: "Plateforme d'éducation civique interactive avec gamification pour sensibiliser aux processus démocratiques",
+    impact: "Former 100,000 jeunes citoyens aux enjeux démocratiques",
+    technologies: ["Vue.js", "Gamification", "Progressive Web App"],
+    teamSize: 5,
+    projectImage: "/placeholder.jpg",
+    selectedDate: "2024-12-15"
+  },
+  // Ajoutez les autres projets avec leurs images...
 ]
 
 export default function WinnersShowcase() {
@@ -108,7 +145,7 @@ export default function WinnersShowcase() {
   if (!mounted) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex items-center justify-center">
-        <div className="text-white text-xl">Chargement...</div>
+        <div className="text-white text-xl">{t('common.loading')}...</div>
       </div>
     )
   }
@@ -145,22 +182,22 @@ export default function WinnersShowcase() {
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-blue-400 to-green-400 mb-4">
-            🏆 Bénéficiaires Sélectionnés
+            🏆 {t('winners.title')}
           </h1>
           
           <p className="text-xl text-blue-200 mb-8 max-w-3xl mx-auto">
-            Découvrez les 14 projets innovants qui transformeront la démocratie en Afrique grâce au Election Civic Tech Fund
+            {t('winners.subtitle')}
           </p>
 
           <div className="flex justify-center items-center space-x-4 text-lg text-blue-200">
             <Badge variant="outline" className="border-yellow-400 text-yellow-400 px-4 py-2">
               <Award className="w-4 h-4 mr-2" />
-              {winners.length} Projets
+              {winners.length} {t('winners.projects')}
             </Badge>
             <span>•</span>
             <Badge variant="outline" className="border-blue-400 text-blue-400 px-4 py-2">
               <Globe className="w-4 h-4 mr-2" />
-              {countriesCount} Pays
+              {countriesCount} {t('winners.countries')}
             </Badge>
             <span>•</span>
             <Badge variant="outline" className="border-green-400 text-green-400 px-4 py-2">
@@ -181,7 +218,7 @@ export default function WinnersShowcase() {
             <CardContent className="p-6 text-center">
               <Trophy className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <div className="text-3xl font-bold text-yellow-400 mb-2">{majorProjects.length}</div>
-              <div className="text-white font-semibold">Projets Majeurs</div>
+              <div className="text-white font-semibold">{t('winners.majorProjects')}</div>
               <div className="text-yellow-200 text-sm">jusqu'à 25,000€</div>
             </CardContent>
           </Card>
@@ -190,7 +227,7 @@ export default function WinnersShowcase() {
             <CardContent className="p-6 text-center">
               <Zap className="w-12 h-12 text-blue-400 mx-auto mb-4" />
               <div className="text-3xl font-bold text-blue-400 mb-2">{microGrants.length}</div>
-              <div className="text-white font-semibold">Micro-subventions</div>
+              <div className="text-white font-semibold">{t('winners.microGrants')}</div>
               <div className="text-blue-200 text-sm">jusqu'à 10,000€</div>
             </CardContent>
           </Card>
@@ -199,8 +236,8 @@ export default function WinnersShowcase() {
             <CardContent className="p-6 text-center">
               <Heart className="w-12 h-12 text-green-400 mx-auto mb-4" />
               <div className="text-3xl font-bold text-green-400 mb-2">{countriesCount}</div>
-              <div className="text-white font-semibold">Pays Bénéficiaires</div>
-              <div className="text-green-200 text-sm">Impact continental</div>
+              <div className="text-white font-semibold">{t('winners.beneficiaryCountries')}</div>
+              <div className="text-green-200 text-sm">{t('winners.continentalImpact')}</div>
             </CardContent>
           </Card>
         </motion.div>
@@ -215,9 +252,9 @@ export default function WinnersShowcase() {
           <div className="bg-white/10 backdrop-blur-md rounded-full p-2 border border-white/20">
             <div className="flex space-x-2">
               {[
-                { key: "all", label: "Tous les projets", icon: Globe },
-                { key: "major", label: "Projets Majeurs", icon: Trophy },
-                { key: "micro", label: "Micro-subventions", icon: Zap }
+                { key: "all", label: t('winners.allProjects'), icon: Globe },
+                { key: "major", label: t('winners.majorProjects'), icon: Trophy },
+                { key: "micro", label: t('winners.microGrants'), icon: Zap }
               ].map(({ key, label, icon: Icon }) => (
                 <Button
                   key={key}
@@ -260,13 +297,13 @@ export default function WinnersShowcase() {
                             : "bg-blue-500 text-white"
                         }`}
                       >
-                        {filteredWinners[currentIndex].category === "major" ? "Projet Majeur" : "Micro-subvention"}
+                        {filteredWinners[currentIndex].category === "major" ? t('winners.majorProjects') : t('winners.microGrants')}
                       </Badge>
                       <div className="text-right">
                         <div className="text-2xl font-bold text-white">
                           {filteredWinners[currentIndex].amount.toLocaleString()}€
                         </div>
-                        <div className="text-blue-200 text-sm">Financement accordé</div>
+                        <div className="text-blue-200 text-sm">{t('winners.funding')}</div>
                       </div>
                     </div>
 
@@ -286,7 +323,7 @@ export default function WinnersShowcase() {
                       <div>
                         <h4 className="font-semibold text-white mb-2 flex items-center">
                           <Target className="w-4 h-4 mr-2 text-yellow-400" />
-                          Domaine d'intervention
+                          {t('winners.domain')}
                         </h4>
                         <Badge variant="outline" className="border-yellow-400/60 text-yellow-300 bg-yellow-400/10">
                           {filteredWinners[currentIndex].domain}
@@ -294,7 +331,7 @@ export default function WinnersShowcase() {
                       </div>
 
                       <div>
-                        <h4 className="font-semibold text-white mb-2">Description</h4>
+                        <h4 className="font-semibold text-white mb-2">{t('winners.description')}</h4>
                         <p className="text-blue-200 leading-relaxed">
                           {filteredWinners[currentIndex].description}
                         </p>
@@ -303,7 +340,7 @@ export default function WinnersShowcase() {
                       <div>
                         <h4 className="font-semibold text-white mb-2 flex items-center">
                           <TrendingUp className="w-4 h-4 mr-2 text-green-400" />
-                          Impact attendu
+                          {t('winners.expectedImpact')}
                         </h4>
                         <p className="text-green-300 font-medium">
                           {filteredWinners[currentIndex].impact}
@@ -315,14 +352,14 @@ export default function WinnersShowcase() {
                       <div className="bg-white/5 rounded-lg p-3">
                         <div className="text-white font-semibold flex items-center">
                           <Users className="w-4 h-4 mr-2" />
-                          Équipe
+                          {t('winners.team')}
                         </div>
-                        <div className="text-blue-300">{filteredWinners[currentIndex].teamSize} membres</div>
+                        <div className="text-blue-300">{filteredWinners[currentIndex].teamSize} {t('winners.members')}</div>
                       </div>
                       <div className="bg-white/5 rounded-lg p-3">
                         <div className="text-white font-semibold flex items-center">
                           <Calendar className="w-4 h-4 mr-2" />
-                          Sélection
+                          {t('winners.selection')}
                         </div>
                         <div className="text-blue-300">
                           {new Date(filteredWinners[currentIndex].selectedDate).toLocaleDateString('fr-FR')}
@@ -333,7 +370,7 @@ export default function WinnersShowcase() {
                     <div className="mb-6">
                       <h4 className="font-semibold text-white mb-3 flex items-center">
                         <Sparkles className="w-4 h-4 mr-2 text-purple-400" />
-                        Technologies utilisées
+                        {t('winners.technologiesUsed')}
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {filteredWinners[currentIndex].technologies.map((tech, index) => (
@@ -349,10 +386,28 @@ export default function WinnersShowcase() {
                     </div>
                   </div>
 
-                  {/* Visual Side */}
-                  <div className="relative bg-gradient-to-br from-yellow-400/20 to-blue-500/30 flex items-center justify-center p-8">
+                  {/* Visual Side with Project Image */}
+                  <div className="relative bg-gradient-to-br from-yellow-400/20 to-blue-500/30 flex flex-col items-center justify-center p-8">
+                    {/* Project Image */}
+                    <div className="w-full h-48 bg-white/10 rounded-2xl mb-6 overflow-hidden border border-white/20 shadow-xl">
+                      {filteredWinners[currentIndex].projectImage ? (
+                        <Image
+                          src={filteredWinners[currentIndex].projectImage!}
+                          alt={filteredWinners[currentIndex].projectName}
+                          width={400}
+                          height={200}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-700 to-slate-600">
+                          <ImageIcon className="w-16 h-16 text-white/50" />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Country Flag and Info */}
                     <div className="text-center">
-                      <div className="w-32 h-32 bg-gradient-to-br from-yellow-400 to-blue-500 rounded-full flex items-center justify-center text-6xl mb-6 shadow-2xl">
+                      <div className="w-24 h-24 bg-gradient-to-br from-yellow-400 to-blue-500 rounded-full flex items-center justify-center text-4xl mb-4 shadow-2xl">
                         {filteredWinners[currentIndex].countryFlag}
                       </div>
                       <h3 className="text-2xl font-bold text-white mb-2">
@@ -406,7 +461,7 @@ export default function WinnersShowcase() {
           </motion.div>
         )}
 
-        {/* Winners Grid */}
+        {/* Winners Grid with Images */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }} 
           animate={{ opacity: 1, y: 0 }} 
@@ -423,33 +478,53 @@ export default function WinnersShowcase() {
               }`}
               onClick={() => setCurrentIndex(index)}
             >
-              <Card className="bg-white/10 backdrop-blur-md border-white/20 hover:border-yellow-400/50 transition-all duration-300">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-3xl">{winner.countryFlag}</span>
-                    <Badge 
-                      className={`text-xs ${
-                        winner.category === "major"
-                          ? "bg-yellow-500/20 text-yellow-300 border-yellow-400/50"
-                          : "bg-blue-500/20 text-blue-300 border-blue-400/50"
-                      }`}
-                    >
-                      {winner.amount.toLocaleString()}€
-                    </Badge>
+              <Card className="bg-white/10 backdrop-blur-md border-white/20 hover:border-yellow-400/50 transition-all duration-300 overflow-hidden">
+                <CardContent className="p-0">
+                  {/* Project Image */}
+                  <div className="h-40 bg-gradient-to-br from-slate-700 to-slate-600 relative">
+                    {winner.projectImage ? (
+                      <Image
+                        src={winner.projectImage}
+                        alt={winner.projectName}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <ImageIcon className="w-12 h-12 text-white/50" />
+                      </div>
+                    )}
+                    <div className="absolute top-4 right-4">
+                      <Badge 
+                        className={`text-xs ${
+                          winner.category === "major"
+                            ? "bg-yellow-500/20 text-yellow-300 border-yellow-400/50"
+                            : "bg-blue-500/20 text-blue-300 border-blue-400/50"
+                        }`}
+                      >
+                        {winner.amount.toLocaleString()}€
+                      </Badge>
+                    </div>
+                    <div className="absolute bottom-4 left-4">
+                      <span className="text-3xl drop-shadow-lg">{winner.countryFlag}</span>
+                    </div>
                   </div>
 
-                  <h3 className="font-bold text-white text-lg mb-2">{winner.projectName}</h3>
-                  <p className="text-blue-200 text-sm mb-3">{winner.organization}</p>
-                  <p className="text-blue-300 text-sm mb-4 line-clamp-2">{winner.description}</p>
+                  {/* Project Info */}
+                  <div className="p-6">
+                    <h3 className="font-bold text-white text-lg mb-2">{winner.projectName}</h3>
+                    <p className="text-blue-200 text-sm mb-3">{winner.organization}</p>
+                    <p className="text-blue-300 text-sm mb-4 line-clamp-2">{winner.description}</p>
 
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-blue-200 text-sm">
-                      <Users className="w-4 h-4 mr-1" />
-                      {winner.teamSize}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center text-blue-200 text-sm">
+                        <Users className="w-4 h-4 mr-1" />
+                        {winner.teamSize}
+                      </div>
+                      <Badge variant="outline" className="border-green-400/60 text-green-300 text-xs">
+                        {winner.domain}
+                      </Badge>
                     </div>
-                    <Badge variant="outline" className="border-green-400/60 text-green-300 text-xs">
-                      {winner.domain}
-                    </Badge>
                   </div>
                 </CardContent>
               </Card>
@@ -472,12 +547,10 @@ export default function WinnersShowcase() {
                 </div>
               </div>
               <h2 className="text-3xl font-bold text-white mb-4">
-                🎉 Félicitations à tous les bénéficiaires !
+                {t('winners.congratulations')}
               </h2>
               <p className="text-green-200 text-lg leading-relaxed">
-                Ces 14 projets innovants vont transformer la démocratie en Afrique. 
-                Ensemble, ils représentent l'avenir de l'engagement civique numérique 
-                et contribueront à renforcer les processus démocratiques sur le continent.
+                {t('winners.transformMessage')}
               </p>
             </CardContent>
           </Card>

@@ -325,6 +325,30 @@ export interface Translation {
     submissionsClosed: string
     submissionsClosedDesc: string
   }
+  // Winners page
+  winners: {
+    title: string
+    subtitle: string
+    projects: string
+    countries: string
+    funding: string
+    majorProjects: string
+    microGrants: string
+    beneficiaryCountries: string
+    continentalImpact: string
+    allProjects: string
+    domain: string
+    description: string
+    expectedImpact: string
+    team: string
+    members: string
+    selection: string
+    technologiesUsed: string
+    congratulations: string
+    transformMessage: string
+  }
+
+  // Ajoutez d'autres traductions ici
 }
 
 export const translations: Record<string, Translation> = {
@@ -670,6 +694,30 @@ export const translations: Record<string, Translation> = {
         "Somalie": "Somalie"
       },
     },
+    // Winners page
+    winners: {
+      title: "Bénéficiaires Sélectionnés",
+      subtitle: "Découvrez les 14 projets innovants qui transformeront la démocratie en Afrique grâce au Election Civic Tech Fund",
+      projects: "Projets",
+      countries: "Pays",
+      funding: "Financement Total",
+      majorProjects: "Projets Majeurs",
+      microGrants: "Micro-subventions",
+      beneficiaryCountries: "Pays Bénéficiaires",
+      continentalImpact: "Impact continental",
+      allProjects: "Tous les projets",
+      domain: "Domaine d'intervention",
+      description: "Description",
+      expectedImpact: "Impact attendu",
+      team: "Équipe",
+      members: "membres",
+      selection: "Sélection",
+      technologiesUsed: "Technologies utilisées",
+      congratulations: "🎉 Félicitations à tous les bénéficiaires !",
+      transformMessage: "Ces 14 projets innovants vont transformer la démocratie en Afrique. Ensemble, ils représentent l'avenir de l'engagement civique numérique et contribueront à renforcer les processus démocratiques sur le continent."
+    },
+
+    // Ajoutez d'autres traductions ici
   },
   en: {
     messages: {
@@ -842,6 +890,7 @@ export const translations: Record<string, Translation> = {
         members: "members",
         notProvided: "Not provided",
         notSelected: "Not selected",
+        notSelectedTech: "Not selected",
         submitButton: "Submit my Vision",
         submitting: "Submitting...",
         prevButton: "Back to Team",
@@ -1008,6 +1057,28 @@ export const translations: Record<string, Translation> = {
         "Soudan du Sud": "South Sudan",
         "Somalie": "Somalia"
       },
+    },
+    // Winners page
+    winners: {
+      title: "Selected Recipients",
+      subtitle: "Discover the 14 innovative projects that will transform democracy in Africa through the Election Civic Tech Fund",
+      projects: "Projects",
+      countries: "Countries",
+      funding: "Total Funding",
+      majorProjects: "Major Projects",
+      microGrants: "Micro-grants",
+      beneficiaryCountries: "Beneficiary Countries",
+      continentalImpact: "Continental Impact",
+      allProjects: "All Projects",
+      domain: "Domain",
+      description: "Description",
+      expectedImpact: "Expected Impact",
+      team: "Team",
+      members: "members",
+      selection: "Selection",
+      technologiesUsed: "Technologies Used",
+      congratulations: "🎉 Congratulations to all recipients!",
+      transformMessage: "These 14 innovative projects will transform democracy in Africa. Together, they represent the future of digital civic engagement and will help strengthen democratic processes across the continent."
     },
   },
 }
