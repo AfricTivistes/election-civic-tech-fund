@@ -117,7 +117,7 @@ export default function WinnersShowcase() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0">
-        {mounted && [...Array(30)].map((_, i) => (
+        {[...Array(30)].map((_, i) => (
           <div
             key={`particle-${i}`}
             className="absolute w-1 h-1 bg-yellow-400 rounded-full animate-pulse"
@@ -365,7 +365,7 @@ export default function WinnersShowcase() {
 
                     {/* Floating particles */}
                     <div className="absolute inset-0">
-                      {mounted && [...Array(10)].map((_, i) => (
+                      {[...Array(10)].map((_, i) => (
                         <div
                           key={`floating-particle-${i}`}
                           className="absolute w-2 h-2 bg-yellow-400/40 rounded-full animate-float"
