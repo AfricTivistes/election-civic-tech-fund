@@ -117,13 +117,13 @@ export default function WinnersShowcase() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0">
-        {[...Array(30)].map((_, i) => (
+        {mounted && [...Array(30)].map((_, i) => (
           <div
             key={`particle-${i}`}
             className="absolute w-1 h-1 bg-yellow-400 rounded-full animate-pulse"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${(i * 37) % 100}%`,
+              top: `${(i * 23) % 100}%`,
               animationDelay: `${i * 0.2}s`,
             }}
           />
@@ -365,13 +365,13 @@ export default function WinnersShowcase() {
 
                     {/* Floating particles */}
                     <div className="absolute inset-0">
-                      {[...Array(10)].map((_, i) => (
+                      {mounted && [...Array(10)].map((_, i) => (
                         <div
                           key={`floating-particle-${i}`}
                           className="absolute w-2 h-2 bg-yellow-400/40 rounded-full animate-float"
                           style={{
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
+                            left: `${(i * 43 + 15) % 100}%`,
+                            top: `${(i * 29 + 10) % 100}%`,
                             animationDelay: `${i * 0.3}s`,
                           }}
                         />
