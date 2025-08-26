@@ -240,7 +240,7 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
               <Trophy className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
               <div className="text-3xl font-bold text-yellow-400 mb-2">{majorProjects.length}</div>
               <div className="text-white font-semibold">{getTranslation('winners.majorProjects', 'Projets Majeurs')}</div>
-              <div className="text-yellow-200 text-sm">{getTranslation('winners.upTo25k', 'jusqu\'à 25,000€')}</div>
+              <div className="text-yellow-200 text-sm">jusqu'à 25,000€</div>
             </CardContent>
           </Card>
 
@@ -249,7 +249,7 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
               <Zap className="w-12 h-12 text-blue-400 mx-auto mb-4" />
               <div className="text-3xl font-bold text-blue-400 mb-2">{microGrants.length}</div>
               <div className="text-white font-semibold">{getTranslation('winners.microGrants', 'Micro-subventions')}</div>
-              <div className="text-blue-200 text-sm">{getTranslation('winners.upTo10k', 'jusqu\'à 10,000€')}</div>
+              <div className="text-blue-200 text-sm">jusqu'à 10,000€</div>
             </CardContent>
           </Card>
 
