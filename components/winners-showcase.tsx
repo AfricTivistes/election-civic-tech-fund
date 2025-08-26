@@ -207,7 +207,7 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
           </h1>
 
           <p className="text-xl text-blue-200 mb-8 max-w-3xl mx-auto">
-            {getTranslation('winners.subtitle', 'Découvrez les 14 projets innovants qui transformeront la démocratie en Afrique')}
+            {getTranslation('winners.subtitle', 'Découvrez les projets innovants qui transformeront la démocratie en Afrique')}
           </p>
 
           <div className="flex justify-center items-center space-x-4 text-lg text-blue-200">
@@ -239,7 +239,7 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
             <CardContent className="p-6 text-center">
               <Trophy className="w-12 h-12 text-yellow-600 mx-auto mb-4" />
               <div className="text-3xl font-bold text-yellow-600 mb-2">3</div>
-              <div className="text-gray-800 font-semibold">Projets Majeurs</div>
+              <div className="text-gray-800 font-semibold">{getTranslation('winners.majorProjects', 'Projets Majeurs')}</div>
               <div className="text-yellow-700 text-sm">jusqu'à 25,000€</div>
             </CardContent>
           </Card>
@@ -248,7 +248,7 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
             <CardContent className="p-6 text-center">
               <Zap className="w-12 h-12 text-blue-600 mx-auto mb-4" />
               <div className="text-3xl font-bold text-blue-600 mb-2">1</div>
-              <div className="text-gray-800 font-semibold">Micro-subventions</div>
+              <div className="text-gray-800 font-semibold">{getTranslation('winners.microGrants', 'Micro-subventions')}</div>
               <div className="text-blue-700 text-sm">jusqu'à 10,000€</div>
             </CardContent>
           </Card>
@@ -257,7 +257,7 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
             <CardContent className="p-6 text-center">
               <Heart className="w-12 h-12 text-green-600 mx-auto mb-4" />
               <div className="text-3xl font-bold text-green-600 mb-2">4</div>
-              <div className="text-gray-800 font-semibold">Pays Bénéficiaires</div>
+              <div className="text-gray-800 font-semibold">{getTranslation('winners.beneficiaryCountries', 'Pays Bénéficiaires')}</div>
               <div className="text-green-700 text-sm">{getTranslation('winners.continentalImpact', 'Impact continental')}</div>
             </CardContent>
           </Card>
@@ -344,17 +344,17 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                       <div>
                         <h4 className="font-semibold text-white mb-2 flex items-center">
                           <Target className="w-4 h-4 mr-2 text-yellow-400" />
-                          {getTranslation('winners.domain', 'Domaine')}
+                          {getTranslation('winners.domain', 'Domaine d\'intervention')}
                         </h4>
                         <Badge variant="outline" className="border-yellow-400/60 text-yellow-300 bg-yellow-400/10">
-                          {filteredWinners[currentIndex]?.domain || 'Domaine'}
+                          {filteredWinners[currentIndex]?.domain || getTranslation('winners.domain', 'Domaine d\'intervention')}
                         </Badge>
                       </div>
 
                       <div>
-                        <h4 className="font-semibold text-white mb-2">{getTranslation('winners.description', 'Description')}</h4>
+                        <h4 className="font-semibold text-white mb-2">{getTranslation('winners.description', 'Description du projet')}</h4>
                         <p className="text-blue-200 leading-relaxed">
-                          {filteredWinners[currentIndex]?.description || 'Description du projet'}
+                          {filteredWinners[currentIndex]?.description || getTranslation('winners.description', 'Description du projet')}
                         </p>
                       </div>
 
@@ -364,7 +364,7 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                           {getTranslation('winners.expectedImpact', 'Impact attendu')}
                         </h4>
                         <p className="text-green-300 font-medium">
-                          {filteredWinners[currentIndex]?.impact || 'Impact du projet'}
+                          {filteredWinners[currentIndex]?.impact || getTranslation('winners.expectedImpact', 'Impact attendu')}
                         </p>
                       </div>
                     </div>
@@ -380,10 +380,10 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                       <div className="bg-white/5 rounded-lg p-3">
                         <div className="text-white font-semibold flex items-center">
                           <Calendar className="w-4 h-4 mr-2" />
-                          {getTranslation('winners.selection', 'Sélection')}
+                          {getTranslation('winners.selection', 'Date de sélection')}
                         </div>
                         <div className="text-blue-300">
-                          {filteredWinners[currentIndex]?.selectedDate ? new Date(filteredWinners[currentIndex].selectedDate).toLocaleDateString('fr-FR') : 'Date'}
+                          {filteredWinners[currentIndex]?.selectedDate ? new Date(filteredWinners[currentIndex].selectedDate).toLocaleDateString(lang === 'en' ? 'en-US' : 'fr-FR') : getTranslation('winners.selection', 'Date de sélection')}
                         </div>
                       </div>
                     </div>
@@ -540,7 +540,7 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center text-blue-200 text-sm">
                         <Users className="w-4 h-4 mr-1" />
-                        {winner.teamSize}
+                        {winner.teamSize} {getTranslation('winners.members', 'membres')}
                       </div>
                       <Badge variant="outline" className="border-green-400/60 text-green-300 text-xs">
                         {winner.domain}

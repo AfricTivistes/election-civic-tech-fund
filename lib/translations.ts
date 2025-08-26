@@ -346,6 +346,21 @@ export interface Translation {
     technologiesUsed: string
     congratulations: string
     transformMessage: string
+    organization: string
+    country: string
+    projectName: string
+    amount: string
+    category: string
+    loadingMessage: string
+    noProjects: string
+    viewDetails: string
+    backToHome: string
+    filterBy: string
+    sortBy: string
+    searchPlaceholder: string
+    totalFunding: string
+    averageTeamSize: string
+    projectsCount: string
   }
 
   // Ajoutez d'autres traductions ici
@@ -697,7 +712,7 @@ export const translations: Record<string, Translation> = {
     // Winners page
     winners: {
       title: "Bénéficiaires Sélectionnés",
-      subtitle: "Découvrez les 14 projets innovants qui transformeront la démocratie en Afrique grâce au Election Civic Tech Fund",
+      subtitle: "Découvrez les projets innovants qui transformeront la démocratie en Afrique grâce au Election Civic Tech Fund",
       projects: "Projets",
       countries: "Pays",
       funding: "Financement Total",
@@ -707,14 +722,29 @@ export const translations: Record<string, Translation> = {
       continentalImpact: "Impact continental",
       allProjects: "Tous les projets",
       domain: "Domaine d'intervention",
-      description: "Description",
+      description: "Description du projet",
       expectedImpact: "Impact attendu",
       team: "Équipe",
       members: "membres",
-      selection: "Sélection",
+      selection: "Date de sélection",
       technologiesUsed: "Technologies utilisées",
       congratulations: "🎉 Félicitations à tous les bénéficiaires !",
-      transformMessage: "Ces 14 projets innovants vont transformer la démocratie en Afrique. Ensemble, ils représentent l'avenir de l'engagement civique numérique et contribueront à renforcer les processus démocratiques sur le continent."
+      transformMessage: "Ces projets innovants vont transformer la démocratie en Afrique. Ensemble, ils représentent l'avenir de l'engagement civique numérique et contribueront à renforcer les processus démocratiques sur le continent.",
+      organization: "Organisation",
+      country: "Pays",
+      projectName: "Nom du projet",
+      amount: "Montant",
+      category: "Catégorie",
+      loadingMessage: "Chargement en cours...",
+      noProjects: "Aucun projet trouvé",
+      viewDetails: "Voir les détails",
+      backToHome: "Retour à l'accueil",
+      filterBy: "Filtrer par",
+      sortBy: "Trier par",
+      searchPlaceholder: "Rechercher un projet...",
+      totalFunding: "Financement total",
+      averageTeamSize: "Taille moyenne des équipes",
+      projectsCount: "Nombre de projets"
     },
 
     // Ajoutez d'autres traductions ici
@@ -1061,7 +1091,7 @@ export const translations: Record<string, Translation> = {
     // Winners page
     winners: {
       title: "Selected Recipients",
-      subtitle: "Discover the 14 innovative projects that will transform democracy in Africa through the Election Civic Tech Fund",
+      subtitle: "Discover the innovative projects that will transform democracy in Africa through the Election Civic Tech Fund",
       projects: "Projects",
       countries: "Countries",
       funding: "Total Funding",
@@ -1071,14 +1101,29 @@ export const translations: Record<string, Translation> = {
       continentalImpact: "Continental Impact",
       allProjects: "All Projects",
       domain: "Domain",
-      description: "Description",
+      description: "Project Description",
       expectedImpact: "Expected Impact",
       team: "Team",
       members: "members",
-      selection: "Selection",
+      selection: "Selection Date",
       technologiesUsed: "Technologies Used",
       congratulations: "🎉 Congratulations to all recipients!",
-      transformMessage: "These 14 innovative projects will transform democracy in Africa. Together, they represent the future of digital civic engagement and will help strengthen democratic processes across the continent."
+      transformMessage: "These innovative projects will transform democracy in Africa. Together, they represent the future of digital civic engagement and will help strengthen democratic processes across the continent.",
+      organization: "Organization",
+      country: "Country",
+      projectName: "Project Name",
+      amount: "Amount",
+      category: "Category",
+      loadingMessage: "Loading...",
+      noProjects: "No projects found",
+      viewDetails: "View Details",
+      backToHome: "Back to Home",
+      filterBy: "Filter by",
+      sortBy: "Sort by",
+      searchPlaceholder: "Search for a project...",
+      totalFunding: "Total Funding",
+      averageTeamSize: "Average Team Size",
+      projectsCount: "Projects Count"
     },
   },
 }
