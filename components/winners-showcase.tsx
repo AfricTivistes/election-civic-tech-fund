@@ -238,8 +238,8 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
           <Card className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border-yellow-400/50 backdrop-blur-sm">
             <CardContent className="p-6 text-center">
               <Trophy className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
-              <div className="text-3xl font-bold text-yellow-400 mb-2">{majorProjects.length}</div>
-              <div className="text-white font-semibold">{getTranslation('winners.majorProjects', 'Projets Majeurs')}</div>
+              <div className="text-3xl font-bold text-yellow-400 mb-2">3</div>
+              <div className="text-white font-semibold">Projets Majeurs</div>
               <div className="text-yellow-200 text-sm">jusqu'à 25,000€</div>
             </CardContent>
           </Card>
@@ -247,8 +247,8 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
           <Card className="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border-blue-400/50 backdrop-blur-sm">
             <CardContent className="p-6 text-center">
               <Zap className="w-12 h-12 text-blue-400 mx-auto mb-4" />
-              <div className="text-3xl font-bold text-blue-400 mb-2">{microGrants.length}</div>
-              <div className="text-white font-semibold">{getTranslation('winners.microGrants', 'Micro-subventions')}</div>
+              <div className="text-3xl font-bold text-blue-400 mb-2">1</div>
+              <div className="text-white font-semibold">Micro-subventions</div>
               <div className="text-blue-200 text-sm">jusqu'à 10,000€</div>
             </CardContent>
           </Card>
@@ -256,8 +256,8 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
           <Card className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 border-green-400/50 backdrop-blur-sm">
             <CardContent className="p-6 text-center">
               <Heart className="w-12 h-12 text-green-400 mx-auto mb-4" />
-              <div className="text-3xl font-bold text-green-400 mb-2">{countriesCount}</div>
-              <div className="text-white font-semibold">{getTranslation('winners.beneficiaryCountries', 'Pays Bénéficiaires')}</div>
+              <div className="text-3xl font-bold text-green-400 mb-2">4</div>
+              <div className="text-white font-semibold">Pays Bénéficiaires</div>
               <div className="text-green-200 text-sm">{getTranslation('winners.continentalImpact', 'Impact continental')}</div>
             </CardContent>
           </Card>
