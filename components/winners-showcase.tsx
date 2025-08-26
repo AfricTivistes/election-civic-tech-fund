@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useEffect } from "react"
@@ -206,7 +205,7 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
           <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-blue-400 to-green-400 mb-4">
             🏆 {getTranslation('winners.title', 'Bénéficiaires Sélectionnés')}
           </h1>
-          
+
           <p className="text-xl text-blue-200 mb-8 max-w-3xl mx-auto">
             {getTranslation('winners.subtitle', 'Découvrez les 14 projets innovants qui transformeront la démocratie en Afrique')}
           </p>
@@ -568,10 +567,10 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                   <Sparkles className="w-12 h-12 text-green-400" />
                 </div>
               </div>
-              <h2 className="text-3xl font-bold text-white mb-4">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
                 {getTranslation('winners.congratulations', '🎉 Félicitations à tous les bénéficiaires !')}
               </h2>
-              <p className="text-green-200 text-lg leading-relaxed">
+              <p className="text-gray-800 text-lg leading-relaxed">
                 {getTranslation('winners.transformMessage', 'Ces 14 projets innovants vont transformer la démocratie en Afrique. Ensemble, ils représentent l\'avenir de l\'engagement civique numérique et contribueront à renforcer les processus démocratiques sur le continent.')}
               </p>
             </CardContent>
