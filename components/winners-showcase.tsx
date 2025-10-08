@@ -601,8 +601,8 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
               </CardContent>
             </Card>
 
-            {/* Navigation Arrows */}
-            <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
+            {/* Navigation Arrows - Bottom Center */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4">
               <Button
                 variant="outline"
                 size="lg"
@@ -611,8 +611,6 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
               >
                 <ChevronLeft className="w-6 h-6" />
               </Button>
-            </div>
-            <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
               <Button
                 variant="outline"
                 size="lg"
