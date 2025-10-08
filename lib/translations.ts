@@ -409,7 +409,7 @@ export const translations: Record<string, Translation> = {
         designedBy: "Conçu et géré par",
         poweredBy: "Propulsé par",
         projectDescription:
-          "Ce fonds s'inscrit dans le cadre du projet « Digitalise Youth », qui vise à lutter contre le rétrécissement de l'espace civique et la désinformation rampante dans les régions du Sahel, de l'Ouest et de la Corne de l'Afrique en renforçant les compétences numériques des jeunes militants locaux et des organisations de la société civile, en promouvant des solutions technologiques civiques et en sensibilisant le public à l'engagement politique en ligne.",
+          "Election Civic Tech Fund, conçu et géré par AfricTivistes, s'inscrit dans le cadre de AHEAD Africa axé sur les multiples facettes du cycle électoral en Afrique et de Digitalize Youth qui promeut l'engagement civique des jeunes, l'innovation technologique et la résilience numérique dans 14 pays africains.",
         copyright: "© 2024 Election Civic Tech Fund - AfricTivistes",
         tagline: "Ensemble, nous construisons l'avenir démocratique de l'Afrique",
       },
@@ -789,7 +789,7 @@ export const translations: Record<string, Translation> = {
         designedBy: "Designed and managed by",
         poweredBy: "Powered by",
         projectDescription:
-          "This fund is part of the 'Digitalise Youth' project, which aims to combat the shrinking civic space and rampant disinformation in the Sahel, West and Horn of Africa regions by strengthening the digital skills of local young activists and civil society organizations, promoting civic technology solutions and raising public awareness of online political engagement.",
+          "Election Civic Tech Fund, designed and managed by AfricTivistes, is part of AHEAD Africa focused on the multiple facets of the electoral cycle in Africa and Digitalize Youth which promotes youth civic engagement, technological innovation and digital resilience in 14 African countries.",
         copyright: "© 2024 Election Civic Tech Fund - AfricTivistes",
         tagline: "Together, we are building Africa's democratic future",
       },
