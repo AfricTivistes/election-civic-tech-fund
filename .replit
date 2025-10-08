@@ -27,3 +27,6 @@ args = "npm run dev"
 [nix]
 channel = "stable-24_05"
 packages = ["vim"]
+
+[agent]
+expertMode = true
