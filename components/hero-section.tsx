@@ -313,8 +313,8 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
             </Badge>
           </div>
 
-          {/* Lien vers les bénéficiaires */}
-          <div className="mb-8">
+          {/* Lien vers les bénéficiaires - Masqué temporairement pour validation */}
+          {/* <div className="mb-8">
             <a href="/winners" className="inline-block">
               <Button
                 size="lg"
@@ -324,7 +324,7 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </a>
-          </div>
+          </div> */}
         </div>
 
         {/* Main content grid */}
