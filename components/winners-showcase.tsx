@@ -8,20 +8,18 @@ import { Button } from "@/components/ui/button"
 import { 
   Award, 
   Globe, 
-  Users, 
   Sparkles, 
   Target, 
   TrendingUp,
   MapPin,
-  DollarSign,
-  Calendar,
   ExternalLink,
   ChevronLeft,
   ChevronRight,
   Trophy,
   Heart,
   Zap,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Mail
 } from "lucide-react"
 import { useLanguage } from "@/hooks/use-language"
 import Image from "next/image"
@@ -33,19 +31,16 @@ interface Winner {
   country: string
   countryFlag: string
   category: "major" | "micro"
-  amount: number
   domain: string
   description: string
   impact: string
   technologies: string[]
-  teamSize: number
   website?: string
+  contact?: string
   logo?: string
   projectImage?: string
-  selectedDate: string
 }
 
-// Données des bénéficiaires
 const winners: Winner[] = [
   {
     id: "1",
@@ -54,30 +49,28 @@ const winners: Winner[] = [
     country: "Soudan du Sud",
     countryFlag: "🇸🇸",
     category: "major",
-    amount: 25000,
     domain: "Fact-checking électoral",
-    description: "Un projet de fact-checking électoral qui forme les jeunes journalistes et étudiants aux techniques de vérification de l'information et de lutte contre la désinformation. Il s'appuie sur The ClarityDesk, un média indépendant, pour produire et diffuser des contenus fiables, via un site web, une application mobile et des émissions radios.",
+    description: "Le projet vise à renforcer l'intégrité de l'information électorale en formant les jeunes journalistes, les étudiants et le grand public à la vérification des faits et à la littératie médiatique. Grâce à une plateforme numérique, à des programmes de formation et à des bourses, il encourage la production de contenus fiables, lutte contre la désinformation et soutient la création de réseaux de vérificateurs ainsi que de clubs de médias scolaires.",
     impact: "Renforcer la confiance citoyenne et la transparence du processus électoral au Soudan du Sud",
     technologies: ["Fact-checking", "Application Mobile", "Média Web", "Radio"],
-    teamSize: 4,
     projectImage: "/placeholder.jpg",
-    selectedDate: "2025-01-15"
+    website: "https://www.excellencefoundationss.org/",
+    contact: "hello@excellencefoundationss.org"
   },
   {
     id: "2",
     projectName: "Vigilant Civic Voice",
-    organization: "Association des blogueurs du Bénin",
+    organization: "Association des blogueurs du Bénin & SOS Civisme Bénin",
     country: "Bénin",
     countryFlag: "🇧🇯",
     category: "major",
-    amount: 25000,
     domain: "Surveillance citoyenne électorale",
-    description: "Une plateforme numérique collaborative et multilingue qui permet aux citoyens de signaler les irrégularités électorales et les fausses informations. Grâce à une cellule de fact-checking et une campagne nationale de sensibilisation, le projet favorise la transparence, la vigilance citoyenne et l'éducation numérique en période électorale.",
+    description: "Le projet vise à renforcer la transparence et la participation citoyenne au Bénin en période électorale à travers une plateforme numérique collaborative et un site web avec des contenus multimédias plurilingue (podcasts, vidéos) en fon, dendi, bariba, yoruba et mina. Il permet aux citoyens de signaler les irrégularités électorales et de soumettre les infox pour vérification par une cellule de fact-checking.",
     impact: "Favoriser la transparence et l'éducation numérique électorale au Bénin",
-    technologies: ["Plateforme Collaborative", "Fact-checking", "Multilingue"],
-    teamSize: 5,
+    technologies: ["Plateforme Collaborative", "Fact-checking", "Multilingue", "Podcasts"],
     projectImage: "/placeholder.jpg",
-    selectedDate: "2025-01-15"
+    website: "https://www.blogueurs.bj",
+    contact: "contact@blogueurs.bj"
   },
   {
     id: "3",
@@ -86,14 +79,13 @@ const winners: Winner[] = [
     country: "Cameroun",
     countryFlag: "🇨🇲",
     category: "major",
-    amount: 25000,
     domain: "IA et fact-checking électoral",
-    description: "Première plateforme africaine de vérification des faits alimentée par l'intelligence artificielle, MyAIFactChecker vise à contrer la désinformation électorale au Cameroun. L'initiative forme les jeunes, les femmes et les journalistes à l'usage d'outils d'IA pour vérifier les contenus et promouvoir une culture d'information fiable et critique.",
+    description: "Le projet déploie myaifactchecker.org, la première plateforme africaine multilingue de vérification de faits basée sur l'IA, pour lutter contre la désinformation électorale au Cameroun. Lancé à l'occasion de l'élection présidentielle d'octobre 2025, il vise à renforcer la transparence, la littératie civique et la culture du fact-checking au sein de la société civile et des médias.",
     impact: "Contrer la désinformation électorale et promouvoir l'information fiable au Cameroun",
-    technologies: ["Intelligence Artificielle", "Fact-checking", "Formation IA"],
-    teamSize: 6,
+    technologies: ["Intelligence Artificielle", "Fact-checking", "Formation IA", "Multilingue"],
     projectImage: "/placeholder.jpg",
-    selectedDate: "2025-01-15"
+    website: "https://thebrainbuilders.org/",
+    contact: "brainbuilderedu@gmail.com"
   },
   {
     id: "4",
@@ -102,158 +94,133 @@ const winners: Winner[] = [
     country: "Sénégal",
     countryFlag: "🇸🇳",
     category: "major",
-    amount: 25000,
     domain: "Open data et transparence électorale",
-    description: "Une plateforme numérique ouverte et accessible qui centralise les données électorales, géolocalise les bureaux de vote et permet aux citoyens de signaler des incidents. Avec ses modules de cartographie, d'open data et de lecture automatisée des procès-verbaux, le projet facilite la transparence et l'accès à une information électorale claire et en temps réel.",
+    description: "Le projet renforce la transparence et la participation citoyenne à travers une plateforme numérique open source d'information et de suivi électoral. Basée sur l'outil déjà utilisé lors des législatives de 2024, la solution sera améliorée pour les élections municipales de 2027 avec six modules : information électorale, tableaux de bord, cartographie des bureaux de vote, signalement citoyen, open data et lecture automatisée des PV.",
     impact: "Faciliter la transparence et l'accès à l'information électorale en temps réel au Sénégal",
-    technologies: ["Open Data", "Cartographie", "Géolocalisation", "OCR"],
-    teamSize: 5,
+    technologies: ["Open Data", "Cartographie", "API", "OCR", "GitHub"],
     projectImage: "/placeholder.jpg",
-    selectedDate: "2025-01-15"
+    website: "https://www.vie-publique.sn/",
+    contact: "contact@vie-publique.sn"
   },
   {
     id: "5",
-    projectName: "Strengthening Youth and Women's Digital Participation in Benin 2026 General Elections",
-    organization: "Réseau des Femmes Leaders pour le Développement (RFLD)",
-    country: "Bénin",
-    countryFlag: "🇧🇯",
-    category: "major",
-    amount: 25000,
-    domain: "Participation numérique inclusive",
-    description: "Une initiative de participation numérique inclusive qui mobilise les jeunes et les femmes pour les élections générales de 2026. À travers une application éducative, des formations en citoyenneté numérique et une salle de situation électorale digitale, le projet promeut la participation pacifique et informée des citoyens, tout en renforçant la cybersécurité et la lutte contre la désinformation.",
-    impact: "Promouvoir la participation pacifique et informée des jeunes et femmes aux élections 2026",
-    technologies: ["Application Éducative", "Cybersécurité", "Salle de Situation"],
-    teamSize: 5,
-    projectImage: "/placeholder.jpg",
-    selectedDate: "2025-01-15"
-  },
-  {
-    id: "6",
-    projectName: "Plateforme d'Actions Citoyennes pour la Transparence Électorale (PACTE)",
-    organization: "Association des Blogueurs de Guinée - ABLOGUI",
+    projectName: "PACTE - Participation Active et Citoyenne des jeunes pour une Transition Électorale inclusive",
+    organization: "ABLOGUI - Association des Blogueurs de Guinée",
     country: "Guinée",
     countryFlag: "🇬🇳",
     category: "major",
-    amount: 25000,
-    domain: "Surveillance citoyenne et transparence",
-    description: "Une initiative citoyenne en Guinée qui utilise les technologies numériques pour surveiller le processus électoral, contrer la désinformation et favoriser la transparence. La plateforme PACTE mobilise des blogueurs, journalistes et observateurs citoyens pour documenter, analyser et diffuser des informations fiables sur le déroulement des scrutins.",
-    impact: "Surveiller le processus électoral et contrer la désinformation en Guinée",
-    technologies: ["Surveillance Électorale", "Blogging Citoyen", "Fact-checking"],
-    teamSize: 5,
+    domain: "Éducation civique et monitoring citoyen",
+    description: "Le projet vise à renforcer la participation civique des jeunes Guinéens, notamment les jeunes femmes, en mobilisant les technologies civiques pour l'éducation civique et électorale, la lutte contre la désinformation et le développement d'un monitoring citoyen décentralisé, contribuant ainsi à une participation démocratique accrue et à une plus grande transparence électorale en Guinée.",
+    impact: "Renforcer la participation démocratique et la transparence électorale en Guinée",
+    technologies: ["MOOC", "WhatsApp Bot", "Plateforme Web", "Infographies"],
     projectImage: "/placeholder.jpg",
-    selectedDate: "2025-01-15"
+    website: "https://ablogui.org/",
+    contact: "contact@ablogui.org"
   },
   {
-    id: "7",
+    id: "6",
     projectName: "My Vote My Voice 2.0: Civic Tech for Transparent and Inclusive Elections",
     organization: "Actions for Development and Empowerment (ADE)",
     country: "Cameroun",
     countryFlag: "🇨🇲",
     category: "major",
-    amount: 25000,
     domain: "Civic tech et éducation civique",
-    description: "Un projet qui combine technologie et éducation civique pour renforcer la transparence électorale au Cameroun. À travers des outils numériques interactifs, des formations citoyennes et une mobilisation communautaire, il encourage les jeunes et les femmes à participer activement et de manière informée aux élections.",
+    description: "Le projet vise à renforcer la transparence électorale, l'engagement citoyen et la participation crédible au Cameroun. Basé sur l'application VoteCam, le projet intègre le signalement en temps réel des irrégularités et la soumission de données hors ligne. Des Journées de littératie civique permettront aux jeunes et aux femmes de se familiariser avec ces outils, tandis que le podcast 'Know Your Rep' expliquera le fonctionnement des élections.",
     impact: "Encourager la participation active et informée des jeunes et femmes aux élections",
-    technologies: ["Outils Interactifs", "Formation Citoyenne", "Mobilisation"],
-    teamSize: 6,
+    technologies: ["Application Mobile", "Signalement", "Podcast", "Formation Citoyenne"],
     projectImage: "/placeholder.jpg",
-    selectedDate: "2025-01-15"
+    website: "https://adeinternational.org/",
+    contact: "info@adeinternational.org"
   },
   {
-    id: "8",
+    id: "7",
     projectName: "Veille et accompagnement juridique des jeunes aux processus électoraux",
     organization: "ADRES – Association pour le Développement et la Résilience Sociale",
     country: "Mauritanie",
     countryFlag: "🇲🇷",
     category: "major",
-    amount: 25000,
     domain: "Accompagnement juridique et numérique",
-    description: "Une initiative mauritanienne qui soutient les jeunes dans leur compréhension et leur participation au processus électoral. Elle offre un accompagnement juridique et numérique pour promouvoir une citoyenneté responsable et prévenir les tensions électorales par l'accès à une information fiable et à des conseils juridiques adaptés.",
+    description: "Le projet vise à outiller les jeunes de Nouakchott, en particulier dans les quartiers marginalisés de Dar Naim et Toujounine, afin de renforcer leur accès à l'information juridique électorale et de stimuler leur participation citoyenne. Il met en place un observatoire citoyen numérique et un chatbot juridique via WhatsApp, accompagné d'une campagne numérique ciblée.",
     impact: "Promouvoir une citoyenneté responsable et prévenir les tensions électorales",
-    technologies: ["Legal Tech", "Conseil Juridique", "Information Fiable"],
-    teamSize: 4,
+    technologies: ["Legal Tech", "Chatbot WhatsApp", "Observatoire Citoyen", "Documentaire"],
     projectImage: "/placeholder.jpg",
-    selectedDate: "2025-01-15"
+    website: "",
+    contact: "adresrim@gmail.com"
   },
   {
-    id: "9",
-    projectName: "SENEGAL VOTE CIVICRISE",
+    id: "8",
+    projectName: "SENEGAL VOTE CIVICRISE - Plateforme Toopko",
     organization: "Association Wa Mbedmi",
     country: "Sénégal",
     countryFlag: "🇸🇳",
     category: "major",
-    amount: 25000,
-    domain: "Civic tech participatif",
-    description: "Un projet de civic tech participatif qui vise à mobiliser les jeunes Sénégalais autour de la transparence électorale. À travers une plateforme numérique, des campagnes de sensibilisation et des actions de terrain, SENEGAL VOTE CIVICRISE encourage la participation citoyenne, la veille électorale et la redevabilité des institutions.",
-    impact: "Encourager la participation citoyenne et la redevabilité institutionnelle au Sénégal",
-    technologies: ["Plateforme Numérique", "Sensibilisation", "Actions de Terrain"],
-    teamSize: 5,
+    domain: "Redevabilité et suivi des engagements",
+    description: "Le projet est une extension numérique de la plateforme Senegalvote.org, conçue pour permettre aux citoyens de suivre et d'évaluer les engagements pris par les responsables publics au Sénégal. Accessible en ligne et optimisée pour mobile, Toopko centralise les promesses et engagements et offre aux citoyens un espace interactif pour mesurer leur niveau de réalisation.",
+    impact: "Renforcer la redevabilité et promouvoir la transparence au Sénégal",
+    technologies: ["Plateforme Web", "Mobile", "Suivi des Promesses", "Open Data"],
     projectImage: "/placeholder.jpg",
-    selectedDate: "2025-01-15"
+    website: "https://senegalvote.org/",
+    contact: "senegal.vote@gmail.com"
   },
   {
-    id: "10",
+    id: "9",
     projectName: "Strengthening Youth and Women-Led CSOs for Inclusive Electoral Participation in Amhara Region",
-    organization: "Consortium for Networking and Development (COND) of CSOs in Amhara Region",
+    organization: "Consortium for Networking and Development (COND)",
     country: "Éthiopie",
     countryFlag: "🇪🇹",
     category: "major",
-    amount: 25000,
     domain: "Renforcement des OSC jeunes et femmes",
-    description: "Une initiative éthiopienne qui renforce les capacités des organisations dirigées par des jeunes et des femmes dans la région d'Amhara. Elle promeut leur implication active dans la gouvernance électorale à travers la formation, le réseautage et l'usage d'outils numériques pour la transparence et la participation inclusive.",
+    description: "Le projet vise à renforcer la participation électorale inclusive, transparente et pacifique dans la région d'Amhara en outillant les organisations de la société civile dirigées par des jeunes et des femmes avec des technologies civiques numériques. Sur 10 mois, le projet renforce les capacités de plus de 30 OSC locales pour mener des actions d'éducation civique, d'observation électorale et de sensibilisation.",
     impact: "Promouvoir l'implication active des OSC dans la gouvernance électorale en Amhara",
-    technologies: ["Formation", "Réseautage", "Outils Numériques"],
-    teamSize: 6,
+    technologies: ["Formation Numérique", "Réseautage", "Observation Électorale", "Base de données"],
     projectImage: "/placeholder.jpg",
-    selectedDate: "2025-01-15"
+    website: "https://www.condnet.org/",
+    contact: "nigatu@cond.org"
   },
   {
-    id: "11",
+    id: "10",
     projectName: "DoorashoKaab",
-    organization: "Bareedo Platform Somalia",
+    organization: "Bareedo Platform",
     country: "Somalie",
     countryFlag: "🇸🇴",
     category: "micro",
-    amount: 10000,
     domain: "Sensibilisation électorale multilingue",
-    description: "Une plateforme numérique en Somalie conçue pour sensibiliser les citoyens, en particulier les jeunes, aux enjeux électoraux. Accessible en plusieurs langues locales, elle offre des contenus éducatifs, des espaces d'échanges et des outils de signalement pour renforcer la participation civique et la transparence du scrutin.",
+    description: "Le projet est une initiative de civic tech visant à renforcer la participation significative des jeunes Somaliens, qui demeurent largement sous-représentés dans les processus électoraux. Sur une période de 9 mois, le projet co-développe et déploie une plateforme numérique multilingue et open source proposant des outils interactifs d'éducation civique, des informations électorales et des dispositifs de signalement d'incidents à destination des jeunes.",
     impact: "Renforcer la participation civique et la transparence électorale en Somalie",
-    technologies: ["Plateforme Multilingue", "Contenus Éducatifs", "Signalement"],
-    teamSize: 4,
+    technologies: ["Plateforme Multilingue", "Open Source", "Éducation Civique", "Signalement"],
     projectImage: "/placeholder.jpg",
-    selectedDate: "2025-01-15"
+    website: "https://bareedo.org/",
+    contact: "info@bareedo.org"
   },
   {
-    id: "12",
+    id: "11",
     projectName: "Inclusive Voices",
     organization: "Hopeline Foundation",
     country: "Somalie",
     countryFlag: "🇸🇴",
     category: "micro",
-    amount: 10000,
     domain: "Participation politique équitable",
-    description: "Un programme qui amplifie la voix des femmes et des jeunes dans les processus électoraux somaliens. À travers des outils numériques, des formations en leadership et des campagnes d'éducation civique, il promeut une participation politique équitable et la prévention des discours haineux ou discriminatoires.",
+    description: "Le projet vise à renforcer la sensibilisation électorale, la participation et le leadership des jeunes et des femmes somaliennes dans les districts de Hodan, Waberi et Kahda à Mogadiscio. Le projet utilise le storytelling numérique, l'éducation civique mobile, des forums de dialogue communautaire, des formations en leadership et des campagnes d'éducation civique.",
     impact: "Amplifier la voix des femmes et jeunes et prévenir les discours haineux",
-    technologies: ["Outils Numériques", "Leadership", "Éducation Civique"],
-    teamSize: 3,
+    technologies: ["Storytelling Numérique", "SMS", "Leadership", "Éducation Civique"],
     projectImage: "/placeholder.jpg",
-    selectedDate: "2025-01-15"
+    website: "",
+    contact: "mulki8452@gmail.com"
   },
   {
-    id: "13",
+    id: "12",
     projectName: "Harnessing Digital Tools for Youth and Women's Empowerment in Ethiopia's 2025 Electoral Process",
     organization: "Ethiopian Women Federation",
     country: "Éthiopie",
     countryFlag: "🇪🇹",
     category: "micro",
-    amount: 10000,
     domain: "Autonomisation numérique électorale",
-    description: "Une initiative qui outille les jeunes et les femmes éthiopiennes à participer activement aux élections de 2025. En combinant formation civique, sensibilisation numérique et leadership féminin, le projet contribue à une participation électorale plus inclusive, sûre et informée.",
+    description: "Le projet vise à outiller les jeunes et les femmes éthiopiennes pour une participation active et influente aux élections de 2025. En combinant formation civique, sensibilisation numérique et renforcement du leadership féminin, il favorise une participation électorale plus inclusive, sécurisée et informée.",
     impact: "Contribuer à une participation électorale inclusive, sûre et informée en Éthiopie",
-    technologies: ["Formation Civique", "Leadership Féminin", "Sensibilisation Numérique"],
-    teamSize: 5,
+    technologies: ["Plateforme Numérique", "SMS", "IVR", "Leadership Féminin"],
     projectImage: "/placeholder.jpg",
-    selectedDate: "2025-01-15"
+    website: "https://ethiopianwomansfederation.org/",
+    contact: "info@ethiopianwomansfederation.org"
   }
 ]
 
@@ -289,10 +256,8 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
 
   const majorProjects = winners.filter(w => w.category === "major")
   const microGrants = winners.filter(w => w.category === "micro")
-  const totalFunding = winners.reduce((sum, w) => sum + w.amount, 0)
   const countriesCount = new Set(winners.map(w => w.country)).size
 
-  // Use fallback translations if t is not available
   const getTranslation = (key: string, fallback: string) => {
     try {
       const keys = key.split('.')
@@ -363,11 +328,6 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
               <Globe className="w-4 h-4 mr-2" />
               {countriesCount} {getTranslation('winners.countries', 'Pays')}
             </Badge>
-            <span>•</span>
-            <Badge variant="outline" className="border-green-400 text-green-400 px-4 py-2">
-              <DollarSign className="w-4 h-4 mr-2" />
-              {totalFunding.toLocaleString()}€
-            </Badge>
           </div>
         </motion.div>
 
@@ -381,25 +341,23 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
           <Card className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border-yellow-400/50 backdrop-blur-sm">
             <CardContent className="p-6 text-center">
               <Trophy className="w-12 h-12 text-yellow-600 mx-auto mb-4" />
-              <div className="text-3xl font-bold text-yellow-600 mb-2">10</div>
+              <div className="text-3xl font-bold text-yellow-600 mb-2">{majorProjects.length}</div>
               <div className="text-gray-800 font-semibold">{getTranslation('winners.majorProjects', 'Projets Majeurs')}</div>
-              <div className="text-yellow-700 text-sm">jusqu'à 25,000€</div>
             </CardContent>
           </Card>
 
           <Card className="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border-blue-400/50 backdrop-blur-sm">
             <CardContent className="p-6 text-center">
               <Zap className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-              <div className="text-3xl font-bold text-blue-600 mb-2">3</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">{microGrants.length}</div>
               <div className="text-gray-800 font-semibold">{getTranslation('winners.microGrants', 'Micro-subventions')}</div>
-              <div className="text-blue-700 text-sm">jusqu'à 10,000€</div>
             </CardContent>
           </Card>
 
           <Card className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 border-green-400/50 backdrop-blur-sm">
             <CardContent className="p-6 text-center">
               <Heart className="w-12 h-12 text-green-600 mx-auto mb-4" />
-              <div className="text-3xl font-bold text-green-600 mb-2">8</div>
+              <div className="text-3xl font-bold text-green-600 mb-2">{countriesCount}</div>
               <div className="text-gray-800 font-semibold">{getTranslation('winners.beneficiaryCountries', 'Pays Bénéficiaires')}</div>
               <div className="text-green-700 text-sm">{getTranslation('winners.continentalImpact', 'Impact continental')}</div>
             </CardContent>
@@ -463,12 +421,6 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                       >
                         {filteredWinners[currentIndex]?.category === "major" ? getTranslation('winners.majorProjects', 'Projets Majeurs') : getTranslation('winners.microGrants', 'Micro-subventions')}
                       </Badge>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-white">
-                          {filteredWinners[currentIndex]?.amount?.toLocaleString() || '0'}€
-                        </div>
-                        <div className="text-blue-200 text-sm">{getTranslation('winners.funding', 'Financement')}</div>
-                      </div>
                     </div>
 
                     <div className="mb-6">
@@ -490,14 +442,16 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                           {getTranslation('winners.domain', 'Domaine d\'intervention')}
                         </h4>
                         <Badge variant="outline" className="border-yellow-400/60 text-yellow-300 bg-yellow-400/10">
-                          {filteredWinners[currentIndex]?.domain || getTranslation('winners.domain', 'Domaine d\'intervention')}
+                          {filteredWinners[currentIndex]?.domain || 'Domaine'}
                         </Badge>
                       </div>
 
                       <div>
-                        <h4 className="font-semibold text-white mb-2">{getTranslation('winners.description', 'Description du projet')}</h4>
+                        <h4 className="font-semibold text-white mb-2">
+                          {getTranslation('winners.description', 'Description')}
+                        </h4>
                         <p className="text-blue-200 leading-relaxed">
-                          {filteredWinners[currentIndex]?.description || getTranslation('winners.description', 'Description du projet')}
+                          {filteredWinners[currentIndex]?.description || 'Description du projet'}
                         </p>
                       </div>
 
@@ -515,18 +469,32 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                     <div className="grid grid-cols-2 gap-4 mb-6">
                       <div className="bg-white/5 rounded-lg p-3">
                         <div className="text-white font-semibold flex items-center">
-                          <Users className="w-4 h-4 mr-2" />
-                          {getTranslation('winners.team', 'Équipe')}
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          {getTranslation('winners.website', 'Site Web')}
                         </div>
-                        <div className="text-blue-300">{filteredWinners[currentIndex]?.teamSize || 0} {getTranslation('winners.members', 'membres')}</div>
+                        <div className="text-blue-300 text-sm truncate">
+                          {filteredWinners[currentIndex]?.website ? (
+                            <a href={filteredWinners[currentIndex].website} target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400 transition-colors">
+                              {filteredWinners[currentIndex].website.replace('https://', '').replace('http://', '')}
+                            </a>
+                          ) : (
+                            <span className="text-gray-400">Non disponible</span>
+                          )}
+                        </div>
                       </div>
                       <div className="bg-white/5 rounded-lg p-3">
                         <div className="text-white font-semibold flex items-center">
-                          <Calendar className="w-4 h-4 mr-2" />
-                          {getTranslation('winners.selection', 'Date de sélection')}
+                          <Mail className="w-4 h-4 mr-2" />
+                          {getTranslation('winners.contact', 'Contact')}
                         </div>
-                        <div className="text-blue-300">
-                          {filteredWinners[currentIndex]?.selectedDate ? new Date(filteredWinners[currentIndex].selectedDate).toLocaleDateString(lang === 'en' ? 'en-US' : 'fr-FR') : getTranslation('winners.selection', 'Date de sélection')}
+                        <div className="text-blue-300 text-sm truncate">
+                          {filteredWinners[currentIndex]?.contact ? (
+                            <a href={`mailto:${filteredWinners[currentIndex].contact}`} className="hover:text-yellow-400 transition-colors">
+                              {filteredWinners[currentIndex].contact}
+                            </a>
+                          ) : (
+                            <span className="text-gray-400">Non disponible</span>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -664,7 +632,7 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                             : "bg-blue-500/20 text-blue-300 border-blue-400/50"
                         }`}
                       >
-                        {winner.amount.toLocaleString()}€
+                        {winner.category === "major" ? "Projet Majeur" : "Micro-subvention"}
                       </Badge>
                     </div>
                     <div className="absolute bottom-4 left-4">
@@ -679,10 +647,18 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                     <p className="text-blue-300 text-sm mb-4 line-clamp-2">{winner.description}</p>
 
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center text-blue-200 text-sm">
-                        <Users className="w-4 h-4 mr-1" />
-                        {winner.teamSize} {getTranslation('winners.members', 'membres')}
-                      </div>
+                      {winner.website && (
+                        <a 
+                          href={winner.website} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="flex items-center text-blue-200 text-sm hover:text-yellow-400 transition-colors"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <ExternalLink className="w-4 h-4 mr-1" />
+                          Site web
+                        </a>
+                      )}
                       <Badge variant="outline" className="border-green-400/60 text-green-300 text-xs">
                         {winner.domain}
                       </Badge>
@@ -712,7 +688,7 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                 {getTranslation('winners.congratulations', '🎉 Félicitations à tous les bénéficiaires !')}
               </h2>
               <p className="text-gray-800 text-lg leading-relaxed">
-                {getTranslation('winners.transformMessage', 'Ces 13 projets innovants vont transformer la démocratie en Afrique. Ensemble, ils représentent l\'avenir de l\'engagement civique numérique et contribueront à renforcer les processus démocratiques sur le continent.')}
+                {getTranslation('winners.transformMessage', 'Ces 12 projets innovants vont transformer la démocratie en Afrique. Ensemble, ils représentent l\'avenir de l\'engagement civique numérique et contribueront à renforcer les processus démocratiques sur le continent.')}
               </p>
             </CardContent>
           </Card>
