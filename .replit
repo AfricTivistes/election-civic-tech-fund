@@ -55,3 +55,7 @@ packages = ["vim"]
 
 [agent]
 expertMode = true
+
+[deployment]
+deploymentTarget = "static"
+publicDir = "public"
