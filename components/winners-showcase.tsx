@@ -256,7 +256,7 @@ const winnersData: WinnerData[] = [
     },
     projectImage: "/placeholder.jpg",
     website: "https://senegalvote.org/",
-    contact: "senegal.vote@gmail.com"
+    contact: "contact@wambedmi.org"
   },
   {
     id: "9",
