@@ -65,7 +65,7 @@ const winnersData: WinnerData[] = [
       fr: ["Fact-checking", "Application Mobile", "Média Web", "Radio"],
       en: ["Fact-checking", "Mobile App", "Web Media", "Radio"]
     },
-    projectImage: "/placeholder.jpg",
+    projectImage: "/1.jpg",
     website: "https://www.excellencefoundationss.org/",
     contact: "hello@excellencefoundationss.org"
   },
@@ -92,7 +92,7 @@ const winnersData: WinnerData[] = [
       fr: ["Plateforme Collaborative", "Fact-checking", "Multilingue", "Podcasts"],
       en: ["Collaborative Platform", "Fact-checking", "Multilingual", "Podcasts"]
     },
-    projectImage: "/placeholder.jpg",
+    projectImage: "/2.jpg",
     website: "https://www.blogueurs.bj",
     contact: "contact@blogueurs.bj"
   },
@@ -119,7 +119,7 @@ const winnersData: WinnerData[] = [
       fr: ["Intelligence Artificielle", "Fact-checking", "Formation IA", "Multilingue"],
       en: ["Artificial Intelligence", "Fact-checking", "AI Training", "Multilingual"]
     },
-    projectImage: "/placeholder.jpg",
+    projectImage: "/7.jpg",
     website: "https://thebrainbuilders.org/",
     contact: "brainbuilderedu@gmail.com"
   },
@@ -146,7 +146,7 @@ const winnersData: WinnerData[] = [
       fr: ["Open Data", "Cartographie", "API", "OCR", "GitHub"],
       en: ["Open Data", "Mapping", "API", "OCR", "GitHub"]
     },
-    projectImage: "/placeholder.jpg",
+    projectImage: "/4.jpg",
     website: "https://www.vie-publique.sn/",
     contact: "contact@vie-publique.sn"
   },
@@ -173,7 +173,7 @@ const winnersData: WinnerData[] = [
       fr: ["MOOC", "WhatsApp Bot", "Plateforme Web", "Infographies"],
       en: ["MOOC", "WhatsApp Bot", "Web Platform", "Infographics"]
     },
-    projectImage: "/placeholder.jpg",
+    projectImage: "/11.jpg",
     website: "https://ablogui.org/",
     contact: "contact@ablogui.org"
   },
@@ -200,7 +200,7 @@ const winnersData: WinnerData[] = [
       fr: ["Application Mobile", "Signalement", "Podcast", "Formation Citoyenne"],
       en: ["Mobile App", "Reporting", "Podcast", "Citizen Training"]
     },
-    projectImage: "/placeholder.jpg",
+    projectImage: "/10.jpg",
     website: "https://adeinternational.org/",
     contact: "info@adeinternational.org"
   },
@@ -227,7 +227,7 @@ const winnersData: WinnerData[] = [
       fr: ["Legal Tech", "Chatbot WhatsApp", "Observatoire Citoyen", "Documentaire"],
       en: ["Legal Tech", "WhatsApp Chatbot", "Citizen Observatory", "Documentary"]
     },
-    projectImage: "/placeholder.jpg",
+    projectImage: "/6.jpg",
     website: "",
     contact: "adresrim@gmail.com"
   },
@@ -254,7 +254,7 @@ const winnersData: WinnerData[] = [
       fr: ["Plateforme Web", "Mobile", "Suivi des Promesses", "Open Data"],
       en: ["Web Platform", "Mobile", "Promise Tracking", "Open Data"]
     },
-    projectImage: "/placeholder.jpg",
+    projectImage: "/8.jpg",
     website: "https://senegalvote.org/",
     contact: "contact@wambedmi.org"
   },
@@ -281,7 +281,7 @@ const winnersData: WinnerData[] = [
       fr: ["Formation Numérique", "Réseautage", "Observation Électorale", "Base de données"],
       en: ["Digital Training", "Networking", "Electoral Observation", "Database"]
     },
-    projectImage: "/placeholder.jpg",
+    projectImage: "/5.jpg",
     website: "https://www.condnet.org/",
     contact: "nigatu@cond.org"
   },
@@ -308,7 +308,7 @@ const winnersData: WinnerData[] = [
       fr: ["Plateforme Multilingue", "Open Source", "Éducation Civique", "Signalement"],
       en: ["Multilingual Platform", "Open Source", "Civic Education", "Reporting"]
     },
-    projectImage: "/placeholder.jpg",
+    projectImage: "/3.jpg",
     website: "https://bareedo.org/",
     contact: "info@bareedo.org"
   },
@@ -362,7 +362,7 @@ const winnersData: WinnerData[] = [
       fr: ["Plateforme Numérique", "SMS", "IVR", "Leadership Féminin"],
       en: ["Digital Platform", "SMS", "IVR", "Women's Leadership"]
     },
-    projectImage: "/placeholder.jpg",
+    projectImage: "/9.jpg",
     website: "https://ethiopianwomansfederation.org/",
     contact: "info@ethiopianwomansfederation.org"
   }
@@ -709,13 +709,13 @@ export default function WinnersShowcase({ lang }: WinnersShowcaseProps) {
                   {/* Visual Side with Project Image */}
                   <div className="relative bg-gradient-to-br from-yellow-400/20 to-blue-500/30 flex flex-col items-center justify-center p-8">
                     {/* Project Image */}
-                    <div className="w-full h-48 bg-white/10 rounded-2xl mb-6 overflow-hidden border border-white/20 shadow-xl">
+                    <div className="w-full h-96 bg-white/10 rounded-2xl mb-6 overflow-hidden border border-white/20 shadow-xl">
                       {filteredWinners[currentIndex]?.projectImage ? (
                         <Image
                           src={filteredWinners[currentIndex].projectImage!}
                           alt={filteredWinners[currentIndex]?.projectName || 'Project'}
                           width={400}
-                          height={200}
+                          height={600}
                           className="w-full h-full object-cover"
                         />
                       ) : (
