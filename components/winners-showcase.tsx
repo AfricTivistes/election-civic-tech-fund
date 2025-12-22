@@ -173,7 +173,7 @@ const winnersData: WinnerData[] = [
       fr: ["MOOC", "WhatsApp Bot", "Plateforme Web", "Infographies"],
       en: ["MOOC", "WhatsApp Bot", "Web Platform", "Infographics"]
     },
-    projectImage: "/11.jpg",
+    projectImage: "/12.jpg",
     website: "https://ablogui.org/",
     contact: "contact@ablogui.org"
   },
