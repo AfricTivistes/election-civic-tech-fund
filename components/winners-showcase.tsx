@@ -363,8 +363,8 @@ const winnersData: WinnerData[] = [
       en: ["Digital Platform", "SMS", "IVR", "Women's Leadership"]
     },
     projectImage: "/9.jpg",
-    website: "https://ethiopianwomansfederation.org/",
-    contact: "info@ethiopianwomansfederation.org"
+    website: "https://692597ce177c5a83d2d98b8d--ethiopianwomenfederation.netlify.app/",
+    contact: "info@ewfethiopia.com"
   }
 ]
 
