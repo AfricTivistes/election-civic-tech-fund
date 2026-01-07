@@ -335,7 +335,7 @@ const winnersData: WinnerData[] = [
       fr: ["Storytelling Numérique", "SMS", "Leadership", "Éducation Civique"],
       en: ["Digital Storytelling", "SMS", "Leadership", "Civic Education"]
     },
-    projectImage: "/placeholder.jpg",
+    projectImage: "/13.jpg",
     website: "",
     contact: "mulki8452@gmail.com"
   },
