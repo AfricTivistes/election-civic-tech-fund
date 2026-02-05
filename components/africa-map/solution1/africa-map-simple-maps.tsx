@@ -7,6 +7,23 @@ import { useRouter } from 'next/navigation'
 import { Card } from '@/components/ui/card'
 import { countriesWithCoordinates } from './africa-simple-maps-data'
 
+const ISO_NUMERIC_TO_ALPHA2: Record<string, string> = {
+  '012': 'dz', '024': 'ao', '072': 'bw', '086': 'io', '108': 'bi',
+  '120': 'cm', '132': 'cv', '140': 'cf', '148': 'td', '174': 'km',
+  '178': 'cg', '180': 'cd', '204': 'bj', '226': 'gq', '231': 'et',
+  '232': 'er', '262': 'dj', '266': 'ga', '270': 'gm', '288': 'gh',
+  '324': 'gn', '384': 'ci', '404': 'ke', '426': 'ls', '430': 'lr',
+  '434': 'ly', '450': 'mg', '454': 'mw', '466': 'ml', '478': 'mr',
+  '480': 'mu', '504': 'ma', '508': 'mz', '516': 'na', '562': 'ne',
+  '566': 'ng', '624': 'gw', '638': 're', '646': 'rw', '678': 'st',
+  '686': 'sn', '690': 'sc', '694': 'sl', '706': 'so', '710': 'za',
+  '728': 'ss', '729': 'sd', '732': 'eh', '748': 'sz', '768': 'tg',
+  '788': 'tn', '800': 'ug', '818': 'eg', '834': 'tz', '854': 'bf',
+  '894': 'zm', '716': 'zw'
+}
+
+const AFRICA_ISO_CODES = Object.keys(ISO_NUMERIC_TO_ALPHA2)
+
 interface AfricaMapSimpleMapsProps {
   projectCounts: Record<string, number>
   lang: string
@@ -35,7 +52,7 @@ export function AfricaMapSimpleMaps({ projectCounts, lang }: AfricaMapSimpleMaps
     router.push(`/${lang}/projects?country=${countryCode}`)
   }
 
-  const projectCodes = Object.keys(projectCounts)
+  const projectCodes = Object.keys(projectCounts).map(c => c.toLowerCase())
 
   return (
     <div className="space-y-4">
@@ -61,32 +78,34 @@ export function AfricaMapSimpleMaps({ projectCounts, lang }: AfricaMapSimpleMaps
           >
             <Geographies geography="/africa-topojson.json">
               {({ geographies }: any) => (
-                geographies.map((geo: any) => {
-                  const countryCode = geo.properties.id || geo.properties.ISO_A2 || geo.properties.ADM0_A3
-                  const hasProject = projectCodes.includes(countryCode)
-                  const isHovered = hoveredCountry === countryCode
+                geographies
+                  .filter((geo: any) => AFRICA_ISO_CODES.includes(geo.id))
+                  .map((geo: any) => {
+                    const alpha2Code = ISO_NUMERIC_TO_ALPHA2[geo.id] || ''
+                    const hasProject = projectCodes.includes(alpha2Code)
+                    const isHovered = hoveredCountry === alpha2Code
 
-                  return (
-                    <Geography
-                      key={geo.rsmKey}
-                      geography={geo}
-                      fill={
-                        hasProject
-                          ? isHovered ? '#60a5fa' : '#3b82f6'
-                          : isHovered ? '#64748b' : '#475569'
-                      }
-                      stroke={isHovered ? '#fbbf24' : '#94a3b8'}
-                      strokeWidth={isHovered ? '1.5' : '1'}
-                      className="cursor-pointer transition-all duration-200"
-                      onClick={() => hasProject && handleCountryClick(countryCode)}
-                      onMouseEnter={() => setHoveredCountry(countryCode)}
-                      onMouseLeave={() => setHoveredCountry(null)}
-                      style={{
-                        opacity: hasProject ? 1 : 0.6
-                      }}
-                    />
-                  )
-                })
+                    return (
+                      <Geography
+                        key={geo.rsmKey}
+                        geography={geo}
+                        fill={
+                          hasProject
+                            ? isHovered ? '#60a5fa' : '#3b82f6'
+                            : isHovered ? '#64748b' : '#475569'
+                        }
+                        stroke={isHovered ? '#fbbf24' : '#94a3b8'}
+                        strokeWidth={isHovered ? '1.5' : '1'}
+                        className="cursor-pointer transition-all duration-200"
+                        onClick={() => hasProject && handleCountryClick(alpha2Code)}
+                        onMouseEnter={() => setHoveredCountry(alpha2Code)}
+                        onMouseLeave={() => setHoveredCountry(null)}
+                        style={{
+                          opacity: hasProject ? 1 : 0.6
+                        }}
+                      />
+                    )
+                  })
               )}
             </Geographies>
 
