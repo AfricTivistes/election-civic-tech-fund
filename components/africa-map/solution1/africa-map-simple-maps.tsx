@@ -33,21 +33,6 @@ export function AfricaMapSimpleMaps({ projectCounts, lang }: AfricaMapSimpleMaps
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null)
   const router = useRouter()
 
-  const text = {
-    fr: {
-      title: 'React-Simple-Maps',
-      subtitle: 'Solution 1 : Librairie React avec TopoJSON',
-      description: 'Approche officielle React-Simple-Maps avec données TopoJSON et marqueurs géographiques.'
-    },
-    en: {
-      title: 'React-Simple-Maps',
-      subtitle: 'Solution 1: React Library with TopoJSON',
-      description: 'Official React-Simple-Maps approach with TopoJSON data and geographic markers.'
-    }
-  }
-
-  const t = text[lang as keyof typeof text] || text.fr
-
   const handleCountryClick = (countryCode: string) => {
     router.push(`/${lang}/projects?country=${countryCode}`)
   }
@@ -56,13 +41,9 @@ export function AfricaMapSimpleMaps({ projectCounts, lang }: AfricaMapSimpleMaps
 
   return (
     <div className="space-y-4">
-      <div className="text-center mb-6">
-        <h3 className="text-2xl font-bold text-blue-400 mb-2">{t.title}</h3>
-        {t.subtitle}
-      </div>
 
       <Card className="bg-white/5 backdrop-blur-md border-white/20 p-6 border-2 border-blue-400/30">
-        <div className="w-full aspect-[4/3] flex items-center justify-center bg-gradient-to-br from-slate-900/50 to-blue-900/30 rounded-lg">
+        <div className="w-full aspect-[8/3] flex items-center justify-center bg-gradient-to-br from-slate-900/50 to-blue-900/30 rounded-lg">
           <ComposableMap
             projection="geoAzimuthalEqualArea"
             projectionConfig={{
@@ -165,15 +146,6 @@ export function AfricaMapSimpleMaps({ projectCounts, lang }: AfricaMapSimpleMaps
           </div>
         )}
       </Card>
-
-      <div className="flex justify-center">
-        <a
-          href={`/${lang}/projects`}
-          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white font-semibold rounded-lg transition-all"
-        >
-          {lang === 'fr' ? 'Voir tous les projets' : 'View all projects'}
-        </a>
-      </div>
     </div>
   )
 }

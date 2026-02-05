@@ -45,15 +45,15 @@ export default async function HomePage({ params }: HomePageProps) {
       <main>
         {/* Hero Section - Existing but improved */}
         <HeroSection lang={lang} />
+
+        {/* Africa Map Section - NEW */}
+        <AfricaMapSection lang={lang} />
         
         {/* Young Innovators Section - NEW */}
         <YoungInnovators />
         
         {/* Innovation Showcase Section - NEW */}
         <InnovationShowcase />
-        
-        {/* Africa Map Section - NEW */}
-        <AfricaMapSection lang={lang} />
         
         {/* Testimonials Section - NEW */}
         <Testimonials />

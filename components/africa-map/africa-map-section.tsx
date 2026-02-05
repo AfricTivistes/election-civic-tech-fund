@@ -1,7 +1,11 @@
+'use client'
+
 import { projects } from '@/data/projects'
-import { getAllCountries, getCountriesWithProjects } from '@/data/africa-geo'
 import { getProjectsByCountry } from '@/lib/projects'
-import { AfricaMapContainer } from './africa-map-container'
+import { AfricaMapSimpleMaps } from './solution1'
+import { MapLegend } from './map-legend'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 
 interface AfricaMapSectionProps {
   lang: string
@@ -31,6 +35,20 @@ export function AfricaMapSection({ lang }: AfricaMapSectionProps) {
 
   const t = text[lang as keyof typeof text] || text.fr
 
+  const text2 = {
+    fr: {
+      allProjects: 'Explorer tous les projets'
+    },
+    en: {
+      allProjects: 'Explore all projects'
+    }
+  }
+  const t2 = text2[lang as keyof typeof text2]
+
+  const handleAllProjectsClick = () => {
+    window.location.href = `/${lang}/projects`
+  }
+
   return (
     <section className="py-20 px-4">
       <div className="container mx-auto">
@@ -46,11 +64,24 @@ export function AfricaMapSection({ lang }: AfricaMapSectionProps) {
           </p>
         </div>
 
-        <AfricaMapContainer
-          countries={getAllCountries()}
-          projectCounts={projectCounts}
-          lang={lang}
-        />
+        <div className="space-y-6">
+          <div className="flex justify-between items-center">
+            <MapLegend lang={lang} />
+            <Button
+              onClick={handleAllProjectsClick}
+              className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-semibold"
+            >
+              {t2.allProjects}
+            </Button>
+          </div>
+
+          <Card className="bg-white/5 backdrop-blur-md border-white/20 p-6">
+            <AfricaMapSimpleMaps
+              projectCounts={projectCounts}
+              lang={lang}
+            />
+          </Card>
+        </div>
       </div>
     </section>
   )

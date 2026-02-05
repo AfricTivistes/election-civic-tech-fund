@@ -117,7 +117,7 @@ export function Footer({ lang }: FooterProps) {
               <div className="text-center">
                 <span className="text-blue-200 text-sm block">{text.poweredBy}</span>
                 <img
-                  src="/partners/ddi-logo.png"
+                  src="/partners/ddi-logo.jpeg"
                   alt="Digital Democracy Initiative"
                   className="h-8 w-auto mt-1"
                 />
