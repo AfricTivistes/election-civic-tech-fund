@@ -57,7 +57,7 @@ export function AnimatedCounter({
   }, [isVisible, end, duration])
 
   return (
-    <span ref={ref} className="tabular-nums">
+    <span ref={ref} className="tabular-nums" suppressHydrationWarning>
       {prefix}{count.toLocaleString()}{suffix}
     </span>
   )

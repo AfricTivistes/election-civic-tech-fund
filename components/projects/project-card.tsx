@@ -105,8 +105,8 @@ export function ProjectCard({ project, lang }: ProjectCardProps) {
           </div>
 
           <div className="flex items-center justify-between pt-4 border-t border-white/10">
-            <span className="text-yellow-400 font-semibold">
-              {project.budget.toLocaleString()}€
+            <span className="text-yellow-400 font-semibold" suppressHydrationWarning>
+              {project.budget.toLocaleString(lang === "fr" ? "fr-FR" : "en-US")}€
             </span>
             <span className="text-white text-sm flex items-center group-hover:translate-x-1 transition-transform">
               {text.viewProject}

@@ -34,7 +34,7 @@ export function Footer({ lang }: FooterProps) {
     },
   }
 
-  const text = t[lang as "fr" | "en"]
+  const text = t[lang as "fr" | "en"] || t.fr
 
   return (
     <footer className="bg-white/10 border-t border-white/20 pt-12 pb-8">

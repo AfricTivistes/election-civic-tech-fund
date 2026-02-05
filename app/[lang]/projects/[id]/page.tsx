@@ -180,9 +180,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <CardContent className="p-8">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                   <div className="bg-white/5 rounded-lg p-4 text-center">
-                    <div className="text-2xl font-bold text-yellow-400">
-                      {project.budget.toLocaleString()}€
-                    </div>
+<div className="text-2xl font-bold text-yellow-400" suppressHydrationWarning>
+              {project.budget.toLocaleString(lang === "fr" ? "fr-FR" : "en-US")}€
+            </div>
                     <div className="text-sm text-blue-200">{text.budget}</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-4 text-center">
@@ -333,9 +333,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                             >
                               {proj.category === "major" ? "Majeur" : "Micro"}
                             </Badge>
-                            <span className="text-sm text-yellow-400">
-                              {proj.budget.toLocaleString()}€
-                            </span>
+<span className="text-sm text-yellow-400" suppressHydrationWarning>
+                      {proj.budget.toLocaleString(currentLang === "fr" ? "fr-FR" : "en-US")}€
+                    </span>
                           </div>
                         </CardContent>
                       </Card>

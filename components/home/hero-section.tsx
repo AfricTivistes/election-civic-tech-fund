@@ -27,7 +27,7 @@ export function HeroSection({ lang }: HeroSectionProps) {
     },
   }
 
-  const text = t[lang as "fr" | "en"]
+  const text = t[lang as "fr" | "en"] || t.fr
 
   const stats = [
     { icon: Wallet, value: 175, suffix: "K€", label: lang === "fr" ? "Budget" : "Budget" },
@@ -41,29 +41,50 @@ export function HeroSection({ lang }: HeroSectionProps) {
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800" />
       
-      {/* Animated particles background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-yellow-400/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.2, 0.6, 0.2],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </div>
+{/* Animated particles background - Valeurs déterministes pour éviter l'hydratation */}
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {[
+        { left: 15, top: 20, duration: 3.5, delay: 0 },
+        { left: 25, top: 45, duration: 4.2, delay: 0.3 },
+        { left: 35, top: 70, duration: 3.8, delay: 0.6 },
+        { left: 45, top: 15, duration: 4.5, delay: 0.9 },
+        { left: 55, top: 55, duration: 3.2, delay: 1.2 },
+        { left: 65, top: 30, duration: 4.0, delay: 0.2 },
+        { left: 75, top: 75, duration: 3.7, delay: 0.5 },
+        { left: 85, top: 40, duration: 4.3, delay: 0.8 },
+        { left: 10, top: 60, duration: 3.4, delay: 1.1 },
+        { left: 20, top: 85, duration: 4.1, delay: 1.4 },
+        { left: 30, top: 10, duration: 3.9, delay: 0.4 },
+        { left: 40, top: 35, duration: 4.4, delay: 0.7 },
+        { left: 50, top: 80, duration: 3.3, delay: 1.0 },
+        { left: 60, top: 25, duration: 4.6, delay: 1.3 },
+        { left: 70, top: 50, duration: 3.6, delay: 1.5 },
+        { left: 80, top: 65, duration: 4.2, delay: 0.1 },
+        { left: 90, top: 15, duration: 3.8, delay: 0.4 },
+        { left: 5, top: 45, duration: 4.0, delay: 0.7 },
+        { left: 95, top: 55, duration: 3.5, delay: 1.0 },
+        { left: 50, top: 5, duration: 4.3, delay: 1.2 },
+      ].map((particle, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-2 h-2 bg-yellow-400/30 rounded-full"
+          style={{
+            left: `${particle.left}%`,
+            top: `${particle.top}%`,
+          }}
+          animate={{
+            y: [0, -30, 0],
+            opacity: [0.2, 0.6, 0.2],
+          }}
+          transition={{
+            duration: particle.duration,
+            repeat: Infinity,
+            delay: particle.delay,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
 
       {/* Floating gradient orbs */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-yellow-400/10 rounded-full blur-3xl animate-pulse" />

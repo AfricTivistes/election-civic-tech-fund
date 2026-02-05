@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer"
 import { HeroSection } from "@/components/home/hero-section"
 import { YoungInnovators } from "@/components/home/young-innovators"
 import { InnovationShowcase } from "@/components/home/innovation-showcase"
+import { AfricaMapSection } from "@/components/africa-map/africa-map-section"
 import { Testimonials } from "@/components/home/testimonials"
 import { StatsDashboard } from "@/components/home/stats-dashboard"
 import { CTASection } from "@/components/home/cta-section"
@@ -50,6 +51,9 @@ export default async function HomePage({ params }: HomePageProps) {
         
         {/* Innovation Showcase Section - NEW */}
         <InnovationShowcase />
+        
+        {/* Africa Map Section - NEW */}
+        <AfricaMapSection lang={lang} />
         
         {/* Testimonials Section - NEW */}
         <Testimonials />

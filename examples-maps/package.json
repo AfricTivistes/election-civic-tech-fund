@@ -1,0 +1,30 @@
+{
+  "name": "africa-map-examples",
+  "version": "1.0.0",
+  "description": "Exemples de cartes interactives Afrique pour React/Next.js",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "next": "^14.0.0",
+    "react-simple-maps": "^3.0.0",
+    "d3-scale": "^4.0.2",
+    "d3-format": "^3.1.0",
+    "react-leaflet": "^4.2.1",
+    "leaflet": "^1.9.4",
+    "@nivo/geo": "^0.84.0",
+    "@nivo/core": "^0.84.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/leaflet": "^1.9.8",
+    "typescript": "^5.0.0",
+    "tailwindcss": "^3.4.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  }
+}

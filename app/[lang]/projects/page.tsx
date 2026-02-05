@@ -9,6 +9,7 @@ import { AnimatedCounter } from "@/components/shared/animated-counter"
 
 interface ProjectsPageProps {
   params: Promise<{ lang: string }>
+  searchParams: Promise<{ country?: string }>
 }
 
 export async function generateMetadata({ params }: ProjectsPageProps): Promise<Metadata> {
@@ -21,14 +22,41 @@ export async function generateMetadata({ params }: ProjectsPageProps): Promise<M
   }
 }
 
-export default async function ProjectsPage({ params }: ProjectsPageProps) {
+export default async function ProjectsPage({ params, searchParams }: ProjectsPageProps) {
   const { lang } = await params
-  const projects = getAllProjects()
+  const { country: countryCode } = await searchParams
+  
+  const allProjects = getAllProjects()
   const stats = getProjectStats()
   const countries = getUniqueCountries()
   const technologies = getUniqueTechnologies(lang as "fr" | "en")
 
+  let filteredProjects = allProjects
+  let title: string
+  let subtitle: string
+  
   const currentLang = lang as "fr" | "en"
+
+  if (countryCode) {
+    filteredProjects = allProjects.filter(p => p.countryCode === countryCode)
+    const countryName = countries.find(c => c.code === countryCode)?.name[currentLang] || countryCode
+    
+    title = currentLang === 'fr' 
+      ? `Projets en ${countryName}`
+      : `Projects in ${countryName}`
+    
+    subtitle = currentLang === 'fr'
+      ? `${filteredProjects.length} projet${filteredProjects.length > 1 ? 's' : ''} en ${countryName}`
+      : `${filteredProjects.length} project${filteredProjects.length > 1 ? 's' : ''} in ${countryName}`
+  } else {
+    title = currentLang === 'fr' 
+      ? "Les Bénéficiaires du Fonds"
+      : "Fund Beneficiaries"
+    
+    subtitle = currentLang === 'fr'
+      ? "12 projets innovants pour transformer la démocratie en Afrique"
+      : "12 innovative projects to transform democracy in Africa"
+  }
 
   const t = {
     fr: {
@@ -45,6 +73,8 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
       statsCountries: "Pays",
       statsMajor: "Majeurs",
       statsMicro: "Micro",
+      viewAllProjects: "Voir tous les projets",
+      backToMap: "Retour à la carte",
     },
     en: {
       title: "Fund Beneficiaries",
@@ -60,6 +90,8 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
       statsCountries: "Countries",
       statsMajor: "Major",
       statsMicro: "Micro",
+      viewAllProjects: "View all projects",
+      backToMap: "Back to map",
     },
   }
 
@@ -129,10 +161,27 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {projects.map((project) => (
+              {filteredProjects.map((project) => (
                 <ProjectCard key={project.id} project={project} lang={lang} />
               ))}
             </div>
+            
+            {filteredProjects.length === 0 && (
+              <div className="text-center py-12">
+                <p className="text-blue-200 text-xl">{text.noProjects}</p>
+              </div>
+            )}
+            
+            {countryCode && (
+              <div className="text-center mt-8">
+                <a
+                  href={`/${lang}/projects`}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-semibold rounded-lg transition-all"
+                >
+                  {currentLang === 'fr' ? '← Voir tous les projets' : '← View all projects'}
+                </a>
+              </div>
+            )}
           </div>
         </section>
       </main>
