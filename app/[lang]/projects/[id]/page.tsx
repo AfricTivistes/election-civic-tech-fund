@@ -222,7 +222,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     <h2 className="text-xl font-bold text-white mb-4">{text.impact}</h2>
                     <Card className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-green-400/30">
                       <CardContent className="p-4">
-                        <p className="text-green-300 font-medium">
+                        <p className="text-blue-400 font-medium">
                           {project.impact[currentLang]}
                         </p>
                       </CardContent>

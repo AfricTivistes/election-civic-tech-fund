@@ -82,7 +82,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900">
       <Header lang={lang} />
 
       <main>
@@ -90,14 +90,14 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           <div className="container mx-auto max-w-4xl">
             <Link
               href={`/${lang}/news`}
-              className="inline-flex items-center text-blue-300 hover:text-yellow-400 mb-8 transition-colors"
+              className="inline-flex items-center text-gray-300 hover:text-yellow-400 mb-8 transition-colors"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               {text.back}
             </Link>
 
-            <Card className="bg-white/10 backdrop-blur-md border-white/20 overflow-hidden mb-8">
-              <div className="relative h-64 md:h-96 bg-gradient-to-br from-slate-700 to-slate-600">
+            <Card className="bg-slate-900/80 backdrop-blur-md border-slate-800/50 overflow-hidden mb-8 shadow-2xl">
+              <div className="relative h-64 md:h-96 bg-gradient-to-br from-slate-800 to-slate-700">
                 {article.image ? (
                   <Image
                     src={article.image}
@@ -114,7 +114,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 )}
               </div>
               <CardContent className="p-8">
-                <div className="flex items-center space-x-4 text-sm text-blue-300 mb-4">
+                <div className="flex items-center space-x-4 text-sm text-gray-300 mb-4">
                   <span className="flex items-center">
                     <Calendar className="w-4 h-4 mr-1" />
                     {formatDate(article.date)}
@@ -136,7 +136,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     <Badge
                       key={index}
                       variant="outline"
-                      className="border-yellow-400/50 text-yellow-300"
+                      className="border-yellow-400/60 text-yellow-300 bg-yellow-400/10"
                     >
                       {tag}
                     </Badge>
@@ -144,14 +144,25 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 </div>
 
                 <div
-                  className="prose prose-invert max-w-none"
+                  className="prose prose-invert prose-lg max-w-none
+                    prose-headings:text-white prose-headings:font-bold
+                    prose-p:text-gray-200 prose-p:leading-relaxed
+                    prose-h2:text-2xl prose-h2:text-yellow-300
+                    prose-h3:text-xl prose-h3:text-gray-100
+                    prose-strong:text-white
+                    prose-a:text-yellow-400 prose-a:no-underline hover:prose-a:text-yellow-300
+                    prose-ul:text-gray-200 prose-ol:text-gray-200
+                    prose-li:text-gray-200
+                    prose-blockquote:text-gray-100 prose-blockquote:border-l-yellow-400/50
+                    prose-code:text-yellow-300 prose-code:bg-yellow-400/10
+                    prose-pre:bg-slate-800 prose-pre:text-gray-100"
                   dangerouslySetInnerHTML={{ __html: article.htmlContent }}
                 />
               </CardContent>
             </Card>
 
             <div className="flex items-center justify-between mb-8">
-              <button className="inline-flex items-center text-blue-300 hover:text-yellow-400 transition-colors">
+              <button className="inline-flex items-center text-gray-300 hover:text-yellow-400 transition-colors">
                 <Share2 className="w-4 h-4 mr-2" />
                 {text.share}
               </button>
@@ -165,11 +176,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {similarProjects.map((project) => (
                     <Link key={project.id} href={`/${lang}/projects/${project.id}`}>
-                      <Card className="bg-white/10 backdrop-blur-md border-white/20 hover:border-yellow-400/50 transition-all duration-300">
+                      <Card className="bg-slate-800/60 backdrop-blur-md border-slate-700/50 hover:border-yellow-400/50 transition-all duration-300 shadow-lg">
                         <CardContent className="p-6">
                           <div className="flex items-center space-x-2 mb-3">
                             <span className="text-2xl">{project.countryFlag}</span>
-                            <span className="text-sm text-blue-300">
+                            <span className="text-sm text-gray-300">
                               {lang === "fr" ? project.country.fr : project.country.en}
                             </span>
                           </div>
