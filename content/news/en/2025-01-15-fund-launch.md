@@ -10,7 +10,7 @@ tags:
   - announcement
   - africa
 relatedProjects: []
-featured: true
+featured: false
 ---
 
 # Official Launch of the Election Civic Tech Fund

@@ -61,7 +61,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
   const regularArticles = articles.filter(a => !a.featured)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900">
       <Header lang={lang} />
 
       <main>
@@ -71,7 +71,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
               <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-blue-400 to-green-400 mb-4">
                 {text.title}
               </h1>
-              <p className="text-xl text-blue-200">
+              <p className="text-xl text-gray-200">
                 {text.subtitle}
               </p>
             </div>
@@ -79,11 +79,11 @@ export default async function NewsPage({ params }: NewsPageProps) {
             {featured && (
               <div className="mb-16">
                 <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
-                  <span className="bg-yellow-400 text-black px-3 py-1 rounded-lg mr-3">{text.featured}</span>
+                  <span className="bg-yellow-500 text-black px-3 py-1 rounded-lg mr-3">{text.featured}</span>
                 </h2>
-                <Card className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border-yellow-400/30 overflow-hidden">
+                <Card className="bg-slate-800/80 backdrop-blur-md border-yellow-500/50 overflow-hidden shadow-2xl">
                   <div className="grid md:grid-cols-2 gap-0">
-                    <div className="relative h-64 md:h-auto bg-gradient-to-br from-slate-700 to-slate-600">
+                    <div className="relative h-64 md:h-auto bg-gradient-to-br from-slate-800 to-slate-700">
                       {featured.image ? (
                         <Image
                           src={featured.image}
@@ -100,7 +100,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
                       )}
                     </div>
                     <CardContent className="p-8 flex flex-col justify-center">
-                      <div className="flex items-center space-x-4 text-sm text-blue-300 mb-4">
+                      <div className="flex items-center space-x-4 text-sm text-gray-300 mb-4">
                         <span className="flex items-center">
                           <Calendar className="w-4 h-4 mr-1" />
                           {formatDate(featured.date)}
@@ -115,12 +115,12 @@ export default async function NewsPage({ params }: NewsPageProps) {
                       <h3 className="text-2xl font-bold text-white mb-4">
                         {featured.title}
                       </h3>
-                      <p className="text-blue-200 mb-6 line-clamp-3">
+                      <p className="text-gray-300 mb-6 line-clamp-3">
                         {featured.excerpt}
                       </p>
                       <div className="flex flex-wrap gap-2 mb-6">
                         {featured.tags.map((tag, index) => (
-                          <Badge key={index} variant="outline" className="border-yellow-400/50 text-yellow-300">
+                          <Badge key={index} variant="outline" className="border-yellow-400/60 text-yellow-300 bg-yellow-400/10">
                             {tag}
                           </Badge>
                         ))}
@@ -145,8 +145,8 @@ export default async function NewsPage({ params }: NewsPageProps) {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {regularArticles.map((article) => (
                     <Link key={article.slug} href={`/${lang}/news/${article.slug}`}>
-                      <Card className="bg-white/10 backdrop-blur-md border-white/20 hover:border-yellow-400/50 transition-all duration-300 hover:-translate-y-1 h-full">
-                        <div className="relative h-48 bg-gradient-to-br from-slate-700 to-slate-600">
+                      <Card className="bg-slate-800/60 backdrop-blur-md border-slate-700/50 hover:border-yellow-400/50 transition-all duration-300 hover:-translate-y-1 h-full shadow-lg">
+                        <div className="relative h-48 bg-gradient-to-br from-slate-800 to-slate-700">
                           {article.image ? (
                             <Image
                               src={article.image}
@@ -163,14 +163,14 @@ export default async function NewsPage({ params }: NewsPageProps) {
                           )}
                         </div>
                         <CardContent className="p-6">
-                          <div className="flex items-center text-sm text-blue-300 mb-3">
+                          <div className="flex items-center text-sm text-gray-300 mb-3">
                             <Calendar className="w-4 h-4 mr-1" />
                             {formatDate(article.date)}
                           </div>
                           <h3 className="font-bold text-white text-lg mb-3 line-clamp-2">
                             {article.title}
                           </h3>
-                          <p className="text-blue-200 text-sm mb-4 line-clamp-2">
+                          <p className="text-gray-400 text-sm mb-4 line-clamp-2">
                             {article.excerpt}
                           </p>
                           <div className="flex flex-wrap gap-2">
@@ -178,7 +178,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
                               <Badge
                                 key={index}
                                 variant="outline"
-                                className="text-xs border-blue-400/50 text-blue-300"
+                                className="text-xs border-slate-600 text-gray-300"
                               >
                                 {tag}
                               </Badge>
@@ -191,7 +191,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
                 </div>
               ) : (
                 <div className="text-center py-12">
-                  <p className="text-blue-300 text-lg">{text.noArticles}</p>
+                  <p className="text-gray-300 text-lg">{text.noArticles}</p>
                 </div>
               )}
             </div>

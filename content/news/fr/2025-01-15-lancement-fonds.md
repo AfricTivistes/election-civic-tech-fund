@@ -10,7 +10,7 @@ tags:
   - annonce
   - afrique
 relatedProjects: []
-featured: true
+featured: false
 ---
 
 # Lancement officiel de l'Election Civic Tech Fund
