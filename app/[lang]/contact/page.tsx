@@ -190,7 +190,7 @@ export default function ContactPage({ params }: ContactPageProps) {
     {
       name: t.organizations.ddi,
       email: "",
-      website: "ddi.org",
+      website: "https://digitaldemocracyinitiative.net/",
       gradient: "from-violet-400 to-purple-500",
     },
   ]
