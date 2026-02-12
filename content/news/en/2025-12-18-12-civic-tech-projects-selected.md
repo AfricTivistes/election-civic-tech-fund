@@ -4,7 +4,7 @@ slug: "12-civic-tech-projects-selected"
 date: "2025-12-18"
 author: "AfricTivistes"
 excerpt: "Following a rigorous selection process from Election Civic Tech Fund. The selected flagship projects receive funding and tailored support under this programme, which aims to foster the emergence of electoral civic tech, strengthen the participation of young people and women through technology and support the development of new communities of actors committed to electoral transparency."
-image: "/news/12-civic-tech-projects-selected.jpg"
+image: "/news/12-civic-tech-projects-selected-en.webp"
 tags:
   - selection
   - beneficiaries

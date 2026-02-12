@@ -4,7 +4,7 @@ slug: "12-projets-civic-tech-retenus"
 date: "2025-12-18"
 author: "AfricTivistes"
 excerpt: "Après un processus de sélection rigoureux parmi plus de 170 candidatures innovantes, AfricTivistes dévoile la liste des lauréats du Fonds de l'innovation pour la participation citoyenne dans les processus électoraux en Afrique (Election Civic Tech Fund)."
-image: "/news/12-projets-civic-tech-retenus.jpg"
+image: "/news/12-civic-tech-projects-selected-fr.webp"
 tags:
   - sélection
   - bénéficiaires
