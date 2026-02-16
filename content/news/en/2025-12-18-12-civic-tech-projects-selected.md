@@ -83,7 +83,7 @@ These projects are supported throughout their implementation and benefit both fr
 
 ## The Fund Context
 
-In a context of electoral violence—affecting more than 50% of elections in sub-Saharan Africa since 1990—this fund, with a total envelope of **€175,000** and individual grants ranging from €10,000 to €25,000, aims to support these citizen-led technological initiatives.
+In a context of electoral violence—affecting more than 50% of elections in sub-Saharan Africa since 1990—this fund, with a total envelope of **€200,000** and individual grants ranging from €10,000 to €25,000, aims to support these citizen-led technological initiatives.
 
 ## A Vision for African Democracy
 

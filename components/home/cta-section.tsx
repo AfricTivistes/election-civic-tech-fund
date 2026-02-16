@@ -22,7 +22,7 @@ export function CTASection({ lang }: CTASectionProps) {
     },
   }
 
-  const text = t[lang as "fr" | "en"]
+  const text = t[lang as "fr" | "en"] || t.fr
 
   return (
     <section className="py-20 px-4 relative overflow-hidden">

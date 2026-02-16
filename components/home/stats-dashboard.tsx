@@ -8,7 +8,7 @@ import { AnimatedCounter } from "@/components/shared/animated-counter"
 import { Progress } from "@/components/ui/progress"
 
 const stats = [
-  { icon: Wallet, value: 175, suffix: "K€", label: "Budget total", color: "#f59e0b", progress: 100 },
+  { icon: Wallet, value: 200, suffix: "K€", label: "Budget total", color: "#f59e0b", progress: 100 },
   { icon: FolderKanban, value: 12, suffix: "", label: "Projets sélectionnés", color: "#3b82f6", progress: 100 },
   { icon: Globe, value: 14, suffix: "", label: "Pays couverts", color: "#10b981", progress: 100 },
   { icon: TrendingUp, value: 9, suffix: "", label: "Projets majeurs", color: "#8b5cf6", progress: 75 },
@@ -77,7 +77,7 @@ export function StatsDashboard() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
                 <div className="text-4xl font-bold text-yellow-400 mb-2">
-                  <AnimatedCounter end={175} suffix="K€" />
+                  <AnimatedCounter end={200} suffix="K€" />
                 </div>
                 <p className="text-blue-200">Budget total</p>
               </div>

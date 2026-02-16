@@ -21,15 +21,15 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
       ? "Election Civic Tech Fund | Transformer la démocratie en Afrique" 
       : "Election Civic Tech Fund | Transforming Democracy in Africa",
     description: lang === "fr"
-      ? "175 000€ pour 12 projets innovants dans 14 pays africains. Découvrez comment la technologie citoyenne transforme les processus électoraux."
-      : "€175,000 for 12 innovative projects across 14 African countries. Discover how civic technology is transforming electoral processes.",
+      ? "200 000€ pour 12 projets innovants dans 14 pays africains. Découvrez comment la technologie citoyenne transforme les processus électoraux."
+      : "€200,000 for 12 innovative projects across 14 African countries. Discover how civic technology is transforming electoral processes.",
     openGraph: {
       title: lang === "fr" 
         ? "Election Civic Tech Fund" 
         : "Election Civic Tech Fund",
       description: lang === "fr"
-        ? "175 000€ pour 12 projets innovants dans 14 pays africains"
-        : "€175,000 for 12 innovative projects across 14 African countries",
+        ? "200 000€ pour 12 projets innovants dans 14 pays africains"
+        : "€200,000 for 12 innovative projects across 14 African countries",
       type: "website",
     },
   }

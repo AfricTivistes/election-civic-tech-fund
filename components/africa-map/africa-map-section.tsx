@@ -43,7 +43,7 @@ export function AfricaMapSection({ lang }: AfricaMapSectionProps) {
       allProjects: 'Explore all projects'
     }
   }
-  const t2 = text2[lang as keyof typeof text2]
+  const t2 = text2[lang as keyof typeof text2] || text2.fr
 
   const handleAllProjectsClick = () => {
     window.location.href = `/${lang}/projects`

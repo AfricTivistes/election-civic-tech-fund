@@ -28,7 +28,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
       aboutTitle: "Le Projet",
       aboutText: `L'Election Civic Tech Fund est une initiative panafricaine lancée pour renforcer les processus électoraux à travers l'innovation technologique citoyenne.
 
-      Avec un budget de 175 000€, le Fonds soutient 12 projets innovants dans 14 pays africains, avec un focus particulier sur la jeunesse et la technologie.
+      Avec un budget de 200 000€, le Fonds soutient 12 projets innovants dans 14 pays africains, avec un focus particulier sur la jeunesse et la technologie.
 
       Les projets sélectionnés développent des solutions numériques pour :
       - Lutter contre la désinformation électorales
@@ -52,7 +52,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
       aboutTitle: "The Project",
       aboutText: `The Election Civic Tech Fund is a pan-African initiative launched to strengthen electoral processes through citizen-driven technological innovation.
 
-      With a budget of €175,000, the Fund supports 12 innovative projects across 14 African countries, with a particular focus on youth and technology.
+      With a budget of €200,000, the Fund supports 12 innovative projects across 14 African countries, with a particular focus on youth and technology.
 
       Selected projects develop digital solutions to:
       - Combat electoral disinformation
@@ -93,7 +93,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-16">
               <Card className="bg-white/10 backdrop-blur-md border-white/20">
                 <CardContent className="p-6 text-center">
-                  <div className="text-4xl font-bold text-yellow-400 mb-2">175K€</div>
+                  <div className="text-4xl font-bold text-yellow-400 mb-2">200K€</div>
                   <div className="text-white">{text.budget}</div>
                 </CardContent>
               </Card>

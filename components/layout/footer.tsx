@@ -95,7 +95,7 @@ export function Footer({ lang }: FooterProps) {
               />
             </div>
             <p className="text-blue-200 text-sm">
-              Ligue des Blogueurs et Cyber-Activistes pour la Démocratie en Afrique
+              AfricTivistes
             </p>
           </div>
         </div>

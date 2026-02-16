@@ -83,7 +83,7 @@ Ces projets lauréats sont accompagnés dans leur mise en œuvre et bénéficien
 
 ## Le contexte du fonds
 
-Dans un contexte de violences électorales, touchant plus de 50 % des élections en Afrique subsaharienne depuis 1990, ce fonds, doté de **175 000 euros** et destiné à des financements allant de 10 000 à 25 000 euros, vise à soutenir ces initiatives technologiques citoyennes.
+Dans un contexte de violences électorales, touchant plus de 50 % des élections en Afrique subsaharienne depuis 1990, ce fonds, doté de **200 000 euros** et destiné à des financements allant de 10 000 à 25 000 euros, vise à soutenir ces initiatives technologiques citoyennes.
 
 ## Une vision pour la démocratie africaine
 

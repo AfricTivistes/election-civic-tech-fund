@@ -3,7 +3,7 @@ title: "Lancement officiel de l'Election Civic Tech Fund"
 slug: "lancement-fonds"
 date: "2025-01-15"
 author: "Équipe AfricTivistes"
-excerpt: "L'Election Civic Tech Fund annonce officiellement son lancement avec un budget de 175 000€ pour soutenir 12 projets innovants en Afrique."
+excerpt: "L'Election Civic Tech Fund annonce officiellement son lancement avec un budget de 200 000€ pour soutenir 12 projets innovants en Afrique."
 image: "/news/lancement-fonds.jpg"
 tags:
   - lancement
@@ -17,13 +17,13 @@ featured: false
 
 L'**Election Civic Tech Fund** est fier d'annoncer son lancement officiel, une initiative panafricaine visant à renforcer les processus électoraux à travers l'innovation technologique citoyenne.
 
-## Un budget de 175 000€ pour l'innovation démocratique
+## Un budget de 200 000€ pour l'innovation démocratique
 
-Avec un budget total de 175 000€, le Fonds soutiendra 12 projets innovants dans 14 pays africains, avec un focus particulier sur la jeunesse et la technologie.
+Avec un budget total de 200 000€, le Fonds soutiendra 12 projets innovants dans 14 pays africains, avec un focus particulier sur la jeunesse et la technologie.
 
 ## Les chiffres clés
 
-- **175 000€** de budget total
+- **200 000€** de budget total
 - **14 pays** africains ciblés
 - **12 projets** sélectionnés
 - **9 projets majeurs** (15 000€)

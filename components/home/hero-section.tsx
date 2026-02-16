@@ -14,14 +14,14 @@ export function HeroSection({ lang }: HeroSectionProps) {
     fr: {
       title: "Election Civic Tech Fund",
       subtitle: "Transformer la démocratie africaine par l'innovation technologique",
-      description: "175 000€ pour 12 projets innovants dans 14 pays africains, portés par la jeunesse et propulsés par la technologie.",
+      description: "200 000€ pour 12 projets innovants dans 14 pays africains, portés par la jeunesse et propulsés par la technologie.",
       ctaPrimary: "Découvrir les projets",
       ctaSecondary: "En savoir plus",
     },
     en: {
       title: "Election Civic Tech Fund",
       subtitle: "Transforming African democracy through technological innovation",
-      description: "€175,000 for 12 innovative projects across 14 African countries, driven by youth and powered by technology.",
+      description: "€200,000 for 12 innovative projects across 14 African countries, driven by youth and powered by technology.",
       ctaPrimary: "Discover the projects",
       ctaSecondary: "Learn more",
     },
@@ -30,7 +30,7 @@ export function HeroSection({ lang }: HeroSectionProps) {
   const text = t[lang as "fr" | "en"] || t.fr
 
   const stats = [
-    { icon: Wallet, value: 175, suffix: "K€", label: lang === "fr" ? "Budget" : "Budget" },
+    { icon: Wallet, value: 200, suffix: "K€", label: lang === "fr" ? "Budget" : "Budget" },
     { icon: FolderKanban, value: 12, suffix: "", label: lang === "fr" ? "Projets" : "Projects" },
     { icon: Globe, value: 14, suffix: "", label: lang === "fr" ? "Pays" : "Countries" },
     { icon: Users, value: 650, suffix: "+", label: lang === "fr" ? "Jeunes" : "Youth" },

@@ -20,7 +20,7 @@ export function MapLegend({ lang }: MapLegendProps) {
     }
   }
 
-  const t = text[lang as keyof typeof text]
+  const t = text[lang as keyof typeof text] || text.fr
 
   return (
     <Card className="bg-white/10 backdrop-blur-md border-white/20 p-4">

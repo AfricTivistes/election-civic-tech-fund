@@ -114,7 +114,7 @@ export function AnimatedCounter({
 
 **Usage :**
 ```tsx
-<AnimatedCounter end={175} suffix="K€" />
+<AnimatedCounter end={200} suffix="K€" />
 <AnimatedCounter end={12} />
 <AnimatedCounter end={14} />
 ```
