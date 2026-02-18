@@ -68,7 +68,6 @@ const domains = [
     id: "tech",
     title: "Technologies Citoyennes",
     description: "Blockchain, IA, civic tech",
-    allocation: "70 000€ • 40%",
     icon: Lightbulb,
     color: "from-blue-400 to-cyan-500",
   },
@@ -76,7 +75,6 @@ const domains = [
     id: "engagement",
     title: "Engagement Citoyen",
     description: "Éducation, observation, inclusion",
-    allocation: "43 750€ • 25%",
     icon: Target,
     color: "from-green-400 to-emerald-500",
   },
@@ -84,7 +82,6 @@ const domains = [
     id: "media",
     title: "Médias & Information",
     description: "Fact-checking, anti-désinformation",
-    allocation: "35 000€ • 20%",
     icon: FileText,
     color: "from-purple-400 to-pink-500",
   },
@@ -92,7 +89,6 @@ const domains = [
     id: "legal",
     title: "Cadre Légal",
     description: "Réformes, contentieux, veille",
-    allocation: "26 250€ • 15%",
     icon: Scale,
     color: "from-orange-400 to-red-500",
   },
@@ -201,9 +197,6 @@ export function InnovationShowcase() {
                     </div>
                     <h4 className="font-bold text-white mb-2">{domain.title}</h4>
                     <p className="text-blue-200 text-sm mb-4">{domain.description}</p>
-                    <div className="inline-block px-3 py-1 bg-amber-400/20 text-amber-300 text-sm rounded-full">
-                      {domain.allocation}
-                    </div>
                   </div>
                 </GradientCard>
               )
