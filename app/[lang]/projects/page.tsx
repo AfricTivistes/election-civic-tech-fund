@@ -113,7 +113,7 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            <div className="grid grid-cols-2 gap-4 mb-12">
               <Card className="bg-white/10 backdrop-blur-md border-white/20">
                 <CardContent className="p-6 text-center">
                   <div className="text-4xl font-bold text-yellow-400 mb-2">
@@ -130,34 +130,6 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
                   <div className="text-white">{text.statsCountries}</div>
                 </CardContent>
               </Card>
-              <Card className="bg-white/10 backdrop-blur-md border-white/20">
-                <CardContent className="p-6 text-center">
-                  <div className="text-4xl font-bold text-green-400 mb-2">
-                    <AnimatedCounter end={stats.major} />
-                  </div>
-                  <div className="text-white">{text.statsMajor}</div>
-                </CardContent>
-              </Card>
-              <Card className="bg-white/10 backdrop-blur-md border-white/20">
-                <CardContent className="p-6 text-center">
-                  <div className="text-4xl font-bold text-purple-400 mb-2">
-                    <AnimatedCounter end={stats.micro} />
-                  </div>
-                  <div className="text-white">{text.statsMicro}</div>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="flex flex-wrap gap-3 mb-8">
-              <Badge className="cursor-pointer bg-white/10 text-white hover:bg-yellow-400 hover:text-black">
-                {text.allProjects}
-              </Badge>
-              <Badge className="cursor-pointer bg-white/10 text-white hover:bg-yellow-400 hover:text-black">
-                {text.major}
-              </Badge>
-              <Badge className="cursor-pointer bg-white/10 text-white hover:bg-blue-400 hover:text-black">
-                {text.micro}
-              </Badge>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

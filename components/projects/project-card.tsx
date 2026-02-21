@@ -58,18 +58,6 @@ export function ProjectCard({ project, lang }: ProjectCardProps) {
             </div>
           )}
 
-          <div className="absolute top-3 right-3">
-            <Badge
-              className={
-                project.category === "major"
-                  ? "bg-yellow-500 text-black"
-                  : "bg-blue-500 text-white"
-              }
-            >
-              {project.category === "major" ? text.major : text.micro}
-            </Badge>
-          </div>
-
           <div className="absolute bottom-3 left-3">
             <span className="text-2xl drop-shadow-lg">{project.countryFlag}</span>
           </div>
