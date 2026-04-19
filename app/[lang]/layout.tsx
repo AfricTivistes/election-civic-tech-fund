@@ -23,6 +23,7 @@ export default async function LangLayout({
         __html: `
           if (typeof document !== 'undefined') {
             document.documentElement.removeAttribute('data-google-analytics-opt-out');
+            document.documentElement.lang = '${lang}';
           }
         `
       }} />

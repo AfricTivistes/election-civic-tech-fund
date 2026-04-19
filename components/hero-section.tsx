@@ -301,7 +301,7 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
 
           <div className="flex justify-center items-center space-x-4 text-xl text-blue-200 mb-8">
             <Badge variant="outline" className="border-yellow-400 text-yellow-400 px-4 py-2">
-              175 000€
+              200 000€
             </Badge>
             <span>•</span>
             <Badge variant="outline" className="border-blue-400 text-blue-400 px-4 py-2">
