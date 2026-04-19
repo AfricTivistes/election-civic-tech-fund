@@ -33,10 +33,6 @@ export function MapLegend({ lang }: MapLegendProps) {
           <div className="w-4 h-4 rounded-sm bg-slate-600" />
           <span className="text-white">{t.withoutProjects}</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 rounded-full bg-yellow-400" />
-          <span className="text-white">{t.marker}</span>
-        </div>
       </div>
     </Card>
   )

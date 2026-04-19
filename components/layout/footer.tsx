@@ -94,9 +94,6 @@ export function Footer({ lang }: FooterProps) {
                 }}
               />
             </div>
-            <p className="text-blue-200 text-sm">
-              AfricTivistes
-            </p>
           </div>
         </div>
 
