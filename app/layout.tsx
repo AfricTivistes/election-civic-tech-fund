@@ -10,15 +10,11 @@ export const metadata: Metadata = {
   description: "Soutenir l'innovation civique électorale dans 14 pays africains",
   openGraph: {
     siteName: "Election Civic Tech Fund",
-    images: [{
-      url: `/api/og?title=Election+Civic+Tech+Fund&description=Soutenir+l%27innovation+civique+%C3%A9lectorale+en+Afrique&lang=fr`,
-      width: 1200,
-      height: 630,
-    }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    images: [`/api/og?title=Election+Civic+Tech+Fund&description=Soutenir+l%27innovation+civique+%C3%A9lectorale+en+Afrique&lang=fr`],
+    images: ["/og-image.png"],
   },
 }
 

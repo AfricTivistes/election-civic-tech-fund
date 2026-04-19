@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { getAllNews, getNewsBySlug } from "@/lib/news"
-import { getSimilarProjects } from "@/lib/projects"
+import { getProjectsByIds, getAllProjects } from "@/lib/projects"
 import { Calendar, User, ArrowLeft, Share2 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
@@ -56,7 +56,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     notFound()
   }
 
-  const similarProjects = getSimilarProjects("1", 3)
+  const relatedIds = article.relatedProjects || []
+  const similarProjects = relatedIds.length > 0
+    ? getProjectsByIds(relatedIds)
+    : getAllProjects()
 
   const t = {
     fr: {
@@ -176,7 +179,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 <h2 className="text-2xl font-bold text-white mb-6">
                   {text.relatedProjects}
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                   {similarProjects.map((project) => (
                     <Link key={project.id} href={`/${lang}/projects/${project.id}`}>
                       <Card className="bg-slate-800/60 backdrop-blur-md border-slate-700/50 hover:border-yellow-400/50 transition-all duration-300 shadow-lg">
@@ -190,15 +193,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                           <h3 className="font-bold text-white mb-2 line-clamp-2">
                             {lang === "fr" ? project.projectName.fr : project.projectName.en}
                           </h3>
-                          <Badge
-                            className={
-                              project.category === "major"
-                                ? "bg-yellow-500 text-black"
-                                : "bg-blue-500 text-white"
-                            }
-                          >
-                            {project.category === "major" ? "Majeur" : "Micro"}
-                          </Badge>
                         </CardContent>
                       </Card>
                     </Link>

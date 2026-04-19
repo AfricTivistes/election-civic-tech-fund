@@ -51,6 +51,10 @@ export function getSimilarProjects(
     .slice(0, count)
 }
 
+export function getProjectsByIds(ids: string[]): Project[] {
+  return ids.map(id => projects.find(p => p.id === id)).filter(Boolean) as Project[]
+}
+
 export function getProjectStats() {
   const total = projects.length
   const major = projects.filter(p => p.category === 'major').length
