@@ -1,4 +1,5 @@
 import { Metadata } from "next"
+import { ogImageUrl } from "@/lib/og"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { HeroSection } from "@/components/home/hero-section"
@@ -31,6 +32,19 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
         ? "200 000€ pour 12 projets innovants dans 14 pays africains"
         : "€200,000 for 12 innovative projects across 14 African countries",
       type: "website",
+      images: [{ url: ogImageUrl(
+        lang === "fr" ? "Election Civic Tech Fund" : "Election Civic Tech Fund",
+        lang === "fr" ? "200 000€ pour 12 projets innovants dans 14 pays africains" : "€200,000 for 12 innovative projects across 14 African countries",
+        lang
+      ), width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: [ogImageUrl(
+        lang === "fr" ? "Election Civic Tech Fund" : "Election Civic Tech Fund",
+        lang === "fr" ? "200 000€ pour 12 projets innovants dans 14 pays africains" : "€200,000 for 12 innovative projects across 14 African countries",
+        lang
+      )],
     },
   }
 }

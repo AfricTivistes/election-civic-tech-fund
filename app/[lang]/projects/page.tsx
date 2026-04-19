@@ -1,4 +1,5 @@
 import { Metadata } from "next"
+import { ogImageUrl } from "@/lib/og"
 import { getAllProjects, getProjectStats, getUniqueCountries, getUniqueTechnologies } from "@/lib/projects"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
@@ -19,6 +20,14 @@ export async function generateMetadata({ params }: ProjectsPageProps): Promise<M
     description: lang === "fr"
       ? "Découvrez les 12 projets innovants soutenus par l'Election Civic Tech Fund"
       : "Discover the 12 innovative projects supported by the Election Civic Tech Fund",
+    openGraph: {
+      images: [{ url: ogImageUrl(
+        lang === "fr" ? "Projets Bénéficiaires" : "Beneficiary Projects",
+        lang === "fr" ? "Découvrez les 12 projets innovants soutenus par l'Election Civic Tech Fund" : "Discover the 12 innovative projects supported by the Election Civic Tech Fund",
+        lang
+      ), width: 1200, height: 630 }],
+    },
+    twitter: { card: "summary_large_image" },
   }
 }
 

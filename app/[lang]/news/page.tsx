@@ -1,4 +1,5 @@
 import { Metadata } from "next"
+import { ogImageUrl } from "@/lib/og"
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -19,6 +20,14 @@ export async function generateMetadata({ params }: NewsPageProps): Promise<Metad
     description: lang === "fr"
       ? "Suivez les dernières actualités de l'Election Civic Tech Fund"
       : "Follow the latest news from the Election Civic Tech Fund",
+    openGraph: {
+      images: [{ url: ogImageUrl(
+        lang === "fr" ? "Actualités" : "News",
+        lang === "fr" ? "Suivez les dernières actualités de l'Election Civic Tech Fund" : "Follow the latest news from the Election Civic Tech Fund",
+        lang
+      ), width: 1200, height: 630 }],
+    },
+    twitter: { card: "summary_large_image" },
   }
 }
 

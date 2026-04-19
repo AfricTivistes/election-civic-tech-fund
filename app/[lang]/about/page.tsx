@@ -1,4 +1,5 @@
 import { Metadata } from "next"
+import { ogImageUrl } from "@/lib/og"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Header } from "@/components/layout/header"
@@ -16,6 +17,14 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
     description: lang === "fr"
       ? "Découvrez l'Election Civic Tech Fund, une initiative panafricaine soutenant 12 projets innovants"
       : "Discover the Election Civic Tech Fund, a pan-African initiative supporting 12 innovative projects",
+    openGraph: {
+      images: [{ url: ogImageUrl(
+        lang === "fr" ? "À propos du Fonds" : "About the Fund",
+        lang === "fr" ? "Une initiative panafricaine soutenant l'innovation électorale dans 14 pays" : "A pan-African initiative supporting electoral innovation across 14 countries",
+        lang
+      ), width: 1200, height: 630 }],
+    },
+    twitter: { card: "summary_large_image" },
   }
 }
 

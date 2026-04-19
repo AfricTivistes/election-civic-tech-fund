@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { ogImageUrl } from "@/lib/og"
 
 export async function generateMetadata({
   params,
@@ -21,7 +22,13 @@ export async function generateMetadata({
       description: isFr
         ? "Une question sur le Fonds Election Civic Tech ? Contactez l'équipe AfricTivistes."
         : "Have a question about the Election Civic Tech Fund? Contact the AfricTivistes team.",
+      images: [{ url: ogImageUrl(
+        isFr ? "Nous contacter" : "Contact Us",
+        isFr ? "Une question sur le Fonds Election Civic Tech ? Contactez l'équipe AfricTivistes." : "Have a question about the Election Civic Tech Fund? Contact the AfricTivistes team.",
+        lang
+      ), width: 1200, height: 630 }],
     },
+    twitter: { card: "summary_large_image" },
   }
 }
 

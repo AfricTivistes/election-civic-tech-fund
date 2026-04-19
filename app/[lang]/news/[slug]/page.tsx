@@ -1,5 +1,6 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
+import { ogImageUrl } from "@/lib/og"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Header } from "@/components/layout/header"
@@ -38,7 +39,9 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     openGraph: {
       title: article.title,
       description: article.excerpt,
-      images: article.image ? [article.image] : [],
+      images: article.image
+        ? [{ url: article.image, width: 1200, height: 630 }]
+        : [{ url: ogImageUrl(article.title, article.excerpt, lang), width: 1200, height: 630 }],
       type: "article",
       publishedTime: article.date,
     },
