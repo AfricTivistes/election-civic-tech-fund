@@ -2,11 +2,24 @@ import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://electioncivictechfund.africtivistes.com"
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://vercel.com/hubafrictivistes-projects/v0-democracy-form-builder'),
+  metadataBase: new URL(BASE_URL),
   title: "Election Civic Tech Fund",
-  description: "Digital Democracy Journey",
-  generator: "v0.dev",
+  description: "Soutenir l'innovation civique électorale dans 14 pays africains",
+  openGraph: {
+    siteName: "Election Civic Tech Fund",
+    images: [{
+      url: `/api/og?title=Election+Civic+Tech+Fund&description=Soutenir+l%27innovation+civique+%C3%A9lectorale+en+Afrique&lang=fr`,
+      width: 1200,
+      height: 630,
+    }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [`/api/og?title=Election+Civic+Tech+Fund&description=Soutenir+l%27innovation+civique+%C3%A9lectorale+en+Afrique&lang=fr`],
+  },
 }
 
 export default function RootLayout({
