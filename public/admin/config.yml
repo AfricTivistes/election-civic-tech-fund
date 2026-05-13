@@ -1,0 +1,129 @@
+backend:
+  name: git-gateway
+  branch: main
+
+publish_mode: editorial_workflow
+
+locale: "fr"
+
+media_folder: public/news
+public_folder: /news
+
+collections:
+  - name: news_en
+    label: "Actualités (English)"
+    label_singular: "Article (EN)"
+    folder: content/news/en
+    create: true
+    delete: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: md
+    format: yaml-frontmatter
+    summary: "{{date}} — {{title}}"
+    fields:
+      - label: "Titre"
+        name: title
+        widget: string
+      - label: "Slug"
+        name: slug
+        widget: string
+        hint: "Identifiant URL unique, ex: africtivistes-launches-election-civic-tech-fund"
+      - label: "Date"
+        name: date
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+      - label: "Auteur"
+        name: author
+        widget: string
+        required: false
+      - label: "Extrait"
+        name: excerpt
+        widget: text
+      - label: "Image"
+        name: image
+        widget: image
+        required: false
+        hint: "Image de couverture (stockée dans /public/news/)"
+      - label: "Tags"
+        name: tags
+        widget: list
+        field:
+          label: "Tag"
+          name: tag
+          widget: string
+      - label: "Projets liés"
+        name: relatedProjects
+        widget: list
+        required: false
+        field:
+          label: "ID du projet"
+          name: projectId
+          widget: string
+        hint: "IDs des projets liés, ex: 1, 2, 3"
+      - label: "Mis en avant"
+        name: featured
+        widget: boolean
+        default: false
+      - label: "Contenu"
+        name: body
+        widget: markdown
+
+  - name: news_fr
+    label: "Actualités (Français)"
+    label_singular: "Article (FR)"
+    folder: content/news/fr
+    create: true
+    delete: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: md
+    format: yaml-frontmatter
+    summary: "{{date}} — {{title}}"
+    fields:
+      - label: "Titre"
+        name: title
+        widget: string
+      - label: "Slug"
+        name: slug
+        widget: string
+        hint: "Identifiant URL unique, ex: lancement-fonds-innovation-participation-citoyenne"
+      - label: "Date"
+        name: date
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+      - label: "Auteur"
+        name: author
+        widget: string
+        required: false
+      - label: "Extrait"
+        name: excerpt
+        widget: text
+      - label: "Image"
+        name: image
+        widget: image
+        required: false
+        hint: "Image de couverture (stockée dans /public/news/)"
+      - label: "Tags"
+        name: tags
+        widget: list
+        field:
+          label: "Tag"
+          name: tag
+          widget: string
+      - label: "Projets liés"
+        name: relatedProjects
+        widget: list
+        required: false
+        field:
+          label: "ID du projet"
+          name: projectId
+          widget: string
+        hint: "IDs des projets liés, ex: 1, 2, 3"
+      - label: "Mis en avant"
+        name: featured
+        widget: boolean
+        default: false
+      - label: "Contenu"
+        name: body
+        widget: markdown
