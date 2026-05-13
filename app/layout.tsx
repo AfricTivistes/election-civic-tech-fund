@@ -1,5 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
+import Script from "next/script"
 import "./globals.css"
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://electioncivictechfund.africtivistes.com"
@@ -25,7 +26,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body>{children}</body>
+      <body>
+        <Script
+          src="https://unpkg.com/netlify-identity-widget@1.9.1/dist/netlify-identity-widget.js"
+          strategy="afterInteractive"
+        />
+        {children}
+      </body>
     </html>
   )
 }
