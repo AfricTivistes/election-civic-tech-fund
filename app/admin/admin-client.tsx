@@ -16,7 +16,7 @@ export default function AdminClient() {
     window.CMS_MANUAL_INIT = true
 
     const identityScript = document.createElement("script")
-    identityScript.src = "https://unpkg.com/netlify-identity-widget@1.9.1/dist/netlify-identity-widget.js"
+    identityScript.src = "https://identity.netlify.com/v1/netlify-identity-widget.js"
     identityScript.async = true
     document.head.appendChild(identityScript)
 

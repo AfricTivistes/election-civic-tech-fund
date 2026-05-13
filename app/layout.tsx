@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="fr">
       <body>
         <Script
-          src="https://unpkg.com/netlify-identity-widget@1.9.1/dist/netlify-identity-widget.js"
+          src="https://identity.netlify.com/v1/netlify-identity-widget.js"
           strategy="afterInteractive"
         />
         {children}
