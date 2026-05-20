@@ -1,10 +1,12 @@
 ---
-title: "15 organisations Civic Tech sélectionnées comme finalistes"
-slug: "15-civic-tech-finalistes"
-date: "2024-07-17"
-author: "Commission de l'Union Africaine"
-excerpt: "15 organisations civic tech recevront €15 000 du Fonds Civic Tech de l'Union Africaine pour mener des projets d'engagement citoyen dans toute l'Afrique."
-image: "/news/au-finalistes-2024.jpg"
+title: 15 organisations Civic Tech sélectionnées comme finalistes
+slug: 15-civic-tech-finalistes
+date: 2024-07-17
+author: Commission de l'Union Africaine
+excerpt: 15 organisations civic tech recevront €15 000 du Fonds Civic Tech de
+  l'Union Africaine pour mener des projets d'engagement citoyen dans toute
+  l'Afrique.
+image: /news/2.png
 tags:
   - civic-tech
   - finalistes
