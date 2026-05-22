@@ -1,10 +1,11 @@
 ---
-title: "Sélection des 12 bénéficiaires de l'Election Civic Tech Fund"
-slug: "selection-beneficiaires"
-date: "2025-02-01"
-author: "Équipe AfricTivistes"
-excerpt: "Après un processus de sélection rigoureux, 12 projets innovants ont été choisis pour recevoir le soutien du Fonds."
-image: "/news/selection-beneficiaires.jpg"
+title: Sélection des 12 bénéficiaires de l'Election Civic Tech Fund
+slug: selection-beneficiaires
+date: 2025-02-01
+author: Équipe AfricTivistes
+excerpt: Après un processus de sélection rigoureux, 12 projets innovants ont été
+  choisis pour recevoir le soutien du Fonds.
+image: https://youthdemocracycohort.com/wp-content/uploads/2025/06/2-1536x1047.png
 tags:
   - sélection
   - bénéficiaires
