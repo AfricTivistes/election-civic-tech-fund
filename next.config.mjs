@@ -7,6 +7,8 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [],
   },
+  // Output standalone pour Netlify
+  output: 'standalone',
 }
 
 export default nextConfig
