@@ -60,3 +60,10 @@ tools:
       en: "The organisation's official website "
     type: web
 ---
+## PACTE (Participation Active et Citoyenne des jeunes pour une Transition Électorale inclusive) 
+
+Initiative visant à renforcer la participation citoyenne et électorale des jeunes, en particulier des jeunes femmes, grâce à l'utilisation des technologies civiques.
+
+Le projet s'appuie sur des outils numériques innovants pour promouvoir l'éducation civique et électorale, lutter contre la désinformation et développer un dispositif décentralisé de suivi citoyen des processus électoraux. À travers la formation de jeunes e-observateurs, le déploiement d'un MOOC certifiant sur les élections et l'engagement citoyen, l'amélioration de la plateforme de veille électorale #GuinéeVote et le développement de l'assistant conversationnel GuinéeBot sur WhatsApp, PACTE contribue à renforcer la transparence électorale et l'engagement démocratique en Guinée.
+
+Le projet cible principalement les jeunes citoyens engagés âgés de 18 à 35 ans, la communauté des e-observateurs #GuinéeVote, les familles et réseaux des jeunes formés, ainsi que les institutions électorales et les autorités locales.
