@@ -63,6 +63,12 @@ tools:
         Yoruba and Mina, in order to make information accessible to as many
         people as possible.
     type: web
+  - url: https://blogueurs.bj/?fbclid=IwY2xjawSeFcZleHRuA2FlbQIxMABicmlkETFiaUEzWDFvYXg4QkdSaHRWc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHrmaFvPZeEF7ttiSYsTbvILHxUfEprTpPMJDXpmLs4R6xInzFjPETnz2rcN7_aem_rXPk08ETixeiTkJsBFYPmQ
+    name: "Association des Blogueurs du Bénin "
+    description:
+      fr: Site institutionnel de l'organisation
+      en: The organisation's official website
+    type: web
 ---
 ## Outils déployés
 
