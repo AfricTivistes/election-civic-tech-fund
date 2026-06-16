@@ -71,18 +71,21 @@ export async function GET(request: NextRequest) {
           >
             <div
               style={{
-                width: "8px",
-                height: "8px",
-                borderRadius: "50%",
-                background: "#facc15",
+                background: "linear-gradient(135deg, #facc15, #3b82f6)",
+                borderRadius: "6px",
+                padding: "4px 10px",
                 display: "flex",
               }}
-            />
-            <span style={{ color: "#facc15", fontSize: "16px", fontWeight: 600, letterSpacing: "2px" }}>
-              AFRICTIVISTES
+            >
+              <span style={{ color: "#0f172a", fontSize: "14px", fontWeight: 800, letterSpacing: "1px" }}>
+                ECTF
+              </span>
+            </div>
+            <span style={{ color: "#e2e8f0", fontSize: "15px", fontWeight: 600 }}>
+              Election Civic Tech Fund
             </span>
           </div>
-          <span style={{ color: "#94a3b8", fontSize: "14px" }}>
+          <span style={{ color: "#64748b", fontSize: "13px" }}>
             electioncivictechfund.africtivistes.com
           </span>
         </div>
