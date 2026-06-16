@@ -59,6 +59,12 @@ tools:
         VoteCam app, users can report electoral irregularities in real time and
         submit data even when offline. "
     type: mobile
+  - url: https://adeinternational.org/?fbclid=IwY2xjawSeI5JleHRuA2FlbQIxMABicmlkETF5elpIcTFFY2oxenZ6YmFoc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHhNtYupLyrMIMChU3PDRiYtabYj8zZvo8ZsVR7ywEl1Y1F0UDe_h-NgMAq2I_aem_hORO-NESZkWd44w-yheltw
+    name: Actions for Development and Empowerment (ADE)
+    type: web
+    description:
+      fr: "Site institutionnel de l'organisation "
+      en: "The organisation's official website "
 ---
 ## Outils déployés
 
