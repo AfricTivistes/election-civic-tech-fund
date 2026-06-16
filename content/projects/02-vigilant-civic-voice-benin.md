@@ -64,18 +64,18 @@ tools:
         people as possible.
     type: web
 ---
-**Outils déployés**
+## Outils déployés
 
 L'Association des Blogueurs du Bénin et SOS Civisme Bénin ont mis en place plusieurs outils pour renforcer la lutte contre la désinformation et promouvoir les comportements civiques au Bénin.
 
-Plateforme audiovisuelle multilingue
+#### Plateforme audiovisuelle multilingue
 
 Une plateforme numérique déployée avec des contenus audiovisuels multilingues permet aux citoyens d'accéder à des ressources fiables. Plus de 30 contenus produits et largement diffusés, avec +1 000 utilisateurs actifs mobilisés, majoritairement jeunes et dans le respect de la parité.
 
-**Dispositif de vérification des infox**
+#### **Dispositif de vérification des infox**
 
 Un mécanisme structuré de détection et de déconstruction publique des fausses informations. Plus de 300 infox identifiées, vérifiées et réfutées, avec un taux d'engagement moyen supérieur à 40% sur les publications de sensibilisation.
 
-**Programme de mobilisation citoyenne**
+#### **Programme de mobilisation citoyenne**
 
 Des actions de sensibilisation à grande échelle pour informer les populations sur les risques des infox et les bons comportements civiques à adopter. Au moins 500 000 citoyens ont bénéficié de ces actions avec des connaissances accrues.
