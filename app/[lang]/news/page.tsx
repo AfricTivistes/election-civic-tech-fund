@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { getAllNews, getFeaturedNews } from "@/lib/news"
-import { ArrowRight, Calendar, User } from "lucide-react"
+import { ArrowRight, Calendar, User, Play } from "lucide-react"
 import Image from "next/image"
 
 interface NewsPageProps {
@@ -167,6 +167,13 @@ export default async function NewsPage({ params }: NewsPageProps) {
                             <div className="w-full h-full flex items-center justify-center">
                               <div className="text-center">
                                 <div className="text-4xl mb-2">📰</div>
+                              </div>
+                            </div>
+                          )}
+                          {article.video && (
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                              <div className="bg-red-600 rounded-full p-3 shadow-lg">
+                                <Play className="w-6 h-6 text-white fill-white" />
                               </div>
                             </div>
                           )}

@@ -21,6 +21,7 @@ export interface Project {
     en: string[]
   }
   website?: string
+  video?: string
   projectImage: string
   startDate: string
   endDate: string
@@ -41,6 +42,7 @@ export interface NewsMetadata {
   author?: string
   excerpt: string
   image?: string
+  video?: string
   tags: string[]
   relatedProjects?: string[]
   featured?: boolean

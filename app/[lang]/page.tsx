@@ -9,6 +9,8 @@ import { AfricaMapSection } from "@/components/africa-map/africa-map-section"
 import { Testimonials } from "@/components/home/testimonials"
 import { StatsDashboard } from "@/components/home/stats-dashboard"
 import { CTASection } from "@/components/home/cta-section"
+import { BeneficiaryVideos } from "@/components/home/beneficiary-videos"
+import { getUniqueCountries, getAllProjects } from "@/lib/projects"
 
 interface HomePageProps {
   params: Promise<{ lang: string }>
@@ -52,6 +54,12 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
 export default async function HomePage({ params }: HomePageProps) {
   const { lang } = await params
 
+  const allProjects = getAllProjects()
+  const projectCounts: Record<string, number> = {}
+  allProjects.forEach(p => {
+    projectCounts[p.countryCode] = (projectCounts[p.countryCode] || 0) + 1
+  })
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
       <Header lang={lang} />
@@ -61,7 +69,7 @@ export default async function HomePage({ params }: HomePageProps) {
         <HeroSection lang={lang} />
 
         {/* Africa Map Section - NEW */}
-        <AfricaMapSection lang={lang} />
+        <AfricaMapSection lang={lang} projectCounts={projectCounts} />
         
         {/* Young Innovators Section - NEW */}
         <YoungInnovators />
@@ -69,6 +77,9 @@ export default async function HomePage({ params }: HomePageProps) {
         {/* Innovation Showcase Section - NEW */}
         <InnovationShowcase />
         
+        {/* Beneficiary Videos Section */}
+        <BeneficiaryVideos lang={lang} />
+
         {/* Testimonials Section - NEW */}
         <Testimonials />
         

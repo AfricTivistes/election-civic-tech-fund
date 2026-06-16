@@ -1,7 +1,5 @@
 'use client'
 
-import { projects } from '@/data/projects'
-import { getProjectsByCountry } from '@/lib/projects'
 import { AfricaMapSimpleMaps } from './solution1'
 import { MapLegend } from './map-legend'
 import { Button } from '@/components/ui/button'
@@ -9,16 +7,10 @@ import { Card } from '@/components/ui/card'
 
 interface AfricaMapSectionProps {
   lang: string
+  projectCounts: Record<string, number>
 }
 
-export function AfricaMapSection({ lang }: AfricaMapSectionProps) {
-  const countriesWithProjects = projects.map(p => p.countryCode)
-  const uniqueCountries = Array.from(new Set(countriesWithProjects))
-  
-  const projectCounts: Record<string, number> = {}
-  uniqueCountries.forEach(code => {
-    projectCounts[code] = getProjectsByCountry(code).length
-  })
+export function AfricaMapSection({ lang, projectCounts }: AfricaMapSectionProps) {
 
   const text = {
     fr: {

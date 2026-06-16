@@ -10,6 +10,7 @@ import { getProjectsByIds, getAllProjects } from "@/lib/projects"
 import { Calendar, User, ArrowLeft, Share2 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { YouTubeEmbed } from "@/components/youtube-embed"
 
 interface ArticlePageProps {
   params: Promise<{ lang: string; slug: string }>
@@ -148,6 +149,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     </Badge>
                   ))}
                 </div>
+
+                {article.video && (
+                  <div className="mb-8">
+                    <YouTubeEmbed url={article.video} title={article.title} />
+                  </div>
+                )}
 
                 <div
                   className="prose prose-invert prose-lg max-w-none

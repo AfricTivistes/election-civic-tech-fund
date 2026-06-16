@@ -10,6 +10,7 @@ import { Footer } from "@/components/layout/footer"
 import { getProjectById, getAllProjects, getSimilarProjects } from "@/lib/projects"
 import { getRecentNews, getNewsByProject } from "@/lib/news"
 import { ArrowLeft, Globe, Calendar, Clock, TrendingUp, Target, ExternalLink } from "lucide-react"
+import { YouTubeEmbed } from "@/components/youtube-embed"
 
 interface ProjectPageProps {
   params: Promise<{ lang: string; id: string }>
@@ -233,6 +234,15 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     )}
                   </div>
                 </div>
+
+                {project.video && (
+                  <div className="mb-8">
+                    <h2 className="text-xl font-bold text-white mb-4">
+                      {lang === "fr" ? "Vidéo du projet" : "Project Video"}
+                    </h2>
+                    <YouTubeEmbed url={project.video} title={lang === "fr" ? project.projectName.fr : project.projectName.en} />
+                  </div>
+                )}
 
                 {project.website && (
                   <div className="mb-8">

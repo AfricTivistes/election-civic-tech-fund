@@ -45,6 +45,11 @@ collections:
         widget: image
         required: false
         hint: "Image de couverture (stockée dans /public/news/)"
+      - label: "Vidéo YouTube"
+        name: video
+        widget: string
+        required: false
+        hint: "URL YouTube ou YouTube Shorts, ex: https://youtube.com/shorts/VIDEO_ID"
       - label: "Tags"
         name: tags
         widget: list
@@ -104,6 +109,11 @@ collections:
         widget: image
         required: false
         hint: "Image de couverture (stockée dans /public/news/)"
+      - label: "Vidéo YouTube"
+        name: video
+        widget: string
+        required: false
+        hint: "URL YouTube ou YouTube Shorts, ex: https://youtube.com/shorts/VIDEO_ID"
       - label: "Tags"
         name: tags
         widget: list
@@ -127,3 +137,130 @@ collections:
       - label: "Contenu"
         name: body
         widget: markdown
+
+  - name: projects
+    label: "Projets bénéficiaires"
+    label_singular: "Projet"
+    folder: content/projects
+    create: false
+    delete: false
+    extension: md
+    format: yaml-frontmatter
+    summary: "{{order}} — {{projectName.fr}} ({{organization}})"
+    fields:
+      - label: "ID"
+        name: id
+        widget: string
+        hint: "Identifiant numérique unique (1-12)"
+      - label: "Slug"
+        name: slug
+        widget: string
+        hint: "Identifiant URL, ex: electoral-fact-checking-south-sudan"
+      - label: "Nom du projet"
+        name: projectName
+        widget: object
+        fields:
+          - { label: "FR", name: fr, widget: string }
+          - { label: "EN", name: en, widget: string }
+      - label: "Organisation"
+        name: organization
+        widget: string
+      - label: "Pays"
+        name: country
+        widget: object
+        fields:
+          - { label: "FR", name: fr, widget: string }
+          - { label: "EN", name: en, widget: string }
+      - label: "Code pays (ISO)"
+        name: countryCode
+        widget: string
+        hint: "ex: sn, cm, bj"
+      - label: "Drapeau emoji"
+        name: countryFlag
+        widget: string
+        hint: "ex: 🇸🇳"
+      - label: "Catégorie"
+        name: category
+        widget: select
+        options:
+          - { label: "Majeur (15 000€)", value: major }
+          - { label: "Micro-grant (5 000€)", value: micro }
+      - label: "Budget (€)"
+        name: budget
+        widget: number
+      - label: "Domaine"
+        name: domain
+        widget: object
+        fields:
+          - { label: "FR", name: fr, widget: string }
+          - { label: "EN", name: en, widget: string }
+      - label: "Description"
+        name: description
+        widget: object
+        fields:
+          - { label: "FR", name: fr, widget: text }
+          - { label: "EN", name: en, widget: text }
+      - label: "Impact attendu"
+        name: impact
+        widget: object
+        fields:
+          - { label: "FR", name: fr, widget: text }
+          - { label: "EN", name: en, widget: text }
+      - label: "Technologies"
+        name: technologies
+        widget: object
+        fields:
+          - label: "FR"
+            name: fr
+            widget: list
+            field: { label: "Tech", name: tech, widget: string }
+          - label: "EN"
+            name: en
+            widget: list
+            field: { label: "Tech", name: tech, widget: string }
+      - label: "Vidéo YouTube"
+        name: video
+        widget: string
+        required: false
+        hint: "URL YouTube Shorts, ex: https://youtube.com/shorts/VIDEO_ID"
+      - label: "Image du projet"
+        name: projectImage
+        widget: string
+        hint: "Chemin image, ex: /1.jpg"
+      - label: "Site web"
+        name: website
+        widget: string
+        required: false
+      - label: "Date de début"
+        name: startDate
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+      - label: "Date de fin"
+        name: endDate
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+      - label: "Durée (mois)"
+        name: duration
+        widget: number
+      - label: "Avancement (%)"
+        name: progress
+        widget: number
+        min: 0
+        max: 100
+        hint: "Pourcentage d'avancement (0-100)"
+      - label: "Statut"
+        name: status
+        widget: select
+        options:
+          - { label: "Pas encore commencé", value: not_started }
+          - { label: "En cours", value: in_progress }
+          - { label: "Terminé", value: completed }
+      - label: "Mis en avant"
+        name: featured
+        widget: boolean
+        default: false
+      - label: "Ordre d'affichage"
+        name: order
+        widget: number

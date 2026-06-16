@@ -28,6 +28,7 @@ export const projects: Project[] = [
       en: ["Fact-checking", "Mobile App", "Web Media", "Radio"]
     },
     projectImage: "/1.jpg",
+    video: "https://youtube.com/shorts/r6wYiX1tXow",
     website: "https://www.excellencefoundationss.org/",
     startDate: "2025-03-01",
     endDate: "2025-12-31",
@@ -136,6 +137,7 @@ export const projects: Project[] = [
       en: ["Open Data", "Mapping", "API", "OCR", "GitHub"]
     },
     projectImage: "/4.jpg",
+    video: "https://www.youtube.com/shorts/kYr5MLQ-MOk",
     website: "https://www.vie-publique.sn/",
     startDate: "2025-03-01",
     endDate: "2025-12-31",
@@ -207,6 +209,7 @@ export const projects: Project[] = [
       en: ["Mobile App", "Reporting", "Podcast", "Citizen Training"]
     },
     projectImage: "/10.jpg",
+    video: "https://youtube.com/shorts/i0kWOA1_wSk",
     website: "https://adeinternational.org/",
     startDate: "2025-03-01",
     endDate: "2025-12-31",
@@ -242,6 +245,7 @@ export const projects: Project[] = [
       en: ["Legal Tech", "WhatsApp Chatbot", "Citizen Observatory", "Documentary"]
     },
     projectImage: "/6.jpg",
+    video: "https://youtube.com/shorts/qgRxHkI4Mz4",
     startDate: "2025-03-01",
     endDate: "2025-12-31",
     duration: 10,
@@ -311,6 +315,7 @@ export const projects: Project[] = [
       en: ["Digital Training", "Networking", "Electoral Observation", "Database"]
     },
     projectImage: "/5.jpg",
+    video: "https://www.youtube.com/shorts/Ea-AGNPjfD4",
     website: "https://www.condnet.org/",
     startDate: "2025-03-01",
     endDate: "2025-12-31",
