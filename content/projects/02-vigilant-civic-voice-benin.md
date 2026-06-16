@@ -66,7 +66,7 @@ tools:
 ---
 ## Outils déployés
 
-L'Association des Blogueurs du Bénin a mis en place plusieurs outils pour renforcer la lutte contre la désinformation et promouvoir les comportements civiques au Bénin.
+L'**Association des Blogueurs du Bénin** a mis en place plusieurs outils pour renforcer la lutte contre la désinformation et promouvoir les comportements civiques au Bénin.
 
 #### Plateforme audiovisuelle multilingue
 
