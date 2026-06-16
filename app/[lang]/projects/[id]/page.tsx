@@ -9,8 +9,10 @@ import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { getProjectById, getAllProjects, getSimilarProjects } from "@/lib/projects"
 import { getRecentNews, getNewsByProject } from "@/lib/news"
-import { ArrowLeft, Globe, Calendar, Clock, TrendingUp, Target, ExternalLink } from "lucide-react"
+import { ArrowLeft, Globe, Calendar, Clock, TrendingUp, Target, ExternalLink, Wrench, Monitor, Smartphone, MessageSquare, Code, LayoutGrid } from "lucide-react"
 import { YouTubeEmbed } from "@/components/youtube-embed"
+import { remark } from "remark"
+import html from "remark-html"
 
 interface ProjectPageProps {
   params: Promise<{ lang: string; id: string }>
@@ -57,6 +59,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const projectNews = await getNewsByProject(id, lang)
   const recentNews = await getRecentNews(3, lang)
 
+  const bodyHtml = project.content
+    ? (await remark().use(html).process(project.content)).toString()
+    : null
+
   const t = {
     fr: {
       back: "Retour aux projets",
@@ -75,6 +81,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       recentNews: "Actualités du projet",
       similarProjects: "Projets similaires",
       website: "Site web",
+      deployedTools: "Outils déployés",
+      toolTypes: { web: "Web", mobile: "Mobile", chatbot: "Chatbot", api: "API", other: "Outil" },
       notStarted: "Pas encore commencé",
       inProgress: "En cours",
       completed: "Terminé",
@@ -97,6 +105,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       recentNews: "Project news",
       similarProjects: "Similar projects",
       website: "Website",
+      deployedTools: "Deployed Tools",
+      toolTypes: { web: "Web", mobile: "Mobile", chatbot: "Chatbot", api: "API", other: "Tool" },
       notStarted: "Not started",
       inProgress: "In progress",
       completed: "Completed",
@@ -241,6 +251,65 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       {lang === "fr" ? "Vidéo du projet" : "Project Video"}
                     </h2>
                     <YouTubeEmbed url={project.video} title={lang === "fr" ? project.projectName.fr : project.projectName.en} variant="square" />
+                  </div>
+                )}
+
+                {project.tools && project.tools.length > 0 && (
+                  <div className="mb-8">
+                    <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                      <Wrench className="w-5 h-5 text-yellow-400" />
+                      {text.deployedTools}
+                    </h2>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      {project.tools.map((tool, i) => {
+                        const iconMap = {
+                          web: <Monitor className="w-5 h-5 text-blue-400" />,
+                          mobile: <Smartphone className="w-5 h-5 text-green-400" />,
+                          chatbot: <MessageSquare className="w-5 h-5 text-purple-400" />,
+                          api: <Code className="w-5 h-5 text-orange-400" />,
+                          other: <LayoutGrid className="w-5 h-5 text-gray-400" />,
+                        }
+                        return (
+                          <a
+                            key={i}
+                            href={tool.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-yellow-400/50 hover:-translate-y-0.5 transition-all"
+                          >
+                            <div className="mt-0.5 shrink-0">{iconMap[tool.type]}</div>
+                            <div>
+                              <div className="font-semibold text-white flex items-center gap-1">
+                                {tool.name}
+                                <ExternalLink className="w-3 h-3 text-gray-400" />
+                              </div>
+                              <p className="text-sm text-blue-200 mt-1">
+                                {currentLang === "fr" ? tool.description.fr : tool.description.en}
+                              </p>
+                              <Badge className="mt-2 text-xs bg-white/10 text-gray-300 border-0">
+                                {text.toolTypes[tool.type]}
+                              </Badge>
+                            </div>
+                          </a>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {bodyHtml && (
+                  <div className="mb-8 border-t border-white/10 pt-8">
+                    <div
+                      className="prose prose-invert prose-sm max-w-none
+                        prose-headings:text-white prose-headings:font-bold
+                        prose-h2:text-lg prose-h2:text-yellow-300 prose-h2:mt-6 prose-h2:mb-3
+                        prose-h3:text-base prose-h3:text-blue-200
+                        prose-p:text-blue-200 prose-p:leading-relaxed
+                        prose-a:text-yellow-400 hover:prose-a:text-yellow-300 prose-a:no-underline
+                        prose-ul:text-blue-200 prose-li:text-blue-200
+                        prose-strong:text-white"
+                      dangerouslySetInnerHTML={{ __html: bodyHtml }}
+                    />
                   </div>
                 )}
 

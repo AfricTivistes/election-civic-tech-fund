@@ -264,3 +264,31 @@ collections:
       - label: "Ordre d'affichage"
         name: order
         widget: number
+      - label: "Outils déployés"
+        name: tools
+        widget: list
+        required: false
+        hint: "Outils tech déployés par le projet (plateformes, apps, APIs, chatbots)"
+        fields:
+          - { label: "Nom de l'outil", name: name, widget: string }
+          - { label: "URL", name: url, widget: string }
+          - label: "Description"
+            name: description
+            widget: object
+            fields:
+              - { label: "FR", name: fr, widget: text }
+              - { label: "EN", name: en, widget: text }
+          - label: "Type"
+            name: type
+            widget: select
+            options:
+              - { label: "Site Web", value: web }
+              - { label: "Application Mobile", value: mobile }
+              - { label: "Chatbot", value: chatbot }
+              - { label: "API", value: api }
+              - { label: "Autre", value: other }
+      - label: "Contenu détaillé"
+        name: body
+        widget: markdown
+        required: false
+        hint: "Description détaillée des outils, retours terrain, captures d'écran (markdown)"

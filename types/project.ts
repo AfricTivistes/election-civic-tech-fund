@@ -3,6 +3,13 @@ export interface ProjectTranslation {
   en: string
 }
 
+export interface ProjectTool {
+  name: string
+  url: string
+  description: { fr: string; en: string }
+  type: "web" | "mobile" | "chatbot" | "api" | "other"
+}
+
 export interface Project {
   id: string
   slug: string
@@ -22,6 +29,8 @@ export interface Project {
   }
   website?: string
   video?: string
+  tools?: ProjectTool[]
+  content?: string
   projectImage: string
   startDate: string
   endDate: string

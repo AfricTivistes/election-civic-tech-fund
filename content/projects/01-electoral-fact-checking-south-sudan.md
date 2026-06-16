@@ -40,6 +40,35 @@ endDate: "2025-12-31"
 duration: 10
 progress: 15
 status: in_progress
+tools:
+  - name: "Excellence Foundation Website"
+    url: "https://www.excellencefoundationss.org/"
+    description:
+      fr: "Site institutionnel avec ressources de fact-checking et actualités du projet"
+      en: "Institutional site with fact-checking resources and project news"
+    type: "web"
+  - name: "Réseau de vérificateurs"
+    url: "https://www.excellencefoundationss.org/"
+    description:
+      fr: "Plateforme de coordination des vérificateurs de faits formés dans tout le Soudan du Sud"
+      en: "Coordination platform for trained fact-checkers across South Sudan"
+    type: "other"
 featured: true
 order: 1
 ---
+
+## Outils déployés
+
+L'**Excellence Foundation for South Sudan** a mis en place plusieurs outils pour renforcer l'intégrité de l'information électorale au Soudan du Sud.
+
+### Plateforme de fact-checking
+
+Une plateforme numérique permet aux journalistes et citoyens de soumettre des informations à vérifier. Les vérificateurs formés analysent les contenus et publient leurs conclusions avec les sources primaires.
+
+### Programme de formation
+
+Des sessions de formation continue sont organisées pour les jeunes journalistes, avec des bourses pour encourager la production de contenus vérifiés. Clubs de médias créés dans les écoles secondaires.
+
+### Réseau citoyen
+
+Un réseau de correspondants locaux couvre les régions éloignées pour décentraliser la vérification des faits au-delà de la capitale Juba.

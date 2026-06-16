@@ -19,8 +19,8 @@ function loadProjects(): Project[] {
   _cache = files.map(file => {
     const fullPath = path.join(projectsDirectory, file)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
-    const { data } = matter(fileContents)
-    return data as Project
+    const { data, content } = matter(fileContents)
+    return { ...data as Project, content: content.trim() || undefined }
   }).sort((a, b) => (a.order || 0) - (b.order || 0))
 
   return _cache
