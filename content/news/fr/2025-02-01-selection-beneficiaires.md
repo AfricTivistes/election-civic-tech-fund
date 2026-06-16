@@ -5,7 +5,7 @@ date: 2025-02-01
 author: Équipe AfricTivistes
 excerpt: Après un processus de sélection rigoureux, 12 projets innovants ont été
   choisis pour recevoir le soutien du Fonds.
-image: https://youthdemocracycohort.com/wp-content/uploads/2025/06/2-1536x1047.png
+image: /news/2.png
 tags:
   - sélection
   - bénéficiaires
