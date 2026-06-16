@@ -152,7 +152,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
                 {article.video && (
                   <div className="mb-8">
-                    <YouTubeEmbed url={article.video} title={article.title} />
+                    <YouTubeEmbed url={article.video} title={article.title} variant="square" />
                   </div>
                 )}
 

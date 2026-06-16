@@ -240,7 +240,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     <h2 className="text-xl font-bold text-white mb-4">
                       {lang === "fr" ? "Vidéo du projet" : "Project Video"}
                     </h2>
-                    <YouTubeEmbed url={project.video} title={lang === "fr" ? project.projectName.fr : project.projectName.en} />
+                    <YouTubeEmbed url={project.video} title={lang === "fr" ? project.projectName.fr : project.projectName.en} variant="square" />
                   </div>
                 )}
 

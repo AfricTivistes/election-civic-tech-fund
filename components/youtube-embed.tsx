@@ -2,6 +2,7 @@ interface YouTubeEmbedProps {
   url: string
   title?: string
   className?: string
+  variant?: "default" | "square"
 }
 
 function extractVideoId(url: string): { id: string; isShort: boolean } | null {
@@ -14,11 +15,28 @@ function extractVideoId(url: string): { id: string; isShort: boolean } | null {
   return null
 }
 
-export function YouTubeEmbed({ url, title = "Video", className = "" }: YouTubeEmbedProps) {
+export function YouTubeEmbed({ url, title = "Video", className = "", variant = "default" }: YouTubeEmbedProps) {
   const video = extractVideoId(url)
   if (!video) return null
 
   const embedUrl = `https://www.youtube.com/embed/${video.id}`
+
+  if (variant === "square") {
+    return (
+      <div className={`flex justify-center ${className}`}>
+        <div className="relative rounded-xl overflow-hidden" style={{ width: "260px", height: "260px" }}>
+          <iframe
+            className="absolute rounded-xl"
+            src={embedUrl}
+            title={title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ width: "260px", height: "260px", border: 0 }}
+          />
+        </div>
+      </div>
+    )
+  }
 
   if (video.isShort) {
     return (
