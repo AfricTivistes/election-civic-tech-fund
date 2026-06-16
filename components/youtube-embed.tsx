@@ -24,14 +24,14 @@ export function YouTubeEmbed({ url, title = "Video", className = "", variant = "
   if (variant === "square") {
     return (
       <div className={`flex justify-center ${className}`}>
-        <div className="relative rounded-xl overflow-hidden" style={{ width: "260px", height: "260px" }}>
+        <div className="w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[480px] aspect-square rounded-xl overflow-hidden">
           <iframe
-            className="absolute rounded-xl"
+            className="w-full h-full"
             src={embedUrl}
             title={title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            style={{ width: "260px", height: "260px", border: 0 }}
+            style={{ border: 0 }}
           />
         </div>
       </div>
