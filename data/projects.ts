@@ -30,6 +30,25 @@ export const projects: Project[] = [
     projectImage: "/1.jpg",
     video: "https://youtube.com/shorts/r6wYiX1tXow",
     website: "https://www.excellencefoundationss.org/",
+    tools: [
+      {
+        name: "Electoral Fact-Checking Platform",
+        type: "web",
+        url: "https://www.excellencefoundationss.org/",
+        description: {
+          fr: "Plateforme web de vérification des faits électoraux",
+          en: "Web platform for electoral fact-checking"
+        }
+      },
+      {
+        name: "Radio Mobile App",
+        type: "mobile",
+        description: {
+          fr: "Application mobile pour la formation radiophonique",
+          en: "Mobile app for radio training"
+        }
+      }
+    ],
     startDate: "2025-03-01",
     endDate: "2025-12-31",
     duration: 10,
@@ -102,6 +121,26 @@ export const projects: Project[] = [
     },
     projectImage: "/7.jpg",
     website: "https://thebrainbuilders.org/",
+    video: "https://youtube.com/shorts/i0kWOA1_wSk",
+    tools: [
+      {
+        name: "myaifactchecker.org",
+        type: "web",
+        url: "https://myaifactchecker.org/",
+        description: {
+          fr: "Première plateforme africaine multilingue de vérification basée sur l'IA",
+          en: "First African multilingual AI-powered fact-checking platform"
+        }
+      },
+      {
+        name: "AI Training Program",
+        type: "other",
+        description: {
+          fr: "Programme de formation à l'IA pour les jeunes",
+          en: "AI training program for youth"
+        }
+      }
+    ],
     startDate: "2025-03-01",
     endDate: "2025-12-31",
     duration: 10,
@@ -139,6 +178,17 @@ export const projects: Project[] = [
     projectImage: "/4.jpg",
     video: "https://www.youtube.com/shorts/kYr5MLQ-MOk",
     website: "https://www.vie-publique.sn/",
+    tools: [
+      {
+        name: "Plateforme Open Data",
+        type: "web",
+        url: "https://www.vie-publique.sn/",
+        description: {
+          fr: "Plateforme open source d'information et de suivi électoraux",
+          en: "Open source electoral information and monitoring platform"
+        }
+      }
+    ],
     startDate: "2025-03-01",
     endDate: "2025-12-31",
     duration: 10,
@@ -211,6 +261,24 @@ export const projects: Project[] = [
     projectImage: "/10.jpg",
     video: "https://youtube.com/shorts/i0kWOA1_wSk",
     website: "https://adeinternational.org/",
+    tools: [
+      {
+        name: "ADE Mobile App",
+        type: "mobile",
+        description: {
+          fr: "Application mobile de signalement citoyen",
+          en: "Citizen reporting mobile app"
+        }
+      },
+      {
+        name: "Citizen Training Portal",
+        type: "web",
+        description: {
+          fr: "Portail de formation citoyenne en ligne",
+          en: "Online citizen training portal"
+        }
+      }
+    ],
     startDate: "2025-03-01",
     endDate: "2025-12-31",
     duration: 10,
@@ -352,6 +420,17 @@ export const projects: Project[] = [
     },
     projectImage: "/3.jpg",
     website: "https://bareedo.org/",
+    tools: [
+      {
+        name: "Bareedo Platform",
+        type: "web",
+        url: "https://bareedo.org/",
+        description: {
+          fr: "Plateforme open source de civic tech",
+          en: "Open source civic tech platform"
+        }
+      }
+    ],
     startDate: "2025-03-01",
     endDate: "2025-11-30",
     duration: 9,

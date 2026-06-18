@@ -5,9 +5,9 @@ export interface ProjectTranslation {
 
 export interface ProjectTool {
   name: string
-  url: string
-  description: { fr: string; en: string }
   type: "web" | "mobile" | "chatbot" | "api" | "other"
+  url?: string
+  description?: { fr: string; en: string }
 }
 
 export interface Project {

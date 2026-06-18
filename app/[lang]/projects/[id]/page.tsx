@@ -269,28 +269,34 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                           api: <Code className="w-5 h-5 text-orange-400" />,
                           other: <LayoutGrid className="w-5 h-5 text-gray-400" />,
                         }
-                        return (
-                          <a
-                            key={i}
-                            href={tool.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-yellow-400/50 hover:-translate-y-0.5 transition-all"
-                          >
+                        const toolContent = (
+                          <>
                             <div className="mt-0.5 shrink-0">{iconMap[tool.type]}</div>
                             <div>
                               <div className="font-semibold text-white flex items-center gap-1">
                                 {tool.name}
-                                <ExternalLink className="w-3 h-3 text-gray-400" />
+                                {tool.url && <ExternalLink className="w-3 h-3 text-gray-400" />}
                               </div>
-                              <p className="text-sm text-blue-200 mt-1">
-                                {currentLang === "fr" ? tool.description.fr : tool.description.en}
-                              </p>
+                              {tool.description && (
+                                <p className="text-sm text-blue-200 mt-1">
+                                  {currentLang === "fr" ? tool.description.fr : tool.description.en}
+                                </p>
+                              )}
                               <Badge className="mt-2 text-xs bg-white/10 text-gray-300 border-0">
                                 {text.toolTypes[tool.type]}
                               </Badge>
                             </div>
+                          </>
+                        )
+                        const cardClass = "flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-yellow-400/50 hover:-translate-y-0.5 transition-all"
+                        return tool.url ? (
+                          <a key={i} href={tool.url} target="_blank" rel="noopener noreferrer" className={cardClass}>
+                            {toolContent}
                           </a>
+                        ) : (
+                          <div key={i} className={cardClass}>
+                            {toolContent}
+                          </div>
                         )
                       })}
                     </div>
