@@ -84,7 +84,7 @@ export function Footer({ lang }: FooterProps) {
 
           <div>
             <h4 className="text-white font-semibold mb-4">{text.designedBy}</h4>
-            <div className="flex items-center space-x-2 mb-2">
+            <div className="mb-2">
               <img
                 src="/logo-africtivites.svg"
                 alt="AfricTivistes"
@@ -94,6 +94,9 @@ export function Footer({ lang }: FooterProps) {
                 }}
               />
             </div>
+            <p className="text-blue-200 text-xs leading-snug max-w-[200px]">
+              Réseau panafricain de civic tech et d'innovation citoyenne au service de la démocratie et de la gouvernance
+            </p>
           </div>
         </div>
 

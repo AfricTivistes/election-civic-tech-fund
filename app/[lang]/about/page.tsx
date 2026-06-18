@@ -36,9 +36,9 @@ export default async function AboutPage({ params }: AboutPageProps) {
       title: "À propos du Fonds",
       subtitle: "Soutenir l'innovation citoyenne pour des élections transparentes et inclusives en Afrique",
       aboutTitle: "Le Projet",
-      aboutText: `L'Election Civic Tech Fund est une initiative panafricaine lancée pour renforcer les processus électoraux à travers l'innovation technologique citoyenne.
+      aboutText: `L'Election Civic Tech Fund est une initiative panafricaine de AfricTivistes lancée pour renforcer les processus électoraux africains à travers l'innovation technologique citoyenne.
 
-      Avec un budget de 200 000€, le Fonds soutient 12 projets innovants dans 14 pays africains, avec un focus particulier sur la jeunesse et la technologie.`,
+      Avec un budget de 200 000€, cette édition du Fonds soutient 12 projets innovants dans 14 pays africains, avec un focus particulier sur la jeunesse et la technologie.`,
       objectivesTitle: "Objectifs",
       objectives: [
         {
@@ -80,9 +80,9 @@ export default async function AboutPage({ params }: AboutPageProps) {
       title: "About the Fund",
       subtitle: "Supporting citizen innovation for transparent and inclusive elections in Africa",
       aboutTitle: "The Project",
-      aboutText: `The Election Civic Tech Fund is a pan-African initiative launched to strengthen electoral processes through citizen-driven technological innovation.
+      aboutText: `The Election Civic Tech Fund is a pan-African initiative by AfricTivistes launched to strengthen African electoral processes through citizen-driven technological innovation.
 
-      With a budget of €200,000, the Fund supports 12 innovative projects across 14 African countries, with a particular focus on youth and technology.`,
+      With a budget of €200,000, this edition of the Fund supports 12 innovative projects across 14 African countries, with a particular focus on youth and technology.`,
       objectivesTitle: "Objectives",
       objectives: [
         {
@@ -200,7 +200,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
                   <Badge className="bg-blue-500 text-white mb-4">{text.designedBy}</Badge>
                   <h3 className="text-xl font-bold text-white mb-2">AfricTivistes</h3>
                   <p className="text-blue-200 text-sm">
-                    Ligue des Blogueurs et Cyber-Activistes pour la Démocratie en Afrique
+                    Réseau panafricain de civic tech et d'innovation citoyenne au service de la démocratie et de la gouvernance
                   </p>
                 </CardContent>
               </Card>
