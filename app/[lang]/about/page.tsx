@@ -172,23 +172,6 @@ export default async function AboutPage({ params }: AboutPageProps) {
                 <CardContent className="p-8 text-center">
                   <div className="mb-4">
                     <img
-                      src="/partners/ahead-africa.webp"
-                      alt="AHEAD Africa"
-                      className="h-16 w-auto mx-auto"
-                    />
-                  </div>
-                  <Badge className="bg-yellow-500 text-black mb-4">{text.ledBy}</Badge>
-                  <h3 className="text-xl font-bold text-white mb-2">AHEAD Africa</h3>
-                  <p className="text-blue-200 text-sm">
-                    African Hub for Evidence and Development
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-white/10 backdrop-blur-md border-white/20">
-                <CardContent className="p-8 text-center">
-                  <div className="mb-4">
-                    <img
                       src="/logo-africtivites.svg"
                       alt="AfricTivistes"
                       className="h-16 w-auto mx-auto"
@@ -201,6 +184,23 @@ export default async function AboutPage({ params }: AboutPageProps) {
                   <h3 className="text-xl font-bold text-white mb-2">AfricTivistes</h3>
                   <p className="text-blue-200 text-sm">
                     Réseau panafricain de civic tech et d'innovation citoyenne au service de la démocratie et de la gouvernance
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white/10 backdrop-blur-md border-white/20">
+                <CardContent className="p-8 text-center">
+                  <div className="mb-4">
+                    <img
+                      src="/partners/ahead-africa.webp"
+                      alt="AHEAD Africa"
+                      className="h-16 w-auto mx-auto"
+                    />
+                  </div>
+                  <Badge className="bg-yellow-500 text-black mb-4">{text.ledBy}</Badge>
+                  <h3 className="text-xl font-bold text-white mb-2">AHEAD Africa</h3>
+                  <p className="text-blue-200 text-sm">
+                    African Hub for Evidence and Development
                   </p>
                 </CardContent>
               </Card>
