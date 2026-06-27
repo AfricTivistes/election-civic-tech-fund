@@ -45,12 +45,6 @@ status: in_progress
 featured: false
 order: 8
 tools:
-  - name: SenegalVote.org
-    url: https://senegalvote.org/
-    description:
-      fr: Plateforme de suivi des engagements des responsables publics sénégalais
-      en: Platform tracking commitments made by Senegalese public officials
-    type: web
   - name: Plateforme Toopko
     url: https://senegalvote.org/
     description:
