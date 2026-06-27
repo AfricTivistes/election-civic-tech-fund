@@ -62,3 +62,18 @@ tools:
         voting rights and procedures, and directs users to useful resources.
     type: mobile
 ---
+## Outils déployés
+
+L'**Ethiopian Women Federation** a déployé plusieurs outils pour outiller les jeunes et les femmes en vue du processus électoral éthiopien.
+
+#### Plateforme d'éducation civique numérique 
+
+Une plateforme en ligne combine ressources civiques, services SMS et IVR pour atteindre un large public, y compris hors ligne.
+
+#### Présence et ressources en ligne 
+
+Le site renforce la visibilité de la Fédération et donne accès à l'information et aux ressources des organisations féminines et partenaires.
+
+#### Fonctionnalités interactives 
+
+Des fonctionnalités interactives et l'intégration des réseaux sociaux augmentent l'engagement et la participation citoyenne.
