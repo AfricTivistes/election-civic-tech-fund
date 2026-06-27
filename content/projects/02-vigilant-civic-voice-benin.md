@@ -63,25 +63,19 @@ tools:
         Yoruba and Mina, in order to make information accessible to as many
         people as possible.
     type: web
-  - url: https://blogueurs.bj/?fbclid=IwY2xjawSeFcZleHRuA2FlbQIxMABicmlkETFiaUEzWDFvYXg4QkdSaHRWc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHrmaFvPZeEF7ttiSYsTbvILHxUfEprTpPMJDXpmLs4R6xInzFjPETnz2rcN7_aem_rXPk08ETixeiTkJsBFYPmQ
-    name: "Association des Blogueurs du Bénin "
-    description:
-      fr: Site institutionnel de l'organisation
-      en: The organisation's official website
-    type: web
 ---
 ## Outils déployés
 
-L'**Association des Blogueurs du Bénin** a mis en place plusieurs outils pour renforcer la lutte contre la désinformation et promouvoir les comportements civiques au Bénin.
+**L'Association des Blogueurs du Bénin** a déployé plusieurs outils pour renforcer la transparence et la vigilance citoyenne en période électorale.
 
-#### Plateforme audiovisuelle multilingue
+#### Plateforme collaborative de signalement 
 
-Une plateforme numérique déployée avec des contenus audiovisuels multilingues permet aux citoyens d'accéder à des ressources fiables. Plus de 30 contenus produits et largement diffusés, avec +1 000 utilisateurs actifs mobilisés, majoritairement jeunes et dans le respect de la parité.
+Un espace en ligne permet aux citoyens de signaler les irrégularités électorales et de soumettre les infox pour vérification.
 
-#### **Dispositif de vérification des infox**
+#### Cellule de fact-checking 
 
-Un mécanisme structuré de détection et de déconstruction publique des fausses informations. Plus de 300 infox identifiées, vérifiées et réfutées, avec un taux d'engagement moyen supérieur à 40% sur les publications de sensibilisation.
+Une équipe dédiée vérifie et déconstruit publiquement les fausses informations pour garantir une réaction rapide et une information fiable.
 
-#### **Programme de mobilisation citoyenne**
+#### Contenus audiovisuels multilingues 
 
-Des actions de sensibilisation à grande échelle pour informer les populations sur les risques des infox et les bons comportements civiques à adopter. Au moins 500 000 citoyens ont bénéficié de ces actions avec des connaissances accrues.
+Des podcasts et vidéos diffusés en fon, dendi, bariba, yoruba et mina rendent l'information électorale accessible, notamment en milieu rural.
