@@ -59,16 +59,16 @@ tools:
 ---
 ## Outils déployés
 
-Le projet déploie à Nouakchott, en particulier dans les quartiers marginalisés de Dar Naim et Toujounine, plusieurs outils simples, interactifs et durables pour renforcer l'accès des jeunes à l'information juridique électorale et stimuler leur participation citoyenne.
+L'**ADRES** a déployé plusieurs outils pour rapprocher les jeunes de Nouakchott de l'information juridique électorale.
 
-#### Observatoire citoyen numérique
+#### Chatbot juridique WhatsApp 
 
-Un comité de jeunes veilleurs produit des notes de veille et des recommandations sur les contentieux électoraux. L'observatoire documente les enjeux du scrutin et alimente le débat public avec des analyses accessibles, au service de la transparence.
+Un assistant conversationnel fournit des réponses vulgarisées sur les droits et le contentieux électoraux.
 
-#### Chatbot juridique WhatsApp
+#### Observatoire citoyen numérique 
 
-Un assistant conversationnel accessible via WhatsApp apporte des réponses vulgarisées sur les droits électoraux. En quelques messages, les citoyens obtiennent des explications simples sur les procédures, les recours et leurs garanties.
+Un comité de jeunes veilleurs produit des bulletins de veille et des recommandations sur les contentieux électoraux.
 
-#### Campagne numérique ciblée
+#### Fiches et campagne numérique 
 
-Une campagne sur les réseaux sociaux accompagne le chatbot pour maximiser la portée du projet auprès des jeunes des quartiers visés, en relayant des contenus pédagogiques et des messages de sensibilisation à la participation citoyenne.
+Des fiches pédagogiques en ligne et une campagne ciblée sur les réseaux sociaux élargissent la portée de l'information juridique.
