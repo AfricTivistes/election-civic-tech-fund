@@ -9,7 +9,9 @@ excerpt: "Après l'annonce des 12 projets lauréats en décembre 2025, l'Electio
 image: https://africtivistes.com/wp-uploads/2026/06/Design-sans-titre.jpg
 tags:
   - "#civictech Afrique Elc"
-featured: false
+relatedProjects:
+  - 1,2,3,4,5,6,7,8,9,10,11,12
+featured: true
 ---
 **Après l'annonce des [12 projets lauréats](https://africtivistes.com/fr/blog/12-projets-civic-tech-retenus-pour-le-fonds-africtivistes-de-linnovation-pour-la-participation-citoyenne) en décembre 2025, [Election Civic Tech Fund ](https://electioncivictechfund.africtivistes.com/fr)est entré dans sa phase de mise en œuvre. Depuis, les 12 organisations bénéficiaires déploient leurs projets sur le terrain.**  
 
