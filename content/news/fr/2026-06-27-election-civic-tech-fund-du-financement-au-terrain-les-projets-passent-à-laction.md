@@ -6,7 +6,7 @@ date: 2026-06-27
 excerpt: "Après l'annonce des 12 projets lauréats en décembre 2025, l'Election
   Civic Tech Fund entre dans sa phase de mise en œuvre. Retour, pays par pays,
   sur les projets déployés sur le terrain. "
-image: https://africtivistes.com/wp-uploads/2026/06/Design-sans-titre.jpg
+image: /news/design-sans-titre.jpg
 tags:
   - "#civictech Afrique Elc"
 relatedProjects:
