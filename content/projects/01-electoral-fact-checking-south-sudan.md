@@ -52,12 +52,6 @@ status: in_progress
 featured: true
 order: 1
 tools:
-  - name: Excellence Foundation Website
-    url: https://www.excellencefoundationss.org/
-    description:
-      fr: Site institutionnel avec ressources de fact-checking et actualités du projet
-      en: Institutional site with fact-checking resources and project news
-    type: web
   - name: Réseau de vérificateurs
     url: https://www.excellencefoundationss.org/
     description:
