@@ -8,7 +8,7 @@ excerpt: "Après l'annonce des 12 projets lauréats en décembre 2025, l'Electio
   sur les projets déployés sur le terrain. "
 image: /news/design-sans-titre.jpg
 tags:
-  - " "
+  - civic tech afrique élection
 relatedProjects:
   - 1,2,3,4,5,6,7,8,9,10,11,12
 featured: true
