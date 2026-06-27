@@ -47,4 +47,14 @@ progress: 10
 status: in_progress
 featured: false
 order: 12
+tools:
+  - url: https://t.me/ewf_civic_bot
+    name: Bot Telegram dédié à l'autonomisation des femmes éthiopiennes par
+      l'engagement civique éclairé et le renforcement communautaire.
+    description:
+      fr: Outil visant à renforcer la participation des femmes et des jeunes au
+        processus électoral.
+      en: A tool designed to increase the participation of women and young people in
+        the electoral process.
+    type: mobile
 ---
