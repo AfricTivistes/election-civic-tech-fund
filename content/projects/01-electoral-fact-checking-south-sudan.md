@@ -68,16 +68,16 @@ tools:
 ---
 ## Outils déployés
 
-L'**Excellence Foundation for South Sudan** a mis en place plusieurs outils pour renforcer l'intégrité de l'information électorale au Soudan du Sud.
+**L'Excellence Foundation for South Sudan** a déployé plusieurs outils pour renforcer l'intégrité de l'information électorale au Soudan du Sud.
 
-#### Plateforme de fact-checking
+#### **Plateforme de fact-checking ClarityDesk** 
 
-Une plateforme numérique permet aux journalistes et citoyens de soumettre des informations à vérifier. Les vérificateurs formés analysent les contenus et publient leurs conclusions avec les sources primaires.
+Une plateforme numérique permet aux journalistes et citoyens de soumettre des informations à vérifier ; les vérificateurs formés analysent les contenus et publient leurs conclusions avec les sources primaires.
 
-#### Programme de formation
+#### Programme de formation et bourses 
 
-Des sessions de formation continue sont organisées pour les jeunes journalistes, avec des bourses pour encourager la production de contenus vérifiés. Clubs de médias créés dans les écoles secondaires.
+Des sessions de formation continue sont organisées pour les jeunes journalistes, accompagnées de bourses et de clubs de médias créés dans les écoles secondaires.
 
-#### Réseau citoyen
+#### Réseau citoyen de vérificateurs 
 
 Un réseau de correspondants locaux couvre les régions éloignées pour décentraliser la vérification des faits au-delà de la capitale Juba.
