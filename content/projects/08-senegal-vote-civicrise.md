@@ -46,7 +46,7 @@ featured: false
 order: 8
 tools:
   - name: Plateforme Toopko
-    url: https://senegalvote.org/
+    url: https://toppko.senegalvote.org/
     description:
       fr: Extension numérique permettant aux citoyens d'évaluer la réalisation des
         promesses électorales
