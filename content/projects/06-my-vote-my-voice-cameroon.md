@@ -59,29 +59,19 @@ tools:
         VoteCam app, users can report electoral irregularities in real time and
         submit data even when offline. "
     type: mobile
-  - url: https://adeinternational.org/?fbclid=IwY2xjawSeI5JleHRuA2FlbQIxMABicmlkETF5elpIcTFFY2oxenZ6YmFoc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHhNtYupLyrMIMChU3PDRiYtabYj8zZvo8ZsVR7ywEl1Y1F0UDe_h-NgMAq2I_aem_hORO-NESZkWd44w-yheltw
-    name: Actions for Development and Empowerment (ADE)
-    type: web
-    description:
-      fr: "Site institutionnel de l'organisation "
-      en: "The organisation's official website "
 ---
 ## Outils déployés
 
-**Actions for Development and Empowerment (ADE)** a développé plusieurs outils pour renforcer la transparence électorale, l'engagement citoyen et la participation inclusive au Cameroun.
+**Actions for Development and Empowerment (ADE)** a déployé plusieurs outils pour renforcer la transparence électorale et la redevabilité au Cameroun.
 
-#### Application VoteCam
+#### Application VoteCAM 
 
-Une application mobile permet aux citoyens de signaler en temps réel les irrégularités électorales et de soumettre des données, même dans les zones à faible connectivité grâce à un mode hors ligne. La plateforme facilite ainsi la veille citoyenne et le suivi des processus électoraux.
+L'application mobile permet le signalement en temps réel des irrégularités et la soumission de données hors ligne.
 
-#### Journées de littératie civique
+#### Podcast « Know Your Rep » 
 
-Des sessions de sensibilisation sont organisées dans les universités, les marchés et les communautés afin de familiariser les jeunes et les femmes avec les technologies civiques et les mécanismes de participation démocratique.
+Une série audio explique le fonctionnement des élections et encourage la responsabilité des élus.
 
-#### Podcast "Know Your Rep"
+#### Journées de littératie civique 
 
-Une série de contenus audio explique le fonctionnement des élections, le rôle des institutions publiques et les responsabilités des représentants élus, afin de promouvoir une citoyenneté informée et active.
-
-#### Renforcement des capacités citoyennes
-
-Des formations destinées aux acteurs civiques, aux influenceurs et aux personnes en situation de handicap permettent de développer les compétences nécessaires pour promouvoir la redevabilité publique, l'inclusion et la participation électorale au Cameroun.
+Des activations locales dans les universités et les marchés familiarisent les jeunes et les femmes avec les outils de civic tech.
