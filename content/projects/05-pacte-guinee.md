@@ -50,8 +50,8 @@ tools:
   - url: https://guineevote.ablogui.org/
     name: Guinée Vote
     description:
-      fr: Plateforme citoyenne de surveillance électorale en République de Guinée
-      en: Citizen-led election monitoring platform in the Republic of Guinea
+      fr: Plateforme citoyenne de surveillance électorale en République de Guinée.
+      en: Citizen-led election monitoring platform in the Republic of Guinea.
     type: web
 ---
 ## PACTE (Participation Active et Citoyenne des jeunes pour une Transition Électorale inclusive)
