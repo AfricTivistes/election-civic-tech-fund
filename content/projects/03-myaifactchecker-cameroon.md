@@ -50,9 +50,8 @@ tools:
   - name: MyAIFactChecker
     url: https://myaifactchecker.org/
     description:
-      fr: Première plateforme africaine multilingue de vérification des faits basée
-        sur l'IA
-      en: First African multilingual AI-powered fact-checking platform
+      fr: Plateforme africaine multilingue de vérification des faits basée sur l'IA.
+      en: African multilingual AI-powered fact-checking platform.
     type: web
 ---
 ## Outils déployés
