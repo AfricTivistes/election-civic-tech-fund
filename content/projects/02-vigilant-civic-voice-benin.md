@@ -50,18 +50,11 @@ tools:
   - url: https://election.blogueurs.bj/
     name: Vigilant Civic Voice
     description:
-      fr: Vigilant Civic Voice est une plateforme citoyenne dédiée à l'information
-        éclairée et à l'engagement civique pour le renforcement de la démocratie
-        au Bénin. Elle se matérialise à travers une plateforme numérique
-        collaborative et un site web proposant des contenus multimédias
-        plurilingues en fon, dendi, bariba, yoruba et mina, afin de rendre
-        l'information accessible au plus grand nombre.
-      en: Vigilant Civic Voice is a citizen-led platform dedicated to informed
+      fr: "Plateforme citoyenne dédiée à l'information éclairée et à l'engagement
+        civique pour le renforcement de la démocratie au Bénin. "
+      en: "Vigilant Civic Voice is a citizen-led platform dedicated to informed
         journalism and civic engagement, with the aim of strengthening democracy
-        in Benin. It takes the form of a collaborative digital platform and a
-        website offering multilingual multimedia content in Fon, Dendi, Bariba,
-        Yoruba and Mina, in order to make information accessible to as many
-        people as possible.
+        in Benin.  "
     type: web
 ---
 ## Outils déployés
