@@ -49,15 +49,10 @@ tools:
   - url: https://votecam.org/
     name: VoteCam
     description:
-      fr: "VoteCam est un projet innovant qui vise à renforcer la transparence
-        électorale, l'engagement citoyen et la participation crédible au
-        Cameroun. Grâce à l'application VoteCam, les utilisateurs peuvent
-        signaler en temps réel les irrégularités électorales et soumettre des
-        données même hors ligne. "
-      en: "VoteCam is an innovative project aimed at enhancing electoral transparency,
-        civic engagement and credible participation in Cameroon. Using the
-        VoteCam app, users can report electoral irregularities in real time and
-        submit data even when offline. "
+      fr: "Plateforme permettant aux utilisateurs de signaler en temps réel les
+        irrégularités électorales et soumettre des données même hors ligne. "
+      en: "A platform enabling users to report electoral irregularities in real time
+        and submit data even when offline. "
     type: mobile
 ---
 ## Outils déployés
