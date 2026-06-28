@@ -48,8 +48,8 @@ tools:
     url: https://bareedo.org/
     description:
       fr: Application de signalement et de participation citoyenne pour les élections
-        en Somalie
-      en: Citizen reporting and participation app for elections in Somalia
+        en Somalie.
+      en: Citizen reporting and participation app for elections in Somalia.
     type: mobile
 ---
 ## Outils déployés
