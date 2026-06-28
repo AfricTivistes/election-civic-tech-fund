@@ -49,9 +49,9 @@ tools:
     url: https://toppko.senegalvote.org/
     description:
       fr: Extension numérique permettant aux citoyens d'évaluer la réalisation des
-        promesses électorales
+        promesses électorales.
       en: Digital extension enabling citizens to evaluate fulfillment of electoral
-        promises
+        promises.
     type: web
 ---
 ## Outils déployés
