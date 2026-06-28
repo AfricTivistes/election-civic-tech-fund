@@ -52,9 +52,8 @@ tools:
     description:
       fr: "Plateforme citoyenne dédiée à l'information éclairée et à l'engagement
         civique pour le renforcement de la démocratie au Bénin. "
-      en: "Vigilant Civic Voice is a citizen-led platform dedicated to informed
-        journalism and civic engagement, with the aim of strengthening democracy
-        in Benin.  "
+      en: "A citizen-led platform dedicated to informed journalism and civic
+        engagement, with the aim of strengthening democracy in Benin.  "
     type: web
 ---
 ## Outils déployés
