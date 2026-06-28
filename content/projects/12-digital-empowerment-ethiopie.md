@@ -51,15 +51,12 @@ tools:
   - url: https://t.me/ewf_civic_bot
     name: Bot d'engagement civique des femmes éthiopiennes
     description:
-      fr: Outil dédié à l'autonomisation des femmes éthiopiennes par l'engagement
-        civique éclairé et le renforcement communautaire. L'assistant délivre
-        une information électorale accessible et vulgarisée, répond aux
-        questions sur les droits et les procédures de vote, et oriente les
-        utilisatrices vers les ressources utiles.
-      en: A tool designed to empower Ethiopian women through informed civic engagement
-        and community building. The assistant provides accessible,
-        easy-to-understand information on elections, answers questions about
-        voting rights and procedures, and directs users to useful resources.
+      fr: L'assistant délivre une information électorale accessible et vulgarisée,
+        répond aux questions sur les droits et les procédures de vote, et
+        oriente les utilisatrices vers les ressources utiles.
+      en: The assistant provides accessible, easy-to-understand information on
+        elections, answers questions about voting rights and procedures, and
+        directs users to useful resources.
     type: mobile
 ---
 ## Outils déployés
