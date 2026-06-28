@@ -53,9 +53,9 @@ tools:
     url: https://www.vie-publique.sn/
     description:
       fr: API publique pour accéder aux données électorales structurées (résultats,
-        candidats, bureaux de vote)
+        candidats, bureaux de vote).
       en: Public API to access structured electoral data (results, candidates, polling
-        stations)
+        stations).
     type: api
 ---
 ## Outils déployés
