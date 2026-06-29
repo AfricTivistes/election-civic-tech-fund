@@ -30,7 +30,7 @@ Permettre aux visiteurs de contacter l'équipe du Fonds via un formulaire de con
 │   │ [                    ]  │  │ │ AHEAD Africa            │ │  │
 │   │                         │  │ │ Mène le projet          │ │  │
 │   │ Email *                 │  │ │                         │ │  │
-│   │ [                    ]  │  │ │ 📧 contact@aheadafrica  │ │  │
+│   │ [                    ]  │  │ │ 📧 info@ahead.africa    │ │  │
 │   │                         │  │ │ 🌐 aheadafrica.org      │ │  │
 │   │ Organisation            │  │ └─────────────────────────┘ │  │
 │   │ [                    ]  │  │                             │  │
@@ -38,7 +38,7 @@ Permettre aux visiteurs de contacter l'équipe du Fonds via un formulaire de con
 │   │ Sujet *                 │  │ │ AfricTivistes           │ │  │
 │   │ [Question générale  ▾]  │  │ │ Gestion de la plateforme│ │  │
 │   │                         │  │ │                         │ │  │
-│   │ Message *               │  │ │ 📧 contact@africtivistes│ │  │
+│   │ Message *               │  │ │ 📧 info@africtivistes   │ │  │
 │   │ ┌─────────────────────┐ │  │ │ 🌐 africtivistes.org    │ │  │
 │   │ │                     │ │  │ └─────────────────────────┘ │  │
 │   │ │                     │ │  │                             │  │
@@ -224,7 +224,7 @@ export async function POST(request: NextRequest) {
     
     // TODO: Implémenter l'envoi réel
     // await sendEmail({
-    //   to: 'contact@africtivistes.org',
+    //   to: 'info@africtivistes.org',
     //   subject: `[Contact Form] ${data.subject}`,
     //   html: `...`
     // })
@@ -270,14 +270,14 @@ const organizations = [
   {
     name: "AHEAD Africa",
     role: { fr: "Mène le projet", en: "Leads the project" },
-    email: "contact@aheadafrica.org",
+    email: "info@ahead.africa",
     website: "https://aheadafrica.org",
     logo: "/partners/ahead-africa.webp"
   },
   {
     name: "AfricTivistes",
     role: { fr: "Gestion de la plateforme", en: "Platform management" },
-    email: "contact@africtivistes.org",
+    email: "info@africtivistes.org",
     website: "https://africtivistes.org",
     logo: "/logo-africtivites.svg"
   },

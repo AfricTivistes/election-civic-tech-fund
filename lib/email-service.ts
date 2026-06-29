@@ -60,7 +60,7 @@ export async function sendContactEmail(data: EmailData, lang: string = "fr") {
   try {
     const result = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL || "contact@election-civic-tech-fund.org",
-      to: process.env.RESEND_TO_EMAIL || "contact@aheadafrica.org",
+      to: process.env.RESEND_TO_EMAIL || "info@ahead.africa",
       replyTo: email,
       subject: `[Election Civic Tech Fund] ${subjectLabel} - ${name}`,
       html: htmlContent,

@@ -58,7 +58,7 @@ Configuration requise dans `.env.local` :
 ```env
 RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 RESEND_FROM_EMAIL=contact@election-civic-tech-fund.org
-RESEND_TO_EMAIL=contact@aheadafrica.org
+RESEND_TO_EMAIL=info@ahead.africa
 ```
 
 ## Guide d'utilisation
@@ -182,7 +182,7 @@ npm install resend
 # Resend Configuration
 RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 RESEND_FROM_EMAIL=contact@election-civic-tech-fund.org
-RESEND_TO_EMAIL=contact@aheadafrica.org
+RESEND_TO_EMAIL=info@ahead.africa
 ```
 
 ### Structure des fichiers

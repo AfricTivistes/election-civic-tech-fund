@@ -177,13 +177,13 @@ export default function ContactPage({ params }: ContactPageProps) {
   const contactInfo = [
     {
       name: t.organizations.aheadAfrica,
-      email: "contact@aheadafrica.org",
+      email: "info@ahead.africa",
       website: "aheadafrica.org",
       gradient: "from-blue-400 to-indigo-500",
     },
     {
       name: t.organizations.africtivistes,
-      email: "contact@africtivistes.org",
+      email: "info@africtivistes.org",
       website: "africtivistes.org",
       gradient: "from-emerald-400 to-green-500",
     },
