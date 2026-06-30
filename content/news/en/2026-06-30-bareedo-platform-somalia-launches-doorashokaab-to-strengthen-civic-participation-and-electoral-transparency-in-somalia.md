@@ -16,7 +16,7 @@ featured: true
 ---
 ![](/news/whatsapp-image-2026-06-22-at-10.32.34-pm-1-1536x1024.jpeg)
 
-[Bareedo Platform Somalia](https://electioncivictechfund.africtivistes.com/fr/projects/10), a youth-led civil society organization dedicated to promoting inclusive democracy and citizen participation, officially launched DoorashoKaab, an innovative civic technology platform designed to empower Somali citizens with accessible civic education, trusted voter information, and safe digital tools to learn, participate, and report during elections.
+[Bareedo Platform Somalia](https://electioncivictechfund.africtivistes.com/fr/projects/10), a youth-led civil society organization dedicated to promoting inclusive democracy and citizen participation, officially launched [DoorashoKaab](https://doorashokaab.org/), an innovative civic technology platform designed to empower Somali citizens with accessible civic education, trusted voter information, and safe digital tools to learn, participate, and report during elections.
 
 The official launch event was held at Dream Point Hotel in Garowe, Puntland, bringing together more than 50 representatives from government institutions, the electoral commission, political parties, civil society organizations, media outlets, youth networks, women-led organizations, and other key stakeholders committed to strengthening democratic governance in Somalia.
 
