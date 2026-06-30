@@ -11,9 +11,10 @@ excerpt: Bareedo Platform Somalia has launched DoorashoKaab, a bilingual civic
   electoral information, civic learning resources, incident reporting tools, and
   real-time election updates to empower citizens across the country.
 image: /news/img-20260623-wa0125.jpg
-featured: false
+relatedProjects: []
+featured: true
 ---
-![](/news/img-20260623-wa0125.jpg)
+![](/news/whatsapp-image-2026-06-22-at-10.32.34-pm-1-1536x1024.jpeg)
 
 [Bareedo Platform Somalia](https://electioncivictechfund.africtivistes.com/fr/projects/10), a youth-led civil society organization dedicated to promoting inclusive democracy and citizen participation, officially launched DoorashoKaab, an innovative civic technology platform designed to empower Somali citizens with accessible civic education, trusted voter information, and safe digital tools to learn, participate, and report during elections.
 
