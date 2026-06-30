@@ -11,7 +11,8 @@ excerpt: Bareedo Platform Somalia has launched DoorashoKaab, a bilingual civic
   electoral information, civic learning resources, incident reporting tools, and
   real-time election updates to empower citizens across the country.
 image: /news/img-20260623-wa0125.jpg
-featured: false
+relatedProjects: []
+featured: true
 ---
 ![](/news/img-20260623-wa0125.jpg)
 
