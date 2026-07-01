@@ -139,7 +139,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 </h1>
 
                 <div className="flex flex-wrap gap-2 mb-8">
-                  {article.tags.map((tag, index) => (
+                  {(article.tags ?? []).map((tag, index) => (
                     <Badge
                       key={index}
                       variant="outline"

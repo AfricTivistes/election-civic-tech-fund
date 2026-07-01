@@ -49,7 +49,7 @@ export async function getNewsByTag(
 ): Promise<NewsArticle[]> {
   const allNews = await getAllNews(lang)
   return allNews.filter(article =>
-    article.tags.includes(tag)
+    article.tags?.includes(tag)
   )
 }
 
@@ -57,7 +57,7 @@ export async function getAllTags(lang: string = 'fr'): Promise<string[]> {
   const allNews = await getAllNews(lang)
   const tags = new Set<string>()
   allNews.forEach(article => {
-    article.tags.forEach(tag => tags.add(tag))
+    article.tags?.forEach(tag => tags.add(tag))
   })
   return Array.from(tags).sort()
 }

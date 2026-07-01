@@ -8,6 +8,7 @@ excerpt: "Following the announcement of the 12 winning projects in December
   is a country-by-country overview of the projects being rolled out on the
   ground. "
 image: https://electioncivictechfund.africtivistes.com/_next/image?url=%2Fnews%2Fdesign-sans-titre.jpg&w=1920&q=75
+tags: []
 featured: false
 ---
 **Après l'annonce des [12 projets lauréats](https://africtivistes.com/fr/blog/12-projets-civic-tech-retenus-pour-le-fonds-africtivistes-de-linnovation-pour-la-participation-citoyenne) en décembre 2025, [Election Civic Tech Fund ](https://electioncivictechfund.africtivistes.com/fr)est entré dans sa phase de mise en œuvre. Depuis, les 12 organisations bénéficiaires déploient leurs projets sur le terrain.**  
